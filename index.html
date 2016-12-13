@@ -16,6 +16,9 @@
         <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#5bbad5">
         <meta name="theme-color" content="#ffffff">
 
+        <!-- style fps counter for debug -->
+        <style>#framerate{position:absolute;background:rgba(255,255,255,0.75);}</style>
+
         <!-- Examples dependencies, these are only necessary for examples -->
         <!--<script src="assets/js/examples.js"></script>-->
 
@@ -100,6 +103,7 @@
                 // Create the new application
                 var app = new Application({
                     canvasId: "stage",
+                    resizeElement: "content",
                     state: 'level',
                     debug: true,
                     display: EaselJSDisplay,
@@ -453,6 +457,12 @@
                     this.states = {
                         level: getLevelState(1),
                     }
+
+                    this.on('resize', function(w, h) {
+                        //background.x = (w - background.image.width) / 2;
+                    });
+
+                    this.triggerResize();
                 });
             </script>
         </div>
