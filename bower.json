@@ -1,0 +1,14 @@
+{
+    "name": "elephant-walk",
+    "version":"0.1.0",
+	"dependencies": {
+		"preloadjs": "https://github.com/SpringRoll/PreloadJS.git#^0.6.3",
+		"bellhop": "*"
+	},
+	"devDependencies": {
+		"easeljs": "https://github.com/SpringRoll/EaselJS.git",
+		"tweenjs": "https://github.com/SpringRoll/TweenJS.git",
+        "soundjs": "https://github.com/SpringRoll/SoundJS.git",
+		"jquery": "*"
+    }
+}

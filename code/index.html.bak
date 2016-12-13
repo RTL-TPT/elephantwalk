@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <!-- Core is required! -->
+        <script src="components/springroll/dist/core.js"></script>
+
+       <!-- External dependencies -->
+		<script src="components/soundjs/lib/soundjs.min.js"></script>
+		<script src="components/soundjs/lib/flashaudioplugin.min.js"></script>
+		<script src="components/tweenjs/lib/tweenjs.min.js"></script>
+		<script src="components/preloadjs/lib/preloadjs.min.js"></script>
+		<script src="components/easeljs/lib/easeljs.combined.js"></script>
+        <!-- <script src="components/easeljs/lib/movieclip.combined.js"></script> -->
+
+        <!-- Optional modules -->
+        <script src="components/springroll/dist/modules/animation.js"></script>
+        <!-- <script src="components/springroll/dist/modules/captions.js"></script> -->
+        <script src="components/springroll/dist/modules/container-client.js"></script>
+        <script src="components/springroll/dist/modules/debug.js"></script>
+
+        <!-- <script src="components/springroll/dist/modules/easeljs-display.js"></script> -->
+        <!-- <script src="components/springroll/dist/modules/easeljs-ui.js"></script> -->
+        <!-- <script src="components/springroll/dist/modules/easeljs-animation.js"></script> -->
+        <!-- <script src="components/springroll/dist/modules/easeljs-states.js"></script> -->
+        <!-- <script src="components/springroll/dist/modules/easeljs-cutscene.js"></script> -->
+
+        <!-- <script src="components/springroll/dist/modules/hints.js"></script> -->
+        <!-- <script src="components/springroll/dist/modules/languages.js"></script> -->
+        <!-- <script src="components/springroll/dist/modules/native-display.js"></script> -->
+        <script src="components/springroll/dist/modules/sound.js"></script>
+        <script src="components/springroll/dist/modules/states.js"></script>
+        <!-- <script src="components/springroll/dist/modules/ui.js"></script> -->
+
+    </head>
+    <body>
+        <canvas id="stage" width="800" height="400"></canvas>
+
+        <script>
+            var Application = include('springroll.Application'),
+                Shape = include('createjs.Shape'),
+                EaselJSDisplay = include('springroll.EaselJSDisplay');
+
+            var app = new Application({
+                resizeElement : "stageContainer",
+                canvasId: "stage",
+                display: EaselJSDisplay,
+                displayOptions: {
+                    clearView: true
+                },
+                // Add the manifest with the loading event to make sure
+                // assets are loaded before the application is init
+                // all preload assets are automatically cached
+                // preload: [
+                //     {
+                //         id:'Button',
+                //         src:'assets/images/button.png',
+                //     },
+                // ]
+            });
+
+            app.on('progress', function(progress) {
+                console.log("Load progress: ", progress * 100, "%");
+            });
+
+            app.once('init', function() {
+                //var circle = new Shape();
+
+                //circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50);
+                //circle.x = 100;
+                //circle.y = 100;
+
+                //this.display.stage.addChild(circle);
+                //this.display.stage.update();
+            });
+
+        </script>
+    </body>
+</html>
