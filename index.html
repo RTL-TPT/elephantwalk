@@ -27,6 +27,7 @@
         <script src="dist/core.js"></script>
         <script src="dist/modules/debug.js"></script>
         <script src="dist/modules/easeljs-display.js"></script>
+        <script src="dist/modules/easeljs-ui.js"></script>
         <script src="dist/modules/states.js"></script>
 
         <!-- Game methods -->
@@ -40,20 +41,41 @@
 
                 // Include classes
                 var Application = include('springroll.Application'),
+                    Button = include('springroll.easeljs.Button'),
                     EaselJSDisplay = include('springroll.EaselJSDisplay'),
                     Bitmap = include('createjs.Bitmap'),
                     LoadQueue = include('createjs.LoadQueue'),
-                    Container = include('createjs.Container');
-                    Shape = include('createjs.Shape');
+                    Container = include('createjs.Container'),
+                    Shape = include('createjs.Shape'),
                     State = include('springroll.State');
 
                 function getLevel() {
                     return {
+                        id: 'level1-easy',
                         tutorial: true,
                         tiles: [
                             ['forest-mountain', 'hill-mountain'],
                             ['desert-forest',   'desert-hill']
                         ],
+                        symbols: ['desert', 'forest', 'hill', 'mountain'],
+                        symbol: {
+                            mountain: {
+                                x: 184,
+                                y: 42,
+                            },
+                            forest: {
+                                x: 138,
+                                y: 270,
+                            },
+                            hill: {
+                                x: 557,
+                                y: 275,
+                            },
+                            desert: {
+                                x: 330,
+                                y: 454,
+                            },
+                        },
                         tileWidth: 471,
                         tileHeight: 308,
                     }
@@ -73,7 +95,8 @@
                 var app = new Application({
                     canvasId: "stage",
                     resizeElement: "content",
-                    state: 'level',
+                    state: 'clues',
+                    //state: 'level',
                     debug: true,
                     display: EaselJSDisplay,
                     displayOptions: {
@@ -96,18 +119,100 @@
                     ],
                 });
 
+                function createClue(symbolName, x, y) {
+                    let clue = app.getCache(symbolName),
+                        width = 150,
+                        height = 150;
+
+                    clue.x = x;
+                    clue.y = y;
+                    clue.scaleX = (width / clue.getBounds().width);
+                    clue.scaleY = (height / clue.getBounds().height);
+
+                    return clue;
+                }
+
+                function createDoneButton(x, y, text="Done") {
+                    let doneButton = app.getCache('done-button');
+
+                    doneButton.x = x;
+                    doneButton.y = y;
+
+                    doneButton.on('mousedown', ev => app.states.clues.previousState());
+
+                    return doneButton;
+                }
+
+                function getPreloadSymbols() {
+                    let preload = [],
+                        symbols = getLevel().symbols,
+                        levelId = getLevel().id;
+
+                    for (let symbol of symbols) {
+                        for (let [symbolType, ext] of [ ['detail', 'jpg'], ['easy', 'png']]) {
+                            preload.append({
+                                id: `${symbol}-${symbolType}`,
+                                src: `assets/images/${levelId}/symbols/${symbol}/${symbolType}.${ext}`,
+                                format: 'createjs.Bitmap',
+                            });
+                        }
+                    }
+
+                    return preload;
+                }
+
+                function makeSymbols() {
+                    let mapContainer = app.states.clues.panel.getChildByName('map'),
+                        symbolName = '',
+                        symbol = {};
+
+                    for (symbolName of getLevel().symbols) {
+                        symbol = app.getCache(`${symbolName}-easy`); // TODO
+                        symbol.x = getLevel().symbol[symbolName].x;
+                        symbol.y = getLevel().symbol[symbolName].y;
+                        mapContainer.addChild(symbol);
+                    }
+                }
+
                 function getClueState() {
                     let state = new State(new Container(), {
                         previous: 'level',
+                        preload: [
+                            {
+                                id: 'done-button',
+                                src: 'assets/images/done-button.png',
+                                format: 'createjs.Bitmap',
+                            },
+                        ].append(getPreloadSymbols(), getPreloadTiles()),
                     });
+
+                    state.on('loaded', function(event) {
+                        //let clueOne = createClue('mountain-easy', 850, 70), // TODO
+                        //    clueTwo = createClue('hill-easy', 850, 270),
+                        let doneButton = createDoneButton(850, 625),
+                            mapContainer = createMap(false),
+                            mapScale = 0.8;
+
+                        mapContainer.scaleX = mapScale;
+                        mapContainer.scaleY = mapScale;
+
+                        //app.states.clues.panel.addChild(clueOne, clueTwo, doneButton, mapContainer);
+                        app.states.clues.panel.addChild(doneButton, mapContainer);
+
+                        makeSymbols(); 
+                    });
+
+                    state.on('exit', function(event) {
+                    });
+
                     return state;
                 }
 
                 // Wait until the app is ready
                 app.once('init', function() {
                     this.states = {
-                        level: getLevelState(1),
-                        clue: getClueState(),
+                        level: getLevelState(),
+                        clues: getClueState(),
                     }
 
                     this.on('resize', function(w, h) {

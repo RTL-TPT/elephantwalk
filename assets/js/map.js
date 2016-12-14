@@ -191,7 +191,7 @@ function createMap(levelNumber) {
     return mapContainer;
 }
 
-function makeMap() {
+function makeMap(fog=getLevel().tutorial) {
     let mapContainer = createMap(),
         whiteSpace = (CANVAS_WIDTH - getMapInfo().MAP_WIDTH) - (CANVAS_PADDING * 2),
         equalSpaceOnEachSide = Math.floor(whiteSpace / 2);
@@ -201,30 +201,37 @@ function makeMap() {
 
     app.states.level.panel.addChild(mapContainer);
 
-    if (getLevel().tutorial) {
+    if (fog) {
         mapContainer.tilesToUncover = getMapInfo().NUM_TILES;
         makeFog();
         makeSelection();
     }
 }
 
-function getPreloadConf(levelNumber) {
+function getPreloadTiles() {
     let preload = [],
-        level = getLevel().tiles;
+        levelId = getLevel().id;
 
     forEachTile((assetName, columnIndex, rowIndex) => {
-        // Tile asset
         preload.append({ 
             id: assetName,
-            src: `assets/images/level${levelNumber}-easy/${assetName}.gif`,
+            src: `assets/images/${levelId}/${assetName}.gif`,
             format: "createjs.Bitmap",
         });
+    });
 
-        // Tile exploration assets
+    return preload;
+}
+
+function getPreloadExplorePanes() {
+    let preload = [],
+        levelId = getLevel().id;
+
+    forEachTile((assetName, columnIndex, rowIndex) => {
         for (direction of TILE_DIRECTIONS) {
             preload.append({ 
                 id: `${assetName}-${direction}`,
-                src: `assets/images/level${levelNumber}-easy/${assetName}/${direction}.jpg`,
+                src: `assets/images/${levelId}/${assetName}/${direction}.jpg`,
                 format: "createjs.Bitmap",
             });
         }
@@ -233,11 +240,13 @@ function getPreloadConf(levelNumber) {
     return preload;
 }
 
-function getLevelState(levelNumber) {
-    let preloadConfig = getPreloadConf(levelNumber);
-    let state = new State(new Container(), {
-        preload: preloadConfig,
-    });
+function getLevelState() {
+    let preloadConfig = [].append(getPreloadTiles(),
+                                  getPreloadExplorePanes()),
+        state = new State(new Container(), {
+            preload: preloadConfig,
+            next: 'clues',
+        });
 
     state.on('loaded', function(event) {
         makeMap();

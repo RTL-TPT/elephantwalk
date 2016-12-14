@@ -55,6 +55,9 @@ function createExploreArrow(direction=TILE_DIRECTIONS[0], x=0, y=0) {
             if (mapContainer.tilesToUncover > 0) {
                 makeSelection();
             }
+            else {
+                app.states.level.nextState();
+            }
         } 
         else {
             explorePane.removeAllChildren();
@@ -84,12 +87,12 @@ function createExplorePane(x=0, y=0) {
     explorePane.name = 'pane';
     explorePane.x = x;
     explorePane.y = y;
-    explorePane.scaleX = getPaneScale()
+    explorePane.scaleX = getPaneScale();
 
     return explorePane;
 }
 
-function createExplore(assetName, x, y) {
+function createExplore(assetName, x=0, y=0) {
     let context = {},
         arrow,
         leftArrowX = x,
