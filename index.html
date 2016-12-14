@@ -19,9 +19,6 @@
         <!-- style fps counter for debug -->
         <style>#framerate{position:absolute;background:rgba(255,255,255,0.75);}</style>
 
-        <!-- Examples dependencies, these are only necessary for examples -->
-        <!--<script src="assets/js/examples.js"></script>-->
-
         <!-- External dependencies -->
         <script src="components/preloadjs/lib/preloadjs.min.js"></script>
         <script src="components/easeljs/lib/easeljs.combined.js"></script>
@@ -32,6 +29,9 @@
         <script src="dist/modules/easeljs-display.js"></script>
         <script src="dist/modules/states.js"></script>
 
+        <!-- Game methods -->
+        <script src="assets/js/map.js"></script>
+        <script src="assets/js/exploration.js"></script>
     </head>
     <body class="md">
         <div id="content" class="canvas">
@@ -47,58 +47,27 @@
                     Shape = include('createjs.Shape');
                     State = include('springroll.State');
 
+                function getLevel() {
+                    return {
+                        tutorial: true,
+                        tiles: [
+                            ['forest-mountain', 'hill-mountain'],
+                            ['desert-forest',   'desert-hill']
+                        ],
+                        tileWidth: 471,
+                        tileHeight: 308,
+                    }
+                }
+
                 const CANVAS_HEIGHT = 768;
                 const CANVAS_WIDTH = 1024;
-                const TILE_DIRECTIONS = ['left', 'top', 'right', 'bottom'];
-                const TILE_WIDTH = 170;
-                const TILE_HEIGHT = 160;
-
-                function getLevelTiles() {
-                    let tiles = [
-                        ['forest-mountain', 'hill-mountain'],
-                        ['desert-forest',   'desert-hill']
-                    ];
-                    return tiles;
-                }
-    
-                function getMapInfo() {
-                    let tiles = getLevelTiles(),
-                        totalTiles = 0,
-                        knownMaxColumn = 0,
-                        info = {
-                            MAP_ROWS: tiles.length,
-                            MAP_HEIGHT: tiles.length * TILE_HEIGHT,
-                        };
-
-                    forEachTile((_, columnIndex) => {
-                        totalTiles++;
-                        if (columnIndex > knownMaxColumn) knownMaxColumn = columnIndex;
-                    });
-                    info.MAP_COLUMNS = knownMaxColumn;
-                    info.MAP_WIDTH = knownMaxColumn * TILE_WIDTH;
-                    info.NUM_TILES = totalTiles;
-
-                    return info;
-                }
-
-                function columnIndexToPx(columnIndex) {
-                    return columnIndex * TILE_WIDTH + 10;
-                }
-
-                function rowIndexToPx(rowIndex) {
-                    return rowIndex * TILE_HEIGHT + 10;
-                }
-
-                function forEachTile(fn) {
-                    let row, column,
-                        level = getLevelTiles();
-
-                    level.forEach((row, rowIndex) => {
-                        row.forEach((assetName, columnIndex) => {
-                            fn(assetName, columnIndex, rowIndex);
-                        });
-                    });
-                }
+                const CANVAS_PADDING = 10;
+                const TILE_DIRECTIONS = ['west', 'north', 'east', 'south'];
+                const TILE_WIDTH = getLevel().tileWidth;
+                const TILE_HEIGHT = getLevel().tileHeight;
+                const PANE_WIDTH = 950;
+                const PANE_HEIGHT = 620;
+                const PANE_PADDING = 45;
 
                 // Create the new application
                 var app = new Application({
@@ -127,335 +96,18 @@
                     ],
                 });
 
-                function createTile(id, columnIndex, rowIndex) {
-                    let bitmapContainer = new Container(),
-                        bitmap = app.getCache(id);
-
-                    bitmapContainer.name = id;
-
-                    bitmap.x = columnIndexToPx(columnIndex);
-                    bitmap.y = rowIndexToPx(rowIndex);
-                    bitmap.name = 'tile';
-
-                    bitmapContainer.addChild(bitmap);
-
-                    return bitmapContainer;
-                }
-
-                function getTileSlot(forAssetName) {
-                    let slot = [];
-                    forEachTile((assetName, columnIndex, rowIndex) => {
-                        if (assetName === forAssetName) {
-                            slot = [columnIndex, rowIndex];
-                        }
-                    });
-                    return slot
-                }
-
-                function getAssetName(columnIndex, rowIndex) {
-                    return getLevelTiles()[rowIndex][columnIndex];
-                }
-
-                function getPointsForTileDirections(columnIndex, rowIndex) {
-                    let sizeX = TILE_WIDTH,
-                        sizeY = TILE_HEIGHT,
-                        x = columnIndexToPx(columnIndex),
-                        y = rowIndexToPx(rowIndex),
-                        centerX = x + (sizeX / 2),
-                        centerY = y + (sizeY / 2),
-                        maxX = x + sizeX,
-                        maxY = y + sizeY;
-
-                    let directionPoints = {
-                        left: [ [x, y], [centerX, centerY], [x, maxY] ],
-                        top: [ [x, y], [centerX, centerY], [maxX, y] ],
-                        right: [ [maxX, y], [centerX, centerY], [maxX, maxY] ],
-                        bottom: [ [x, maxY], [centerX, centerY], [maxX, maxY] ],
-                    }
-
-                    return directionPoints;
-                }
-
-                function createFog(assetName, columnIndex, rowIndex) {
-                    let directionPoints = getPointsForTileDirections(columnIndex, rowIndex),
-                        fogContainer = new Container();
-
-                    fogContainer.name = 'fog';
-                    fogContainer.assetName = assetName;
-                    fogContainer.columnIndex = columnIndex;
-                    fogContainer.rowIndex = rowIndex;
-
-                    for (let [name, points] of Object.entries(directionPoints)) {
-                        let triangle = new Shape();
-                        triangle.name = name;
-
-                        triangle.graphics.beginFill("rgba(0,0,0,0.8)")
-                            .moveTo(...points[0])
-                            .lineTo(...points[1])
-                            .lineTo(...points[2])
-
-                        fogContainer.addChild(triangle);
-                    }
-
-                    return fogContainer;
-                }
-
-                function makeFog() {
-                    let mapContainer = app.states.level.panel.getChildByName('map'),
-                        tileContainer;
-
-                    forEachTile((assetName, columnIndex, rowIndex) => {
-                        tileContainer = mapContainer.getChildByName(assetName);
-                        tileContainer.addChild(createFog(assetName, columnIndex, rowIndex));
-                    });
-                }
-
-                function createSelection(assetName, columnIndex, rowIndex) {
-                    let selectionBox = new Shape();
-
-                    selectionBox.name = 'selection';
-                    selectionBox.assetName = assetName;
-
-                    selectionBox.graphics.beginFill("rgba(255, 255, 0, 0.2")
-                        .drawRect(columnIndexToPx(columnIndex),
-                                rowIndexToPx(rowIndex),
-                                TILE_WIDTH, TILE_HEIGHT);
-
-                    selectionBox.on('mousedown', function(ev) {
-                        let explorationContainer = createExplore(ev.currentTarget.assetName);
-                        app.states.level.panel.addChild(explorationContainer);
-                        ev.currentTarget.parent.removeChild(ev.currentTarget);
-                    });
-
-                    return selectionBox;
-                }
-
-                function randomFoggedTileSlot() {
-                    let mapContainer = app.states.level.panel.getChildByName('map'),
-                        foggedTileExists = mapContainer.children.some(
-                                tileContainer => tileContainer.getChildByName('fog')),
-                        randomTileIndex = 0,
-                        randomTile;
-
-                    if (! foggedTileExists) {
-                        throw "The map has no fogged tiles to choose.";
-                    }
-
-                    do {
-                        randomTileIndex = Math.floor(Math.random() * mapContainer.children.length);
-                        randomTile = mapContainer.children[randomTileIndex];
-                    } while (! randomTile.getChildByName('fog'));
-
-                    return getTileSlot(randomTile.name);
-                }
-
-                function makeSelection() {
-                    let selectedSlot = randomFoggedTileSlot(),
-                        mapContainer = app.states.level.panel.getChildByName('map'),
-                        tileSelection = createSelection(getAssetName(...selectedSlot),
-                                                           ...selectedSlot);
-
-                    mapContainer.addChild(tileSelection);
-
-                    rotatePlayer();
-                }
-
-                function rotatePlayer() {
-                    let player = app.states.level.player =
-                        (app.states.level.player === undefined) ? 0 : ! app.states.level.player;
-
-                    console.log("Player", player + 1, "make your selection.");
-                }
-
-                function createMap(levelNumber) {
-                    let mapContainer = new Container(),
-                        tileContainer;
-
-                    mapContainer.name = 'map';
-
-                    forEachTile((assetName, columnIndex, rowIndex) => {
-                        tileContainer = createTile(assetName, columnIndex, rowIndex);
-                        mapContainer.addChild(tileContainer);
-                    });
-
-                    return mapContainer;
-                }
-
-                function getPreloadConf(levelNumber) {
-                    let preload = [],
-                        level = getLevelTiles();
-
-                    forEachTile((assetName, columnIndex, rowIndex) => {
-                        // Tile asset
-                        preload.append({ 
-                            id: assetName,
-                            src: `assets/images/level${levelNumber}-easy/${assetName}.png`,
-                            format: "createjs.Bitmap",
-                        });
-
-                        // Tile exploration assets
-                        for (direction of TILE_DIRECTIONS) {
-                            preload.append({ 
-                                id: `${assetName}-explore-${direction}`,
-                                src: `assets/images/level${levelNumber}-easy/${assetName}/${direction}.png`,
-                                format: "createjs.Bitmap",
-                            });
-                        }
-                    });
-
-                    return preload;
-                }
-
-                function getLevelState(levelNumber) {
-                    let preloadConfig = getPreloadConf(levelNumber);
+                function getClueState() {
                     let state = new State(new Container(), {
-                        preload: preloadConfig,
+                        previous: 'level',
                     });
-
-                    state.on('loaded', function(event) {
-                        let mapContainer = createMap();
-                        state.panel.addChild(mapContainer);
-
-                        if (true || tutorial) {
-                            mapContainer.tilesToUncover = getMapInfo().NUM_TILES;
-                            makeFog();
-                            makeSelection();
-                        }
-
-                    });
-                    state.on('exit', function(event) {
-                        //this.panel.removeAllChildren();
-                    });
-
                     return state;
-                }
-
-                // -------------
-
-
-                function createGpsCone(assetName, direction) {
-                    let tileSlot = getTileSlot(assetName),
-                        points = getPointsForTileDirections(...tileSlot)[direction]; 
-                        gpsCone = new Shape();
-
-                    gpsCone.name = 'gps';
-
-                    gpsCone.graphics.beginFill("rgba(255,228,0,0.25)")
-                        .moveTo(...points[0])
-                        .lineTo(...points[1])
-                        .lineTo(...points[2])
-
-                    return gpsCone;
-                }
-
-                function removeFogPiece(assetName, direction) {
-                    let mapContainer = app.states.level.panel.getChildByName('map'),
-                        tileContainer = mapContainer.getChildByName(assetName),
-                        fogContainer = tileContainer.getChildByName('fog'),
-                        triangle = fogContainer.getChildByName(direction);
-
-                    fogContainer.removeChild(triangle);
-                }
-
-                function createExploreArrow(direction='left', x=0, y=0) {
-                    let arrow = app.getCache(`${direction}-arrow`);
-
-                    arrow.x = x;
-                    arrow.y = y;
-                    arrow.name = direction;
-
-                    arrow.on('mousedown', function(ev) {
-                        let assetName = this.parent.assetName,
-                            slides = this.parent.slides,
-                            onSlide = this.parent.onSlide,
-                            explorationContainer = this.parent,
-                            slideIsOver = false,
-                            explorePane = explorationContainer.getChildByName('pane'),
-                            mapContainer = app.states.level.panel.getChildByName('map'),
-                            tileContainer = mapContainer.getChildByName(assetName);
-
-                        slideIsOver = (this.name === 'left') ? (onSlide === 0)
-                                                             : (onSlide === slides.length - 1);
-
-                        if (slideIsOver) {
-                            this.removeAllEventListeners();
-                            explorationContainer.parent.removeChild(explorationContainer); // TODO
-                            tileContainer.removeChild(tileContainer.getChildByName('fog'));
-                            tileContainer.removeChild(tileContainer.getChildByName('gps'));
-                            mapContainer.setTransform(0, 0, 1, 1);
-
-                            mapContainer.tilesToUncover -= 1;
-                            if (mapContainer.tilesToUncover > 0) {
-                                makeSelection();
-                            }
-                        } 
-                        else {
-                            explorePane.removeAllChildren();
-                            removeFogPiece(assetName, TILE_DIRECTIONS[onSlide]);
-
-                            (this.name === 'left') ? this.parent.onSlide = onSlide -= 1
-                                                   : this.parent.onSlide = onSlide += 1;
-
-                            explorePane.addChild(slides[onSlide]);
-
-                            tileContainer.removeChild(tileContainer.getChildByName('gps'));
-                            let gpsCone = createGpsCone(assetName, TILE_DIRECTIONS[onSlide]);
-                            tileContainer.addChild(gpsCone);
-                        }
-                    });
-
-                    return arrow;
-                }
-
-                function createExplorePane(x=0, y=0) {
-                    let explorePane = new Container();
-                    explorePane.name = 'pane';
-                    explorePane.x = 205;
-                    explorePane.y = 50;
-                    explorePane.scaleX = 0.8;
-                    return explorePane;
-                }
-
-                function createExplore(assetName) {
-                    let context = {},
-                        arrow,
-                        mapContainer = app.states.level.panel.getChildByName('map'),
-                        tileContainer = mapContainer.getChildByName(assetName);
-                        explorePane = createExplorePane(205, 50);
-                        explorationContainer = new Container();
-                    
-                    explorationContainer.name = 'exploration';
-                    explorationContainer.assetName = assetName;
-                    explorationContainer.onSlide = 0;
-                    explorationContainer.slides = [];
-
-                    // mapBottomY = CANVAS_HEIGHT - getMapInfo().MAP_HEIGHT * 0.5
-                    mapContainer.setTransform(0, 0, 0.5, 0.5);
-
-                    for (direction of TILE_DIRECTIONS) {
-                        explorationContainer.slides.push(
-                            app.getCache(`${assetName}-explore-${direction}`));
-                    }
-
-                    for (let arrowArgs of [ ['left', 150, 200],
-                                            ['right', 750, 200] ]) {
-                        arrow = createExploreArrow(...arrowArgs);
-                        explorationContainer.addChild(arrow);
-                    }
-
-                    explorationContainer.addChild(explorePane);
-                    explorePane.addChild(explorationContainer.slides[0]);
-                    
-                    let gpsCone = createGpsCone(assetName, TILE_DIRECTIONS[0]);
-                    tileContainer.addChild(gpsCone);
-
-                    return explorationContainer;
                 }
 
                 // Wait until the app is ready
                 app.once('init', function() {
                     this.states = {
                         level: getLevelState(1),
+                        clue: getClueState(),
                     }
 
                     this.on('resize', function(w, h) {
