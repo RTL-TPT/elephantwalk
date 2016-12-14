@@ -112,7 +112,7 @@ function createFog(assetName, columnIndex, rowIndex) {
 }
 
 function makeFog() {
-    let mapContainer = app.states.level.panel.getChildByName('map'),
+    let mapContainer = app.manager.currentState.panel.getChildByName('map'),
         tileContainer;
 
     forEachTile((assetName, columnIndex, rowIndex) => {
@@ -163,21 +163,53 @@ function makeSelection() {
     let selectedSlot = randomFoggedTileSlot(),
         mapContainer = app.states.level.panel.getChildByName('map'),
         tileSelection = createSelection(getAssetName(...selectedSlot),
-                                            ...selectedSlot);
+                                        ...selectedSlot);
 
     mapContainer.addChild(tileSelection);
 
     rotatePlayer();
 }
 
-function rotatePlayer() {
-    let player = app.states.level.player =
-        (app.states.level.player === undefined) ? 0 : ! app.states.level.player;
+function createPlayer(x=0, y=0) {
+    let playerContainer = new Container(),
+        playerIcon;
 
-    console.log("Player", player + 1, "make your selection.");
+    playerContainer.name = 'player';
+    
+    playerContainer.x = x;
+    playerContainer.y = y;
+
+    playerIcon = app.getCache('player-icon');
+    playerIcon.name = 'icon';
+    playerIcon.x = 0;
+    playerIcon.y = 0;
+
+    playerText = new Text("Player #", "40px Arial");
+    playerText.name = 'text';
+    playerText.x = 100;
+    playerText.y = 20;
+
+    playerContainer.addChild(playerIcon, playerText);
+
+    return playerContainer;
 }
 
-function createMap(levelNumber) {
+function rotatePlayer(startPlayer=1) {
+    let state = app.manager.currentState,
+        stateContainer = state.panel,
+        playerContainer = stateContainer.getChildByName('player'),
+        player = state.player =
+            (! state.player || state.player !== 1) ? startPlayer : 2;
+
+    if ( ! playerContainer) {
+        playerContainer = createPlayer(50, CANVAS_HEIGHT - 100);
+        stateContainer.addChild(playerContainer);
+    }
+
+    playerContainer.getChildByName('text').text = `Player ${player}`;
+}
+
+function createMap() {
     let mapContainer = new Container(),
         tileContainer;
 
@@ -191,17 +223,18 @@ function createMap(levelNumber) {
     return mapContainer;
 }
 
-function makeMap(fog=getLevel().tutorial) {
-    let mapContainer = createMap(),
-        whiteSpace = (CANVAS_WIDTH - getMapInfo().MAP_WIDTH) - (CANVAS_PADDING * 2),
-        equalSpaceOnEachSide = Math.floor(whiteSpace / 2);
+function makeMap(doDefog=false, x=0, y=0, scale=1) {
+    let stateContainer = app.manager.currentState.panel,
+        mapContainer = createMap();
 
-    mapContainer.x = equalSpaceOnEachSide;
-    mapContainer.y = 0;
+    mapContainer.x = x;
+    mapContainer.y = y;
+    mapContainer.scaleX = scale;
+    mapContainer.scaleY = scale;
 
-    app.states.level.panel.addChild(mapContainer);
+    stateContainer.addChild(mapContainer);
 
-    if (fog) {
+    if (doDefog) {
         mapContainer.tilesToUncover = getMapInfo().NUM_TILES;
         makeFog();
         makeSelection();
@@ -249,7 +282,11 @@ function getLevelState() {
         });
 
     state.on('loaded', function(event) {
-        makeMap();
+        let whiteSpace = (CANVAS_WIDTH - getMapInfo().MAP_WIDTH) - (CANVAS_PADDING * 2),
+            equalSpaceOnEachSide = Math.floor(whiteSpace / 2),
+            doDefog = getLevel().tutorial;
+
+        makeMap(doDefog, equalSpaceOnEachSide, 0);
     });
     state.on('exit', function(event) {
         //this.panel.removeAllChildren();

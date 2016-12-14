@@ -47,6 +47,7 @@
                     LoadQueue = include('createjs.LoadQueue'),
                     Container = include('createjs.Container'),
                     Shape = include('createjs.Shape'),
+                    Text = include('createjs.Text'),
                     State = include('springroll.State');
 
                 function getLevel() {
@@ -102,8 +103,8 @@
                 var app = new Application({
                     canvasId: "stage",
                     resizeElement: "content",
-                    state: 'clues',
-                    //state: 'level',
+                    //state: 'clues',
+                    state: 'level',
                     debug: true,
                     display: EaselJSDisplay,
                     displayOptions: {
@@ -121,6 +122,11 @@
                         {
                             id: 'right-arrow',
                             src: 'assets/images/right-arrow.png',
+                            format: 'createjs.Bitmap',
+                        },
+                        {
+                            id: 'player-icon',
+                            src: 'assets/images/player-icon.png',
                             format: 'createjs.Bitmap',
                         },
                     ],
@@ -171,8 +177,9 @@
                     return preload;
                 }
 
-                function makeSymbols() {
-                    let mapContainer = app.states.clues.panel.getChildByName('map'),
+                function makeMapSymbols() {
+                    let stateContainer = app.states.clues.panel,
+                        mapContainer = stateContainer.getChildByName('map'),
                         symbolName = '',
                         symbol = {};
 
@@ -182,11 +189,12 @@
 
                         symbol.x = getLevel().symbol[symbolName].x;
                         symbol.y = getLevel().symbol[symbolName].y;
-                        symbol.on('click', ev => {
+                        symbol.on('mousedown', ev => {
                             let sName = ev.currentTarget.name;
-                            if (app.states.clues.elephantLocation.clueOne === sName || app.states.clues.elephantLocation.clueTwo === sName) {
+                            if (app.levelInfo.elephantLocation.clueOne === sName || app.levelInfo.elephantLocation.clueTwo === sName) {
                                 let clue = createSelectedClue(`${ev.currentTarget.name}-non-abstract`); // TODO
-                                app.states.clues.panel.addChild(clue);
+                                stateContainer.addChild(clue);
+                                rotatePlayer();
                             }
                         });
                         mapContainer.addChild(symbol);
@@ -223,17 +231,20 @@
                 function makeClueDetail() {
                     let sawClueOne = !! app.states.clues.sawClueOne,
                         onClue = ! sawClueOne ? 'clueOne' : 'clueTwo',
-                        showClue = app.states.clues.elephantLocation[onClue],
+                        showClue = app.levelInfo.elephantLocation[onClue],
                         symbolDetail = new Bitmap(app.getCache(`${showClue}-detail`)),
-                        clueContainer = new Container(),
+                        clueDetailContainer = new Container(),
                         unlocksContainer = createUnlocks(showClue),
-                        dialogBorder = new Shape();
-                        dialogBox = new Shape();
+                        dialogBorder = new Shape(),
+                        dialogBox = new Shape(),
+                        symbolText = new Text(
+                                showClue.slice(0,1).toUpperCase() + showClue.slice(1),
+                                "35px Arial");
 
-                    clueContainer.name = 'clue';
-                    clueContainer.onClue = onClue;
-                    clueContainer.x = 100;
-                    clueContainer.y = 100;
+                    clueDetailContainer.name = 'clue';
+                    clueDetailContainer.onClue = onClue;
+                    clueDetailContainer.x = 100;
+                    clueDetailContainer.y = 50;
 
                     dialogBorder.graphics.beginStroke('#000000')
                         .setStrokeStyle(8)
@@ -250,9 +261,14 @@
                     symbolDetail.scaleX = 0.6;
                     symbolDetail.scaleY = 0.6;
 
-                    clueContainer.addChild(dialogBorder, dialogBox, symbolDetail, unlocksContainer);
+                    symbolText.x = 300;
+                    symbolText.y = 500;
 
-                    clueContainer.on('mousedown', ev => {
+                    clueDetailContainer.addChild(dialogBorder, dialogBox, symbolText, symbolDetail, unlocksContainer);
+
+                    clueDetailContainer.on('mousedown', ev => {
+                        rotatePlayer();
+
                         ev.currentTarget.removeAllEventListeners();
                         ev.currentTarget.parent.removeChild(ev.currentTarget);
                         if (ev.currentTarget.onClue === 'clueOne') {
@@ -260,8 +276,23 @@
                         }
                     });
 
-                    app.states.clues.panel.addChild(clueContainer);
+                    app.states.clues.panel.addChild(clueDetailContainer);
                     app.states.clues.sawClueOne = true;
+                }
+
+                function setLevelElephantLocation() {
+                    let tileName,
+                        randomLocationIndex,
+                        elephantLocation,
+                        ref = app.levelInfo.elephantLocation = {};
+
+                    randomLocationIndex = Math.floor(Math.random()
+                            * getLevel().elephantLocations.length);
+                    elephantLocation =
+                        getLevel().elephantLocations[randomLocationIndex];
+
+                    [tileName, ref.direction] = elephantLocation;
+                    [ref.clueOne, ref.clueTwo] = tileName.split('-');
                 }
 
                 function getClueState() {
@@ -281,28 +312,19 @@
                     });
 
                     state.on('loaded', function(event) {
-                        let doneButton = createDoneButton(850, 625),
-                            mapContainer = createMap(false),
-                            mapScale = 0.8;
+                        let stateContainer = app.states.clues.panel,
+                            doneButton;
 
-                        mapContainer.x = 30;
-                        mapContainer.y = 30;
-                        mapContainer.scaleX = mapScale;
-                        mapContainer.scaleY = mapScale;
+                        makeMap(false, 50, 50, 0.8);
 
-                        app.states.clues.panel.addChild(doneButton, mapContainer);
+                        doneButton = createDoneButton(850, 625)
+                        stateContainer.addChild(doneButton);
 
-                        // Select elephant location
-                        let assetName, l;
-                        let locationIndex = Math.floor(Math.random() *
-                            getLevel().elephantLocations.length);
+                        rotatePlayer(1);
 
-                        l = app.states.clues.elephantLocation = {};
-                        [assetName, l.direction] =
-                            getLevel().elephantLocations[locationIndex];
-                        [l.clueOne, l.clueTwo] = assetName.split('-');
+                        setLevelElephantLocation();
 
-                        makeSymbols(); 
+                        makeMapSymbols(); 
 
                         makeClueDetail();
                     });
@@ -318,7 +340,9 @@
                     this.states = {
                         level: getLevelState(),
                         clues: getClueState(),
-                    }
+                    };
+                    this.levelInfo = {};
+                    this.gameInfo = {};
 
                     this.on('resize', function(w, h) {
                         //background.x = (w - background.image.width) / 2;
