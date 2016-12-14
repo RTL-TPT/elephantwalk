@@ -17,7 +17,7 @@
         <meta name="theme-color" content="#ffffff">
 
         <!-- style fps counter for debug -->
-        <style>#framerate{position:absolute;background:rgba(255,255,255,0.75);}</style>
+        <style>#framerate{position:absolute;background:rgba(255,255,255,0.75);pointer-events:none;}</style>
 
         <!-- External dependencies -->
         <script src="components/preloadjs/lib/preloadjs.min.js"></script>
@@ -72,7 +72,6 @@
                 // Create the new application
                 var app = new Application({
                     canvasId: "stage",
-                    resizeElement: "content",
                     state: 'level',
                     debug: true,
                     display: EaselJSDisplay,
@@ -103,6 +102,17 @@
                     return state;
                 }
 
+                var fitCanvasToWindow = function() {
+                    var canvasOffset = 20;
+                    if(window.innerHeight * (4/3) > window.innerWidth) {
+                        document.getElementById("stage").style.height = Math.floor((window.innerWidth - canvasOffset) * (3/4)) + "px";
+                        document.getElementById("stage").style.width = window.innerWidth - canvasOffset + "px";
+                    } else {
+                        document.getElementById("stage").style.height = window.innerHeight - canvasOffset + "px";
+                        document.getElementById("stage").style.width = Math.floor((window.innerHeight - canvasOffset) * (4/3)) + "px";
+                    }
+                };
+
                 // Wait until the app is ready
                 app.once('init', function() {
                     this.states = {
@@ -110,11 +120,12 @@
                         clue: getClueState(),
                     }
 
-                    this.on('resize', function(w, h) {
-                        //background.x = (w - background.image.width) / 2;
-                    });
+                    fitCanvasToWindow();
+                });
 
-                    this.triggerResize();
+                //resize to window but maintain 4:3 aspect ratio
+                window.addEventListener("resize", function(){
+                    fitCanvasToWindow();
                 });
             </script>
         </div>
