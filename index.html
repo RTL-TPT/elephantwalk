@@ -61,24 +61,27 @@
                         ],
                         elephantLocations: [['hill-mountain', 'south'],
                                             ['desert-hill', 'south']],
-                        symbols: ['desert', 'forest', 'hill', 'mountain'],
-                        symbol: {
+                        symbols: {
                             mountain: {
-                                unlockedSymbols: ['non'],
+                                unlocked: ['non-abstract'],
+                                assetName: 'non-abstract',
                                 x: 184,
                                 y: 42,
                             },
                             forest: {
+                                assetName: 'non-abstract',
                                 x: 138,
                                 y: 270,
                             },
                             hill: {
-                                unlockedSymbols: ['non'],
+                                unlocked: ['non-abstract'],
+                                assetName: 'non-abstract',
                                 x: 557,
                                 y: 275,
                             },
                             desert: {
-                                unlockedSymbols: ['non'],
+                                unlocked: ['non-abstract'],
+                                assetName: 'non-abstract',
                                 x: 330,
                                 y: 454,
                             },
@@ -92,7 +95,7 @@
                 const CANVAS_WIDTH = 1024;
                 const CANVAS_PADDING = 10;
                 const LEVEL_DIFFICULTIES = ['easy', 'medium', 'hard'];
-                const SYMBOL_DIFFICULTIES = ['non', 'partial', 'full'];
+                const SYMBOL_ABSTRACTIONS = ['non-abstract', 'partial-abstract', 'full-abstract'];
                 const TILE_DIRECTIONS = ['west', 'north', 'east', 'south'];
                 const TILE_WIDTH = getLevel().tileWidth;
                 const TILE_HEIGHT = getLevel().tileHeight;

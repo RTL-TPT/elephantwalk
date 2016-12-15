@@ -34,14 +34,28 @@ function createDoneButton(x=0, y=0, text="Done") {
 
 function getPreloadSymbols() {
     let preload = [],
-        symbols = getLevel().symbols,
         levelId = getLevel().id;
 
-    for (let symbol of symbols) {
-        for (let [symbolType, ext] of [ ['detail', 'jpg'], ['non-abstract', 'png']]) { // TODO: Other abstractions
+    for (let symbolName of Object.keys(getLevel().symbols)) {
+        preload.append({
+            id: `${symbolName}-detail`,
+            src: `assets/images/${levelId}/symbols/${symbolName}/detail.jpg`,
+        });
+    }
+
+    for (let [symbolName, symbolMeta] of Object.entries(getLevel().symbols)) {
+        for (let abstraction of symbolMeta.unlocked || []) {
             preload.append({
-                id: `${symbol}-${symbolType}`,
-                src: `assets/images/${levelId}/symbols/${symbol}/${symbolType}.${ext}`,
+                id: `${symbolName}-${abstraction}`,
+                src: `assets/images/${levelId}/symbols/${symbolName}/${abstraction}.png`,
+            });
+        }
+
+        // All map symbols are placed on the map, but not all have clue unlocks available
+        if (! symbolMeta.unlocked || symbolMeta.unlocked.indexOf(symbolMeta.assetName) === -1) {
+            preload.append({
+                id: `${symbolName}-${symbolMeta.assetName}`,
+                src: `assets/images/${levelId}/symbols/${symbolName}/${symbolMeta.assetName}.png`,
             });
         }
     }
@@ -116,20 +130,20 @@ function makeMapSymbols() {
         symbolName = '',
         symbol = {};
 
-    for (symbolName of getLevel().symbols) {
-        assetName = `${symbolName}-non-abstract`;
-
-        symbol = new Bitmap(app.getCache(assetName)); // TODO: Other abstractions
+    for ([symbolName, symbolMeta] of Object.entries(getLevel().symbols)) {
+        symbol = new Bitmap(
+            app.getCache(`${symbolName}-${symbolMeta.assetName}`));
 
         symbolContainer = new UiContainer({
-                    x: getLevel().symbol[symbolName].x, 
-                    y: getLevel().symbol[symbolName].y, 
+                    x: symbolMeta.x, 
+                    y: symbolMeta.y, 
                     width: symbol.getBounds().width,
                     height: symbol.getBounds().height,
                     borderColor: 'black',
                     borderWidth: 4
                 });
         symbolContainer.name = symbolName;
+        symbolContainer.assetName = symbolMeta.assetName;
 
         symbol.name = 'symbol';
         symbolContainer.addChild(symbol);
@@ -139,7 +153,7 @@ function makeMapSymbols() {
                 player = app.states.clues.player,
                 onClue = (player === 1) ? 'clueOne' : 'clueTwo',
                 clueName = app.levelInfo.elephantLocation[onClue],
-                asset = app.getCache(`${ev.currentTarget.name}-non-abstract`),
+                asset = app.getCache(`${ev.currentTarget.name}-${ev.currentTarget.assetName}`),
                 guessWidth = 150,
                 guessHeight = 175,
                 guessContainer = app.states.clues.panel
@@ -172,8 +186,8 @@ function createUnlocks(symbol, x=0, y=0, width=150, height=300) {
 
     unlocksContainer.name = 'unlocks';
 
-    for (let abstraction of SYMBOL_DIFFICULTIES) {
-        assetName = `${symbol}-${abstraction}-abstract`;
+    for (let abstraction of SYMBOL_ABSTRACTIONS) {
+        assetName = `${symbol}-${abstraction}`;
         if (assetName in app.assetManager.cache._cache) {
             unlockIcon = new ScaledBitmap(app.getCache(assetName), {
                                                 maxWidth: width,
