@@ -3,9 +3,9 @@
         extend = include('createjs.extend'),
         Container = include('createjs.Container');
 
-    function UiContainer(x=0, y=0, width=100, height=100,
-                        {borderColor: borderColor, borderWidth: borderWidth=1}={},
-                        {backgroundColor: backgroundColor}={}) {
+    function UiContainer({x: x=0, y: y=0, width: width=100, height: height=100,
+                        borderColor: borderColor, borderWidth: borderWidth=1,
+                        backgroundColor: backgroundColor}) {
         this.Container_constructor();
 
         this.x = x;

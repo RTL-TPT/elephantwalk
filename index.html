@@ -135,7 +135,7 @@
                 function createSelectedClue(symbolName, clueOne=true) {
                     let hasClueOne = !! app.states.clues.panel.getChildByName('clueOne'),
                         clue = new Bitmap(app.getCache(symbolName)),
-                        [x, y] = [[850, 70], [850, 270]][ ! hasClueOne ? 0 : 1], // TODO
+                        [x, y] = [[850, 70], [850, 270]][ ! hasClueOne ? 0 : 1], // TODO: Positioning
                         width = 150,
                         height = 150;
 
@@ -148,13 +148,13 @@
                     return clue;
                 }
 
-                function createDoneButton(x, y, text="Done") {
+                function createDoneButton(x=0, y=0, text="Done") {
                     let doneButton = app.getCache('done-button');
 
                     doneButton.x = x;
                     doneButton.y = y;
 
-                    doneButton.on('mousedown', ev => app.states.clues.previousState());
+                    doneButton.on('mousedown', ev => app.states.clues.previousState()); // TODO: Next state
 
                     return doneButton;
                 }
@@ -165,11 +165,10 @@
                         levelId = getLevel().id;
 
                     for (let symbol of symbols) {
-                        for (let [symbolType, ext] of [ ['detail', 'jpg'], ['non-abstract', 'png']]) { // TODO
+                        for (let [symbolType, ext] of [ ['detail', 'jpg'], ['non-abstract', 'png']]) { // TODO: Other abstractions
                             preload.append({
                                 id: `${symbol}-${symbolType}`,
                                 src: `assets/images/${levelId}/symbols/${symbol}/${symbolType}.${ext}`,
-                                //format: 'createjs.Bitmap',
                             });
                         }
                     }
@@ -180,40 +179,58 @@
                 function makeMapSymbols() {
                     let stateContainer = app.states.clues.panel,
                         mapContainer = stateContainer.getChildByName('map'),
+                        assetName = '',
                         symbolName = '',
                         symbol = {};
 
                     for (symbolName of getLevel().symbols) {
-                        symbol = new Bitmap(app.getCache(`${symbolName}-non-abstract`)); // TODO
-                        symbol.name = symbolName;
+                        assetName = `${symbolName}-non-abstract`;
+                        symbol = new Bitmap(app.getCache(assetName)); // TODO: Other abstractions
+                        symbol.name = 'symbol';
 
-                        symbol.x = getLevel().symbol[symbolName].x;
-                        symbol.y = getLevel().symbol[symbolName].y;
-                        symbol.on('mousedown', ev => {
-                            let sName = ev.currentTarget.name;
-                            if (app.levelInfo.elephantLocation.clueOne === sName || app.levelInfo.elephantLocation.clueTwo === sName) {
-                                let clue = createSelectedClue(`${ev.currentTarget.name}-non-abstract`); // TODO
+                        symbolContainer = new UiContainer({
+                                    x: getLevel().symbol[symbolName].x, 
+                                    y: getLevel().symbol[symbolName].y, 
+                                    width: symbol.getBounds().width,
+                                    height: symbol.getBounds().height,
+                                    borderColor: 'black',
+                                    borderWidth: 4
+                                });
+                        symbolContainer.name = symbolName;
+
+                        symbolContainer.addChild(symbol);
+
+                        symbolContainer.on('mousedown', ev => {
+                            let symbolName = ev.currentTarget.name,
+                                onClue = (app.states.clues.player === 1) ? 'clueOne' : 'clueTwo',
+                                clueName = app.levelInfo.elephantLocation[onClue];
+
+                            if (symbolName === clueName) {
+                                let clue = createSelectedClue(`${ev.currentTarget.name}-non-abstract`); // TODO: Other abstractions
                                 stateContainer.addChild(clue);
                                 rotatePlayer();
                             }
                         });
-                        mapContainer.addChild(symbol);
+                        mapContainer.addChild(symbolContainer);
                     }
                 }
 
                 function createUnlocks(symbol, x=0, y=0, width=150, height=300) {
-                    let unlocksContainer = new UiContainer(x, y, width, height,
-                                                           {borderColor: 'black'}),
-                        symbolName,
+                    let unlocksContainer = new UiContainer({
+                            x: x, y: y,
+                            width: width, height: height,
+                            borderColor: 'transparent',
+                        }),
+                        assetName,
                         unlockIcon,
                         unlockY = -80;
 
                     unlocksContainer.name = 'unlocks';
 
                     for (let abstraction of SYMBOL_DIFFICULTIES) {
-                        symbolName = `${symbol}-${abstraction}-abstract`;
-                        if (symbolName in app.assetManager.cache._cache) {
-                            unlockIcon = new ScaledBitmap(app.getCache(symbolName), {
+                        assetName = `${symbol}-${abstraction}-abstract`;
+                        if (assetName in app.assetManager.cache._cache) {
+                            unlockIcon = new ScaledBitmap(app.getCache(assetName), {
                                                                 maxWidth: width,
                                                                 maxHeight: height,
                                                                 width: 100,
@@ -225,7 +242,7 @@
                             unlockIcon.scaleX = 1.3;
                             unlockIcon.scaleY = 1.3;
                         }
-                        unlockIcon.name = symbolName;
+                        unlockIcon.name = symbol;
                         unlockIcon.x = toCenterX(unlockIcon, width);
                         unlockIcon.y = unlockY += 100;
                         unlocksContainer.addChild(unlockIcon);
@@ -246,9 +263,11 @@
                         symbolBitmap,
                         symbolText;
 
-                    clueDetailContainer = new UiContainer(100, 50, detailWidth, 600,
-                            {borderColor: "#000000", borderWidth: 8},
-                            {backgroundColor: "rgba(255, 255, 255, 1"});
+                    clueDetailContainer = new UiContainer({
+                                x: 100, y: 50, width: detailWidth, height: 600,
+                                borderColor: "#000000", borderWidth: 8,
+                                backgroundColor: "rgba(255, 255, 255, 1"
+                            });
                     clueDetailContainer.name = 'clue';
 
                     unlocksContainer = createUnlocks(symbolName, clueDetailContainer.width - unlockWidth,
