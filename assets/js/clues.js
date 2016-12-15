@@ -20,6 +20,7 @@ function createDoneButton(x=0, y=0, text="Done") {
             }
             else {
                 alert('Well done');
+                app.states.clues.panel.removeAllChildren();
                 //app.states.clues.previousState();  // TODO: Next state
             }
         }
