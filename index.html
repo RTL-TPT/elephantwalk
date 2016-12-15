@@ -154,7 +154,16 @@
                     doneButton.x = x;
                     doneButton.y = y;
 
-                    doneButton.on('mousedown', ev => app.states.clues.previousState()); // TODO: Next state
+                    doneButton.on('mousedown', ev => {
+                            // TODO: All this
+                            //if (symbolName === clueName) {
+                            //    let clue = createSelectedClue(`${ev.currentTarget.name}-non-abstract`); // TODO: Other abstractions
+                            //    stateContainer.addChild(clue);
+                            //    rotatePlayer();
+                            //}
+
+                            //app.states.clues.previousState()
+                        }); // TODO: Next state
 
                     return doneButton;
                 }
@@ -250,13 +259,27 @@
                             let symbolName = ev.currentTarget.name,
                                 player = app.states.clues.player,
                                 onClue = (player === 1) ? 'clueOne' : 'clueTwo',
-                                clueName = app.levelInfo.elephantLocation[onClue];
+                                onGuess = (onClue === 'clueOne') ? 'guessOne' : 'guessTwo',
+                                clueName = app.levelInfo.elephantLocation[onClue],
+                                asset = app.getCache(`${ev.currentTarget.name}-non-abstract`),
+                                guessWidth = 150,
+                                guessHeight = 175,
+                                guessContainer = app.states.clues.panel
+                                    .getChildByName('sidebar').getChildByName(onGuess),
+                                guessBitmap;
+                                
+                            guessBitmap = new ScaledBitmap(asset, {
+                                    width: guessWidth - 10,
+                                    height: guessHeight - 80,
+                                });
+                            guessBitmap.name = 'guess';
 
-                            if (symbolName === clueName) {
-                                let clue = createSelectedClue(`${ev.currentTarget.name}-non-abstract`); // TODO: Other abstractions
-                                stateContainer.addChild(clue);
-                                rotatePlayer();
+                            if (guessContainer.getChildAt(0).name === 'guess') {
+                                guessContainer.removeChildAt(0);
                             }
+                            guessContainer.addChildAt(guessBitmap);
+
+                            rotatePlayer();
                         });
                         mapContainer.addChild(symbolContainer);
                     }
@@ -266,7 +289,7 @@
                     let unlocksContainer = new UiContainer({
                             x: x, y: y,
                             width: width, height: height,
-                            borderColor: 'transparent',
+                            borderColor: '#CCC',
                         }),
                         assetName,
                         unlockIcon,
@@ -386,7 +409,7 @@
 
                         setLevelElephantLocation();
 
-                        makeMap(false, 50, 50, 0.8); // TODO: Compute width
+                        makeMap(false, 50, 50, 0.75); // TODO: Compute width (scaleTo)
                         makeMapSymbols(); 
                         makeSidebar();
 
