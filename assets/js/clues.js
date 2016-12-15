@@ -294,7 +294,7 @@ function getClueState() {
         let stateContainer = app.states.clues.panel,
             sidebarWidth = 200,
             mapPadding = 50,
-            availableWidth = CANVAS_WIDTH - mapPadding - sidebarWidth,
+            availableWidth = CANVAS_WIDTH - sidebarWidth - (mapPadding * 2),
             doneButton;
 
         setLevelElephantLocation();
