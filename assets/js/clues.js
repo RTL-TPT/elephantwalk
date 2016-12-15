@@ -1,19 +1,3 @@
-function createSelectedClue(symbolName, clueOne=true) {
-    let hasClueOne = !! app.states.clues.panel.getChildByName('clueOne'),
-        clue = new Bitmap(app.getCache(symbolName)),
-        [x, y] = [[850, 70], [850, 270]][ ! hasClueOne ? 0 : 1], // TODO: Positioning
-        width = 150,
-        height = 150;
-
-    clue.name = ! hasClueOne ? 'clueOne' : 'clueTwo';
-    clue.x = x;
-    clue.y = y;
-    clue.scaleX = (width / clue.getBounds().width);
-    clue.scaleY = (height / clue.getBounds().height);
-
-    return clue;
-}
-
 function createDoneButton(x=0, y=0, text="Done") {
     let doneButton = app.getCache('done-button');
 
