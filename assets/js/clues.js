@@ -7,17 +7,21 @@ function createDoneButton(x=0, y=0, text="Done") {
 
     doneButton.on('mousedown', ev => {
         let sidebarContainer = app.states.clues.panel.getChildByName('sidebar'),
-            guessOne = '',
-            guessTwo = '',
-            {clueOne: clueOne,
-                clueTwo: clueTwo} = app.levelInfo.elephantLocation;
+            guess = sidebarContainer.getChildByName('guess').getChildByName('symbol').symbolName;
+            onClue = (app.states.clues.player === 1) ? 'clueOne' : 'clueTwo';
 
-        guessOne = sidebarContainer.getChildByName('guessOne').getChildByName('guess').symbolName;
-        guessTwo = sidebarContainer.getChildByName('guessTwo').getChildByName('guess').symbolName;
+        removeGuess();
 
-        if (clueOne === guessOne && clueTwo === guessTwo) {
-            alert('Well done');
-            //app.states.clues.previousState();  // TODO: Next state
+        if (guess === app.levelInfo.elephantLocation[onClue]) {
+            rotatePlayer();
+
+            if (onClue === 'clueOne') {
+                makeClueDetail('clueTwo');
+            }
+            else {
+                alert('Well done');
+                //app.states.clues.previousState();  // TODO: Next state
+            }
         }
         else {
             alert('Try again');
@@ -50,8 +54,7 @@ function makeSidebar() {
         sidebarPadding = 25,
         guessWidth = 150,
         guessHeight = 175,
-        guessOneContainer,
-        guessTwoContainer;
+        guessContainer,
 
     sidebarContainer = new UiContainer({
                 width: sidebarWidth,
@@ -62,31 +65,30 @@ function makeSidebar() {
             });
     sidebarContainer.name = 'sidebar';
 
-    guessOneContainer = new UiContainer({
+    guessContainer = new UiContainer({
                 x: toCenter(sidebarWidth, guessWidth),
                 y: sidebarPadding,
                 width: guessWidth,
                 height: guessHeight,
                 borderColor: 'black',
             });
-    guessOneContainer.name = 'guessOne';
-    sidebarContainer.addChild(guessOneContainer);
-
-    guessTwoContainer = new UiContainer({
-                x: toCenter(sidebarWidth, guessWidth),
-                y: guessHeight + 50,
-                width: guessWidth,
-                height: guessHeight,
-                borderColor: 'black',
-            });
-    guessTwoContainer.name = 'guessTwo';
-    sidebarContainer.addChild(guessTwoContainer);
+    guessContainer.name = 'guess';
+    sidebarContainer.addChild(guessContainer);
 
     doneButton = createDoneButton(sidebarPadding,
                                     CANVAS_HEIGHT - 50 - sidebarPadding);
     sidebarContainer.addChild(doneButton);
 
     stateContainer.addChild(sidebarContainer);
+}
+
+function removeGuess() {
+    let guessContainer = app.states.clues.panel
+        .getChildByName('sidebar').getChildByName('guess');
+
+    if (guessContainer.getChildAt(0).name === 'symbol') {
+        guessContainer.removeChildAt(0);
+    }
 }
 
 function makeMapSymbols() {
@@ -118,28 +120,23 @@ function makeMapSymbols() {
             let symbolName = ev.currentTarget.name,
                 player = app.states.clues.player,
                 onClue = (player === 1) ? 'clueOne' : 'clueTwo',
-                onGuess = (onClue === 'clueOne') ? 'guessOne' : 'guessTwo',
                 clueName = app.levelInfo.elephantLocation[onClue],
                 asset = app.getCache(`${ev.currentTarget.name}-non-abstract`),
                 guessWidth = 150,
                 guessHeight = 175,
                 guessContainer = app.states.clues.panel
-                    .getChildByName('sidebar').getChildByName(onGuess),
+                    .getChildByName('sidebar').getChildByName('guess'),
                 guessBitmap;
                 
             guessBitmap = new ScaledBitmap(asset, {
                     width: guessWidth - 10,
                     height: guessHeight - 80,
                 });
-            guessBitmap.name = 'guess';
+            guessBitmap.name = 'symbol';
             guessBitmap.symbolName = symbolName;
 
-            if (guessContainer.getChildAt(0).name === 'guess') {
-                guessContainer.removeChildAt(0);
-            }
+            removeGuess();
             guessContainer.addChildAt(guessBitmap);
-
-            rotatePlayer();
         });
         mapContainer.addChild(symbolContainer);
     }
@@ -214,18 +211,17 @@ function makeClueDetail(onClue='clueOne') {
 
     symbolText = new Text(ucFirst(symbolName), "35px Arial");
     symbolText.x = toCenterX(symbolText, detailWidth);
-    symbolText.y = 500;
+    symbolText.y = detailHeight - 100;
     clueDetailContainer.addChild(symbolText);
 
     clueDetailContainer.on('mousedown', ev => {
         ev.currentTarget.removeAllEventListeners();
         ev.currentTarget.parent.removeChild(ev.currentTarget);
 
-        rotatePlayer();
-
-        if (onClue === 'clueOne') {
-            makeClueDetail('clueTwo');
-        }
+        //rotatePlayer();
+        //if (onClue === 'clueOne') {
+        //    makeClueDetail('clueTwo');
+        //}
     });
 
     app.states.clues.panel.addChild(clueDetailContainer);
