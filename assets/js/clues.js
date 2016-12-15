@@ -56,6 +56,9 @@ function makeSidebar() {
         guessWidth = 150,
         guessHeight = 175,
         guessContainer,
+        clueButtonWidth = 100,
+        clueButtonHeight = 100,
+        openClueButton;
 
     sidebarContainer = new UiContainer({
                 width: sidebarWidth,
@@ -75,6 +78,20 @@ function makeSidebar() {
             });
     guessContainer.name = 'guess';
     sidebarContainer.addChild(guessContainer);
+
+    openClueButton = new UiContainer({
+                x: toCenter(sidebarWidth, clueButtonWidth),
+                y: sidebarPadding + guessHeight + 50,
+                width: clueButtonWidth,
+                height: clueButtonHeight,
+                borderColor: 'black',
+                backgroundColor: 'white',
+            });
+    openClueButton.on('mousedown', ev => {
+        let onClue = (app.states.clues.player === 1) ? 'clueOne' : 'clueTwo';
+        makeClueDetail(onClue); // TODO: Ensure not already open
+    });
+    sidebarContainer.addChildAt(openClueButton, 0);
 
     doneButton = createDoneButton(sidebarPadding,
                                     CANVAS_HEIGHT - 50 - sidebarPadding);
