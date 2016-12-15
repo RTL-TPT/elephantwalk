@@ -113,3 +113,43 @@ function toCenterY(object, availableHeight=0) {
 
     return toCenter(availableHeight, objectHeight);
 }
+
+function createPlayer(x=0, y=0) {
+    let playerContainer = new Container(),
+        playerIcon;
+
+    playerContainer.name = 'player';
+    
+    playerContainer.x = x;
+    playerContainer.y = y;
+
+    playerIcon = app.getCache('player-icon');
+    playerIcon.name = 'icon';
+    playerIcon.x = 0;
+    playerIcon.y = 0;
+
+    playerText = new Text("Player #", "40px Arial");
+    playerText.name = 'text';
+    playerText.x = 100;
+    playerText.y = 20;
+
+    playerContainer.addChild(playerIcon, playerText);
+
+    return playerContainer;
+}
+
+function rotatePlayer(startPlayer=1) {
+    let state = app.manager.currentState,
+        stateContainer = state.panel,
+        playerContainer = stateContainer.getChildByName('player'),
+        player = state.player =
+            (! state.player || state.player !== 1) ? startPlayer : 2;
+
+    if ( ! playerContainer) {
+        playerContainer = createPlayer(50, CANVAS_HEIGHT - 100);
+        stateContainer.addChild(playerContainer);
+    }
+
+    playerContainer.getChildByName('text').text = `Player ${player}`;
+}
+

@@ -39,21 +39,6 @@ function forEachTile(fn) {
     });
 }
 
-function createTile(id, columnIndex, rowIndex) {
-    let bitmapContainer = new Container(),
-        bitmap = app.getCache(id);
-
-    bitmapContainer.name = id;
-
-    bitmap.x = columnIndexToPx(columnIndex);
-    bitmap.y = rowIndexToPx(rowIndex);
-    bitmap.name = 'tile';
-
-    bitmapContainer.addChild(bitmap);
-
-    return bitmapContainer;
-}
-
 function getTileSlot(forAssetName) {
     let slot = [];
     forEachTile((assetName, columnIndex, rowIndex) => {
@@ -159,73 +144,56 @@ function randomFoggedTileSlot() {
     return getTileSlot(randomTile.name);
 }
 
-function makeSelection() {
-    let selectedSlot = randomFoggedTileSlot(),
-        mapContainer = app.states.level.panel.getChildByName('map'),
-        tileSelection = createSelection(getAssetName(...selectedSlot),
-                                        ...selectedSlot);
+function makeSelection(slot) {
+    let mapContainer = app.manager.currentState.panel.getChildByName('map'),
+        tileSelection = createSelection(getAssetName(...slot), ...slot);
 
     mapContainer.addChild(tileSelection);
-
-    rotatePlayer();
 }
 
-function createPlayer(x=0, y=0) {
-    let playerContainer = new Container(),
-        playerIcon;
+function removeSelections() {
+    let mapContainer = app.manager.currentState.panel.getChildByName('map');
 
-    playerContainer.name = 'player';
-    
-    playerContainer.x = x;
-    playerContainer.y = y;
-
-    playerIcon = app.getCache('player-icon');
-    playerIcon.name = 'icon';
-    playerIcon.x = 0;
-    playerIcon.y = 0;
-
-    playerText = new Text("Player #", "40px Arial");
-    playerText.name = 'text';
-    playerText.x = 100;
-    playerText.y = 20;
-
-    playerContainer.addChild(playerIcon, playerText);
-
-    return playerContainer;
+    mapContainer.removeChild(mapContainer.getChildByName('selection'));
 }
 
-function rotatePlayer(startPlayer=1) {
-    let state = app.manager.currentState,
-        stateContainer = state.panel,
-        playerContainer = stateContainer.getChildByName('player'),
-        player = state.player =
-            (! state.player || state.player !== 1) ? startPlayer : 2;
+function createTile(id, columnIndex, rowIndex, callback) {
+    let bitmapContainer = new Container(),
+        bitmap = app.getCache(id);
 
-    if ( ! playerContainer) {
-        playerContainer = createPlayer(50, CANVAS_HEIGHT - 100);
-        stateContainer.addChild(playerContainer);
+    bitmapContainer.name = id;
+    bitmapContainer.slot = [columnIndex, rowIndex];
+
+    bitmap.x = columnIndexToPx(columnIndex);
+    bitmap.y = rowIndexToPx(rowIndex);
+    bitmap.name = 'tile';
+
+    if (callback) {
+        bitmapContainer.on('mousedown', callback);
     }
 
-    playerContainer.getChildByName('text').text = `Player ${player}`;
+    bitmapContainer.addChild(bitmap);
+
+    return bitmapContainer;
 }
 
-function createMap() {
+function createMap(tileCallback) {
     let mapContainer = new Container(),
         tileContainer;
 
     mapContainer.name = 'map';
 
     forEachTile((assetName, columnIndex, rowIndex) => {
-        tileContainer = createTile(assetName, columnIndex, rowIndex);
+        tileContainer = createTile(assetName, columnIndex, rowIndex, tileCallback);
         mapContainer.addChild(tileContainer);
     });
 
     return mapContainer;
 }
 
-function makeMap({doDefog: doDefog=false, x: x=0, y: y=0, width: width}={}) {
+function makeMap({doDefog: doDefog=false, x: x=0, y: y=0, width: width}={}, tileCallback) {
     let stateContainer = app.manager.currentState.panel,
-        mapContainer = createMap();
+        mapContainer = createMap(tileCallback);
 
     mapContainer.x = x;
     mapContainer.y = y;
@@ -241,7 +209,8 @@ function makeMap({doDefog: doDefog=false, x: x=0, y: y=0, width: width}={}) {
     if (doDefog) {
         mapContainer.tilesToUncover = getMapInfo().NUM_TILES;
         makeFog();
-        makeSelection();
+        rotatePlayer();
+        makeSelection(randomFoggedTileSlot());
     }
 }
 
@@ -255,23 +224,6 @@ function getPreloadTiles() {
             src: `assets/images/${levelId}/${assetName}.gif`,
             format: "createjs.Bitmap",
         });
-    });
-
-    return preload;
-}
-
-function getPreloadExplorePanes() {
-    let preload = [],
-        levelId = getLevel().id;
-
-    forEachTile((assetName, columnIndex, rowIndex) => {
-        for (direction of TILE_DIRECTIONS) {
-            preload.append({ 
-                id: `${assetName}-${direction}`,
-                src: `assets/images/${levelId}/${assetName}/${direction}.jpg`,
-                format: "createjs.Bitmap",
-            });
-        }
     });
 
     return preload;
