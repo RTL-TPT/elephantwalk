@@ -73,6 +73,7 @@ function createExploreArrow(direction=TILE_DIRECTIONS[0], x=0, y=0) {
             mapContainer.tilesToUncover -= 1;
             if (mapContainer.tilesToUncover > 0) {
                 makeSelection(randomFoggedTileSlot());
+                rotatePlayer();
             }
             else {
                 app.manager.currentState.nextState();
