@@ -32,7 +32,7 @@ function getPreloadSymbols() {
 function createDoneButton(x=0, y=0, callback=undefined, text="Done") {
     let doneButton;
 
-    doneBitmap = app.getCache('done-button');
+    doneBitmap = new Bitmap(app.getCache('done-button'));
     doneBitmap.name = 'done';
     doneBitmap.x = x;
     doneBitmap.y = y;
@@ -129,9 +129,7 @@ function makeSidebar() {
                         makeClueDetail('clueTwo');
                     }
                     else {
-                        alert('Well done');
-                        app.states.clues.panel.removeAllChildren();
-                        //app.states.clues.previousState();  // TODO: Next state
+                        app.states.clues.nextState();
                     }
                 }
                 else {
@@ -308,6 +306,7 @@ function setLevelElephantLocation() {
 function getClueState() {
     let state = new State(new Container(), {
         previous: 'level',
+        next: 'search',
         preload: [
             {
                 id: 'not-unlocked',

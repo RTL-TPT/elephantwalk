@@ -35,6 +35,7 @@
         <script src="assets/js/map.js"></script>
         <script src="assets/js/exploration.js"></script>
         <script src="assets/js/clues.js"></script>
+        <script src="assets/js/search.js"></script>
     </head>
     <body class="md">
         <div id="content" class="canvas">
@@ -134,7 +135,6 @@
                         {
                             id: 'done-button',
                             src: 'assets/images/done-button.png',
-                            format: 'createjs.Bitmap',
                         },
                     ],
                 });
@@ -155,8 +155,16 @@
                     this.states = {
                         level: getLevelState(),
                         clues: getClueState(),
+                        search: getSearchState(),
                     };
-                    this.levelInfo = {};  // Keeps track of level info across states
+                    this.levelInfo = {    // Keeps track of level info across states
+                        elephantLocation: {
+                            assetName: '',
+                            clueOne: '',
+                            clueTwo: '',
+                            direction: '',
+                        }
+                    };
                     this.gameInfo = {};   // Keeps track of game info (i.e. unlocks earned) across levels
 
                     fitCanvasToWindow();
