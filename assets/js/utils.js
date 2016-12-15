@@ -85,6 +85,15 @@ function scaleTo(object, { maxWidth: maxWidth,
     }
 }
 
+function toCenter(available, size) {
+    if (available > size) {
+        return (available - size) / 2;
+    }
+    else {
+        return 0;
+    }
+}
+
 function toCenterX(object, availableWidth=0) {
     let objectWidth = object.getBounds().width;
 
@@ -92,10 +101,15 @@ function toCenterX(object, availableWidth=0) {
         objectWidth *= object.scaleX;
     }
 
-    if (availableWidth > objectWidth) {
-        return (availableWidth - objectWidth) / 2;
+    return toCenter(availableWidth, objectWidth);
+}
+
+function toCenterY(object, availableHeight=0) {
+    let objectHeight = object.getBounds().height;
+
+    if (object.scaleY) {
+        objectHeight *= object.scaleY;
     }
-    else {
-        return 0;
-    }
+
+    return toCenter(availableHeight, objectHeight);
 }

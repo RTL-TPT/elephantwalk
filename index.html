@@ -165,7 +165,7 @@
                         levelId = getLevel().id;
 
                     for (let symbol of symbols) {
-                        for (let [symbolType, ext] of [ ['detail', 'jpg'], ['non-abstract', 'png']]) {
+                        for (let [symbolType, ext] of [ ['detail', 'jpg'], ['non-abstract', 'png']]) { // TODO
                             preload.append({
                                 id: `${symbol}-${symbolType}`,
                                 src: `assets/images/${levelId}/symbols/${symbol}/${symbolType}.${ext}`,
@@ -235,51 +235,51 @@
                 }
 
                 function makeClueDetail(onClue='clueOne') {
-                    let showClue = app.levelInfo.elephantLocation[onClue],
-                        clueDetailContainer,
-                        symbolBitmap,
+                    let symbolName = app.levelInfo.elephantLocation[onClue],
                         unlocksContainer,
+                        unlockWidth = 100,
+                        unlockHeight = 300,
+                        clueDetailContainer,
+                        detailWidth = 800,
+                        detailHeight = 600,
+                        detailPadding = 50,
+                        symbolBitmap,
                         symbolText;
 
-                    clueDetailContainer = new UiContainer(100, 50, 800, 600,
+                    clueDetailContainer = new UiContainer(100, 50, detailWidth, 600,
                             {borderColor: "#000000", borderWidth: 8},
                             {backgroundColor: "rgba(255, 255, 255, 1"});
                     clueDetailContainer.name = 'clue';
-                    clueDetailContainer.onClue = onClue;
 
-                    unlocksContainer = createUnlocks(showClue, clueDetailContainer.width - 150);
+                    unlocksContainer = createUnlocks(symbolName, clueDetailContainer.width - unlockWidth,
+                            toCenter(detailHeight, unlockHeight), unlockWidth, unlockHeight);
                     clueDetailContainer.addChild(unlocksContainer);
 
-                    symbolBitmap = new Bitmap(app.getCache(`${showClue}-detail`)),
-                    symbolBitmap.x = 50;
-                    symbolBitmap.y = 50;
-                    symbolBitmap.scaleX = 0.6;
-                    symbolBitmap.scaleY = 0.6;
+                    symbolBitmap = new ScaledBitmap(app.getCache(`${symbolName}-detail`), {
+                                maxWidth: (detailWidth - detailPadding * 2) - unlockWidth,
+                                maxHeight: detailHeight - detailPadding * 2,
+                            }),
+                    symbolBitmap.x = detailPadding;
+                    symbolBitmap.y = detailPadding;
                     clueDetailContainer.addChild(symbolBitmap);
 
-                    symbolText = new Text(ucFirst(showClue), "35px Arial");
-                    symbolText.x = 0;
+                    symbolText = new Text(ucFirst(symbolName), "35px Arial");
+                    symbolText.x = toCenterX(symbolText, detailWidth);
                     symbolText.y = 500;
                     clueDetailContainer.addChild(symbolText);
 
                     clueDetailContainer.on('mousedown', ev => {
-                        rotatePlayer();
-
                         ev.currentTarget.removeAllEventListeners();
                         ev.currentTarget.parent.removeChild(ev.currentTarget);
-                        if (ev.currentTarget.onClue === 'clueOne') {
-                            makeClueDetail();
+
+                        rotatePlayer();
+
+                        if (onClue === 'clueOne') {
+                            makeClueDetail('clueTwo');
                         }
                     });
 
                     app.states.clues.panel.addChild(clueDetailContainer);
-                    app.states.clues.sawClueOne = true;
-                }
-
-                function discernPlayerClue() {
-                    let sawClueOne = !! app.states.clues.sawClueOne;
-
-                    return ! sawClueOne ? 'clueOne': 'clueTwo';
                 }
 
                 function setLevelElephantLocation() {
