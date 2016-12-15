@@ -33,6 +33,7 @@
         <!-- Game methods -->
         <script src="assets/js/map.js"></script>
         <script src="assets/js/exploration.js"></script>
+        <script src="assets/js/utils.js"></script>
     </head>
     <body class="md">
         <div id="content" class="canvas">
@@ -44,12 +45,9 @@
                     Button = include('springroll.easeljs.Button'),
                     EaselJSDisplay = include('springroll.EaselJSDisplay'),
                     Bitmap = include('createjs.Bitmap'),
-                    LoadQueue = include('createjs.LoadQueue'),
                     Container = include('createjs.Container'),
                     Shape = include('createjs.Shape'),
                     Text = include('createjs.Text'),
-                    createPromote = include('createjs.promote'),
-                    createExtend = include('createjs.extend'),
                     State = include('springroll.State');
 
                 function getLevel() {
@@ -229,34 +227,6 @@
 
                     return unlocksContainer;
                 }
-
-                function UiContainer(x=0, y=0, width=100, height=100,
-                                    {borderColor: borderColor, borderWidth: borderWidth=1},
-                                    {backgroundColor: backgroundColor}) {
-                    this.Container_constructor();
-
-                    this.x = x;
-                    this.y = y;
-
-                    if (borderColor) {
-                        borderRect = new Shape();
-                        borderRect.name = 'border';
-                        borderRect.graphics.beginStroke(borderColor)
-                            .setStrokeStyle(borderWidth)
-                            .drawRect(0, 0, width, height);
-                        this.addChild(borderRect);
-                    }
-
-                    if (backgroundColor) {
-                        backgroundRect = new Shape();
-                        backgroundRect.name = 'background';
-                        backgroundRect.graphics.beginFill(backgroundColor)
-                            .drawRect(0, 0,  width, height);
-                        this.addChild(backgroundRect);
-                    }
-                }
-                createExtend(UiContainer, Container);
-                UiContainer = createPromote(UiContainer, "Container");
 
                 function makeClueDetail(onClue='clueOne') {
                     let showClue = app.levelInfo.elephantLocation[onClue],
