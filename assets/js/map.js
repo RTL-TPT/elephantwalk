@@ -223,14 +223,18 @@ function createMap() {
     return mapContainer;
 }
 
-function makeMap(doDefog=false, x=0, y=0, scale=1) {
+function makeMap({doDefog: doDefog=false, x: x=0, y: y=0, width: width}={}) {
     let stateContainer = app.manager.currentState.panel,
         mapContainer = createMap();
 
     mapContainer.x = x;
     mapContainer.y = y;
-    mapContainer.scaleX = scale;
-    mapContainer.scaleY = scale;
+
+    if (width) {
+        scaleTo(mapContainer, {
+            width: width,
+        });
+    }
 
     stateContainer.addChild(mapContainer);
 
@@ -282,13 +286,13 @@ function getLevelState() {
         });
 
     state.on('loaded', function(event) {
-        let whiteSpace = (CANVAS_WIDTH - getMapInfo().MAP_WIDTH) - (CANVAS_PADDING * 2),
-            equalSpaceOnEachSide = Math.floor(whiteSpace / 2),
-            doDefog = getLevel().tutorial;
+        let availableWidth = CANVAS_WIDTH - (CANVAS_PADDING * 2);
 
         app.levelInfo = {};  // Reset for every started level
 
-        makeMap(doDefog, equalSpaceOnEachSide, 0);
+        makeMap({doDefog: getLevel().tutorial,
+                x: toCenter(availableWidth, getMapInfo().MAP_WIDTH),
+                y: 0});
     });
     state.on('exit', function(event) {
         //this.panel.removeAllChildren();

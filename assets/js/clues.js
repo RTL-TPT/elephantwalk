@@ -279,11 +279,14 @@ function getClueState() {
     state.on('loaded', function(event) {
         let stateContainer = app.states.clues.panel,
             sidebarWidth = 200,
+            mapPadding = 50,
+            availableWidth = CANVAS_WIDTH - mapPadding - sidebarWidth,
             doneButton;
 
         setLevelElephantLocation();
 
-        makeMap(false, 50, 50, 0.75); // TODO: Compute width (scaleTo)
+        makeMap({doDefog: false, x: mapPadding, y: mapPadding,
+                width: availableWidth});
         makeMapSymbols(); 
         makeSidebar();
 
