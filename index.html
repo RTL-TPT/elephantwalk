@@ -201,26 +201,32 @@
                     }
                 }
 
-                function createUnlocks(symbol) {
-                    let unlocksContainer = new Container(),
+                function createUnlocks(symbol, x=0, y=0, width=150, height=300) {
+                    let unlocksContainer = new UiContainer(x, y, width, height,
+                                                           {borderColor: 'black'}),
                         symbolName,
                         unlockIcon,
-                        unlockY = -100;
+                        unlockY = -80;
 
                     unlocksContainer.name = 'unlocks';
 
                     for (let abstraction of SYMBOL_DIFFICULTIES) {
                         symbolName = `${symbol}-${abstraction}-abstract`;
                         if (symbolName in app.assetManager.cache._cache) {
-                            unlockIcon = new Bitmap(app.getCache(symbolName));
-                            unlockIcon.scaleX = 0.33;
-                            unlockIcon.scaleY = 0.33;
+                            unlockIcon = new ScaledBitmap(app.getCache(symbolName), {
+                                                                maxWidth: width,
+                                                                maxHeight: height,
+                                                                width: 100,
+                                                                height: 50,
+                                                            });
                         }
                         else {
                             unlockIcon = new Bitmap(app.getCache('not-unlocked'));
+                            unlockIcon.scaleX = 1.3;
+                            unlockIcon.scaleY = 1.3;
                         }
                         unlockIcon.name = symbolName;
-                        unlockIcon.x = 0;
+                        unlockIcon.x = toCenterX(unlockIcon, width);
                         unlockIcon.y = unlockY += 100;
                         unlocksContainer.addChild(unlockIcon);
                     }
@@ -241,9 +247,7 @@
                     clueDetailContainer.name = 'clue';
                     clueDetailContainer.onClue = onClue;
 
-                    unlocksContainer = createUnlocks(showClue);
-                    unlocksContainer.x = 650;
-                    unlocksContainer.y = 100;
+                    unlocksContainer = createUnlocks(showClue, clueDetailContainer.width - 150);
                     clueDetailContainer.addChild(unlocksContainer);
 
                     symbolBitmap = new Bitmap(app.getCache(`${showClue}-detail`)),
@@ -253,9 +257,8 @@
                     symbolBitmap.scaleY = 0.6;
                     clueDetailContainer.addChild(symbolBitmap);
 
-                    ucFirst = showClue.slice(0,1).toUpperCase() + showClue.slice(1);
-                    symbolText = new Text(ucFirst, "35px Arial");
-                    symbolText.x = 300;
+                    symbolText = new Text(ucFirst(showClue), "35px Arial");
+                    symbolText.x = 0;
                     symbolText.y = 500;
                     clueDetailContainer.addChild(symbolText);
 
