@@ -151,19 +151,28 @@
                 function createDoneButton(x=0, y=0, text="Done") {
                     let doneButton = app.getCache('done-button');
 
+                    doneButton.name = 'done';
                     doneButton.x = x;
                     doneButton.y = y;
 
                     doneButton.on('mousedown', ev => {
-                            // TODO: All this
-                            //if (symbolName === clueName) {
-                            //    let clue = createSelectedClue(`${ev.currentTarget.name}-non-abstract`); // TODO: Other abstractions
-                            //    stateContainer.addChild(clue);
-                            //    rotatePlayer();
-                            //}
+                        let sidebarContainer = app.states.clues.panel.getChildByName('sidebar'),
+                            guessOne = '',
+                            guessTwo = '',
+                            {clueOne: clueOne,
+                             clueTwo: clueTwo} = app.levelInfo.elephantLocation;
 
-                            //app.states.clues.previousState()
-                        }); // TODO: Next state
+                        guessOne = sidebarContainer.getChildByName('guessOne').getChildByName('guess').symbolName;
+                        guessTwo = sidebarContainer.getChildByName('guessTwo').getChildByName('guess').symbolName;
+
+                        if (clueOne === guessOne && clueTwo === guessTwo) {
+                            alert('Well done');
+                            app.states.clues.previousState();  // TODO: Next state
+                        }
+                        else {
+                            alert('Try again');
+                        }
+                    });
 
                     return doneButton;
                 }
@@ -273,6 +282,7 @@
                                     height: guessHeight - 80,
                                 });
                             guessBitmap.name = 'guess';
+                            guessBitmap.symbolName = symbolName;
 
                             if (guessContainer.getChildAt(0).name === 'guess') {
                                 guessContainer.removeChildAt(0);
