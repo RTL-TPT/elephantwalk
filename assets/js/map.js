@@ -39,21 +39,6 @@ function forEachTile(fn) {
     });
 }
 
-function createTile(id, columnIndex, rowIndex) {
-    let bitmapContainer = new Container(),
-        bitmap = app.getCache(id);
-
-    bitmapContainer.name = id;
-
-    bitmap.x = columnIndexToPx(columnIndex);
-    bitmap.y = rowIndexToPx(rowIndex);
-    bitmap.name = 'tile';
-
-    bitmapContainer.addChild(bitmap);
-
-    return bitmapContainer;
-}
-
 function getTileSlot(forAssetName) {
     let slot = [];
     forEachTile((assetName, columnIndex, rowIndex) => {
@@ -112,7 +97,7 @@ function createFog(assetName, columnIndex, rowIndex) {
 }
 
 function makeFog() {
-    let mapContainer = app.states.level.panel.getChildByName('map'),
+    let mapContainer = app.manager.currentState.panel.getChildByName('map'),
         tileContainer;
 
     forEachTile((assetName, columnIndex, rowIndex) => {
@@ -159,88 +144,106 @@ function randomFoggedTileSlot() {
     return getTileSlot(randomTile.name);
 }
 
-function makeSelection() {
-    let selectedSlot = randomFoggedTileSlot(),
-        mapContainer = app.states.level.panel.getChildByName('map'),
-        tileSelection = createSelection(getAssetName(...selectedSlot),
-                                            ...selectedSlot);
+function makeSelection(slot) {
+    let mapContainer = app.manager.currentState.panel.getChildByName('map'),
+        tileSelection = createSelection(getAssetName(...slot), ...slot);
 
     mapContainer.addChild(tileSelection);
-
-    rotatePlayer();
 }
 
-function rotatePlayer() {
-    let player = app.states.level.player =
-        (app.states.level.player === undefined) ? 0 : ! app.states.level.player;
+function removeSelections() {
+    let mapContainer = app.manager.currentState.panel.getChildByName('map');
 
-    console.log("Player", player + 1, "make your selection.");
+    mapContainer.removeChild(mapContainer.getChildByName('selection'));
 }
 
-function createMap(levelNumber) {
+function createTile(id, columnIndex, rowIndex, callback) {
+    let bitmapContainer = new Container(),
+        bitmap = app.getCache(id);
+
+    bitmapContainer.name = id;
+    bitmapContainer.slot = [columnIndex, rowIndex];
+
+    bitmap.x = columnIndexToPx(columnIndex);
+    bitmap.y = rowIndexToPx(rowIndex);
+    bitmap.name = 'tile';
+
+    if (callback) {
+        bitmapContainer.on('mousedown', callback);
+    }
+
+    bitmapContainer.addChild(bitmap);
+
+    return bitmapContainer;
+}
+
+function createMap(tileCallback) {
     let mapContainer = new Container(),
         tileContainer;
 
     mapContainer.name = 'map';
 
     forEachTile((assetName, columnIndex, rowIndex) => {
-        tileContainer = createTile(assetName, columnIndex, rowIndex);
+        tileContainer = createTile(assetName, columnIndex, rowIndex, tileCallback);
         mapContainer.addChild(tileContainer);
     });
 
     return mapContainer;
 }
 
-function makeMap() {
-    let mapContainer = createMap(),
-        whiteSpace = (CANVAS_WIDTH - getMapInfo().MAP_WIDTH) - (CANVAS_PADDING * 2),
-        equalSpaceOnEachSide = Math.floor(whiteSpace / 2);
+function makeMap({doDefog: doDefog=false, x: x=0, y: y=0, width: width}={}, tileCallback) {
+    let stateContainer = app.manager.currentState.panel,
+        mapContainer = createMap(tileCallback);
 
-    mapContainer.x = equalSpaceOnEachSide;
-    mapContainer.y = 0;
+    mapContainer.x = x;
+    mapContainer.y = y;
 
-    app.states.level.panel.addChild(mapContainer);
+    if (width) {
+        scaleTo(mapContainer, {
+            width: width,
+        });
+    }
 
-    if (getLevel().tutorial) {
+    stateContainer.addChild(mapContainer);
+
+    if (doDefog) {
         mapContainer.tilesToUncover = getMapInfo().NUM_TILES;
         makeFog();
-        makeSelection();
+        rotatePlayer();
+        makeSelection(randomFoggedTileSlot());
     }
 }
 
-function getPreloadConf(levelNumber) {
+function getPreloadTiles() {
     let preload = [],
-        level = getLevel().tiles;
+        levelId = getLevel().id;
 
     forEachTile((assetName, columnIndex, rowIndex) => {
-        // Tile asset
         preload.append({ 
             id: assetName,
-            src: `assets/images/level${levelNumber}-easy/${assetName}.gif`,
+            src: `assets/images/${levelId}/${assetName}.gif`,
             format: "createjs.Bitmap",
         });
-
-        // Tile exploration assets
-        for (direction of TILE_DIRECTIONS) {
-            preload.append({ 
-                id: `${assetName}-${direction}`,
-                src: `assets/images/level${levelNumber}-easy/${assetName}/${direction}.jpg`,
-                format: "createjs.Bitmap",
-            });
-        }
     });
 
     return preload;
 }
 
-function getLevelState(levelNumber) {
-    let preloadConfig = getPreloadConf(levelNumber);
-    let state = new State(new Container(), {
-        preload: preloadConfig,
-    });
+function getLevelState() {
+        state = new State(new Container(), {
+            preload: [].append(getPreloadTiles(),
+                               getPreloadExplorePanes()),
+            next: 'clues',
+        });
 
     state.on('loaded', function(event) {
-        makeMap();
+        let availableWidth = CANVAS_WIDTH - (CANVAS_PADDING * 2);
+
+        app.levelInfo = {};  // Reset for every started level
+
+        makeMap({doDefog: getLevel().tutorial,
+                x: toCenter(availableWidth, getMapInfo().MAP_WIDTH),
+                y: 0});
     });
     state.on('exit', function(event) {
         //this.panel.removeAllChildren();

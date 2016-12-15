@@ -1,3 +1,20 @@
+function getPreloadExplorePanes() {
+    let preload = [],
+        levelId = getLevel().id;
+
+    forEachTile((assetName, columnIndex, rowIndex) => {
+        for (direction of TILE_DIRECTIONS) {
+            preload.append({ 
+                id: `${assetName}-${direction}`,
+                src: `assets/images/${levelId}/${assetName}/${direction}.jpg`,
+                format: "createjs.Bitmap",
+            });
+        }
+    });
+
+    return preload;
+}
+
 function createGpsCone(assetName, direction) {
     let tileSlot = getTileSlot(assetName),
         points = getPointsForTileDirections(...tileSlot)[direction]; 
@@ -14,12 +31,14 @@ function createGpsCone(assetName, direction) {
 }
 
 function removeFogPiece(assetName, direction) {
-    let mapContainer = app.states.level.panel.getChildByName('map'),
+    let mapContainer = app.manager.currentState.panel.getChildByName('map'),
         tileContainer = mapContainer.getChildByName(assetName),
-        fogContainer = tileContainer.getChildByName('fog'),
-        triangle = fogContainer.getChildByName(direction);
+        fogContainer = tileContainer.getChildByName('fog');
 
-    fogContainer.removeChild(triangle);
+    if (fogContainer) {
+        triangle = fogContainer.getChildByName(direction);
+        fogContainer.removeChild(triangle);
+    }
 }
 
 function createExploreArrow(direction=TILE_DIRECTIONS[0], x=0, y=0) {
@@ -37,7 +56,7 @@ function createExploreArrow(direction=TILE_DIRECTIONS[0], x=0, y=0) {
             slideIsOver = false,
             firstView = TILE_DIRECTIONS[0],
             explorePane = explorationContainer.getChildByName('pane'),
-            mapContainer = app.states.level.panel.getChildByName('map'),
+            mapContainer = app.manager.currentState.panel.getChildByName('map'),
             tileContainer = mapContainer.getChildByName(assetName);
 
 
@@ -53,7 +72,10 @@ function createExploreArrow(direction=TILE_DIRECTIONS[0], x=0, y=0) {
 
             mapContainer.tilesToUncover -= 1;
             if (mapContainer.tilesToUncover > 0) {
-                makeSelection();
+                makeSelection(randomFoggedTileSlot());
+            }
+            else {
+                app.manager.currentState.nextState();
             }
         } 
         else {
@@ -84,12 +106,12 @@ function createExplorePane(x=0, y=0) {
     explorePane.name = 'pane';
     explorePane.x = x;
     explorePane.y = y;
-    explorePane.scaleX = getPaneScale()
+    explorePane.scaleX = getPaneScale();
 
     return explorePane;
 }
 
-function createExplore(assetName, x, y) {
+function createExplore(assetName, x=0, y=0) {
     let context = {},
         arrow,
         leftArrowX = x,
@@ -97,7 +119,7 @@ function createExplore(assetName, x, y) {
         miniMapScale = 0.20,
         miniMapPadding = 15,
         paneBottomX = x + PANE_PADDING + PANE_HEIGHT + x;
-        mapContainer = app.states.level.panel.getChildByName('map'),
+        mapContainer = app.manager.currentState.panel.getChildByName('map'),
         tileContainer = mapContainer.getChildByName(assetName);
         explorePane = createExplorePane(x + PANE_PADDING, y);
         explorationContainer = new Container();
@@ -133,5 +155,5 @@ function createExplore(assetName, x, y) {
 
 function makeExplore(assetName, x=0, y=PANE_PADDING) {
     let explorationContainer = createExplore(assetName, x, y);
-    app.states.level.panel.addChildAt(explorationContainer, 0);
+    app.manager.currentState.panel.addChildAt(explorationContainer, 0);
 }

@@ -27,11 +27,14 @@
         <script src="dist/core.js"></script>
         <script src="dist/modules/debug.js"></script>
         <script src="dist/modules/easeljs-display.js"></script>
+        <script src="dist/modules/easeljs-ui.js"></script>
         <script src="dist/modules/states.js"></script>
 
         <!-- Game methods -->
+        <script src="assets/js/utils.js"></script>
         <script src="assets/js/map.js"></script>
         <script src="assets/js/exploration.js"></script>
+        <script src="assets/js/clues.js"></script>
     </head>
     <body class="md">
         <div id="content" class="canvas">
@@ -40,20 +43,49 @@
 
                 // Include classes
                 var Application = include('springroll.Application'),
+                    Button = include('springroll.easeljs.Button'),
                     EaselJSDisplay = include('springroll.EaselJSDisplay'),
                     Bitmap = include('createjs.Bitmap'),
-                    LoadQueue = include('createjs.LoadQueue'),
-                    Container = include('createjs.Container');
-                    Shape = include('createjs.Shape');
+                    Container = include('createjs.Container'),
+                    Shape = include('createjs.Shape'),
+                    Text = include('createjs.Text'),
                     State = include('springroll.State');
 
                 function getLevel() {
                     return {
+                        id: 'level1-easy',
                         tutorial: true,
                         tiles: [
                             ['forest-mountain', 'hill-mountain'],
                             ['desert-forest',   'desert-hill']
                         ],
+                        elephantLocations: [['hill-mountain', 'south'],
+                                            ['desert-hill', 'south']],
+                        symbols: {
+                            mountain: {
+                                unlocked: ['non-abstract'],
+                                assetName: 'non-abstract',
+                                x: 184,
+                                y: 42,
+                            },
+                            forest: {
+                                assetName: 'non-abstract',
+                                x: 138,
+                                y: 270,
+                            },
+                            hill: {
+                                unlocked: ['non-abstract'],
+                                assetName: 'non-abstract',
+                                x: 557,
+                                y: 275,
+                            },
+                            desert: {
+                                unlocked: ['non-abstract'],
+                                assetName: 'non-abstract',
+                                x: 330,
+                                y: 454,
+                            },
+                        },
                         tileWidth: 471,
                         tileHeight: 308,
                     }
@@ -62,6 +94,8 @@
                 const CANVAS_HEIGHT = 768;
                 const CANVAS_WIDTH = 1024;
                 const CANVAS_PADDING = 10;
+                const LEVEL_DIFFICULTIES = ['easy', 'medium', 'hard'];
+                const SYMBOL_ABSTRACTIONS = ['non-abstract', 'partial-abstract', 'full-abstract'];
                 const TILE_DIRECTIONS = ['west', 'north', 'east', 'south'];
                 const TILE_WIDTH = getLevel().tileWidth;
                 const TILE_HEIGHT = getLevel().tileHeight;
@@ -92,15 +126,18 @@
                             src: 'assets/images/right-arrow.png',
                             format: 'createjs.Bitmap',
                         },
+                        {
+                            id: 'player-icon',
+                            src: 'assets/images/player-icon.png',
+                            format: 'createjs.Bitmap',
+                        },
+                        {
+                            id: 'done-button',
+                            src: 'assets/images/done-button.png',
+                            format: 'createjs.Bitmap',
+                        },
                     ],
                 });
-
-                function getClueState() {
-                    let state = new State(new Container(), {
-                        previous: 'level',
-                    });
-                    return state;
-                }
 
                 var fitCanvasToWindow = function() {
                     var canvasOffset = 20;
@@ -116,9 +153,11 @@
                 // Wait until the app is ready
                 app.once('init', function() {
                     this.states = {
-                        level: getLevelState(1),
-                        clue: getClueState(),
-                    }
+                        level: getLevelState(),
+                        clues: getClueState(),
+                    };
+                    this.levelInfo = {};  // Keeps track of level info across states
+                    this.gameInfo = {};   // Keeps track of game info (i.e. unlocks earned) across levels
 
                     fitCanvasToWindow();
                 });
