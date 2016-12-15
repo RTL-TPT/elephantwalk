@@ -176,6 +176,51 @@
                     return preload;
                 }
 
+                function makeSidebar() {
+                    let stateContainer = app.states.clues.panel,
+                        sidebarWidth = 200,
+                        sidebarPadding = 25,
+                        guessWidth = 150,
+                        guessHeight = 175,
+                        guessOneContainer,
+                        guessTwoContainer;
+
+                    sidebarContainer = new UiContainer({
+                                width: sidebarWidth,
+                                height: CANVAS_HEIGHT,
+                                x: CANVAS_WIDTH - sidebarWidth,
+                                y: 0,
+                                borderColor: 'black',
+                            });
+                    sidebarContainer.name = 'sidebar';
+
+                    guessOneContainer = new UiContainer({
+                                x: toCenter(sidebarWidth, guessWidth),
+                                y: sidebarPadding,
+                                width: guessWidth,
+                                height: guessHeight,
+                                borderColor: 'black',
+                            });
+                    guessOneContainer.name = 'guessOne';
+                    sidebarContainer.addChild(guessOneContainer);
+
+                    guessTwoContainer = new UiContainer({
+                                x: toCenter(sidebarWidth, guessWidth),
+                                y: guessHeight + 50,
+                                width: guessWidth,
+                                height: guessHeight,
+                                borderColor: 'black',
+                            });
+                    guessTwoContainer.name = 'guessTwo';
+                    sidebarContainer.addChild(guessTwoContainer);
+
+                    doneButton = createDoneButton(sidebarPadding,
+                                                  CANVAS_HEIGHT - 50 - sidebarPadding);
+                    sidebarContainer.addChild(doneButton);
+
+                    stateContainer.addChild(sidebarContainer);
+                }
+
                 function makeMapSymbols() {
                     let stateContainer = app.states.clues.panel,
                         mapContainer = stateContainer.getChildByName('map'),
@@ -185,8 +230,8 @@
 
                     for (symbolName of getLevel().symbols) {
                         assetName = `${symbolName}-non-abstract`;
+
                         symbol = new Bitmap(app.getCache(assetName)); // TODO: Other abstractions
-                        symbol.name = 'symbol';
 
                         symbolContainer = new UiContainer({
                                     x: getLevel().symbol[symbolName].x, 
@@ -198,11 +243,13 @@
                                 });
                         symbolContainer.name = symbolName;
 
+                        symbol.name = 'symbol';
                         symbolContainer.addChild(symbol);
 
                         symbolContainer.on('mousedown', ev => {
                             let symbolName = ev.currentTarget.name,
-                                onClue = (app.states.clues.player === 1) ? 'clueOne' : 'clueTwo',
+                                player = app.states.clues.player,
+                                onClue = (player === 1) ? 'clueOne' : 'clueTwo',
                                 clueName = app.levelInfo.elephantLocation[onClue];
 
                             if (symbolName === clueName) {
@@ -334,15 +381,14 @@
 
                     state.on('loaded', function(event) {
                         let stateContainer = app.states.clues.panel,
+                            sidebarWidth = 200,
                             doneButton;
 
                         setLevelElephantLocation();
 
-                        makeMap(false, 50, 50, 0.8);
+                        makeMap(false, 50, 50, 0.8); // TODO: Compute width
                         makeMapSymbols(); 
-
-                        doneButton = createDoneButton(850, 625)
-                        stateContainer.addChild(doneButton);
+                        makeSidebar();
 
                         rotatePlayer(1);
                         makeClueDetail();
@@ -360,8 +406,8 @@
                         level: getLevelState(),
                         clues: getClueState(),
                     };
-                    this.levelInfo = {};
-                    this.gameInfo = {};
+                    this.levelInfo = {};  // Keeps track of level info across states
+                    this.gameInfo = {};   // Keeps track of game info (i.e. unlocks earned) across levels
 
                     this.on('resize', function(w, h) {
                         //background.x = (w - background.image.width) / 2;

@@ -286,6 +286,8 @@ function getLevelState() {
             equalSpaceOnEachSide = Math.floor(whiteSpace / 2),
             doDefog = getLevel().tutorial;
 
+        app.levelInfo = {};  // Reset for every started level
+
         makeMap(doDefog, equalSpaceOnEachSide, 0);
     });
     state.on('exit', function(event) {
