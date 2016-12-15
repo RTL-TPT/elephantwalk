@@ -48,6 +48,8 @@
                     Container = include('createjs.Container'),
                     Shape = include('createjs.Shape'),
                     Text = include('createjs.Text'),
+                    createPromote = include('createjs.promote'),
+                    createExtend = include('createjs.extend'),
                     State = include('springroll.State');
 
                 function getLevel() {
@@ -103,8 +105,8 @@
                 var app = new Application({
                     canvasId: "stage",
                     resizeElement: "content",
-                    //state: 'clues',
-                    state: 'level',
+                    state: 'clues',
+                    //state: 'level',
                     debug: true,
                     display: EaselJSDisplay,
                     displayOptions: {
@@ -228,43 +230,64 @@
                     return unlocksContainer;
                 }
 
-                function makeClueDetail() {
-                    let sawClueOne = !! app.states.clues.sawClueOne,
-                        onClue = ! sawClueOne ? 'clueOne' : 'clueTwo',
-                        showClue = app.levelInfo.elephantLocation[onClue],
-                        symbolDetail = new Bitmap(app.getCache(`${showClue}-detail`)),
-                        clueDetailContainer = new Container(),
-                        unlocksContainer = createUnlocks(showClue),
-                        dialogBorder = new Shape(),
-                        dialogBox = new Shape(),
-                        symbolText = new Text(
-                                showClue.slice(0,1).toUpperCase() + showClue.slice(1),
-                                "35px Arial");
+                function UiContainer(x=0, y=0, width=100, height=100,
+                                    {borderColor: borderColor, borderWidth: borderWidth=1},
+                                    {backgroundColor: backgroundColor}) {
+                    this.Container_constructor();
 
+                    this.x = x;
+                    this.y = y;
+
+                    if (borderColor) {
+                        borderRect = new Shape();
+                        borderRect.name = 'border';
+                        borderRect.graphics.beginStroke(borderColor)
+                            .setStrokeStyle(borderWidth)
+                            .drawRect(0, 0, width, height);
+                        this.addChild(borderRect);
+                    }
+
+                    if (backgroundColor) {
+                        backgroundRect = new Shape();
+                        backgroundRect.name = 'background';
+                        backgroundRect.graphics.beginFill(backgroundColor)
+                            .drawRect(0, 0,  width, height);
+                        this.addChild(backgroundRect);
+                    }
+                }
+                createExtend(UiContainer, Container);
+                UiContainer = createPromote(UiContainer, "Container");
+
+                function makeClueDetail(onClue='clueOne') {
+                    let showClue = app.levelInfo.elephantLocation[onClue],
+                        clueDetailContainer,
+                        symbolBitmap,
+                        unlocksContainer,
+                        symbolText;
+
+                    clueDetailContainer = new UiContainer(100, 50, 800, 600,
+                            {borderColor: "#000000", borderWidth: 8},
+                            {backgroundColor: "rgba(255, 255, 255, 1"});
                     clueDetailContainer.name = 'clue';
                     clueDetailContainer.onClue = onClue;
-                    clueDetailContainer.x = 100;
-                    clueDetailContainer.y = 50;
 
-                    dialogBorder.graphics.beginStroke('#000000')
-                        .setStrokeStyle(8)
-                        .drawRect(0, 0, 800, 600);
-
-                    dialogBox.graphics.beginFill("rgba(255, 255, 255, 1")
-                        .drawRect(0, 0, 800, 600);
-
+                    unlocksContainer = createUnlocks(showClue);
                     unlocksContainer.x = 650;
                     unlocksContainer.y = 100;
+                    clueDetailContainer.addChild(unlocksContainer);
 
-                    symbolDetail.x = 50;
-                    symbolDetail.y = 50;
-                    symbolDetail.scaleX = 0.6;
-                    symbolDetail.scaleY = 0.6;
+                    symbolBitmap = new Bitmap(app.getCache(`${showClue}-detail`)),
+                    symbolBitmap.x = 50;
+                    symbolBitmap.y = 50;
+                    symbolBitmap.scaleX = 0.6;
+                    symbolBitmap.scaleY = 0.6;
+                    clueDetailContainer.addChild(symbolBitmap);
 
+                    ucFirst = showClue.slice(0,1).toUpperCase() + showClue.slice(1);
+                    symbolText = new Text(ucFirst, "35px Arial");
                     symbolText.x = 300;
                     symbolText.y = 500;
-
-                    clueDetailContainer.addChild(dialogBorder, dialogBox, symbolText, symbolDetail, unlocksContainer);
+                    clueDetailContainer.addChild(symbolText);
 
                     clueDetailContainer.on('mousedown', ev => {
                         rotatePlayer();
@@ -278,6 +301,12 @@
 
                     app.states.clues.panel.addChild(clueDetailContainer);
                     app.states.clues.sawClueOne = true;
+                }
+
+                function discernPlayerClue() {
+                    let sawClueOne = !! app.states.clues.sawClueOne;
+
+                    return ! sawClueOne ? 'clueOne': 'clueTwo';
                 }
 
                 function setLevelElephantLocation() {
@@ -315,17 +344,15 @@
                         let stateContainer = app.states.clues.panel,
                             doneButton;
 
+                        setLevelElephantLocation();
+
                         makeMap(false, 50, 50, 0.8);
+                        makeMapSymbols(); 
 
                         doneButton = createDoneButton(850, 625)
                         stateContainer.addChild(doneButton);
 
                         rotatePlayer(1);
-
-                        setLevelElephantLocation();
-
-                        makeMapSymbols(); 
-
                         makeClueDetail();
                     });
 
