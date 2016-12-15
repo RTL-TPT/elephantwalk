@@ -278,10 +278,9 @@ function getPreloadExplorePanes() {
 }
 
 function getLevelState() {
-    let preloadConfig = [].append(getPreloadTiles(),
-                                  getPreloadExplorePanes()),
         state = new State(new Container(), {
-            preload: preloadConfig,
+            preload: [].append(getPreloadTiles(),
+                               getPreloadExplorePanes()),
             next: 'clues',
         });
 
