@@ -74,7 +74,7 @@ function createExploreArrow(direction=TILE_DIRECTIONS[0], x=0, y=0) {
 
         if (slideIsOver) {
             this.removeAllEventListeners();
-            explorationContainer.parent.removeChild(explorationContainer); // TODO
+            explorationContainer.parent.removeChild(explorationContainer);
             tileContainer.removeChild(tileContainer.getChildByName('fog'));
             tileContainer.removeChild(tileContainer.getChildByName('gps'));
             mapContainer.setTransform(0, 0, 1, 1);

@@ -126,7 +126,7 @@ function createSelection(assetName, columnIndex, rowIndex) {
 }
 
 function randomFoggedTileSlot() {
-    let mapContainer = app.states.level.panel.getChildByName('map'),
+    let mapContainer = app.states.explore.panel.getChildByName('map'),
         foggedTileExists = mapContainer.children.some(
                 tileContainer => tileContainer.getChildByName('fog')),
         randomTileIndex = 0,
@@ -229,7 +229,7 @@ function getPreloadTiles() {
     return preload;
 }
 
-function getLevelState() {
+function getExploreState() {
         state = new State(new Container(), {
             preload: [].append(getPreloadTiles(),
                                getPreloadExplorePanes()),

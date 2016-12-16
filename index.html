@@ -33,7 +33,7 @@
         <!-- Game methods -->
         <script src="assets/js/utils.js"></script>
         <script src="assets/js/map.js"></script>
-        <script src="assets/js/exploration.js"></script>
+        <script src="assets/js/explore.js"></script>
         <script src="assets/js/clues.js"></script>
         <script src="assets/js/search.js"></script>
     </head>
@@ -110,7 +110,7 @@
                 // Create the new application
                 var app = new Application({
                     canvasId: "stage",
-                    state: 'level',
+                    state: 'explore',
                     debug: true,
                     display: EaselJSDisplay,
                     displayOptions: {
@@ -156,7 +156,7 @@
                 // Wait until the app is ready
                 app.once('init', function() {
                     this.states = {
-                        level: getLevelState(),
+                        explore: getExploreState(),
                         clues: getClueState(),
                         search: getSearchState(),
                     };
