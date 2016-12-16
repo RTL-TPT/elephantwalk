@@ -12,6 +12,14 @@ function getPreloadExplorePanes() {
         }
     });
 
+    for ([assetName, direction] of getLevel().elephantLocations) {
+        preload.append({
+            id: `${assetName}-${direction}-elephant`,
+            src: `assets/images/${levelId}/${assetName}/${direction}-elephant.jpg`,
+            format: "createjs.Bitmap",
+        });
+    }
+
     return preload;
 }
 
@@ -49,19 +57,20 @@ function createExploreArrow(direction=TILE_DIRECTIONS[0], x=0, y=0) {
     arrow.name = direction;
 
     arrow.on('mousedown', function(ev) {
-        let assetName = this.parent.assetName,
-            slides = this.parent.slides,
-            onSlide = this.parent.onSlide,
-            explorationContainer = this.parent,
+        let explorationContainer = this.parent,
+            assetName = explorationContainer.assetName,
+            slides = explorationContainer.slides,
+            onSlide = explorationContainer.onSlide,
+            direction,
             slideIsOver = false,
-            firstView = TILE_DIRECTIONS[0],
             explorePane = explorationContainer.getChildByName('pane'),
             mapContainer = app.manager.currentState.panel.getChildByName('map'),
             tileContainer = mapContainer.getChildByName(assetName);
+            elephantLocation = app.levelInfo.elephantLocation;
 
 
-        slideIsOver = (this.name === firstView) ? (onSlide === 0)
-                                                : (onSlide === slides.length - 1);
+        slideIsOver = (this.name === 'left') ? (onSlide === 0)
+                                             : (onSlide === slides.length - 1);
 
         if (slideIsOver) {
             this.removeAllEventListeners();
@@ -83,10 +92,24 @@ function createExploreArrow(direction=TILE_DIRECTIONS[0], x=0, y=0) {
             explorePane.removeAllChildren();
             removeFogPiece(assetName, TILE_DIRECTIONS[onSlide]);
 
-            (this.name === firstView) ? this.parent.onSlide = onSlide -= 1
-                                      : this.parent.onSlide = onSlide += 1;
+            (this.name === 'left') ? this.parent.onSlide = onSlide -= 1
+                                   : this.parent.onSlide = onSlide += 1;
 
-            explorePane.addChild(slides[onSlide]);
+
+            if (elephantLocation && elephantLocation.found) {
+                app.states.search.panel.removeAllChildren();  // TODO: Congratulations of some sort, the level is over.
+                alert('Level completed');
+            }
+
+            direction = TILE_DIRECTIONS[onSlide];
+            if (elephantLocation && elephantLocation.assetName === assetName
+                    && elephantLocation.direction === direction) {
+                explorePane.addChild(app.getCache(`${assetName}-${direction}-elephant`));
+                elephantLocation.found = true;
+            }
+            else {
+                explorePane.addChild(slides[onSlide]);
+            }
 
             tileContainer.removeChild(tileContainer.getChildByName('gps'));
             let gpsCone = createGpsCone(assetName, TILE_DIRECTIONS[onSlide]);
