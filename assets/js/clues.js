@@ -246,46 +246,82 @@ function createUnlocks(symbol, x=0, y=0, width=150, height=300) {
 
 function makeClueDetail(onClue='clueOne') {
     let symbolName = app.levelInfo.elephantLocation[onClue],
-        unlocksContainer,
-        unlockWidth = 100,
-        unlockHeight = 300,
+        //unlocksContainer,
+        //unlockWidth = 100,
+        //unlockHeight = 300,
         clueDetailContainer,
+        clueNameContainer,
         detailWidth = 800,
-        detailHeight = 600,
+        detailHeight = 660,
         detailPadding = 50,
         symbolBitmap,
         symbolText;
 
-    clueDetailContainer = new UiContainer({
-                x: 100, y: 50, width: detailWidth, height: 600,
-                borderColor: "#000000", borderWidth: 8,
-                backgroundColor: "rgba(255, 255, 255, 1"
+    //Modal grayout
+    modalSuperContainer= new UiContainer({
+                x: 0, y: 0, width: CANVAS_WIDTH, height: CANVAS_HEIGHT,
+                borderColor: "#000000", borderWidth: 0,
+                backgroundColor: "rgba(0, 0, 0, 0.75)"
             });
-    clueDetailContainer.name = 'clue';
+    //modalSuperContainer.name = 'modalSuperContainer';
 
-    unlocksContainer = createUnlocks(symbolName, clueDetailContainer.width - unlockWidth,
-            toCenter(detailHeight, unlockHeight), unlockWidth, unlockHeight);
-    clueDetailContainer.addChild(unlocksContainer);
+    //Clue UI container
+    clueDetailContainer = new UiContainer({
+                x: 100, y: 50, width: detailWidth, height: detailHeight,
+                borderColor: "#000000", borderWidth: 6,
+                backgroundColor: "rgba(200, 200, 200, 1)"
+            });
+    //clueDetailContainer.name = 'clue';
 
-    symbolBitmap = new ScaledBitmap(app.getCache(`${symbolName}-detail`), {
-                maxWidth: (detailWidth - detailPadding * 2) - unlockWidth,
-                maxHeight: detailHeight - detailPadding * 2,
-            }),
-    symbolBitmap.x = detailPadding;
-    symbolBitmap.y = detailPadding;
+    //Spyglass kid with sign bg
+    bgBitmap = new ScaledBitmap(app.getCache("clue-background"), {
+            maxWidth: (detailWidth - detailPadding * 2),
+            maxHeight: (detailWidth - detailPadding * 2) * 904 / 1188,
+        });
+    bgBitmap.x = detailPadding;
+    bgBitmap.y = detailPadding;
+    clueDetailContainer.addChild(bgBitmap);
+
+    //Area clue for sign
+    symbolBitmap = new ScaledBitmap(app.getCache(`clue-${symbolName}`), {
+            maxWidth: 450,
+            maxHeight: 450 * 904 / 1188,
+        });
+    symbolBitmap.x = 290;//detailPadding;
+    symbolBitmap.y = toCenterY(symbolBitmap, detailHeight) - 20;//detailPadding;
     clueDetailContainer.addChild(symbolBitmap);
 
+    //Clue text
+    clueNameContainer = new UiContainer({
+            x: (detailWidth / 2) - 100, y: 585, width: 200, height: 60,
+            borderColor: "#000000", borderWidth: 4,
+            backgroundColor: "rgba(255, 255, 255, 1)"
+        });
+    //clueNameContainer.name = 'cluetext';
+    clueDetailContainer.addChild(clueNameContainer);
     symbolText = new Text(ucFirst(symbolName), "35px Arial");
-    symbolText.x = toCenterX(symbolText, detailWidth);
-    symbolText.y = detailHeight - 100;
-    clueDetailContainer.addChild(symbolText);
+    symbolText.x = toCenterX(symbolText, 200);
+    symbolText.y = toCenterY(symbolText, 60);
+    clueNameContainer.addChild(symbolText);
 
+    //Modal close icon
+    closeIcon = new ScaledBitmap(app.getCache("close-button"), {
+            maxWidth: 50,
+            maxHeight: 50,
+        });
+    closeIcon.x = detailWidth - 50;
+    closeIcon.y = 0;
+    clueDetailContainer.addChild(closeIcon);
+
+    modalSuperContainer.addChild(clueDetailContainer);
+
+    //Events
     clueDetailContainer.on('mousedown', ev => {
         ev.currentTarget.removeAllEventListeners();
-        ev.currentTarget.parent.removeChild(ev.currentTarget);
+        ev.currentTarget.parent.parent.removeChild(ev.currentTarget.parent);
     });
 
-    app.states.clues.panel.addChild(clueDetailContainer);
+    app.states.clues.panel.addChild(modalSuperContainer);
 }
 
 function setLevelElephantLocation() {
