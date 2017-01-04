@@ -348,6 +348,58 @@ function getClueState() {
                 id: 'not-unlocked',
                 src: 'assets/images/not-unlocked.png',
             },
+            {
+                id: 'clue-bridge',
+                src: 'assets/images/clue/BRIDGE_clue.png',
+            },
+            {
+                id: 'clue-desert',
+                src: 'assets/images/clue/DESERT_clue.png',
+            },
+            {
+                id: 'clue-forest',
+                src: 'assets/images/clue/FOREST_clue.png',
+            },
+            {
+                id: 'clue-hill',
+                src: 'assets/images/clue/HILLS_clue.png',
+            },
+            {
+                id: 'clue-lake',
+                src: 'assets/images/clue/LAKE_clue.png',
+            },
+            {
+                id: 'clue-mountain',
+                src: 'assets/images/clue/MOUNTAIN_clue.png',
+            },
+            {
+                id: 'clue-ocean',
+                src: 'assets/images/clue/OCEAN_clue.png',
+            },
+            {
+                id: 'clue-park',
+                src: 'assets/images/clue/PARK_clue.png',
+            },
+            {
+                id: 'clue-road',
+                src: 'assets/images/clue/ROAD_clue.png',
+            },
+            {
+                id: 'clue-stream',
+                src: 'assets/images/clue/STREAM_clue.png',
+            },
+            {
+                id: 'clue-tree',
+                src: 'assets/images/clue/TREE_clue.png',
+            },
+            {
+                id: 'clue-waterfall',
+                src: 'assets/images/clue/WATERFALL_clue.png',
+            },
+            {
+                id: 'clue-background',
+                src: 'assets/images/clue/clue_bg.png',
+            }
         ].append(getPreloadSymbols(), getPreloadTiles()),
     });
 
