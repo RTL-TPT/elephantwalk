@@ -1,0 +1,71 @@
+img {
+    padding:0px;
+    border:0px;
+    margin:0px;
+}
+
+/*table, tr, td {
+    padding:0px;
+    border:0px;
+    margin:0px;
+}
+td {
+	text-align: center;
+}*/
+
+.gameCanvas {
+    position: absolute;
+    top: -384px;
+    left: -512px;
+    pointer-events:none;
+    /*z-index: 3;*/
+}
+.uiLayer {
+	background-color:rgb(200,200,200);
+    position: absolute;
+    width:1024px; 
+    height:768px;
+    top: -384px;
+    left: -512px;
+    user-select: none;
+    cursor:default;
+    /*z-index: 1;*/
+}
+.playerIcon {
+	position: absolute;
+	bottom:0px;
+	left:0px;
+	background-repeat: no-repeat;
+	width:calc(435px * 0.70);
+	height:calc(165px * 0.70);
+}
+.exploremap {
+	width: calc(475px * 2);
+	height: calc(310px * 2);
+	position: absolute;
+	top: 10px;
+	left: calc(50% - 475px);
+}
+.exploremap .mapSection {
+	/**/
+}
+.triangle {
+	width:0px;
+	height:0px;
+	border-left:calc(475px * 0.5) solid transparent;
+	border-right:calc(475px * 0.5) solid transparent;
+	border-top:calc(310px * 0.5) solid transparent;
+	border-bottom:calc(310px * 0.5) solid transparent;
+}
+.triangle.up{
+	border-top:calc(310px * 0.5) solid rgba(247,255,0,0.9);
+}
+.triangle.right{
+	border-right:calc(475px * 0.5) solid rgba(247,255,0,0.9);
+}
+.triangle.left{
+	border-left:calc(475px * 0.5) solid rgba(247,255,0,0.9);
+}
+.triangle.down{
+	border-bottom:calc(310px * 0.5) solid rgba(247,255,0,0.9);
+}

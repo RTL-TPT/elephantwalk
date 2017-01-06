@@ -42,7 +42,6 @@
     "commit": "516892d22d5d62ad0d311ac59cec7dc6c274df48"
   },
   "_source": "https://github.com/SpringRoll/SpringRoll.git",
-  "_target": "^0.4.26",
-  "_originalSource": "springroll",
-  "_direct": true
+  "_target": "~0.4",
+  "_originalSource": "springroll"
 }
