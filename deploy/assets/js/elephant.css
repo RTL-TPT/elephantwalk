@@ -69,3 +69,45 @@ td {
 .triangle.down{
 	border-bottom:calc(310px * 0.5) solid rgba(247,255,0,0.9);
 }
+.firstPerson {
+	font-size:0px;
+	display:inline-block;
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	pointer-events:none;
+}
+.mapGridOverlay {
+	width:100%;
+	height:100%;
+	font-size:0px;
+	display:inline-block;
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+.mapGrid {
+	font-size:0px;
+	display:inline-block;
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+.leftArrow {
+	background: url('../images/left-arrow.png');
+	position: absolute;
+	top: 300px;
+	left: 0px;
+	width: 51px; height: 74px;
+	display: none;
+}
+.rightArrow {
+	background: url('../images/right-arrow.png');
+	position: absolute;
+	top: 300px;
+	right: 0px;
+	width: 51px; height: 74px;
+	display: none;
+}
