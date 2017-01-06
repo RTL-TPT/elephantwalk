@@ -53,7 +53,7 @@
 			jQuery("#content").prepend(uiHTML);
 			jQuery("#uiLayer").addClass("uiLayer");
 		}
-		jQuery("canvas").addClass("gameCanvas");
+		jQuery("#frame canvas").addClass("gameCanvas");
 		setStateTitle(); //set state to title screen
 	}
 
