@@ -41,12 +41,12 @@
 	function create()
 	{
 		//game.stage.backgroundColor = "rgb(255,255,255)";
-		var logo = game.add.sprite(
+		/*var logo = game.add.sprite(
 			game.world.centerX, 
 			game.world.centerY, 
 			'logo'
 		);
-		logo.anchor.setTo(0.5, 0.5);
+		logo.anchor.setTo(0.5, 0.5);*/
 
 		var uiHTML = "<div id='uiLayer'></div>";
 		if(jQuery("#uiLayer").length === 0) {

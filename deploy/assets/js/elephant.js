@@ -151,6 +151,7 @@ var setStateExplore = function() {
 		jQuery("#uiLayer").html(data);
 		//init here
 		util.player.setPlayer(1);
+		jQuery("#uiLayer").addClass("bg1");
 		createExploreMap();
 	});
 };
