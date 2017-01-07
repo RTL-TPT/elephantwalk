@@ -116,3 +116,14 @@ td {
     height: 65px;
     display: none;
 }
+.returnBtn {
+	position: absolute;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    border-radius: 4px;
+    bottom: 116px;
+    left: calc(50% - 50px);
+    background-color: lightgray;
+    border: solid 2px black;
+}

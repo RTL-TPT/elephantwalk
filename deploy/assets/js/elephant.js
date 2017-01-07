@@ -14,6 +14,7 @@ var g_LEVELS = {
 var g_heading = "north";
 var g_activeTile = [0,1];
 var g_activeLevel = g_LEVELS["EASY"][0];
+var g_directionsRemaining = "nesw";
 
 //////////////// UTILITY
 ////////////////
@@ -105,10 +106,13 @@ var createExploreMap = function(difficulty,level) {
 	htmlout += "<div id='firstPerson' class='firstPerson'></div>";
 	jQuery("#exploremap").html(htmlout);
 	jQuery(".activeTile").click(function(){
+		g_directionsRemaining = "nesw".replace(g_heading[0], "");
 		jQuery("#firstPerson").html("<img style='display:inline-block' src='assets/images/level1-easy/"+cLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
 		jQuery(".arrow").show();
 		jQuery("#rightArrow").unbind().click(function(){rotateView("right")});
 		jQuery("#leftArrow").unbind().click(function(){rotateView("left")});
+		jQuery("#mapGrid").hide();
+		jQuery("#mapGridOverlay").hide();
 	});
 };
 
@@ -130,7 +134,26 @@ var rotateView = function(direction) {
 			g_heading = direction === "right" ? "north" : "south";
 			break;
 	}
+	g_directionsRemaining = g_directionsRemaining.replace(g_heading[0], "");
 	jQuery("#firstPerson").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
+	if(g_directionsRemaining === "" && jQuery("#returnBtn:visible").length === 0){
+		jQuery("#returnBtn").unbind().show().click(function(){
+			firstPersonToMap();
+		});
+	}
+};
+
+var firstPersonToMap = function() {
+	jQuery("#returnBtn").hide();
+	jQuery("#mapGrid").show();
+	jQuery("#mapGridOverlay").show();
+	jQuery("#firstPerson").html("");
+	jQuery("#rightArrow").hide();
+	jQuery("#leftArrow").hide();
+};
+
+var setNewExploreSpace = function() {
+	//
 };
 
 //////////////// State Transitions
