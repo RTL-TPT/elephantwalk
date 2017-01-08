@@ -84,6 +84,7 @@ var createExploreMap = function(difficulty,level) {
 	//var activeTile = [0,1]; //y,x
 	var cLevel = g_LEVELS[difficulty][0]; //set current level data
 	g_activeLevel = cLevel;
+	g_activeTile = [getRandomInt(0,g_activeLevel.length),getRandomInt(0,g_activeLevel.length)];
 	var htmlout = "<div id='mapGrid' class='mapGrid'>";
 	for(var indy = 0; indy < cLevel.length; indy++) {
 		for(var indx = 0; indx < cLevel[indy].length; indx++) {
@@ -100,19 +101,6 @@ var createExploreMap = function(difficulty,level) {
 		}
 	}
 	htmlout += "</div>";
-	//overlay
-	/*htmlout += "<table id='mapGridOverlay' class='mapGridOverlay'>";
-	for(var indy = 0; indy < cLevel.length; indy++) {
-		htmlout += "<tr>";
-		for(var indx = 0; indx < cLevel[indy].length; indx++) {
-			htmlout += "<td class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
-				+"' style='width:475px;height:310px;" 
-				+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "") 
-				+ "'>"+"</td>";
-		}
-		htmlout += "</tr>";
-	}
-	htmlout += "</table>";*/
 	htmlout += "<div id='firstPerson' class='firstPerson'></div>";
 	jQuery("#exploremap").html(htmlout);
 	bindActiveTile();
@@ -170,9 +158,24 @@ var firstPersonToMap = function() {
 
 var setNewExploreSpace = function() {
 	var remainingCoords = Object.keys(g_tilesRemaining);
+	if(remainingCoords.length === 0) {
+		setStateClue();
+		return;
+	}
 	var coordStr = remainingCoords[getRandomInt(0,remainingCoords.length)];
 	var newCoord = [coordStr.split(",")[0],coordStr.split(",")[1]];
 	g_activeTile = newCoord;
+	util.player.togglePlayer();
+	var	htmlout = "<div id='mapGridOverlay' class='mapGridOverlay'>";
+	for(var indy = 0; indy < g_activeLevel.length; indy++) {
+		for(var indx = 0; indx < g_activeLevel[indy].length; indx++) {
+			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
+				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
+		}
+	}
+	htmlout += "</div>";
+	jQuery("#mapGridOverlay").html(htmlout);
+	bindActiveTile();
 };
 
 function getRandomInt(min, max) {
@@ -204,7 +207,8 @@ var setStateExplore = function() {
 	});
 };
 var setStateClue = function() {
-	//
+	console.log("cluephase");
+	jQuery("#uiLayer").html("");
 };
 var setStateSearch = function() {
 	//
