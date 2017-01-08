@@ -13,6 +13,7 @@ var g_LEVELS = {
 };
 var g_heading = "north";
 var g_activeTile = [0,1];
+var g_tilesRemaining = {};
 var g_activeLevel = g_LEVELS["EASY"][0];
 var g_directionsRemaining = "nesw";
 
@@ -87,11 +88,20 @@ var createExploreMap = function(difficulty,level) {
 	for(var indy = 0; indy < cLevel.length; indy++) {
 		for(var indx = 0; indx < cLevel[indy].length; indx++) {
 			htmlout += "<img style='display:inline-block' src='assets/images/level1-easy/"+cLevel[indy][indx]+".gif'>";
+			g_tilesRemaining[""+indy+","+indx] = 1;
+		}
+	}
+	htmlout += "</div>";
+	htmlout += "<div id='mapGridOverlay' class='mapGridOverlay'>";
+	for(indy = 0; indy < cLevel.length; indy++) {
+		for(indx = 0; indx < cLevel[indy].length; indx++) {
+			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
+				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
 		}
 	}
 	htmlout += "</div>";
 	//overlay
-	htmlout += "<table id='mapGridOverlay' class='mapGridOverlay'>";
+	/*htmlout += "<table id='mapGridOverlay' class='mapGridOverlay'>";
 	for(var indy = 0; indy < cLevel.length; indy++) {
 		htmlout += "<tr>";
 		for(var indx = 0; indx < cLevel[indy].length; indx++) {
@@ -102,17 +112,22 @@ var createExploreMap = function(difficulty,level) {
 		}
 		htmlout += "</tr>";
 	}
-	htmlout += "</table>";
+	htmlout += "</table>";*/
 	htmlout += "<div id='firstPerson' class='firstPerson'></div>";
 	jQuery("#exploremap").html(htmlout);
+	bindActiveTile();
+};
+
+var bindActiveTile = function() {
 	jQuery(".activeTile").click(function(){
 		g_directionsRemaining = "nesw".replace(g_heading[0], "");
-		jQuery("#firstPerson").html("<img style='display:inline-block' src='assets/images/level1-easy/"+cLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
+		jQuery("#firstPerson").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
 		jQuery(".arrow").show();
 		jQuery("#rightArrow").unbind().click(function(){rotateView("right")});
 		jQuery("#leftArrow").unbind().click(function(){rotateView("left")});
 		jQuery("#mapGrid").hide();
 		jQuery("#mapGridOverlay").hide();
+		delete g_tilesRemaining[""+g_activeTile[0]+","+g_activeTile[1]];
 	});
 };
 
@@ -150,11 +165,21 @@ var firstPersonToMap = function() {
 	jQuery("#firstPerson").html("");
 	jQuery("#rightArrow").hide();
 	jQuery("#leftArrow").hide();
+	setNewExploreSpace();
 };
 
 var setNewExploreSpace = function() {
-	//
+	var remainingCoords = Object.keys(g_tilesRemaining);
+	var coordStr = remainingCoords[getRandomInt(0,remainingCoords.length)];
+	var newCoord = [coordStr.split(",")[0],coordStr.split(",")[1]];
+	g_activeTile = newCoord;
 };
+
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min)) + min;
+}
 
 //////////////// State Transitions
 ////////////////
