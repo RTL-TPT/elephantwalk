@@ -194,6 +194,23 @@ var setNewExploreSpace = function() {
 	bindActiveTile();
 };
 
+var openClueModal = function() {
+	var htmlout = "";
+	htmlout += "<div class='modalOverlay'></div>";
+	htmlout += "<div class='modalContainer'>";
+	htmlout += "<div class='closeBtn'></div>";
+	htmlout += "</div>";
+	jQuery("#uiLayer").append(htmlout);
+	jQuery(".modalContainer .closeBtn").click(function(){
+		closeModal();
+	});
+};
+
+var closeModal = function() {
+	jQuery(".modalContainer").remove();
+	jQuery(".modalOverlay").remove();
+};
+
 //////////////// State Transitions
 ////////////////
 
@@ -224,6 +241,9 @@ var setStateClue = function() {
 		//init here
 		util.player.setPlayer(1);
 		createClueMap();
+		jQuery(".clueBar .clueDrop2").unbind().click(function(){
+			openClueModal();
+		});
 	});
 };
 var setStateSearch = function() {

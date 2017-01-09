@@ -127,6 +127,9 @@ td {
     background-color: lightgray;
     border: solid 2px black;
 }
+.uiLayer.cluePhase {
+    background-color: black;
+}
 .clueMap {
     position: absolute;
     top: 50px;
@@ -139,9 +142,10 @@ td {
     position: absolute;
     top: 0px;
     right: 0px;
-    width: 200px;
-    height: 768px;
-    background-color: lightblue;
+    width: calc(200px - 8px);
+    height: calc(768px - 8px);
+    background-color: black;
+    border: solid 4px darkgray;
 }
 .clueBar .clueDrop1 {
     position: absolute;
@@ -153,29 +157,32 @@ td {
 }
 .clueBar .clueDrop2 {
     position: absolute;
-    top: calc(60px + 175px + 20px);
-    left: calc(50% - 75px);
-    width: 150px;
-    height: 175px;
+    background: url('../images/icon_legend.png') center center no-repeat;
+    bottom: calc(160px + 117px + 100px);
+    left: calc(50% - 58px);
+    width: 116px;
+    height: 117px;
     background-color: white;
 }
 .clueBar .clueLegend {
+    background: url('../images/icon_legend.png') center center no-repeat;
     position: absolute;
     bottom: 160px;
-    left: calc(50% - 50px);
-    width: 100px;
-    height: 100px;
+    left: calc(50% - 58px);
+    width: 116px;
+    height: 117px;
     background-color: white;
 }
 .clueBar .clueDoneBtn {
+    background: url('../images/btn_done.png') center center no-repeat;
     position: absolute;
-    bottom: 50px;
-    left: calc(50% - 75px);
-    width: 150px;
-    height: 60px;
-    background-color: white;
+    bottom: 26px;
+    left: calc(50% - 74px);
+    width: 148px;
+    height: 76px;
+    /*background-color: white;
     border-radius: 5px;
-    border: solid 2px black;
+    border: solid 2px black;*/
 }
 .cluePhase .playerIcon {
     position: absolute;
@@ -184,4 +191,44 @@ td {
     background-repeat: no-repeat;
     width: calc(435px * 0.50);
     height: calc(165px * 0.50);
+}
+.cluePhase .clueRect {
+    position: absolute;
+    bottom: 132px;
+    right: 12px;
+    border: solid 2px gray;
+    width: 172px;
+    height: 382px;
+}
+.cluePhase .clueIcon {
+    position: absolute;
+    background: url('../images/btn_exp_clue.gif') center center no-repeat;
+    width: 116px;
+    height: 117px;
+    left: 3px;
+}
+.modalOverlay {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:1024px;
+    height:768px;
+    background-color: rgba(0,0,0,0.5);
+}
+.modalContainer {
+    position: absolute;
+    top: 40px;
+    left: calc(50% - 450px);
+    width:900px;
+    height:600px;
+    background-color: white;
+}
+.modalContainer .closeBtn{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width:30px;
+    height:30px;
+    background: url('../images/closeicon-300.png');
+    background-size: 100% 100%;
 }
