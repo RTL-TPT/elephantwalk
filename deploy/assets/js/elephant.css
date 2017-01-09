@@ -136,7 +136,7 @@ td {
     left: 50px;
     width: 725px;
     height: 575px;
-    background-color: lightslategrey;
+    background-color: white;
 }
 .clueBar {
     position: absolute;
@@ -207,6 +207,13 @@ td {
     height: 117px;
     left: 3px;
 }
+.dragClue {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:250px;
+    height:100px;
+}
 .modalOverlay {
     position: absolute;
     top:0px;
@@ -221,14 +228,46 @@ td {
     left: calc(50% - 450px);
     width:900px;
     height:600px;
-    background-color: white;
+    background-color: lightgray;
 }
 .modalContainer .closeBtn{
     position: absolute;
     top: 0px;
     right: 0px;
-    width:30px;
-    height:30px;
+    width: 50px;
+    height: 50px;
     background: url('../images/closeicon-300.png');
     background-size: 100% 100%;
+}
+.modalContainer .clueContainer{
+    position: absolute;
+    top: 10px;
+    left: calc(50% - 300px);
+    width: 600px;
+    height: 454px;
+    background: url(../images/clue/clue_bg.png);
+    background-size: 100% 100%;
+}
+.modalContainer .clueImg{
+    position: absolute;
+    top: 22px;
+    left: 358px;
+    width: 380px;
+    height: 424px;
+}
+.modalContainer .clueImgSrc{
+    max-width: 100%;
+    vertical-align: middle;
+}
+.modalContainer .clueText {
+    width: 250px;
+    height: 70px;
+    position: absolute;
+    border: solid 3px black;
+    bottom: 20px;
+    left: calc(50% - 125px);
+    text-align: center;
+    background-color: white;
+    font-size: 30px;
+    line-height: 70px;
 }

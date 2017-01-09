@@ -16,6 +16,11 @@ var g_LEVEL_CLUE_LOCATION = { //y,x
 				{"forest":[1,0.5],"mountain":[0.5,1],"desert":[1.5,1],"hill":[1,1.5]}
 			]
 };
+var g_LEVEL_CLUES = {
+	"EASY": [
+				["hill","mountain"]
+			]
+};
 var g_heading = "north";
 var g_activeTile = [0,1];
 var g_tilesRemaining = {};
@@ -87,10 +92,27 @@ util.triangle = function() {
 
 //////////////// MISC
 ////////////////
-
 var createClueMap = function(difficulty,level) {
 	if(difficulty === undefined){difficulty="EASY"}
 	if(level===undefined){level=0}
+	var htmlout = "";
+	//create draggable clue features
+	jQuery.each(g_LEVEL_CLUE_LOCATION[difficulty][level], function(key,value){
+		var location = [jQuery("#clueMap").height() / 2 * value[0] - 50, jQuery("#clueMap").width() / 2 * value[1] - 100];
+		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
+		htmlout = "<div id='clue_"+key+"' class='dragClue' "+locStyle+" ><img id='img_"+key+"' style='width:100%;height:100%' src='"+"assets/images/clue/"+key.toUpperCase()+"_clue.png'></div>";
+		jQuery("#clueMap").append(htmlout);
+	} );
+	//grid for eventual answer selection
+	htmlout = "<div id='clueGridOverlay' class='clueGridOverlay'>";
+	for(indy = 0; indy < g_activeLevel.length; indy++) {
+		for(indx = 0; indx < g_activeLevel[indy].length; indx++) {
+			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
+				+"' style='display:inline-block;width:"+(jQuery("#clueMap").width() / 2)+"px;height:"+(jQuery("#clueMap").height() / 2)+"px;'></div>";
+		}
+	}
+	htmlout += "</div>";
+	jQuery("#clueMap").append(htmlout);
 };
 
 var createExploreMap = function(difficulty,level) {
@@ -120,6 +142,12 @@ var createExploreMap = function(difficulty,level) {
 	htmlout += "<div id='firstPerson' class='firstPerson'></div>";
 	jQuery("#exploremap").html(htmlout);
 	bindActiveTile();
+};
+
+var createSearchView = function(difficulty,level) {
+	if(difficulty === undefined){difficulty="EASY"}
+	if(level===undefined){level=0}
+	//
 };
 
 var bindActiveTile = function() {
@@ -199,8 +227,18 @@ var openClueModal = function() {
 	htmlout += "<div class='modalOverlay'></div>";
 	htmlout += "<div class='modalContainer'>";
 	htmlout += "<div class='closeBtn'></div>";
+	htmlout += "<div class='clueContainer'></div>";
+	htmlout += "<div class='clueImg'><img style='position:absolute;opacity:0;' src='' class='clueImgSrc' id='clueImgSrc'></div>";
+	htmlout += "<div class='clueText'>CLUENAME</div>";
 	htmlout += "</div>";
 	jQuery("#uiLayer").append(htmlout);
+	jQuery("#clueImgSrc").one("load", function(){
+		var containerHeight = jQuery(".clueImg").height();
+		var clueheight = jQuery("#clueImgSrc").height();
+		jQuery("#clueImgSrc").css("top", (containerHeight / 2) - (clueheight / 2) + "px" ).css("opacity",1);
+	});
+	jQuery("#clueImgSrc").attr("src","assets/images/clue/PARK_clue.png");
+
 	jQuery(".modalContainer .closeBtn").click(function(){
 		closeModal();
 	});
@@ -247,5 +285,11 @@ var setStateClue = function() {
 	});
 };
 var setStateSearch = function() {
-	//
+	util.template.getHTML("assets/js/search.html", function(data){
+		jQuery("#uiLayer").html(data);
+		//init here
+		util.player.setPlayer(1);
+		jQuery("#uiLayer").addClass("bg1");
+		createSearchView();
+	});
 };
