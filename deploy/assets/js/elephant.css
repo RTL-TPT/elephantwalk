@@ -127,3 +127,61 @@ td {
     background-color: lightgray;
     border: solid 2px black;
 }
+.clueMap {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 725px;
+    height: 575px;
+    background-color: lightslategrey;
+}
+.clueBar {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 200px;
+    height: 768px;
+    background-color: lightblue;
+}
+.clueBar .clueDrop1 {
+    position: absolute;
+    top: 60px;
+    left: calc(50% - 75px);
+    width: 150px;
+    height: 175px;
+    background-color: white;
+}
+.clueBar .clueDrop2 {
+    position: absolute;
+    top: calc(60px + 175px + 20px);
+    left: calc(50% - 75px);
+    width: 150px;
+    height: 175px;
+    background-color: white;
+}
+.clueBar .clueLegend {
+    position: absolute;
+    bottom: 160px;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    background-color: white;
+}
+.clueBar .clueDoneBtn {
+    position: absolute;
+    bottom: 50px;
+    left: calc(50% - 75px);
+    width: 150px;
+    height: 60px;
+    background-color: white;
+    border-radius: 5px;
+    border: solid 2px black;
+}
+.cluePhase .playerIcon {
+    position: absolute;
+    bottom: 2px;
+    left: 303.25px;
+    background-repeat: no-repeat;
+    width: calc(435px * 0.50);
+    height: calc(165px * 0.50);
+}

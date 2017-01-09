@@ -11,6 +11,11 @@ var g_LEVELS = {
 				[["forest-mountain", "hill-mountain"], ["desert-forest", "desert-hill"]]
 			]
 };
+var g_LEVEL_CLUE_LOCATION = { //y,x
+	"EASY": [
+				{"forest":[1,0.5],"mountain":[0.5,1],"desert":[1.5,1],"hill":[1,1.5]}
+			]
+};
 var g_heading = "north";
 var g_activeTile = [0,1];
 var g_tilesRemaining = {};
@@ -45,6 +50,12 @@ util.player = (function() {
 	};
 })();
 
+util.getRandomInt = function(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min)) + min;
+};
+
 util.template = (function() {
 	var getHTML_ = function(cURL, callback, dataType) {	
 		var response_ = function(data,status,xhr) {
@@ -77,6 +88,11 @@ util.triangle = function() {
 //////////////// MISC
 ////////////////
 
+var createClueMap = function(difficulty,level) {
+	if(difficulty === undefined){difficulty="EASY"}
+	if(level===undefined){level=0}
+};
+
 var createExploreMap = function(difficulty,level) {
 	if(difficulty === undefined){difficulty="EASY"}
 	if(level===undefined){level=0}
@@ -84,7 +100,7 @@ var createExploreMap = function(difficulty,level) {
 	//var activeTile = [0,1]; //y,x
 	var cLevel = g_LEVELS[difficulty][0]; //set current level data
 	g_activeLevel = cLevel;
-	g_activeTile = [getRandomInt(0,g_activeLevel.length),getRandomInt(0,g_activeLevel.length)];
+	g_activeTile = [util.getRandomInt(0,g_activeLevel.length),util.getRandomInt(0,g_activeLevel.length)];
 	var htmlout = "<div id='mapGrid' class='mapGrid'>";
 	for(var indy = 0; indy < cLevel.length; indy++) {
 		for(var indx = 0; indx < cLevel[indy].length; indx++) {
@@ -162,7 +178,7 @@ var setNewExploreSpace = function() {
 		setStateClue();
 		return;
 	}
-	var coordStr = remainingCoords[getRandomInt(0,remainingCoords.length)];
+	var coordStr = remainingCoords[util.getRandomInt(0,remainingCoords.length)];
 	var newCoord = [coordStr.split(",")[0],coordStr.split(",")[1]];
 	g_activeTile = newCoord;
 	util.player.togglePlayer();
@@ -177,12 +193,6 @@ var setNewExploreSpace = function() {
 	jQuery("#mapGridOverlay").html(htmlout);
 	bindActiveTile();
 };
-
-function getRandomInt(min, max) {
-	min = Math.ceil(min);
-	max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min)) + min;
-}
 
 //////////////// State Transitions
 ////////////////
@@ -209,6 +219,12 @@ var setStateExplore = function() {
 var setStateClue = function() {
 	console.log("cluephase");
 	jQuery("#uiLayer").html("");
+	util.template.getHTML("assets/js/clue.html", function(data){
+		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
+		//init here
+		util.player.setPlayer(1);
+		createClueMap();
+	});
 };
 var setStateSearch = function() {
 	//
