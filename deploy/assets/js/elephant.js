@@ -26,6 +26,7 @@ var g_activeTile = [0,1];
 var g_tilesRemaining = {};
 var g_activeLevel = g_LEVELS["EASY"][0];
 var g_directionsRemaining = "nesw";
+var g_currentClue = "";
 
 //////////////// UTILITY
 ////////////////
@@ -92,6 +93,26 @@ util.triangle = function() {
 
 //////////////// MISC
 ////////////////
+var drag = function(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+};
+var drop = function(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    var target = jQuery(ev.target);
+    var children = target.children();
+    if(children.length === 0 && target.attr("id") === "clueDrop1") {
+    	target.append(document.getElementById(data));
+    } else if(target.attr("id") === ("clue_" + data.replace("img_","")) ) {
+    	target.append(document.getElementById(data));
+    } else {
+    	//nope
+    }
+};
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
 var createClueMap = function(difficulty,level) {
 	if(difficulty === undefined){difficulty="EASY"}
 	if(level===undefined){level=0}
@@ -100,7 +121,9 @@ var createClueMap = function(difficulty,level) {
 	jQuery.each(g_LEVEL_CLUE_LOCATION[difficulty][level], function(key,value){
 		var location = [jQuery("#clueMap").height() / 2 * value[0] - 50, jQuery("#clueMap").width() / 2 * value[1] - 100];
 		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
-		htmlout = "<div id='clue_"+key+"' class='dragClue' "+locStyle+" ><img id='img_"+key+"' style='width:100%;height:100%' src='"+"assets/images/clue/"+key.toUpperCase()+"_clue.png'></div>";
+		htmlout = "<div id='clue_"+key+"' ondrop='drop(event)' ondragover='allowDrop(event)' class='dragClue' "+locStyle+" >";
+		htmlout += "<img id='img_"+key+"' draggable='true' ondragstart='drag(event)' style='width:100%;height:100%;' src='"+"assets/images/clue/"+key.toUpperCase()+"_clue.png'>";
+		htmlout += "</div>";
 		jQuery("#clueMap").append(htmlout);
 	} );
 	//grid for eventual answer selection
@@ -112,6 +135,7 @@ var createClueMap = function(difficulty,level) {
 		}
 	}
 	htmlout += "</div>";
+	g_currentClue = g_LEVEL_CLUES[difficulty][level][0];
 	jQuery("#clueMap").append(htmlout);
 };
 
@@ -147,7 +171,10 @@ var createExploreMap = function(difficulty,level) {
 var createSearchView = function(difficulty,level) {
 	if(difficulty === undefined){difficulty="EASY"}
 	if(level===undefined){level=0}
-	//
+		jQuery("#exploremap").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
+		jQuery(".arrow").show();
+		jQuery("#rightArrow").unbind().click(function(){searchRotate("right")});
+		jQuery("#leftArrow").unbind().click(function(){searchRotate("left")});
 };
 
 var bindActiveTile = function() {
@@ -161,6 +188,28 @@ var bindActiveTile = function() {
 		jQuery("#mapGridOverlay").hide();
 		delete g_tilesRemaining[""+g_activeTile[0]+","+g_activeTile[1]];
 	});
+};
+
+var searchRotate = function(direction) {
+	if(direction === undefined) {
+		direction = "right"
+	}
+	switch(g_heading) {
+		case "north":
+			g_heading = direction === "right" ? "east" : "west";
+			break;
+		case "east":
+			g_heading = direction === "right" ? "south" : "north";
+			break;
+		case "south":
+			g_heading = direction === "right" ? "west" : "east";
+			break;
+		case "west":
+			g_heading = direction === "right" ? "north" : "south";
+			break;
+	}
+	jQuery("#exploremap").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
+	//
 };
 
 var rotateView = function(direction) {
@@ -229,7 +278,7 @@ var openClueModal = function() {
 	htmlout += "<div class='closeBtn'></div>";
 	htmlout += "<div class='clueContainer'></div>";
 	htmlout += "<div class='clueImg'><img style='position:absolute;opacity:0;' src='' class='clueImgSrc' id='clueImgSrc'></div>";
-	htmlout += "<div class='clueText'>CLUENAME</div>";
+	htmlout += "<div class='clueText'>"+g_currentClue.toUpperCase()+"</div>";
 	htmlout += "</div>";
 	jQuery("#uiLayer").append(htmlout);
 	jQuery("#clueImgSrc").one("load", function(){
@@ -237,7 +286,7 @@ var openClueModal = function() {
 		var clueheight = jQuery("#clueImgSrc").height();
 		jQuery("#clueImgSrc").css("top", (containerHeight / 2) - (clueheight / 2) + "px" ).css("opacity",1);
 	});
-	jQuery("#clueImgSrc").attr("src","assets/images/clue/PARK_clue.png");
+	jQuery("#clueImgSrc").attr("src","assets/images/clue/"+g_currentClue.toUpperCase()+"_clue.png");
 
 	jQuery(".modalContainer .closeBtn").click(function(){
 		closeModal();
@@ -247,6 +296,18 @@ var openClueModal = function() {
 var closeModal = function() {
 	jQuery(".modalContainer").remove();
 	jQuery(".modalOverlay").remove();
+};
+
+var confirmClue = function() {
+	var clueChildren = jQuery("#clueDrop1").children();
+	if(clueChildren.length > 0) {
+		var selectedClue = jQuery(clueChildren[0]).attr("id").replace("img_","");
+		if(selectedClue === g_currentClue) {
+			alert("Correct symbol. yay.");
+		} else {
+			alert("Incorrect symbol. Try again.");
+		}
+	}
 };
 
 //////////////// State Transitions
@@ -272,7 +333,7 @@ var setStateExplore = function() {
 	});
 };
 var setStateClue = function() {
-	console.log("cluephase");
+	//console.log("cluephase");
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
@@ -282,6 +343,10 @@ var setStateClue = function() {
 		jQuery(".clueBar .clueDrop2").unbind().click(function(){
 			openClueModal();
 		});
+		jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
+			confirmClue();
+			//setStateSearch();
+		});
 	});
 };
 var setStateSearch = function() {
@@ -289,7 +354,7 @@ var setStateSearch = function() {
 		jQuery("#uiLayer").html(data);
 		//init here
 		util.player.setPlayer(1);
-		jQuery("#uiLayer").addClass("bg1");
+		jQuery("#uiLayer").addClass("bg1").removeClass("cluePhase");
 		createSearchView();
 	});
 };

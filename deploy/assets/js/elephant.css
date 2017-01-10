@@ -149,7 +149,7 @@ td {
 }
 .clueBar .clueDrop1 {
     position: absolute;
-    top: 60px;
+    top: 32px;
     left: calc(50% - 75px);
     width: 150px;
     height: 175px;
@@ -195,7 +195,7 @@ td {
 .cluePhase .clueRect {
     position: absolute;
     bottom: 132px;
-    right: 12px;
+    right: 8px;
     border: solid 2px gray;
     width: 172px;
     height: 382px;
