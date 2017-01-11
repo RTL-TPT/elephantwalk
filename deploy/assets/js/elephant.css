@@ -271,3 +271,12 @@ td {
     font-size: 30px;
     line-height: 70px;
 }
+.clueGridOverlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 0px;
+}
+.clueOverlayBox.active {
+    background-color: rgba(0,0,0,0.5);
+}

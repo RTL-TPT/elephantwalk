@@ -127,11 +127,15 @@ var createClueMap = function(difficulty,level) {
 		jQuery("#clueMap").append(htmlout);
 	} );
 	//grid for eventual answer selection
-	htmlout = "<div id='clueGridOverlay' class='clueGridOverlay'>";
+	htmlout = "<div id='clueGridOverlay' style='display:none;' class='clueGridOverlay'>";
 	for(indy = 0; indy < g_activeLevel.length; indy++) {
 		for(indx = 0; indx < g_activeLevel[indy].length; indx++) {
-			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
-				+"' style='display:inline-block;width:"+(jQuery("#clueMap").width() / 2)+"px;height:"+(jQuery("#clueMap").height() / 2)+"px;'></div>";
+			var borderright = indx < g_activeLevel[indy].length - 1 ? "border-right: 1px dashed black;" : "";
+			var borderleft = indx > 0 ? "border-left: 1px dashed black;" : "";
+			var borderup = indy > 0 ? "border-top: 1px dashed black;" : "";
+			var borderdown = indy < g_activeLevel.length - 1 ? "border-bottom: 1px dashed black;" : "";
+			var borderSum = borderright + borderleft + borderup + borderdown;
+			htmlout += "<div class='clueOverlayBox' coordinant='"+indy+"_"+indx+"' style='display:inline-block;box-sizing:border-box;"+borderSum+"width:"+(jQuery("#clueMap").width() / 2)+"px;height:"+(jQuery("#clueMap").height() / 2)+"px;'></div>";
 		}
 	}
 	htmlout += "</div>";
@@ -304,6 +308,14 @@ var confirmClue = function() {
 		var selectedClue = jQuery(clueChildren[0]).attr("id").replace("img_","");
 		if(selectedClue === g_currentClue) {
 			alert("Correct symbol. yay.");
+			jQuery("#clue_"+g_currentClue).append(jQuery(clueChildren[0]));
+			if(g_currentClue === g_LEVEL_CLUES["EASY"][0][1]) {
+				setStateSearchSelect();
+			} else {
+				g_currentClue = g_LEVEL_CLUES["EASY"][0][1];
+				util.player.togglePlayer();
+				openClueModal();
+			}
 		} else {
 			alert("Incorrect symbol. Try again.");
 		}
@@ -347,9 +359,27 @@ var setStateClue = function() {
 			confirmClue();
 			//setStateSearch();
 		});
+		openClueModal();
 	});
 };
-var setStateSearch = function() {
+var setStateSearchSelect = function() {
+	//show overlay grid (dotted line)
+	jQuery(".clueGridOverlay").show();
+	//bind overlay grid
+	jQuery(".clueOverlayBox").unbind().click(function(){
+		if( jQuery(this).hasClass("active") ){
+			//OPEN FPS VIEW
+			//jQuery(this).attr("coordinant")
+			g_activeTile = [jQuery(this).attr("coordinant").split("_")[0], jQuery(this).attr("coordinant").split("_")[1]];
+			g_heading = "north";
+			setStateSearchFirstPerson();
+		} else {
+			jQuery(".clueOverlayBox").removeClass("active");
+			jQuery(this).addClass("active");
+		}
+	});
+};
+var setStateSearchFirstPerson = function() {
 	util.template.getHTML("assets/js/search.html", function(data){
 		jQuery("#uiLayer").html(data);
 		//init here
