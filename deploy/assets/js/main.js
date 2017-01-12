@@ -34,7 +34,7 @@
 	// Preload assets for Phaser
 	function preload()
 	{
-		game.load.image('logo', 'assets/images/logo.png');
+		//game.load.image('logo', 'assets/images/logo.png');
 	}
 
 	// When the Phaser game has been created

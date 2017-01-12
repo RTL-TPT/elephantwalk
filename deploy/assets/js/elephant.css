@@ -1,3 +1,11 @@
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    margin: 0;
+}
 img {
     padding:0px;
     border:0px;
@@ -6,8 +14,8 @@ img {
 
 .gameCanvas {
     position: absolute;
-    top: -384px;
-    left: -512px;
+    top: calc(50% - 384px);
+    left: calc(50% - 512px);
     pointer-events:none;
     /*z-index: 3;*/
 }
@@ -16,8 +24,8 @@ img {
     position: absolute;
     width:1024px; 
     height:768px;
-    top: -384px;
-    left: -512px;
+    top: calc(50% - 384px);
+    left: calc(50% - 512px);
     user-select: none;
     cursor:default;
     /*z-index: 1;*/
@@ -129,7 +137,7 @@ img {
     height: 575px;
     background-color: white;
 }
-.clueBar {
+.clueBar, .searchBar {
     position: absolute;
     top: 0px;
     right: 0px;
@@ -153,6 +161,22 @@ img {
     left: calc(50% - 58px);
     width: 116px;
     height: 117px;
+    background-color: white;
+}
+.searchBar .clueDrop1 {
+    position: absolute;
+    top: 32px;
+    left: calc(50% - 75px);
+    width: 150px;
+    height: 175px;
+    background-color: white;
+}
+.searchBar .clueDrop2 {
+    position: absolute;
+    top: 250px;
+    left: calc(50% - 75px);
+    width: 150px;
+    height: 175px;
     background-color: white;
 }
 .clueBar .clueLegend {

@@ -19,6 +19,11 @@ var g_LEVEL_CLUES = {
 				["hill","mountain"]
 			]
 };
+var g_LEVEL_ELEPHANT = {
+	"EASY": [
+				[0,1,"south"] //y,x
+			]
+};
 var g_heading = "north";
 var g_activeTile = [0,0];
 var g_tilesRemaining = {};
@@ -232,8 +237,21 @@ var searchRotate = function(direction) {
 			g_heading = direction === "right" ? "north" : "south";
 			break;
 	}
+	g_directionsRemaining = g_directionsRemaining.replace(g_heading[0], "");
 	jQuery("#exploremap").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
-	//
+	var cElephant = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
+	if(cElephant[0] == g_activeTile[0] && cElephant[1] == g_activeTile[1] && cElephant[2] == g_heading) {
+		jQuery("#exploremap").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+"-elephant.jpg'>");
+		setTimeout(function(){
+			alert("You found the elephant!");
+			setStateTitle();
+		},500);
+		jQuery("#leftArrow").unbind();
+		jQuery("#rightArrow").unbind();
+
+	}else if(g_directionsRemaining === ""){
+		setStateSearchSelect();
+	}
 };
 
 var rotateView = function(direction) {
@@ -348,7 +366,7 @@ var confirmClue = function() {
 
 var setStateTitle = function() {
 	util.template.getHTML("assets/js/title.html", function(data){
-		jQuery("#uiLayer").html(data);
+		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
 		//init here
 		jQuery("#titletext").click(function(){setStateExplore();});
 	});
@@ -390,6 +408,13 @@ var setStateSearchSelect = function() {
 		//init here
 		util.player.setPlayer(1);
 		createSearchMap();
+		//clue icons
+		var clue1 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
+		var clue2 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
+		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue1.toUpperCase()+"_clue.png'>";
+		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue2.toUpperCase()+"_clue.png'>";
+		jQuery("#clueDrop1").html(clueurl1);
+		jQuery("#clueDrop2").html(clueurl2);
 		//show overlay grid (dotted line)
 		jQuery(".clueGridOverlay").show();
 		//bind overlay grid
@@ -409,6 +434,7 @@ var setStateSearchSelect = function() {
 };
 var setStateSearchFirstPerson = function() {
 	util.template.getHTML("assets/js/search.html", function(data){
+		g_directionsRemaining = "nesw".replace(g_heading[0], "");
 		jQuery("#uiLayer").html(data);
 		//init here
 		util.player.setPlayer(1);
