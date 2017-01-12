@@ -3,9 +3,7 @@
 
 var g_WIDTH = 1024;
 var g_HEIGHT = 768;
-
-var util = {};
-var g_STATES = ["title","levelselect","explore","clue","search"];
+var g_STATES = ["title","levelselect","explore","clue","search"]; //unusued
 var g_LEVELS = {
 	"EASY": [
 				[["forest-mountain", "hill-mountain"], ["desert-forest", "desert-hill"]]
@@ -22,15 +20,18 @@ var g_LEVEL_CLUES = {
 			]
 };
 var g_heading = "north";
-var g_activeTile = [0,1];
+var g_activeTile = [0,0];
 var g_tilesRemaining = {};
-var g_activeLevel = g_LEVELS["EASY"][0];
+var g_selectedDifficulty = "EASY";
+var g_selectedLevel = 0;
+var g_activeLevel = g_LEVELS[g_selectedDifficulty][g_selectedLevel];
 var g_directionsRemaining = "nesw";
 var g_currentClue = "";
 
 //////////////// UTILITY
 ////////////////
 
+var util = {};
 util.player = (function() {
 	var currentplayer = 1;
 
@@ -113,16 +114,42 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
-var createClueMap = function(difficulty,level) {
-	if(difficulty === undefined){difficulty="EASY"}
-	if(level===undefined){level=0}
+var createClueMap = function() {
 	var htmlout = "";
 	//create draggable clue features
-	jQuery.each(g_LEVEL_CLUE_LOCATION[difficulty][level], function(key,value){
+	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel], function(key,value){
 		var location = [jQuery("#clueMap").height() / 2 * value[0] - 50, jQuery("#clueMap").width() / 2 * value[1] - 100];
 		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
 		htmlout = "<div id='clue_"+key+"' ondrop='drop(event)' ondragover='allowDrop(event)' class='dragClue' "+locStyle+" >";
 		htmlout += "<img id='img_"+key+"' draggable='true' ondragstart='drag(event)' style='width:100%;height:100%;' src='"+"assets/images/clue/"+key.toUpperCase()+"_clue.png'>";
+		htmlout += "</div>";
+		jQuery("#clueMap").append(htmlout);
+	} );
+	//grid for eventual answer selection
+	/*htmlout = "<div id='clueGridOverlay' style='display:none;' class='clueGridOverlay'>";
+	for(indy = 0; indy < g_activeLevel.length; indy++) {
+		for(indx = 0; indx < g_activeLevel[indy].length; indx++) {
+			var borderright = indx < g_activeLevel[indy].length - 1 ? "border-right: 1px dashed black;" : "";
+			var borderleft = indx > 0 ? "border-left: 1px dashed black;" : "";
+			var borderup = indy > 0 ? "border-top: 1px dashed black;" : "";
+			var borderdown = indy < g_activeLevel.length - 1 ? "border-bottom: 1px dashed black;" : "";
+			var borderSum = borderright + borderleft + borderup + borderdown;
+			htmlout += "<div class='clueOverlayBox' coordinant='"+indy+"_"+indx+"' style='display:inline-block;box-sizing:border-box;"+borderSum+"width:"+(jQuery("#clueMap").width() / 2)+"px;height:"+(jQuery("#clueMap").height() / 2)+"px;'></div>";
+		}
+	}
+	htmlout += "</div>";
+	jQuery("#clueMap").append(htmlout);*/
+	g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
+};
+
+var createSearchMap = function() {
+	var htmlout = "";
+	//create draggable clue features
+	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel], function(key,value){
+		var location = [jQuery("#clueMap").height() / 2 * value[0] - 50, jQuery("#clueMap").width() / 2 * value[1] - 100];
+		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
+		htmlout = "<div id='clue_"+key+"' class='dragClue' "+locStyle+" >";
+		htmlout += "<img id='img_"+key+"' style='width:100%;height:100%;' src='"+"assets/images/clue/"+key.toUpperCase()+"_clue.png'>";
 		htmlout += "</div>";
 		jQuery("#clueMap").append(htmlout);
 	} );
@@ -139,29 +166,24 @@ var createClueMap = function(difficulty,level) {
 		}
 	}
 	htmlout += "</div>";
-	g_currentClue = g_LEVEL_CLUES[difficulty][level][0];
+	//g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
 	jQuery("#clueMap").append(htmlout);
 };
 
-var createExploreMap = function(difficulty,level) {
-	if(difficulty === undefined){difficulty="EASY"}
-	if(level===undefined){level=0}
-
+var createExploreMap = function() {
 	//var activeTile = [0,1]; //y,x
-	var cLevel = g_LEVELS[difficulty][0]; //set current level data
-	g_activeLevel = cLevel;
 	g_activeTile = [util.getRandomInt(0,g_activeLevel.length),util.getRandomInt(0,g_activeLevel.length)];
 	var htmlout = "<div id='mapGrid' class='mapGrid'>";
-	for(var indy = 0; indy < cLevel.length; indy++) {
-		for(var indx = 0; indx < cLevel[indy].length; indx++) {
-			htmlout += "<img style='display:inline-block' src='assets/images/level1-easy/"+cLevel[indy][indx]+".gif'>";
+	for(var indy = 0; indy < g_activeLevel.length; indy++) {
+		for(var indx = 0; indx < g_activeLevel[indy].length; indx++) {
+			htmlout += "<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[indy][indx]+".gif'>";
 			g_tilesRemaining[""+indy+","+indx] = 1;
 		}
 	}
 	htmlout += "</div>";
 	htmlout += "<div id='mapGridOverlay' class='mapGridOverlay'>";
-	for(indy = 0; indy < cLevel.length; indy++) {
-		for(indx = 0; indx < cLevel[indy].length; indx++) {
+	for(indy = 0; indy < g_activeLevel.length; indy++) {
+		for(indx = 0; indx < g_activeLevel[indy].length; indx++) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
 				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
 		}
@@ -172,13 +194,11 @@ var createExploreMap = function(difficulty,level) {
 	bindActiveTile();
 };
 
-var createSearchView = function(difficulty,level) {
-	if(difficulty === undefined){difficulty="EASY"}
-	if(level===undefined){level=0}
-		jQuery("#exploremap").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
-		jQuery(".arrow").show();
-		jQuery("#rightArrow").unbind().click(function(){searchRotate("right")});
-		jQuery("#leftArrow").unbind().click(function(){searchRotate("left")});
+var createSearchView = function() {
+	jQuery("#exploremap").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
+	jQuery(".arrow").show();
+	jQuery("#rightArrow").unbind().click(function(){searchRotate("right")});
+	jQuery("#leftArrow").unbind().click(function(){searchRotate("left")});
 };
 
 var bindActiveTile = function() {
@@ -196,7 +216,7 @@ var bindActiveTile = function() {
 
 var searchRotate = function(direction) {
 	if(direction === undefined) {
-		direction = "right"
+		direction = "right";
 	}
 	switch(g_heading) {
 		case "north":
@@ -218,7 +238,7 @@ var searchRotate = function(direction) {
 
 var rotateView = function(direction) {
 	if(direction === undefined) {
-		direction = "right"
+		direction = "right";
 	}
 	switch(g_heading) {
 		case "north":
@@ -308,16 +328,17 @@ var confirmClue = function() {
 		var selectedClue = jQuery(clueChildren[0]).attr("id").replace("img_","");
 		if(selectedClue === g_currentClue) {
 			alert("Correct symbol. yay.");
-			jQuery("#clue_"+g_currentClue).append(jQuery(clueChildren[0]));
-			if(g_currentClue === g_LEVEL_CLUES["EASY"][0][1]) {
+			jQuery("#clue_"+g_currentClue).append(jQuery(clueChildren[0])); //reset position of dragged element
+			if(g_currentClue === g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1]) {
 				setStateSearchSelect();
 			} else {
-				g_currentClue = g_LEVEL_CLUES["EASY"][0][1];
+				g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
 				util.player.togglePlayer();
 				openClueModal();
 			}
 		} else {
 			alert("Incorrect symbol. Try again.");
+			jQuery("#clue_"+selectedClue).append(jQuery(clueChildren[0])); //reset position of dragged element
 		}
 	}
 };
@@ -363,21 +384,28 @@ var setStateClue = function() {
 	});
 };
 var setStateSearchSelect = function() {
-	//show overlay grid (dotted line)
-	jQuery(".clueGridOverlay").show();
-	//bind overlay grid
-	jQuery(".clueOverlayBox").unbind().click(function(){
-		if( jQuery(this).hasClass("active") ){
-			//OPEN FPS VIEW
-			//jQuery(this).attr("coordinant")
-			g_activeTile = [jQuery(this).attr("coordinant").split("_")[0], jQuery(this).attr("coordinant").split("_")[1]];
-			g_heading = "north";
-			setStateSearchFirstPerson();
-		} else {
-			jQuery(".clueOverlayBox").removeClass("active");
-			jQuery(this).addClass("active");
-		}
+	jQuery("#uiLayer").html("");
+	util.template.getHTML("assets/js/searchmap.html", function(data){
+		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
+		//init here
+		util.player.setPlayer(1);
+		createSearchMap();
+		//show overlay grid (dotted line)
+		jQuery(".clueGridOverlay").show();
+		//bind overlay grid
+		jQuery(".clueOverlayBox").unbind().click(function(){
+			if( jQuery(this).hasClass("active") ){
+				//OPEN FPS VIEW
+				g_activeTile = [jQuery(this).attr("coordinant").split("_")[0], jQuery(this).attr("coordinant").split("_")[1]];
+				g_heading = "north";
+				setStateSearchFirstPerson();
+			} else {
+				jQuery(".clueOverlayBox").removeClass("active");
+				jQuery(this).addClass("active");
+			}
+		});
 	});
+
 };
 var setStateSearchFirstPerson = function() {
 	util.template.getHTML("assets/js/search.html", function(data){

@@ -4,15 +4,6 @@ img {
     margin:0px;
 }
 
-/*table, tr, td {
-    padding:0px;
-    border:0px;
-    margin:0px;
-}
-td {
-	text-align: center;
-}*/
-
 .gameCanvas {
     position: absolute;
     top: -384px;
