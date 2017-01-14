@@ -373,7 +373,7 @@ var setStateTitle = function() {
 	util.template.getHTML("assets/js/title.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
 		//init here
-		jQuery("#titletext").click(function(){setStateExplore();});
+		jQuery("#playBtn").click(function(){setStateExplore();});
 	});
 };
 var setStateLevelSelect = function() {

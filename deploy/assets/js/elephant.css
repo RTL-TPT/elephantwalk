@@ -91,6 +91,7 @@ img {
 	left:0px;
 }
 .mapGrid {
+    background: url('../images/bg_explore.gif');
 	font-size:0px;
 	display:inline-block;
 	position:absolute;
@@ -260,7 +261,7 @@ img {
     left: calc(50% - 300px);
     width: 600px;
     height: 454px;
-    background: url(../images/clue/clue_bg.png);
+    background: url('../images/clue/clue_bg.png');
     background-size: 100% 100%;
 }
 .modalContainer .clueImg{
@@ -294,4 +295,21 @@ img {
 }
 .clueOverlayBox.active {
     background-color: rgba(0,0,0,0.5);
+}
+.titleTable {
+    background: url('../images/title.jpg') center center no-repeat;
+}
+.titleText {
+    margin-bottom: 90px;
+}
+.playBtn {
+    position: absolute;
+    width: 160px;
+    height: 54px;
+    line-height: 52px;
+    text-align: center;
+    top: calc(50% + 40px);
+    font-size: 36px;
+    background-color: lightgray;
+    left: calc(50% - 80px);
 }
