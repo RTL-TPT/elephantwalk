@@ -46,6 +46,7 @@ util.player = (function() {
 	var togglePlayer_ = function() {
 		currentplayer = currentplayer === 1 ? 2 : 1;
 		setPlayerImg_();
+		util.animation.playerAnim(function(){});
 	};
 	var getPlayer_ = function() {
 		return currentplayer;
@@ -53,6 +54,7 @@ util.player = (function() {
 	var setPlayer_ = function(playerNum) {
 		currentplayer = playerNum;
 		setPlayerImg_();
+		util.animation.playerAnim(function(){});
 	};
 
 	return {
@@ -114,9 +116,18 @@ util.animation = (function() {
 		jQuery("#incorrectImg").animate({"background-size":"50%"},{"duration":750,"always":combinedCallback});
 	};
 
+	var playerAnim = function(callback) {
+		var combinedCallback = function(){
+			jQuery("#playerTextOverlay").fadeOut(500,function(){jQuery("#playerTextOverlay").remove();callback();});
+		};
+		jQuery("#uiLayer").append("<div id='playerTextOverlay' class='playerTextOverlay'><div id='playerText' class='playerText'>Player "+util.player.getPlayer()+"</div></div>");
+		jQuery("#playerText").animate({"font-size":"160px"},{"duration":750,"always":combinedCallback});
+	};
+
 	return {
 		"correctAnim": correctAnim,
-		"incorrectAnim": incorrectAnim
+		"incorrectAnim": incorrectAnim,
+		"playerAnim": playerAnim
 	};
 })();
 
@@ -378,8 +389,8 @@ var confirmClue = function() {
 					setStateSearchSelect();
 				} else {
 					g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
-					util.player.togglePlayer();
 					openClueModal();
+					util.player.togglePlayer();
 				}
 			};
 			util.animation.correctAnim(onAnimComplete);
@@ -420,7 +431,6 @@ var setStateClue = function() {
 	util.template.getHTML("assets/js/clue.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
 		//init here
-		util.player.setPlayer(1);
 		createClueMap();
 		jQuery(".clueBar .clueDrop2").unbind().click(function(){
 			openClueModal();
@@ -430,6 +440,7 @@ var setStateClue = function() {
 			//setStateSearch();
 		});
 		openClueModal();
+		util.player.setPlayer(1);
 	});
 };
 var setStateSearchSelect = function() {
@@ -437,7 +448,7 @@ var setStateSearchSelect = function() {
 	util.template.getHTML("assets/js/searchmap.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
 		//init here
-		util.player.setPlayer(1);
+		util.player.togglePlayer();
 		createSearchMap();
 		//clue icons
 		var clue1 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
@@ -468,7 +479,7 @@ var setStateSearchFirstPerson = function() {
 		g_directionsRemaining = "nesw".replace(g_heading[0], "");
 		jQuery("#uiLayer").html(data);
 		//init here
-		util.player.setPlayer(1);
+		//util.player.setPlayer(1);
 		jQuery("#uiLayer").addClass("bg1").removeClass("cluePhase");
 		createSearchView();
 	});
