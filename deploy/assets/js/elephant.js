@@ -97,6 +97,31 @@ util.triangle = function() {
 	//
 };
 
+util.animation = (function() {
+	var correctAnim = function(callback) {
+		var combinedCallback = function(){
+			jQuery("#answerOverlay").fadeOut(500,function(){jQuery("#answerOverlay").remove();});
+			callback();
+		};
+		jQuery("#uiLayer").append("<div id='answerOverlay' class='correctOverlay'><div id='correctImg' class='correctImg'></div></div>");
+		jQuery("#correctImg").animate({"background-size":"50%"},{"duration":750,"always":combinedCallback});
+	};
+
+	var incorrectAnim = function(callback) {
+		var combinedCallback = function(){
+			jQuery("#answerOverlay").fadeOut(500,function(){jQuery("#answerOverlay").remove();});
+			callback();
+		};
+		jQuery("#uiLayer").append("<div id='answerOverlay' class='incorrectOverlay'><div id='incorrectImg' class='incorrectImg'></div></div>");
+		jQuery("#incorrectImg").animate({"background-size":"50%"},{"duration":750,"always":combinedCallback});
+	};
+
+	return {
+		"correctAnim": correctAnim,
+		"incorrectAnim": incorrectAnim
+	};
+})();
+
 //////////////// MISC
 ////////////////
 var drag = function(ev) {
@@ -350,17 +375,20 @@ var confirmClue = function() {
 	if(clueChildren.length > 0) {
 		var selectedClue = jQuery(clueChildren[0]).attr("id").replace("img_","");
 		if(selectedClue === g_currentClue) {
-			alert("Correct symbol. yay.");
+			var onAnimComplete = function() {
+				if(g_currentClue === g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1]) {
+					setStateSearchSelect();
+				} else {
+					g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
+					util.player.togglePlayer();
+					openClueModal();
+				}
+			};
+			util.animation.correctAnim(onAnimComplete);
 			jQuery("#clue_"+g_currentClue).append(jQuery(clueChildren[0])); //reset position of dragged element
-			if(g_currentClue === g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1]) {
-				setStateSearchSelect();
-			} else {
-				g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
-				util.player.togglePlayer();
-				openClueModal();
-			}
+
 		} else {
-			alert("Incorrect symbol. Try again.");
+			util.animation.incorrectAnim(function(){});
 			jQuery("#clue_"+selectedClue).append(jQuery(clueChildren[0])); //reset position of dragged element
 		}
 	}
