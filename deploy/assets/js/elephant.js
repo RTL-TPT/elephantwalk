@@ -124,10 +124,25 @@ util.animation = (function() {
 		jQuery("#playerText").animate({"font-size":"160px"},{"duration":750,"always":combinedCallback});
 	};
 
+	var dragDropAnim = function(callback) {
+		var bounceDuration = 400;
+		var animPart2 = function(){
+			jQuery("#indicatorHand").addClass("box").css("left","872px").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration,"always":lastCallback});
+			//
+		};
+		var lastCallback = function(){
+			jQuery("#indicatorHand").fadeOut(400,function(){jQuery("#indicatorHand").remove();});
+			if(callback !== undefined) callback();
+		};
+		jQuery("#uiLayer").append("<div id='indicatorHand' class='indicatorHand'></div>");
+		jQuery("#indicatorHand").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration,"always":animPart2});
+	};
+
 	return {
 		"correctAnim": correctAnim,
 		"incorrectAnim": incorrectAnim,
-		"playerAnim": playerAnim
+		"playerAnim": playerAnim,
+		"dragDropAnim": dragDropAnim
 	};
 })();
 
@@ -352,7 +367,7 @@ var setNewExploreSpace = function() {
 	bindActiveTile();
 };
 
-var openClueModal = function() {
+var openClueModal = function(closeCallback) {
 	var htmlout = "";
 	htmlout += "<div class='modalOverlay'></div>";
 	htmlout += "<div class='modalContainer'>";
@@ -371,6 +386,9 @@ var openClueModal = function() {
 
 	jQuery(".modalContainer .closeBtn").click(function(){
 		closeModal();
+		if(closeCallback !== undefined) {
+			closeCallback();
+		}
 	});
 };
 
@@ -439,7 +457,7 @@ var setStateClue = function() {
 			confirmClue();
 			//setStateSearch();
 		});
-		openClueModal();
+		openClueModal(util.animation.dragDropAnim);
 		util.player.setPlayer(1);
 	});
 };

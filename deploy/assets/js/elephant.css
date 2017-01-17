@@ -379,3 +379,15 @@ img {
     font-weight: bold;
     text-align: center;
 }
+.indicatorHand {
+    position: absolute;
+    top: 298px;
+    left: 424px;
+    width: 125px;
+    height: 80px;
+    background-image: url('../images/indicator-hand.png');
+}
+.indicatorHand.box {
+    top: 86px;
+    left: 872px;
+}
