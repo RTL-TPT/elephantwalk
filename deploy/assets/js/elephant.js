@@ -100,8 +100,7 @@ util.triangle = function() {
 util.animation = (function() {
 	var correctAnim = function(callback) {
 		var combinedCallback = function(){
-			jQuery("#answerOverlay").fadeOut(500,function(){jQuery("#answerOverlay").remove();});
-			callback();
+			jQuery("#answerOverlay").fadeOut(500,function(){jQuery("#answerOverlay").remove();callback();});
 		};
 		jQuery("#uiLayer").append("<div id='answerOverlay' class='correctOverlay'><div id='correctImg' class='correctImg'></div></div>");
 		jQuery("#correctImg").animate({"background-size":"50%"},{"duration":750,"always":combinedCallback});
@@ -109,8 +108,7 @@ util.animation = (function() {
 
 	var incorrectAnim = function(callback) {
 		var combinedCallback = function(){
-			jQuery("#answerOverlay").fadeOut(500,function(){jQuery("#answerOverlay").remove();});
-			callback();
+			jQuery("#answerOverlay").fadeOut(500,function(){jQuery("#answerOverlay").remove();callback();});
 		};
 		jQuery("#uiLayer").append("<div id='answerOverlay' class='incorrectOverlay'><div id='incorrectImg' class='incorrectImg'></div></div>");
 		jQuery("#incorrectImg").animate({"background-size":"50%"},{"duration":750,"always":combinedCallback});
