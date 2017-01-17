@@ -448,7 +448,8 @@ var setStateSearchSelect = function() {
 	util.template.getHTML("assets/js/searchmap.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
 		//init here
-		util.player.togglePlayer();
+		//util.player.togglePlayer();
+		util.player.setPlayer(1);
 		createSearchMap();
 		//clue icons
 		var clue1 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
@@ -479,7 +480,7 @@ var setStateSearchFirstPerson = function() {
 		g_directionsRemaining = "nesw".replace(g_heading[0], "");
 		jQuery("#uiLayer").html(data);
 		//init here
-		//util.player.setPlayer(1);
+		util.player.setPlayer(2);
 		jQuery("#uiLayer").addClass("bg1").removeClass("cluePhase");
 		createSearchView();
 	});
