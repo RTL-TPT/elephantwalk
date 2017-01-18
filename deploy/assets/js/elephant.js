@@ -71,7 +71,8 @@ util.getRandomInt = function(min, max) {
 };
 
 util.template = (function() {
-	var getHTML_ = function(cURL, callback, dataType) {	
+	var getHTML_ = function(cURL, callback, dataType) {
+		if(callback === undefined) {callback = function(){};}
 		var response_ = function(data,status,xhr) {
 			if(status === "success" || status === "notmodified") {
 				callback(data);
@@ -101,6 +102,7 @@ util.triangle = function() {
 
 util.animation = (function() {
 	var correctAnim = function(callback) {
+		if(callback === undefined) {callback = function(){};}
 		var combinedCallback = function(){
 			jQuery("#answerOverlay").fadeOut(500,function(){jQuery("#answerOverlay").remove();callback();});
 		};
@@ -109,6 +111,7 @@ util.animation = (function() {
 	};
 
 	var incorrectAnim = function(callback) {
+		if(callback === undefined) {callback = function(){};}
 		var combinedCallback = function(){
 			jQuery("#answerOverlay").fadeOut(500,function(){jQuery("#answerOverlay").remove();callback();});
 		};
@@ -117,6 +120,7 @@ util.animation = (function() {
 	};
 
 	var playerAnim = function(callback) {
+		if(callback === undefined) {callback = function(){};}
 		var combinedCallback = function(){
 			jQuery("#playerTextOverlay").fadeOut(500,function(){jQuery("#playerTextOverlay").remove();callback();});
 		};
@@ -125,6 +129,7 @@ util.animation = (function() {
 	};
 
 	var dragDropAnim = function(callback) {
+		if(callback === undefined) {callback = function(){};}
 		var bounceDuration = 400;
 		var animPart2 = function(){
 			jQuery("#indicatorHand").addClass("box").css("left","872px").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration,"always":lastCallback});
@@ -132,7 +137,7 @@ util.animation = (function() {
 		};
 		var lastCallback = function(){
 			jQuery("#indicatorHand").fadeOut(400,function(){jQuery("#indicatorHand").remove();});
-			if(callback !== undefined) callback();
+			callback();
 		};
 		jQuery("#uiLayer").append("<div id='indicatorHand' class='indicatorHand'></div>");
 		jQuery("#indicatorHand").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration,"always":animPart2});
@@ -368,6 +373,7 @@ var setNewExploreSpace = function() {
 };
 
 var openClueModal = function(closeCallback) {
+	if(closeCallback === undefined) {closeCallback = function(){};}
 	var htmlout = "";
 	htmlout += "<div class='modalOverlay'></div>";
 	htmlout += "<div class='modalContainer'>";
@@ -386,9 +392,7 @@ var openClueModal = function(closeCallback) {
 
 	jQuery(".modalContainer .closeBtn").click(function(){
 		closeModal();
-		if(closeCallback !== undefined) {
-			closeCallback();
-		}
+		closeCallback();
 	});
 };
 
@@ -421,6 +425,16 @@ var confirmClue = function() {
 	}
 };
 
+var createLegend = function() {
+	var htmlout = "<div style='width:100%;height:100%;box-sizing:border-box;border: 2px solid gray;padding:5px;'>";
+	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel],function(key,value){
+		var clueImg = "<img style='width:30px;height:30px;display:inline-block;vertical-align:middle;' src='assets/images/clue/"+key.toUpperCase()+"_clue.png"+"'>";
+		htmlout += "<div>"+clueImg+key+"</div>";
+	});
+	htmlout += "</div>";
+	jQuery("#clueLegend").html(htmlout);
+};
+
 //////////////// State Transitions
 ////////////////
 
@@ -450,6 +464,7 @@ var setStateClue = function() {
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
 		//init here
 		createClueMap();
+		createLegend();
 		jQuery(".clueBar .clueDrop2").unbind().click(function(){
 			openClueModal();
 		});

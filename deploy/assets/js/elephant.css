@@ -181,12 +181,12 @@ img {
     background-color: white;
 }
 .clueBar .clueLegend {
-    background: url('../images/icon_legend.png') center center no-repeat;
+    /*background: url('../images/icon_legend.png') center center no-repeat; */
     position: absolute;
     bottom: 160px;
-    left: calc(50% - 58px);
-    width: 116px;
-    height: 117px;
+    left: calc(50% - 70px);
+    width: 140px;
+    height: 170px;
     background-color: white;
 }
 .clueBar .clueDoneBtn {
