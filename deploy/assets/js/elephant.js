@@ -132,7 +132,7 @@ util.animation = (function() {
 		if(callback === undefined) {callback = function(){};}
 		var bounceDuration = 400;
 		var animPart2 = function(){
-			jQuery("#indicatorHand").addClass("box").css("left","872px").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration,"always":lastCallback});
+			jQuery("#indicatorHand").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration,"always":lastCallback});
 			//
 		};
 		var lastCallback = function(){
@@ -140,7 +140,7 @@ util.animation = (function() {
 			callback();
 		};
 		jQuery("#uiLayer").append("<div id='indicatorHand' class='indicatorHand'></div>");
-		jQuery("#indicatorHand").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration,"always":animPart2});
+		jQuery("#indicatorHand").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"872px","top":"86px"},{"duration":2000,"always":animPart2});
 	};
 
 	return {

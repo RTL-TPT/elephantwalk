@@ -393,7 +393,3 @@ img {
     height: 80px;
     background-image: url('../images/indicator-hand.png');
 }
-.indicatorHand.box {
-    top: 86px;
-    left: 872px;
-}
