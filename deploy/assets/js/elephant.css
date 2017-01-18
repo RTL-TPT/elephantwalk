@@ -154,6 +154,8 @@ img {
     width: 150px;
     height: 175px;
     background-color: white;
+    box-sizing: border-box;
+    border: 2px solid gray;
 }
 .clueBar .clueDrop2 {
     position: absolute;
@@ -171,6 +173,8 @@ img {
     width: 150px;
     height: 175px;
     background-color: white;
+    box-sizing: border-box;
+    border: 2px solid gray;
 }
 .searchBar .clueDrop2 {
     position: absolute;
@@ -179,6 +183,8 @@ img {
     width: 150px;
     height: 175px;
     background-color: white;
+    box-sizing: border-box;
+    border: 2px solid gray;
 }
 .clueBar .clueLegend {
     /*background: url('../images/icon_legend.png') center center no-repeat; */
