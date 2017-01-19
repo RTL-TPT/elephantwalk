@@ -32,6 +32,7 @@ var g_selectedLevel = 0;
 var g_activeLevel = g_LEVELS[g_selectedDifficulty][g_selectedLevel];
 var g_directionsRemaining = "nesw";
 var g_currentClue = "";
+var g_hasDrag = false;
 
 //////////////// UTILITY
 ////////////////
@@ -130,17 +131,21 @@ util.animation = (function() {
 
 	var dragDropAnim = function(callback) {
 		if(callback === undefined) {callback = function(){};}
+		if(g_hasDrag) {
+			g_hasDrag = false; //reset for future use
+			return;
+		}
 		var bounceDuration = 400;
 		var animPart2 = function(){
 			jQuery("#indicatorHand").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration,"always":lastCallback});
-			//
 		};
 		var lastCallback = function(){
 			jQuery("#indicatorHand").fadeOut(400,function(){jQuery("#indicatorHand").remove();});
 			callback();
+			setTimeout(dragDropAnim, 2000);
 		};
 		jQuery("#uiLayer").append("<div id='indicatorHand' class='indicatorHand'></div>");
-		jQuery("#indicatorHand").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"872px","top":"86px"},{"duration":2000,"always":animPart2});
+		jQuery("#indicatorHand").animate({"left":"872px","top":"86px"},{"duration":1800,"always":animPart2});
 	};
 
 	return {
@@ -155,6 +160,7 @@ util.animation = (function() {
 ////////////////
 var drag = function(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
+    g_hasDrag = true;
 };
 var drop = function(ev) {
     ev.preventDefault();
