@@ -44,18 +44,20 @@ util.player = (function() {
 	var setPlayerImg_ = function() {
 		jQuery("#playerIcon").html("<img style='width:100%;height:100%' src='assets/images/icon_p"+currentplayer+".png'>");
 	};
-	var togglePlayer_ = function() {
+	var togglePlayer_ = function(callback) {
+		if(callback === undefined) {callback = function(){};}
 		currentplayer = currentplayer === 1 ? 2 : 1;
 		setPlayerImg_();
-		util.animation.playerAnim(function(){});
+		util.animation.playerAnim(callback);
 	};
 	var getPlayer_ = function() {
 		return currentplayer;
 	};
-	var setPlayer_ = function(playerNum) {
+	var setPlayer_ = function(playerNum, callback) {
+		if(callback === undefined) {callback = function(){};}
 		currentplayer = playerNum;
 		setPlayerImg_();
-		util.animation.playerAnim(function(){});
+		util.animation.playerAnim(callback);
 	};
 
 	return {
