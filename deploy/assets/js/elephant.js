@@ -505,12 +505,27 @@ var setStateSearchSelect = function() {
 		jQuery(".clueOverlayBox").unbind().click(function(){
 			if( jQuery(this).hasClass("active") ){
 				//OPEN FPS VIEW
-				g_activeTile = [jQuery(this).attr("coordinant").split("_")[0], jQuery(this).attr("coordinant").split("_")[1]];
+				/*g_activeTile = [jQuery(this).attr("coordinant").split("_")[0], jQuery(this).attr("coordinant").split("_")[1]];
 				g_heading = "north";
-				setStateSearchFirstPerson();
+				setStateSearchFirstPerson();*/
 			} else {
 				jQuery(".clueOverlayBox").removeClass("active");
 				jQuery(this).addClass("active");
+			}
+		});
+		jQuery("#clueDoneBtn").click(function(){
+			//OPEN FPS VIEW
+			var cTile = jQuery(".clueOverlayBox.active");
+			if(cTile.length > 0) {
+				g_activeTile = [cTile.attr("coordinant").split("_")[0], cTile.attr("coordinant").split("_")[1]];
+				g_heading = "north";
+				var clueData = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
+				if(clueData[0] == g_activeTile[0] && clueData[1] == g_activeTile[1]) {
+					util.animation.correctAnim(setStateSearchFirstPerson);
+					//setStateSearchFirstPerson();
+				} else {
+					util.animation.incorrectAnim();
+				}
 			}
 		});
 	});
