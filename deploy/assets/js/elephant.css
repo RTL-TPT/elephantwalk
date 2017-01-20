@@ -400,4 +400,5 @@ img {
     width: 125px;
     height: 80px;
     background-image: url('../images/indicator-hand.png');
+    pointer-events: none;
 }

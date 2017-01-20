@@ -397,8 +397,11 @@ var openClueModal = function(closeCallback) {
 		jQuery("#clueImgSrc").css("top", (containerHeight / 2) - (clueheight / 2) + "px" ).css("opacity",1);
 	});
 	jQuery("#clueImgSrc").attr("src","assets/images/clue/"+g_currentClue.toUpperCase()+"_clue.png");
+	//play clue sfx
+	g_sfx[g_currentClue].play();
 
 	jQuery(".modalContainer .closeBtn").click(function(){
+		g_sfx[g_currentClue].stop();
 		closeModal();
 		closeCallback();
 	});
