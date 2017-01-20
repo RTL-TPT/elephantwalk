@@ -453,11 +453,15 @@ var setStateTitle = function() {
 	util.template.getHTML("assets/js/title.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
 		//init here
-		jQuery("#playBtn").click(function(){setStateExplore();});
+		jQuery("#playBtn").click(function(){setStateLevelSelect();});
 	});
 };
 var setStateLevelSelect = function() {
-	//
+	util.template.getHTML("assets/js/menu.html", function(data){
+		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
+		//init here
+		jQuery("#tempNextBox").click(function(){setStateExplore();});
+	});
 };
 var setStateExplore = function() {
 	util.template.getHTML("assets/js/explore.html", function(data){
