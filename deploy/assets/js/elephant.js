@@ -343,9 +343,10 @@ var rotateView = function(direction) {
 	g_directionsRemaining = g_directionsRemaining.replace(g_heading[0], "");
 	jQuery("#firstPerson").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
 	if(g_directionsRemaining === "" && jQuery("#returnBtn:visible").length === 0){
-		jQuery("#returnBtn").unbind().show().click(function(){
+		/*jQuery("#returnBtn").unbind().show().click(function(){
 			firstPersonToMap();
-		});
+		});*/
+		firstPersonToMap();
 	}
 };
 
@@ -460,6 +461,11 @@ var setStateLevelSelect = function() {
 	util.template.getHTML("assets/js/menu.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
 		//init here
+		jQuery(".missionBox.b1").click(function(){
+			jQuery("#missionSelect").hide();
+			jQuery("#difficultySelect").show();
+		});
+		jQuery("#tutorial1btn").click(function(){setStateExplore();});
 		jQuery("#tempNextBox").click(function(){setStateExplore();});
 	});
 };

@@ -419,6 +419,15 @@ img {
     left: 0px;
     font-size: 50px;
 }
+.difficultyTitle {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 100px;
+    top: 220px;
+    left: 0px;
+    font-size: 50px;
+}
 .missionBox {
     width: 160px;
     height: 80px;
@@ -429,11 +438,22 @@ img {
     text-align: center;
     font-weight: bold;
 }
+.missionBoxOverlay {
+    width: 160px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    font-weight: bold;
+    background: url('../images/lock.png') center center no-repeat;
+}
 .missionBoxContainer {
     position: absolute;
     top: 350px;
     left: 0px;
     width: 100%;
+}
+.missionBoxContainer.overlay {
+    pointer-events:none;
 }
 .missionBox.b1 {
     background-color:#98c95c;
@@ -446,6 +466,27 @@ img {
 }
 .missionBox.b4{
     background-color:#d0c3db;
+}
+.missionBoxOverlay.l1 {
+    /**/
+}
+.missionBoxOverlay.l2 {
+    /**/
+}
+.missionBoxOverlay.l3 {
+    /**/
+}
+.missionBoxOverlay.l4{
+    /**/
+}
+.missionBox.d1 {
+    background-color:#98c95c;
+}
+.missionBox.d2 {
+    background-color:#f2d385;
+}
+.missionBox.d3 {
+    background-color:#e57c69;
 }
 .tempNextBox{
     position: absolute;
