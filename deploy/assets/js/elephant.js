@@ -247,6 +247,7 @@ var createSearchMap = function() {
 var createExploreMap = function() {
 	//var activeTile = [0,1]; //y,x
 	g_activeTile = [util.getRandomInt(0,g_activeLevel.length),util.getRandomInt(0,g_activeLevel.length)];
+	//map feature layer
 	var htmlout = "<div id='mapGrid' class='mapGrid'>";
 	for(var indy = 0; indy < g_activeLevel.length; indy++) {
 		for(var indx = 0; indx < g_activeLevel[indy].length; indx++) {
@@ -255,11 +256,25 @@ var createExploreMap = function() {
 		}
 	}
 	htmlout += "</div>";
+	//map "fog" layer
 	htmlout += "<div id='mapGridOverlay' class='mapGridOverlay'>";
 	for(indy = 0; indy < g_activeLevel.length; indy++) {
 		for(indx = 0; indx < g_activeLevel[indy].length; indx++) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
 				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
+		}
+	}
+	htmlout += "</div>";
+	//map grid layer (dotted-lines)
+	htmlout += "<div id='mapGridLines' class='mapGridOverlay' style='pointer-events:none;'>";
+	for(indy = 0; indy < g_activeLevel.length; indy++) {
+		for(indx = 0; indx < g_activeLevel[indy].length; indx++) {
+			var borderright = indx < g_activeLevel[indy].length - 1 ? "border-right: 1px dashed black;" : "";
+			var borderleft = indx > 0 ? "border-left: 1px dashed black;" : "";
+			var borderup = indy > 0 ? "border-top: 1px dashed black;" : "";
+			var borderdown = indy < g_activeLevel.length - 1 ? "border-bottom: 1px dashed black;" : "";
+			var borderSum = borderright + borderleft + borderup + borderdown;
+			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:475px;height:310px;"+borderSum+"'></div>";
 		}
 	}
 	htmlout += "</div>";
@@ -289,7 +304,7 @@ var bindActiveTile = function() {
 		jQuery("#rightArrow").unbind().click(function(){rotateView("right")});
 		jQuery("#leftArrow").unbind().click(function(){rotateView("left")});
 		jQuery("#mapGrid").hide();
-		jQuery("#mapGridOverlay").hide();
+		jQuery(".mapGridOverlay").hide();
 		delete g_tilesRemaining[""+g_activeTile[0]+","+g_activeTile[1]];
 	});
 };
@@ -360,7 +375,7 @@ var rotateView = function(direction) {
 var firstPersonToMap = function() {
 	jQuery("#returnBtn").hide();
 	jQuery("#mapGrid").show();
-	jQuery("#mapGridOverlay").show();
+	jQuery(".mapGridOverlay").show();
 	jQuery("#firstPerson").html("");
 	jQuery("#rightArrow").hide();
 	jQuery("#leftArrow").hide();
