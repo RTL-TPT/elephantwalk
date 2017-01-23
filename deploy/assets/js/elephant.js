@@ -170,16 +170,22 @@ var drop = function(ev) {
     var target = jQuery(ev.target);
     var children = target.children();
     if(children.length === 0 && target.attr("id") === "clueDrop1") {
-    	target.append(document.getElementById(data));
+    	//add attribute stripped clone of clue to drop box
+    	jQuery(document.getElementById(data)).clone().attr("cname",data).removeAttr("id draggable ondragstart").css("pointer-events","none").appendTo(target);
+    	//target.append(document.getElementById(data));
+    } else if(children.length !== 0 && target.attr("id") === "clueDrop1") {
+    	//clear previous drop and add new attribute stripped clone of clue to drop box
+    	jQuery(target).html("");
+    	jQuery(document.getElementById(data)).clone().attr("cname",data).removeAttr("id draggable ondragstart").css("pointer-events","none").appendTo(target);
     } else if(target.attr("id") === ("clue_" + data.replace("img_","")) ) {
-    	target.append(document.getElementById(data));
+    	//target.append(document.getElementById(data));
     } else {
     	//nope
     }
 };
 function allowDrop(ev) {
     ev.preventDefault();
-}
+};
 
 var createClueMap = function() {
 	var htmlout = "";
@@ -416,7 +422,7 @@ var closeModal = function() {
 var confirmClue = function() {
 	var clueChildren = jQuery("#clueDrop1").children();
 	if(clueChildren.length > 0) {
-		var selectedClue = jQuery(clueChildren[0]).attr("id").replace("img_","");
+		var selectedClue = jQuery(clueChildren[0]).attr("cname").replace("img_","");
 		if(selectedClue === g_currentClue) {
 			var onAnimComplete = function() {
 				if(g_currentClue === g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1]) {
@@ -428,11 +434,13 @@ var confirmClue = function() {
 				}
 			};
 			util.animation.correctAnim(onAnimComplete);
-			jQuery("#clue_"+g_currentClue).append(jQuery(clueChildren[0])); //reset position of dragged element
+			//jQuery("#clue_"+g_currentClue).append(jQuery(clueChildren[0])); //reset position of dragged element
+			jQuery("#clueDrop1").html("");
 
 		} else {
 			util.animation.incorrectAnim(function(){});
-			jQuery("#clue_"+selectedClue).append(jQuery(clueChildren[0])); //reset position of dragged element
+			//jQuery("#clue_"+selectedClue).append(jQuery(clueChildren[0])); //reset position of dragged element
+			jQuery("#clueDrop1").html("");
 		}
 	}
 };
