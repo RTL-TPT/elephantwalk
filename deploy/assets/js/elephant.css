@@ -98,6 +98,59 @@ img {
 	top:0px;
 	left:0px;
 }
+.GPSContainer {
+    transform: scale(0.23);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 232px;
+    left: -358px;
+    border: solid 2px black;
+}
+.mapGPS {
+    background: url('../images/bg_explore.gif');
+    font-size:0px;
+    display:inline-block;
+    position:absolute;
+    top:0px;
+    left:0px;
+}
+.mapGPSOverlay{
+    width:100%;
+    height:100%;
+    font-size:0px;
+    display:inline-block;
+    position:absolute;
+    top:0px;
+    left:0px;
+}
+.gps-arrow-north{
+    background-image: url('../images/gps-pointer-large.png');
+    background-size: 40%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transform: rotate(180deg);
+}
+.gps-arrow-east{
+    background-image: url('../images/gps-pointer-large.png');
+    background-size: 40%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transform: rotate(270deg);
+}
+.gps-arrow-west{
+    background-image: url('../images/gps-pointer-large.png');
+    background-size: 40%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transform: rotate(90deg);
+}
+.gps-arrow-south{
+    background-image: url('../images/gps-pointer-large.png');
+    background-size: 40%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
 .leftArrow {
 	background: url('../images/btn_360_left.png');
     position: absolute;
