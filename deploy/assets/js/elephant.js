@@ -33,6 +33,7 @@ var g_activeLevel = g_LEVELS[g_selectedDifficulty][g_selectedLevel];
 var g_directionsRemaining = "nesw";
 var g_currentClue = "";
 var g_hasDrag = false;
+var g_clueUrlPost = "_non-abstract-symbol.jpg";
 
 //////////////// UTILITY
 ////////////////
@@ -191,10 +192,10 @@ var createClueMap = function() {
 	var htmlout = "";
 	//create draggable clue features
 	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel], function(key,value){
-		var location = [jQuery("#clueMap").height() / 2 * value[0] - 50, jQuery("#clueMap").width() / 2 * value[1] - 100];
+		var location = [jQuery("#clueMap").height() / 2 * value[0] - 87.5, jQuery("#clueMap").width() / 2 * value[1] - 75];
 		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
 		htmlout = "<div id='clue_"+key+"' ondrop='drop(event)' ondragover='allowDrop(event)' class='dragClue' "+locStyle+" >";
-		htmlout += "<img id='img_"+key+"' draggable='true' ondragstart='drag(event)' style='width:100%;height:100%;' src='"+"assets/images/clue/"+key.toUpperCase()+"_clue.png'>";
+		htmlout += "<img id='img_"+key+"' draggable='true' ondragstart='drag(event)' style='width:100%;height:100%;' src='"+"assets/images/clue/"+key.toUpperCase()+g_clueUrlPost+"'>";
 		htmlout += "</div>";
 		jQuery("#clueMap").append(htmlout);
 	} );
@@ -219,10 +220,10 @@ var createSearchMap = function() {
 	var htmlout = "";
 	//create draggable clue features
 	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel], function(key,value){
-		var location = [jQuery("#clueMap").height() / 2 * value[0] - 50, jQuery("#clueMap").width() / 2 * value[1] - 100];
+		var location = [jQuery("#clueMap").height() / 2 * value[0] - 87.5, jQuery("#clueMap").width() / 2 * value[1] - 75];
 		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
 		htmlout = "<div id='clue_"+key+"' class='dragClue' "+locStyle+" >";
-		htmlout += "<img id='img_"+key+"' style='width:100%;height:100%;' src='"+"assets/images/clue/"+key.toUpperCase()+"_clue.png'>";
+		htmlout += "<img id='img_"+key+"' style='width:100%;height:100%;' src='"+"assets/images/clue/"+key.toUpperCase()+g_clueUrlPost+"'>";
 		htmlout += "</div>";
 		jQuery("#clueMap").append(htmlout);
 	} );
@@ -448,7 +449,7 @@ var confirmClue = function() {
 var createLegend = function() {
 	var htmlout = "<div style='width:100%;height:100%;box-sizing:border-box;border: 2px solid gray;padding:5px;'>";
 	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel],function(key,value){
-		var clueImg = "<img style='width:30px;height:30px;display:inline-block;vertical-align:middle;' src='assets/images/clue/"+key.toUpperCase()+"_clue.png"+"'>";
+		var clueImg = "<img style='width:30px;height:30px;display:inline-block;vertical-align:middle;' src='assets/images/clue/"+key.toUpperCase()+g_clueUrlPost+"'>";
 		htmlout += "<div>"+clueImg+key+"</div>";
 	});
 	htmlout += "</div>";
@@ -516,8 +517,8 @@ var setStateSearchSelect = function() {
 		//clue icons
 		var clue1 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
 		var clue2 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
-		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue1.toUpperCase()+"_clue.png'>";
-		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue2.toUpperCase()+"_clue.png'>";
+		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue1.toUpperCase()+g_clueUrlPost+"'>";
+		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue2.toUpperCase()+g_clueUrlPost+"'>";
 		jQuery("#clueDrop1").html(clueurl1);
 		jQuery("#clueDrop2").html(clueurl2);
 		//show overlay grid (dotted line)

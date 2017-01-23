@@ -241,8 +241,8 @@ img {
     position: absolute;
     top:0px;
     left:0px;
-    width:250px;
-    height:100px;
+    width:150px;/*250px*/
+    height:175px;/*100px*/
 }
 .modalOverlay {
     position: absolute;
