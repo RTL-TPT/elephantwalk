@@ -4,6 +4,7 @@
 var g_WIDTH = 1024;
 var g_HEIGHT = 768;
 var g_STATES = ["title","levelselect","explore","clue","search"]; //unusued
+//LEVEL DATA
 var g_LEVELS = { //ONLY USED TO GAUGE LEVEL GRID SIZE
 	"TUTORIAL": [
 			[[0, 0], [0, 0]]
@@ -24,13 +25,15 @@ var g_LEVEL_ELEPHANT = {
 				[0,1,"south"] //y,x
 			]
 };
+//current level/location variables from most wide to most narrow
 var g_LevelTerrain = "land";
-var g_heading = "north";
-var g_activeTile = [0,0];
-var g_tilesRemaining = {};
 var g_selectedDifficulty = "TUTORIAL";
 var g_selectedLevel = 0;
+var g_activeTile = [0,0];
+var g_heading = "north";
+//other globals
 var g_activeLevel = g_LEVELS[g_selectedDifficulty][g_selectedLevel]; //ONLY USED TO GAUGE LEVEL GRID SIZE
+var g_tilesRemaining = {};
 var g_directionsRemaining = "nesw";
 var g_currentClue = "";
 var g_hasDrag = false;
