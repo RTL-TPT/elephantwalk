@@ -5,7 +5,7 @@ var g_WIDTH = 1024;
 var g_HEIGHT = 768;
 var g_STATES = ["title","levelselect","explore","clue","search"]; //unusued
 //LEVEL DATA
-var g_LEVELS = { //SET LEVEL'S GRID SIZE
+var g_LEVEL_GRID = { //SET LEVEL'S GRID SIZE
 	"TUTORIAL": [
 			{"x":2,"y":2}
 		]
@@ -32,7 +32,7 @@ var g_selectedLevel = 0;
 var g_activeTile = [0,0];
 var g_heading = "north";
 //other globals
-var g_activeLevel = g_LEVELS[g_selectedDifficulty][g_selectedLevel]; //ONLY USED FOR LEVEL'S GRID SIZE
+var g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel]; //ONLY USED FOR LEVEL'S GRID SIZE
 var g_tilesRemaining = {};
 var g_directionsRemaining = "nesw";
 var g_currentClue = "";
@@ -229,12 +229,12 @@ var createSearchMap = function() {
 	} );
 	//grid for eventual answer selection
 	htmlout = "<div id='clueGridOverlay' style='display:none;' class='clueGridOverlay'>";
-	for(indy = 0; indy < g_activeLevel.y; indy++) {
-		for(indx = 0; indx < g_activeLevel.x; indx++) {
-			var borderright = indx < g_activeLevel.x - 1 ? "border-right: 1px dashed black;" : "";
+	for(indy = 0; indy < g_activeGrid.y; indy++) {
+		for(indx = 0; indx < g_activeGrid.x; indx++) {
+			var borderright = indx < g_activeGrid.x - 1 ? "border-right: 1px dashed black;" : "";
 			var borderleft = indx > 0 ? "border-left: 1px dashed black;" : "";
 			var borderup = indy > 0 ? "border-top: 1px dashed black;" : "";
-			var borderdown = indy < g_activeLevel.y - 1 ? "border-bottom: 1px dashed black;" : "";
+			var borderdown = indy < g_activeGrid.y - 1 ? "border-bottom: 1px dashed black;" : "";
 			var borderSum = borderright + borderleft + borderup + borderdown;
 			htmlout += "<div class='clueOverlayBox' coordinant='"+indy+"_"+indx+"' style='display:inline-block;box-sizing:border-box;"+borderSum+"width:"+(jQuery("#clueMap").width() / 2)+"px;height:"+(jQuery("#clueMap").height() / 2)+"px;'></div>";
 		}
@@ -246,11 +246,11 @@ var createSearchMap = function() {
 
 var createExploreMap = function() {
 	//var activeTile = [0,1]; //y,x
-	g_activeTile = [util.getRandomInt(0,g_activeLevel.y),util.getRandomInt(0,g_activeLevel.x)];
+	g_activeTile = [util.getRandomInt(0,g_activeGrid.y),util.getRandomInt(0,g_activeGrid.x)];
 	//map feature layer
 	var htmlout = "<div id='mapGrid' class='mapGrid'>";
-	for(var indy = 0; indy < g_activeLevel.y; indy++) {
-		for(var indx = 0; indx < g_activeLevel.x; indx++) {
+	for(var indy = 0; indy < g_activeGrid.y; indy++) {
+		for(var indx = 0; indx < g_activeGrid.x; indx++) {
 			htmlout += "<img class='exploreMapImg' style='display:inline-block;opacity:0;' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
 			g_tilesRemaining[""+indy+","+indx] = 1;
 		}
@@ -258,8 +258,8 @@ var createExploreMap = function() {
 	htmlout += "</div>";
 	//highlight active block
 	htmlout += "<div id='mapGridOverlay' class='mapGridOverlay'>";
-	for(indy = 0; indy < g_activeLevel.y; indy++) {
-		for(indx = 0; indx < g_activeLevel.x; indx++) {
+	for(indy = 0; indy < g_activeGrid.y; indy++) {
+		for(indx = 0; indx < g_activeGrid.x; indx++) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
 				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
 		}
@@ -267,12 +267,12 @@ var createExploreMap = function() {
 	htmlout += "</div>";
 	//map grid layer (dotted-lines)
 	htmlout += "<div id='mapGridLines' class='mapGridOverlay' style='pointer-events:none;'>";
-	for(indy = 0; indy < g_activeLevel.y; indy++) {
-		for(indx = 0; indx < g_activeLevel.x; indx++) {
-			var borderright = indx < g_activeLevel.x - 1 ? "border-right: 1px dashed black;" : "";
+	for(indy = 0; indy < g_activeGrid.y; indy++) {
+		for(indx = 0; indx < g_activeGrid.x; indx++) {
+			var borderright = indx < g_activeGrid.x - 1 ? "border-right: 1px dashed black;" : "";
 			var borderleft = indx > 0 ? "border-left: 1px dashed black;" : "";
 			var borderup = indy > 0 ? "border-top: 1px dashed black;" : "";
-			var borderdown = indy < g_activeLevel.y - 1 ? "border-bottom: 1px dashed black;" : "";
+			var borderdown = indy < g_activeGrid.y - 1 ? "border-bottom: 1px dashed black;" : "";
 			var borderSum = borderright + borderleft + borderup + borderdown;
 			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:475px;height:310px;"+borderSum+"'></div>";
 		}
@@ -286,8 +286,8 @@ var createExploreMap = function() {
 var createExploreGPS = function() {
 	//map feature layer
 	var htmlout = "<div id='gpsmap' class='GPSContainer'><div id='' class='mapGPS'>";
-	for(var indy = 0; indy < g_activeLevel.y; indy++) {
-		for(var indx = 0; indx < g_activeLevel.x; indx++) {
+	for(var indy = 0; indy < g_activeGrid.y; indy++) {
+		for(var indx = 0; indx < g_activeGrid.x; indx++) {
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
 			var cTileIsVisited = g_tilesRemaining[""+indy+","+indx] === undefined;
 			htmlout += "<img class='exploreMapImg' style='display:inline-block;opacity:"+(cTileIsActive || cTileIsVisited ? 1 : 0)+";' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
@@ -296,8 +296,8 @@ var createExploreGPS = function() {
 	htmlout += "</div>";
 	//highlight active block
 	htmlout += "<div id='' class='mapGPSOverlay'>";
-	for(indy = 0; indy < g_activeLevel.y; indy++) {
-		for(indx = 0; indx < g_activeLevel.x; indx++) {
+	for(indy = 0; indy < g_activeGrid.y; indy++) {
+		for(indx = 0; indx < g_activeGrid.x; indx++) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
 				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(255,255,0,0.30)" : "")+"'></div>";
 		}
@@ -305,12 +305,12 @@ var createExploreGPS = function() {
 	htmlout += "</div>";
 	//map grid layer (dotted-lines) + pointer arrow
 	htmlout += "<div id='' class='mapGPSOverlay'>";
-	for(indy = 0; indy < g_activeLevel.y; indy++) {
-		for(indx = 0; indx < g_activeLevel.x; indx++) {
-			var borderright = indx < g_activeLevel.x - 1 ? "border-right: 2px dashed black;" : "";
+	for(indy = 0; indy < g_activeGrid.y; indy++) {
+		for(indx = 0; indx < g_activeGrid.x; indx++) {
+			var borderright = indx < g_activeGrid.x - 1 ? "border-right: 2px dashed black;" : "";
 			var borderleft = indx > 0 ? "border-left: 2px dashed black;" : "";
 			var borderup = indy > 0 ? "border-top: 2px dashed black;" : "";
-			var borderdown = indy < g_activeLevel.y - 1 ? "border-bottom: 2px dashed black;" : "";
+			var borderdown = indy < g_activeGrid.y - 1 ? "border-bottom: 2px dashed black;" : "";
 			var borderSum = borderright + borderleft + borderup + borderdown;
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
 			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:475px;height:310px;"+borderSum+"' class='"+(cTileIsActive ? "gps-arrow-"+g_heading : "")+"'></div>";
@@ -323,8 +323,8 @@ var createExploreGPS = function() {
 var createSearchGPS = function() {
 	//map feature layer
 	var htmlout = "<div id='gpsmap' class='GPSContainer'><div id='' class='mapGPS'>";
-	for(var indy = 0; indy < g_activeLevel.y; indy++) {
-		for(var indx = 0; indx < g_activeLevel.x; indx++) {
+	for(var indy = 0; indy < g_activeGrid.y; indy++) {
+		for(var indx = 0; indx < g_activeGrid.x; indx++) {
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
 			var cTileIsVisited = g_tilesRemaining[""+indy+","+indx] === undefined;
 			htmlout += "<img class='exploreMapImg' style='display:inline-block;"+";' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
@@ -333,8 +333,8 @@ var createSearchGPS = function() {
 	htmlout += "</div>";
 	//highlight active block
 	htmlout += "<div id='' class='mapGPSOverlay'>";
-	for(indy = 0; indy < g_activeLevel.y; indy++) {
-		for(indx = 0; indx < g_activeLevel.x; indx++) {
+	for(indy = 0; indy < g_activeGrid.y; indy++) {
+		for(indx = 0; indx < g_activeGrid.x; indx++) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
 				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(255,255,0,0.30)" : "")+"'></div>";
 		}
@@ -342,12 +342,12 @@ var createSearchGPS = function() {
 	htmlout += "</div>";
 	//map grid layer (dotted-lines) + pointer arrow
 	htmlout += "<div id='' class='mapGPSOverlay'>";
-	for(indy = 0; indy < g_activeLevel.y; indy++) {
-		for(indx = 0; indx < g_activeLevel.x; indx++) {
-			var borderright = indx < g_activeLevel.x - 1 ? "border-right: 2px dashed black;" : "";
+	for(indy = 0; indy < g_activeGrid.y; indy++) {
+		for(indx = 0; indx < g_activeGrid.x; indx++) {
+			var borderright = indx < g_activeGrid.x - 1 ? "border-right: 2px dashed black;" : "";
 			var borderleft = indx > 0 ? "border-left: 2px dashed black;" : "";
 			var borderup = indy > 0 ? "border-top: 2px dashed black;" : "";
-			var borderdown = indy < g_activeLevel.y - 1 ? "border-bottom: 2px dashed black;" : "";
+			var borderdown = indy < g_activeGrid.y - 1 ? "border-bottom: 2px dashed black;" : "";
 			var borderSum = borderright + borderleft + borderup + borderdown;
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
 			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:475px;height:310px;"+borderSum+"' class='"+(cTileIsActive ? "gps-arrow-"+g_heading : "")+"'></div>";
@@ -472,8 +472,8 @@ var setNewExploreSpace = function() {
 	g_activeTile = newCoord;
 	util.player.togglePlayer();
 	var	htmlout = "";
-	for(var indy = 0; indy < g_activeLevel.y; indy++) {
-		for(var indx = 0; indx < g_activeLevel.x; indx++) {
+	for(var indy = 0; indy < g_activeGrid.y; indy++) {
+		for(var indx = 0; indx < g_activeGrid.x; indx++) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
 				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
 		}
