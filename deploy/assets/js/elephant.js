@@ -4,32 +4,33 @@
 var g_WIDTH = 1024;
 var g_HEIGHT = 768;
 var g_STATES = ["title","levelselect","explore","clue","search"]; //unusued
-var g_LEVELS = {
-	"EASY": [
-				[["forest-mountain", "hill-mountain"], ["desert-forest", "desert-hill"]]
-			]
+var g_LEVELS = { //ONLY USED TO GAUGE LEVEL GRID SIZE
+	"TUTORIAL": [
+			[[0, 0], [0, 0]]
+		]
 };
 var g_LEVEL_CLUE_LOCATION = { //y,x
-	"EASY": [
+	"TUTORIAL": [
 				{"forest":[1,0.5],"mountain":[0.5,1],"desert":[1.5,1],"hill":[1,1.5]}
 			]
 };
 var g_LEVEL_CLUES = {
-	"EASY": [
+	"TUTORIAL": [
 				["hill","mountain"]
 			]
 };
 var g_LEVEL_ELEPHANT = {
-	"EASY": [
+	"TUTORIAL": [
 				[0,1,"south"] //y,x
 			]
 };
+var g_LevelTerrain = "land";
 var g_heading = "north";
 var g_activeTile = [0,0];
 var g_tilesRemaining = {};
-var g_selectedDifficulty = "EASY";
+var g_selectedDifficulty = "TUTORIAL";
 var g_selectedLevel = 0;
-var g_activeLevel = g_LEVELS[g_selectedDifficulty][g_selectedLevel];
+var g_activeLevel = g_LEVELS[g_selectedDifficulty][g_selectedLevel]; //ONLY USED TO GAUGE LEVEL GRID SIZE
 var g_directionsRemaining = "nesw";
 var g_currentClue = "";
 var g_hasDrag = false;
@@ -102,6 +103,16 @@ util.template = (function() {
 
 util.triangle = function() {
 	//
+};
+
+util.getTilePath = function(indx,indy) {
+	return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_map.gif";
+};
+util.getFacingPath = function(indx,indy,direction) {
+	return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_"+direction+".jpg";
+};
+util.getFacingPathElephant = function(indx,indy,direction) {
+	return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_"+direction+"-elephant.jpg";
 };
 
 util.animation = (function() {
@@ -251,7 +262,7 @@ var createExploreMap = function() {
 	var htmlout = "<div id='mapGrid' class='mapGrid'>";
 	for(var indy = 0; indy < g_activeLevel.length; indy++) {
 		for(var indx = 0; indx < g_activeLevel[indy].length; indx++) {
-			htmlout += "<img class='exploreMapImg' style='display:inline-block;opacity:0;' coordinant='"+indy+"_"+indx+"' src='assets/images/level1-easy/"+g_activeLevel[indy][indx]+".gif'>";
+			htmlout += "<img class='exploreMapImg' style='display:inline-block;opacity:0;' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
 			g_tilesRemaining[""+indy+","+indx] = 1;
 		}
 	}
@@ -290,7 +301,7 @@ var createExploreGPS = function() {
 		for(var indx = 0; indx < g_activeLevel[indy].length; indx++) {
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
 			var cTileIsVisited = g_tilesRemaining[""+indy+","+indx] === undefined;
-			htmlout += "<img class='exploreMapImg' style='display:inline-block;opacity:"+(cTileIsActive || cTileIsVisited ? 1 : 0)+";' coordinant='"+indy+"_"+indx+"' src='assets/images/level1-easy/"+g_activeLevel[indy][indx]+".gif'>";
+			htmlout += "<img class='exploreMapImg' style='display:inline-block;opacity:"+(cTileIsActive || cTileIsVisited ? 1 : 0)+";' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
 		}
 	}
 	htmlout += "</div>";
@@ -327,7 +338,7 @@ var createSearchGPS = function() {
 		for(var indx = 0; indx < g_activeLevel[indy].length; indx++) {
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
 			var cTileIsVisited = g_tilesRemaining[""+indy+","+indx] === undefined;
-			htmlout += "<img class='exploreMapImg' style='display:inline-block;"+";' coordinant='"+indy+"_"+indx+"' src='assets/images/level1-easy/"+g_activeLevel[indy][indx]+".gif'>";
+			htmlout += "<img class='exploreMapImg' style='display:inline-block;"+";' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
 		}
 	}
 	htmlout += "</div>";
@@ -358,7 +369,7 @@ var createSearchGPS = function() {
 };
 
 var createSearchView = function() {
-	jQuery("#exploremap").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
+	jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 	createSearchGPS();
 	jQuery(".arrow").show();
 	jQuery("#rightArrow").unbind().click(function(){searchRotate("right")});
@@ -374,7 +385,7 @@ var bindActiveTile = function() {
 		});
 		jQuery(".exploreMapImg");
 		g_directionsRemaining = "nesw".replace(g_heading[0], "");
-		jQuery("#firstPerson").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
+		jQuery("#firstPerson").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 		createExploreGPS();
 		jQuery(".arrow").show();
 		jQuery("#rightArrow").unbind().click(function(){rotateView("right")});
@@ -404,11 +415,11 @@ var searchRotate = function(direction) {
 			break;
 	}
 	g_directionsRemaining = g_directionsRemaining.replace(g_heading[0], "");
-	jQuery("#exploremap").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
+	jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 	createSearchGPS();
 	var cElephant = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
 	if(cElephant[0] == g_activeTile[0] && cElephant[1] == g_activeTile[1] && cElephant[2] == g_heading) {
-		jQuery("#exploremap").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+"-elephant.jpg'>");
+		jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 		createSearchGPS();
 		setTimeout(function(){
 			alert("You found the elephant!");
@@ -441,7 +452,7 @@ var rotateView = function(direction) {
 			break;
 	}
 	g_directionsRemaining = g_directionsRemaining.replace(g_heading[0], "");
-	jQuery("#firstPerson").html("<img style='display:inline-block' src='assets/images/level1-easy/"+g_activeLevel[g_activeTile[0]][g_activeTile[1]]+"/"+g_heading+".jpg'>");
+	jQuery("#firstPerson").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 	createExploreGPS();
 	if(g_directionsRemaining === "" && jQuery("#returnBtn:visible").length === 0){
 		/*jQuery("#returnBtn").unbind().show().click(function(){
