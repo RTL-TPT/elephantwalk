@@ -25,6 +25,11 @@ var g_LEVEL_ELEPHANT = { //SET ELEPHANT LOCATION
 				[0,1,"south"] //[y,x]
 			]
 };
+var g_CLUE_ABSTRACTION = {
+	"TUTORIAL": [
+				{"forest":"nonAbstract","mountain":"nonAbstract","desert":"nonAbstract","hill":"nonAbstract"}
+			]
+};
 //current level/location variables from most wide to most narrow
 var g_LevelTerrain = "land";
 var g_selectedDifficulty = "TUTORIAL";
@@ -37,7 +42,7 @@ var g_tilesRemaining = {};
 var g_directionsRemaining = "nesw";
 var g_currentClue = "";
 var g_hasDrag = false;
-var g_clueUrlPost = "_non-abstract-symbol.jpg";
+var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":"_partial-abstract-symbol.jpg","fullAbstract":"_abstract-symbol.jpg"};
 
 var g_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -49,12 +54,14 @@ var g_init = function(landType) {
 		g_LEVEL_CLUE_LOCATION[cDiff] = [];
 		g_LEVEL_CLUES[cDiff] = [];
 		g_LEVEL_ELEPHANT[cDiff] = [];
+		g_CLUE_ABSTRACTION[cDiff] = [];
 		for(var indx = 0; indx < g_leveldata[landType][cDiff].length; indx++) {
 			var cObj = g_leveldata[landType][cDiff][indx];
 			g_LEVEL_GRID[cDiff].push( {"x": cObj.gridSize.split("x")[0],"y": cObj.gridSize.split("x")[1]} );
 			g_LEVEL_CLUE_LOCATION[cDiff].push(cObj.clueLocations);
 			g_LEVEL_CLUES[cDiff].push(cObj.clues);
 			g_LEVEL_ELEPHANT[cDiff].push(cObj.elephantLocation);
+			g_CLUE_ABSTRACTION[cDiff].push(cObj.symbolStyle);
 		}
 	}
 };
@@ -296,8 +303,10 @@ var setStateSearchSelect = function() {
 		//clue icons
 		var clue1 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
 		var clue2 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
-		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue1.toUpperCase()+g_clueUrlPost+"'>";
-		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue2.toUpperCase()+g_clueUrlPost+"'>";
+		var clue1post = g_clueUrlPost[ g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][clue1] ];
+		var clue2post = g_clueUrlPost[ g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][clue2] ];
+		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue1.toUpperCase()+clue1post+"'>";
+		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue2.toUpperCase()+clue2post+"'>";
 		jQuery("#clueDrop1").html(clueurl1);
 		jQuery("#clueDrop2").html(clueurl2);
 		//show overlay grid (dotted line)

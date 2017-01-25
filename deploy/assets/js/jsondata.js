@@ -7,7 +7,12 @@ var g_leveldata =
                     "desert",
                     "forest"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "forest1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -40,7 +45,12 @@ var g_leveldata =
                     "hill",
                     "mountain"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "mountain1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -75,7 +85,12 @@ var g_leveldata =
                     "forest",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -108,7 +123,12 @@ var g_leveldata =
                     "mountain",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -143,7 +163,12 @@ var g_leveldata =
                     "desert",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -176,7 +201,12 @@ var g_leveldata =
                     "forest",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -209,7 +239,12 @@ var g_leveldata =
                     "hill",
                     "mountain"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -241,7 +276,12 @@ var g_leveldata =
                     "mountain",
                     "forest"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -275,7 +315,12 @@ var g_leveldata =
                     "desert",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "desert": "partialAbstract",
+                    "hill": "partialAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -308,7 +353,12 @@ var g_leveldata =
                     "mountain",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "desert": "partialAbstract",
+                    "hill": "partialAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -341,7 +391,12 @@ var g_leveldata =
                     "hill",
                     "forest"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "desert": "partialAbstract",
+                    "hill": "partialAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     1,
@@ -373,7 +428,12 @@ var g_leveldata =
                     "forest",
                     "mountain"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "desert": "partialAbstract",
+                    "hill": "partialAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     1,
@@ -409,7 +469,12 @@ var g_leveldata =
                     "mountain",
                     "lake"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "lake1",
                 "gridSize": "3x2",
                 "elephantLocation": [
@@ -444,7 +509,12 @@ var g_leveldata =
                     "forest",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -477,7 +547,12 @@ var g_leveldata =
                     "mountain",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -512,7 +587,12 @@ var g_leveldata =
                     "desert",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -545,7 +625,12 @@ var g_leveldata =
                     "forest",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -578,7 +663,12 @@ var g_leveldata =
                     "hill",
                     "mountain"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -610,7 +700,12 @@ var g_leveldata =
                     "mountain",
                     "forest"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -644,7 +739,12 @@ var g_leveldata =
                     "desert",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -677,7 +777,12 @@ var g_leveldata =
                     "mountain",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -710,7 +815,12 @@ var g_leveldata =
                     "hill",
                     "forest"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     1,
@@ -742,7 +852,12 @@ var g_leveldata =
                     "forest",
                     "mountain"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     1,
@@ -778,7 +893,12 @@ var g_leveldata =
                     "desert",
                     "forest"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "forest1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -811,7 +931,12 @@ var g_leveldata =
                     "hill",
                     "mountain"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "mountain1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -846,7 +971,12 @@ var g_leveldata =
                     "forest",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -879,7 +1009,12 @@ var g_leveldata =
                     "mountain",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -914,7 +1049,12 @@ var g_leveldata =
                     "desert",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -947,7 +1087,12 @@ var g_leveldata =
                     "forest",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -980,7 +1125,12 @@ var g_leveldata =
                     "hill",
                     "mountain"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -1012,7 +1162,12 @@ var g_leveldata =
                     "mountain",
                     "forest"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -1046,7 +1201,12 @@ var g_leveldata =
                     "desert",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -1079,7 +1239,12 @@ var g_leveldata =
                     "mountain",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -1112,7 +1277,12 @@ var g_leveldata =
                     "hill",
                     "forest"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     1,
@@ -1144,7 +1314,12 @@ var g_leveldata =
                     "forest",
                     "mountain"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     1,
@@ -1180,7 +1355,12 @@ var g_leveldata =
                     "desert",
                     "forest"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "forest1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -1213,7 +1393,12 @@ var g_leveldata =
                     "hill",
                     "mountain"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "mountain1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -1248,7 +1433,12 @@ var g_leveldata =
                     "forest",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -1281,7 +1471,12 @@ var g_leveldata =
                     "mountain",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -1316,7 +1511,12 @@ var g_leveldata =
                     "desert",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -1349,7 +1549,12 @@ var g_leveldata =
                     "forest",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -1382,7 +1587,12 @@ var g_leveldata =
                     "hill",
                     "mountain"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -1414,7 +1624,12 @@ var g_leveldata =
                     "mountain",
                     "forest"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -1448,7 +1663,12 @@ var g_leveldata =
                     "desert",
                     "hill"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -1481,7 +1701,12 @@ var g_leveldata =
                     "mountain",
                     "desert"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "clueUnlock": "desert1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -1514,7 +1739,12 @@ var g_leveldata =
                     "hill",
                     "forest"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     1,
@@ -1546,7 +1776,12 @@ var g_leveldata =
                     "forest",
                     "mountain"
                 ],
-                "symbolStyle": "partialAbstract",
+                "symbolStyle": {
+                    "forest": "nonAbstract",
+                    "mountain": "nonAbstract",
+                    "desert": "nonAbstract",
+                    "hill": "nonAbstract"
+                },
                 "gridSize": "2x2",
                 "elephantLocation": [
                     1,
