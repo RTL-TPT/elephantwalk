@@ -5,7 +5,7 @@ var createSearchMap = function() {
 		var location = [jQuery("#clueMap").height() / 2 * value[0] - 87.5, jQuery("#clueMap").width() / 2 * value[1] - 75];
 		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
 		htmlout = "<div id='clue_"+key+"' class='dragClue' "+locStyle+" >";
-		var posturl = g_clueUrlPost[ g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][key] ];
+		var posturl = util.getCluePath(key);
 		htmlout += "<img id='img_"+key+"' style='width:100%;height:100%;' src='"+"assets/images/clue/"+key.toUpperCase()+posturl+"'>";
 		htmlout += "</div>";
 		jQuery("#clueMap").append(htmlout);

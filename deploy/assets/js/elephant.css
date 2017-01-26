@@ -209,7 +209,7 @@ img {
 }
 .clueBar .clueDrop2 {
     position: absolute;
-    background: url('../images/icon_legend.png') center center no-repeat;
+    /*background: url('../images/icon_legend.png') center center no-repeat;*/
     bottom: calc(160px + 117px + 100px);
     left: calc(50% - 58px);
     width: 116px;
@@ -237,12 +237,12 @@ img {
     border: 2px solid gray;
 }
 .clueBar .clueLegend {
-    /*background: url('../images/icon_legend.png') center center no-repeat; */
+    background: url('../images/btn_legend.png') center center no-repeat;
     position: absolute;
     bottom: 160px;
-    left: calc(50% - 70px);
-    width: 140px;
-    height: 170px;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
     background-color: white;
 }
 .clueBar .clueDoneBtn {
@@ -282,10 +282,9 @@ img {
 }
 .cluePhase .clueIcon {
     position: absolute;
-    background: url('../images/btn_exp_clue.gif') center center no-repeat;
+    background: url('../images/btn_clue.png') center center no-repeat;
     width: 116px;
     height: 117px;
-    left: 3px;
 }
 .dragClue {
     position: absolute;

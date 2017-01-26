@@ -141,6 +141,9 @@ util.getFacingPath = function(indx,indy,direction) {
 util.getFacingPathElephant = function(indx,indy,direction) {
 	return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_"+direction+"-elephant.jpg";
 };
+util.getCluePath = function(clue) {
+	return g_clueUrlPost[ g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][clue] ];
+};
 
 util.animation = (function() {
 	var correctAnim = function(callback) {
@@ -280,7 +283,9 @@ var setStateClue = function() {
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
 		//init here
 		createClueMap();
-		createLegend();
+		jQuery("#clueLegend").unbind().click(function(){
+			openLegendModal();
+		});
 		jQuery(".clueBar .clueDrop2").unbind().click(function(){
 			openClueModal();
 		});
@@ -303,8 +308,8 @@ var setStateSearchSelect = function() {
 		//clue icons
 		var clue1 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
 		var clue2 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
-		var clue1post = g_clueUrlPost[ g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][clue1] ];
-		var clue2post = g_clueUrlPost[ g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][clue2] ];
+		var clue1post = util.getCluePath(clue1);
+		var clue2post = util.getCluePath(clue2);
 		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue1.toUpperCase()+clue1post+"'>";
 		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue2.toUpperCase()+clue2post+"'>";
 		jQuery("#clueDrop1").html(clueurl1);
