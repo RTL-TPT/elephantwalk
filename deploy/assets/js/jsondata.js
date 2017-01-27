@@ -38,7 +38,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -76,7 +76,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "EASY": [
@@ -116,7 +116,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -154,7 +154,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "MEDIUM": [
@@ -194,7 +194,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -232,7 +232,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -269,7 +269,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -306,7 +306,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "HARD": [
@@ -346,7 +346,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -384,7 +384,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -421,7 +421,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -458,7 +458,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ]
     },
@@ -500,7 +500,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "EASY": [
@@ -540,7 +540,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -578,7 +578,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "MEDIUM": [
@@ -618,7 +618,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -656,7 +656,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -693,7 +693,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -730,7 +730,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "HARD": [
@@ -770,7 +770,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -808,7 +808,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -845,7 +845,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -882,7 +882,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ]
     },
@@ -924,7 +924,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -962,7 +962,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "EASY": [
@@ -1002,7 +1002,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1040,7 +1040,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "MEDIUM": [
@@ -1080,7 +1080,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1118,7 +1118,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1155,7 +1155,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1192,7 +1192,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "HARD": [
@@ -1232,7 +1232,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1270,7 +1270,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1307,7 +1307,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1344,7 +1344,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ]
     },
@@ -1386,7 +1386,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1424,7 +1424,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "EASY": [
@@ -1464,7 +1464,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1502,7 +1502,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "MEDIUM": [
@@ -1542,7 +1542,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1580,7 +1580,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1617,7 +1617,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1654,7 +1654,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ],
         "HARD": [
@@ -1694,7 +1694,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1732,7 +1732,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1769,7 +1769,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             },
             {
                 "clues": [
@@ -1806,7 +1806,7 @@ var g_leveldata =
                         1.5
                     ]
                 },
-                "unlocked": true
+                "unlocked": true, "hasExploration": true
             }
         ]
     }

@@ -556,3 +556,7 @@ img {
     text-align: center;
     font-weight: bold;
 }
+.legendImgSize {
+    width:calc(150px / 2);
+    height:calc(175px / 2);
+}

@@ -105,11 +105,33 @@ var openLegendModal = function(closeCallback) {
 	htmlout += "<div class='modalContainer'>";
 	htmlout += "<div class='closeBtn'></div>";
 
-	htmlout += "<div style='width:100%;height:100%;box-sizing:border-box;border: 2px solid gray;padding:5px;'>";
+	htmlout += "<div style='width:100%;height:100%;box-sizing:border-box;padding:5px;'>";
 	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel],function(key,value){
+		var abstraction = g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][key];
 		var posturl = util.getCluePath(key);
-		var clueImg = "<img style='width:30px;height:30px;display:inline-block;vertical-align:middle;' src='assets/images/clue/"+key.toUpperCase()+posturl+"'>";
-		htmlout += "<div>"+clueImg+key+"</div>";
+		var clueImg = "<img style='display:inline-block;' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+posturl+"'>";
+		htmlout += "<div style='width:100%;height:87.5px;'> <div style='display:inline-block'>"+clueImg+"</div><div style='display:inline-block;width:100px;height:87.5px;transform: translateY(-50%)'>"+key+"</div>";
+		if(abstraction == "nonAbstract") {
+			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_non-abstract-symbol.jpg"+"'>";
+			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
+		} else {
+			var absImg = "<img style='' class='legendImgSize' src='assets/images/"+"legend-unknown.gif"+"'>";
+			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
+		}
+		if(abstraction == "partialAbstract") {
+			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"partial-abstract-symbol.jpg"+"'>";
+			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
+		} else {
+			var absImg = "<img style='' class='legendImgSize' src='assets/images/"+"legend-unknown.gif"+"'>";
+			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
+		}
+		if(abstraction == "fullAbstract") {
+			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_abstract-symbol.jpg"+"'>";
+			htmlout += "<div style='display:inline-block'>"+absImg+"</div></div>";
+		} else {
+			var absImg = "<img style='' class='legendImgSize' src='assets/images/"+"legend-unknown.gif"+"'>";
+			htmlout += "<div style='display:inline-block'>"+absImg+"</div></div>";
+		}
 	});
 	htmlout += "</div>";
 
