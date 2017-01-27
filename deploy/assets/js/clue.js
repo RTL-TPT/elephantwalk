@@ -123,7 +123,7 @@ var openLegendModal = function(closeCallback) {
 			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
 		}
 		if(abstraction == "partialAbstract" || abstraction == "fullAbstract") {
-			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"partial-abstract-symbol.jpg"+"'>";
+			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_partial-abstract-symbol.jpg"+"'>";
 			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
 		} else {
 			var absImg = "<img style='' class='legendImgSize' src='assets/images/"+"legend-unknown.gif"+"'>";
