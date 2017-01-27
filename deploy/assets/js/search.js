@@ -99,7 +99,7 @@ var searchRotate = function(direction) {
 		createSearchGPS();
 		setTimeout(function(){
 			alert("You found the elephant!");
-			setStateTitle();
+			setStateLevelSelect();
 		},500);
 		jQuery("#leftArrow").unbind();
 		jQuery("#rightArrow").unbind();

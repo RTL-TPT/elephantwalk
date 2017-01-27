@@ -1,11 +1,16 @@
+var getSearchPX = function(gridx,gridy) {
+	return [950 / gridx, 620 / gridx];
+};
+
 var createExploreMap = function() {
 	//var activeTile = [0,1]; //y,x
+	var gridPX = getSearchPX(g_activeGrid.x);
 	g_activeTile = [util.getRandomInt(0,g_activeGrid.y),util.getRandomInt(0,g_activeGrid.x)];
 	//map feature layer
 	var htmlout = "<div id='mapGrid' class='mapGrid'>";
 	for(var indy = 0; indy < g_activeGrid.y; indy++) {
 		for(var indx = 0; indx < g_activeGrid.x; indx++) {
-			htmlout += "<img class='exploreMapImg' style='display:inline-block;opacity:0;' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
+			htmlout += "<img class='exploreMapImg' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;opacity:0;' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
 			g_tilesRemaining[""+indy+","+indx] = 1;
 		}
 	}
@@ -15,7 +20,7 @@ var createExploreMap = function() {
 	for(indy = 0; indy < g_activeGrid.y; indy++) {
 		for(indx = 0; indx < g_activeGrid.x; indx++) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
-				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
+				+"' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
 		}
 	}
 	htmlout += "</div>";
@@ -28,7 +33,7 @@ var createExploreMap = function() {
 			var borderup = indy > 0 ? "border-top: 1px dashed black;" : "";
 			var borderdown = indy < g_activeGrid.y - 1 ? "border-bottom: 1px dashed black;" : "";
 			var borderSum = borderright + borderleft + borderup + borderdown;
-			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:475px;height:310px;"+borderSum+"'></div>";
+			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+borderSum+"'></div>";
 		}
 	}
 	htmlout += "</div>";
@@ -38,13 +43,14 @@ var createExploreMap = function() {
 };
 
 var createExploreGPS = function() {
+	var gridPX = getSearchPX(g_activeGrid.x);
 	//map feature layer
 	var htmlout = "<div id='gpsmap' class='GPSContainer'><div id='' class='mapGPS'>";
 	for(var indy = 0; indy < g_activeGrid.y; indy++) {
 		for(var indx = 0; indx < g_activeGrid.x; indx++) {
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
 			var cTileIsVisited = g_tilesRemaining[""+indy+","+indx] === undefined;
-			htmlout += "<img class='exploreMapImg' style='display:inline-block;opacity:"+(cTileIsActive || cTileIsVisited ? 1 : 0)+";' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
+			htmlout += "<img class='exploreMapImg' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;opacity:"+(cTileIsActive || cTileIsVisited ? 1 : 0)+";' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
 		}
 	}
 	htmlout += "</div>";
@@ -53,7 +59,7 @@ var createExploreGPS = function() {
 	for(indy = 0; indy < g_activeGrid.y; indy++) {
 		for(indx = 0; indx < g_activeGrid.x; indx++) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
-				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(255,255,0,0.30)" : "")+"'></div>";
+				+"' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(255,255,0,0.30)" : "")+"'></div>";
 		}
 	}
 	htmlout += "</div>";
@@ -67,7 +73,7 @@ var createExploreGPS = function() {
 			var borderdown = indy < g_activeGrid.y - 1 ? "border-bottom: 2px dashed black;" : "";
 			var borderSum = borderright + borderleft + borderup + borderdown;
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
-			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:475px;height:310px;"+borderSum+"' class='"+(cTileIsActive ? "gps-arrow-"+g_heading : "")+"'></div>";
+			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+borderSum+"' class='"+(cTileIsActive ? "gps-arrow-"+g_heading : "")+"'></div>";
 		}
 	}
 	htmlout += "</div></div>";
@@ -134,6 +140,7 @@ var firstPersonToMap = function() {
 };
 
 var setNewExploreSpace = function() {
+	var gridPX = getSearchPX(g_activeGrid.x);
 	var remainingCoords = Object.keys(g_tilesRemaining);
 	if(remainingCoords.length === 0) {
 		setStateClue();
@@ -147,7 +154,7 @@ var setNewExploreSpace = function() {
 	for(var indy = 0; indy < g_activeGrid.y; indy++) {
 		for(var indx = 0; indx < g_activeGrid.x; indx++) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
-				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
+				+"' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
 		}
 	}
 	jQuery("#mapGridOverlay").html(htmlout);

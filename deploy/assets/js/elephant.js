@@ -57,7 +57,7 @@ var g_init = function(landType) {
 		g_CLUE_ABSTRACTION[cDiff] = [];
 		for(var indx = 0; indx < g_leveldata[landType][cDiff].length; indx++) {
 			var cObj = g_leveldata[landType][cDiff][indx];
-			g_LEVEL_GRID[cDiff].push( {"x": cObj.gridSize.split("x")[0],"y": cObj.gridSize.split("x")[1]} );
+			g_LEVEL_GRID[cDiff].push( {"x": parseInt(cObj.gridSize.split("x")[0]),"y": parseInt(cObj.gridSize.split("x")[1]) } );
 			g_LEVEL_CLUE_LOCATION[cDiff].push(cObj.clueLocations);
 			g_LEVEL_CLUES[cDiff].push(cObj.clues);
 			g_LEVEL_ELEPHANT[cDiff].push(cObj.elephantLocation);
@@ -188,7 +188,7 @@ util.animation = (function() {
 			callback();
 			setTimeout(dragDropAnim, 2000);
 		};
-		jQuery("#uiLayer").append("<div id='indicatorHand' class='indicatorHand'></div>");
+		jQuery("#clueBar").after("<div id='indicatorHand' class='indicatorHand'></div>");
 		jQuery("#indicatorHand").animate({"left":"872px","top":"86px"},{"duration":1800,"always":animPart2});
 	};
 
@@ -249,19 +249,31 @@ var setStateLevelSelect = function() {
 			g_selectedDifficulty = jQuery(this).attr("difficulty");
 			g_selectedLevel = +jQuery(this).attr("level");
 			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
-			setStateExplore();
+			if(g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].hasExploration) {
+				setStateExplore();
+			} else {
+				setStateClue();
+			}
 		});
 		jQuery(".missionBox.d2").click(function(){
 			g_selectedDifficulty = jQuery(this).attr("difficulty");
 			g_selectedLevel = +jQuery(this).attr("level");
 			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
-			setStateExplore();
+			if(g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].hasExploration) {
+				setStateExplore();
+			} else {
+				setStateClue();
+			}
 		});
 		jQuery(".missionBox.d3").click(function(){
 			g_selectedDifficulty = jQuery(this).attr("difficulty");
 			g_selectedLevel = +jQuery(this).attr("level");
 			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
-			setStateExplore();
+			if(g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].hasExploration) {
+				setStateExplore();
+			} else {
+				setStateClue();
+			}
 		});
 		//jQuery("#tutorial1btn").click(function(){setStateExplore();});
 		jQuery("#tempNextBox").click(function(){setStateExplore();});

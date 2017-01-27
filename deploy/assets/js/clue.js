@@ -25,11 +25,15 @@ function allowDrop(ev) {
     ev.preventDefault();
 };
 
+var getCluePX = function(gridx,gridy) {
+	return [725 / gridx, 575 / gridx];
+};
+
 var createClueMap = function() {
 	var htmlout = "";
 	//create draggable clue features
 	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel], function(key,value){
-		var location = [jQuery("#clueMap").height() / 2 * value[0] - 87.5, jQuery("#clueMap").width() / 2 * value[1] - 75];
+		var location = [jQuery("#clueMap").height() / g_activeGrid.x * value[0] - 87.5, jQuery("#clueMap").width() / g_activeGrid.x * value[1] - 75];
 		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
 		htmlout = "<div id='clue_"+key+"' class='dragClue' "+locStyle+" >"; // ondrop='drop(event)' ondragover='allowDrop(event)'
 		var posturl = util.getCluePath(key);
@@ -109,7 +113,7 @@ var openLegendModal = function(closeCallback) {
 	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel],function(key,value){
 		var abstraction = g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][key];
 		var posturl = util.getCluePath(key);
-		var clueImg = "<img style='display:inline-block;' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+posturl+"'>";
+		var clueImg = "<img style='display:inline-block;height:87.5px;' class='' src='assets/images/clue/"+key+".jpg'>";
 		htmlout += "<div style='width:100%;height:87.5px;margin:4px;'> <div style='display:inline-block'>"+clueImg+"</div><div style='display:inline-block;width:100px;height:87.5px;transform: translateY(-50%)'>"+key+"</div>";
 		if(abstraction == "nonAbstract" || abstraction == "partialAbstract" || abstraction == "fullAbstract") {
 			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_non-abstract-symbol.jpg"+"'>";
