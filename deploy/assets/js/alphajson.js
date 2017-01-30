@@ -39,7 +39,8 @@ var g_leveldata =
                     ]
                 },
                 "unlocked": true,
-                "hasExploration": true
+                "hasExploration": true,
+                "mapset": 1
             },
             {
                 "clues": [
@@ -78,7 +79,8 @@ var g_leveldata =
                     ]
                 },
                 "unlocked": true,
-                "hasExploration": false
+                "hasExploration": false,
+                "mapset": 1
             },
             {
                 "clues": [
@@ -117,7 +119,8 @@ var g_leveldata =
                     ]
                 },
                 "unlocked": true,
-                "hasExploration": true
+                "hasExploration": true,
+                "mapset": 1
             },
             {
                 "clues": [
@@ -152,7 +155,8 @@ var g_leveldata =
                     "ocean": [1.7, 2.5],
                 },
                 "unlocked": true,
-                "hasExploration": true
+                "hasExploration": true,
+                "mapset": 1
             }
         ],
         "MEDIUM": [],

@@ -133,13 +133,16 @@ util.template = (function() {
 })();
 
 util.getTilePath = function(indx,indy) {
-	return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_map.gif";
+	//return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_map.gif";
+	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_map.gif";
 };
 util.getFacingPath = function(indx,indy,direction) {
-	return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_"+direction+".jpg";
+	//return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_"+direction+".jpg";
+	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_"+direction+".jpg";
 };
 util.getFacingPathElephant = function(indx,indy,direction) {
-	return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_"+direction+"-elephant.jpg";
+	//return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_"+direction+"-elephant.jpg";
+	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_"+direction+"_elephant.jpg";
 };
 util.getCluePath = function(clue) {
 	return g_clueUrlPost[ g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][clue] ];
