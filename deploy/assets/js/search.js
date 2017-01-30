@@ -1,8 +1,9 @@
 var createSearchMap = function() {
 	var htmlout = "";
+	var grid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
 	//create draggable clue features
 	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel], function(key,value){
-		var location = [jQuery("#clueMap").height() / 2 * value[0] - 87.5, jQuery("#clueMap").width() / 2 * value[1] - 75];
+		var location = [jQuery("#clueMap").height() / grid.x * value[0] - 87.5, jQuery("#clueMap").width() / grid.x * value[1] - 75];
 		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
 		htmlout = "<div id='clue_"+value[2]+"' class='dragClue' "+locStyle+" >";
 		var posturl = util.getCluePath(value[2]);
@@ -19,7 +20,7 @@ var createSearchMap = function() {
 			var borderup = indy > 0 ? "border-top: 1px dashed black;" : "";
 			var borderdown = indy < g_activeGrid.y - 1 ? "border-bottom: 1px dashed black;" : "";
 			var borderSum = borderright + borderleft + borderup + borderdown;
-			htmlout += "<div class='clueOverlayBox' coordinant='"+indy+"_"+indx+"' style='display:inline-block;box-sizing:border-box;"+borderSum+"width:"+(jQuery("#clueMap").width() / 2)+"px;height:"+(jQuery("#clueMap").height() / 2)+"px;'></div>";
+			htmlout += "<div class='clueOverlayBox' coordinant='"+indy+"_"+indx+"' style='display:inline-block;box-sizing:border-box;"+borderSum+"width:"+(jQuery("#clueMap").width() / grid.x)+"px;height:"+(jQuery("#clueMap").height() / grid.x)+"px;'></div>";
 		}
 	}
 	htmlout += "</div>";
@@ -28,13 +29,14 @@ var createSearchMap = function() {
 };
 
 var createSearchGPS = function() {
+	var gridPX = getSearchPX(g_activeGrid.x);
 	//map feature layer
 	var htmlout = "<div id='gpsmap' class='GPSContainer'><div id='' class='mapGPS'>";
 	for(var indy = 0; indy < g_activeGrid.y; indy++) {
 		for(var indx = 0; indx < g_activeGrid.x; indx++) {
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
 			var cTileIsVisited = g_tilesRemaining[""+indy+","+indx] === undefined;
-			htmlout += "<img class='exploreMapImg' style='display:inline-block;"+";' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
+			htmlout += "<img class='exploreMapImg' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+"' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
 		}
 	}
 	htmlout += "</div>";
@@ -43,7 +45,7 @@ var createSearchGPS = function() {
 	for(indy = 0; indy < g_activeGrid.y; indy++) {
 		for(indx = 0; indx < g_activeGrid.x; indx++) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
-				+"' style='display:inline-block;width:475px;height:310px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(255,255,0,0.30)" : "")+"'></div>";
+				+"' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(255,255,0,0.30)" : "")+"'></div>";
 		}
 	}
 	htmlout += "</div>";
@@ -57,7 +59,7 @@ var createSearchGPS = function() {
 			var borderdown = indy < g_activeGrid.y - 1 ? "border-bottom: 2px dashed black;" : "";
 			var borderSum = borderright + borderleft + borderup + borderdown;
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
-			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:475px;height:310px;"+borderSum+"' class='"+(cTileIsActive ? "gps-arrow-"+g_heading : "")+"'></div>";
+			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+borderSum+"' class='"+(cTileIsActive ? "gps-arrow-"+g_heading : "")+"'></div>";
 		}
 	}
 	htmlout += "</div></div>";
