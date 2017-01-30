@@ -20,24 +20,7 @@ var g_leveldata =
                     0,
                     "south"
                 ],
-                "clueLocations": {
-                    "forest": [
-                        0.5,
-                        1
-                    ],
-                    "mountain": [
-                        1.5,
-                        1
-                    ],
-                    "desert": [
-                        1,
-                        0.5
-                    ],
-                    "hill": [
-                        1,
-                        1.5
-                    ]
-                },
+                "clueLocations": [[0.5,1,"forest"],[1.5,1,"mountain"],[1,0.5,"desert"],[1,1.5,"hill"]],
                 "unlocked": true,
                 "hasExploration": true,
                 "mapset": 1
@@ -60,24 +43,7 @@ var g_leveldata =
                     1,
                     "south"
                 ],
-                "clueLocations": {
-                    "forest": [
-                        0.5,
-                        1
-                    ],
-                    "mountain": [
-                        1.5,
-                        1
-                    ],
-                    "desert": [
-                        1,
-                        0.5
-                    ],
-                    "hill": [
-                        1,
-                        1.5
-                    ]
-                },
+                "clueLocations": [[0.5,1,"forest"],[1.5,1,"mountain"],[1,0.5,"desert"],[1,1.5,"hill"]],
                 "unlocked": true,
                 "hasExploration": false,
                 "mapset": 1
@@ -100,24 +66,7 @@ var g_leveldata =
                     1,
                     "south"
                 ],
-                "clueLocations": {
-                    "forest": [
-                        1.5,
-                        1
-                    ],
-                    "mountain": [
-                        1,
-                        0.5
-                    ],
-                    "desert": [
-                        0.5,
-                        1
-                    ],
-                    "hill": [
-                        1,
-                        1.5
-                    ]
-                },
+                "clueLocations": [[1.5,1,"forest"],[1,0.5,"mountain"],[0.5,1,"desert"],[1,1.5,"hill"]],
                 "unlocked": true,
                 "hasExploration": true,
                 "mapset": 1
@@ -142,18 +91,7 @@ var g_leveldata =
                     0,
                     "south"
                 ],
-                "clueLocations": {
-                    "stream": [0.5, 0.5],
-                    "forest": [0.75, 0.5],
-                    "stream": [0.5, 1.5],
-                    "waterfall": [0.5, 2],
-                    "stream": [0.5, 2.5],
-                    "mountain":[0.5, 2.5],
-                    "mountain":[1.75, 0.5],
-                    "lake": [1.5, 1],
-                    "forest": [1.25, 2.5],
-                    "ocean": [1.7, 2.5],
-                },
+                "clueLocations": [[0.5,0.5,"stream"],[0.75,0.5,"forest"],[0.5,1.5,"stream"],[0.5,2,"waterfall"],[0.5,2.5,"stream"],[0.5,2.5,"mountain"],[1.75,0.5,"mountain"],[1.5,1,"lake"],[1.25,2.5,"forest"],[1.7,2.5,"ocean"]],
                 "unlocked": true,
                 "hasExploration": true,
                 "mapset": 1

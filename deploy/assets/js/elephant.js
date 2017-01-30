@@ -12,7 +12,7 @@ var g_LEVEL_GRID = { //SET LEVEL'S GRID SIZE
 };
 var g_LEVEL_CLUE_LOCATION = { //SET CLUE LOCATIONS [y,x]
 	"TUTORIAL": [
-				{"forest":[1,0.5],"mountain":[0.5,1],"desert":[1.5,1],"hill":[1,1.5]}
+				[[1,0.5,"forest"],[0.5,1,"mountain"],[1.5,1,"desert"],[1,1.5,"hill"]]//{"forest":[1,0.5],"mountain":[0.5,1],"desert":[1.5,1],"hill":[1,1.5]}
 			]
 };
 var g_LEVEL_CLUES = { //SET ASSIGNED CLUES

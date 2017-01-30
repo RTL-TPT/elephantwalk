@@ -35,9 +35,9 @@ var createClueMap = function() {
 	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel], function(key,value){
 		var location = [jQuery("#clueMap").height() / g_activeGrid.x * value[0] - 87.5, jQuery("#clueMap").width() / g_activeGrid.x * value[1] - 75];
 		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
-		htmlout = "<div id='clue_"+key+"' class='dragClue' "+locStyle+" >"; // ondrop='drop(event)' ondragover='allowDrop(event)'
-		var posturl = util.getCluePath(key);
-		htmlout += "<img id='img_"+key+"' draggable='true' ondragstart='drag(event)' style='width:100%;height:100%;' src='"+"assets/images/clue/"+key.toUpperCase()+posturl+"'>";
+		htmlout = "<div id='clue_"+value[2]+"' class='dragClue' "+locStyle+" >"; // ondrop='drop(event)' ondragover='allowDrop(event)'
+		var posturl = util.getCluePath(value[2]);
+		htmlout += "<img id='img_"+value[2]+"' draggable='true' ondragstart='drag(event)' style='width:100%;height:100%;' src='"+"assets/images/clue/"+value[2].toUpperCase()+posturl+"'>";
 		htmlout += "</div>";
 		jQuery("#clueMap").append(htmlout);
 	} );
@@ -111,26 +111,26 @@ var openLegendModal = function(closeCallback) {
 
 	htmlout += "<center><div style='width:100%;margin-top:20px;font-size:50px;'>LEGEND</div><div style='width:100%;height:100%;box-sizing:border-box;padding:5px;margin-top:30px;'>";
 	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel],function(key,value){
-		var abstraction = g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][key];
-		var posturl = util.getCluePath(key);
-		var clueImg = "<img style='display:inline-block;height:87.5px;' class='' src='assets/images/clue/"+key+".jpg'>";
-		htmlout += "<div style='width:100%;height:87.5px;margin:4px;'> <div style='display:inline-block'>"+clueImg+"</div><div style='display:inline-block;width:100px;height:87.5px;transform: translateY(-50%)'>"+key+"</div>";
+		var abstraction = g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][value[2]];
+		var posturl = util.getCluePath(value[2]);
+		var clueImg = "<img style='display:inline-block;height:87.5px;' class='' src='assets/images/clue/"+value[2]+".jpg'>";
+		htmlout += "<div style='width:100%;height:87.5px;margin:4px;'> <div style='display:inline-block'>"+clueImg+"</div><div style='display:inline-block;width:100px;height:87.5px;transform: translateY(-50%)'>"+value[2]+"</div>";
 		if(abstraction == "nonAbstract" || abstraction == "partialAbstract" || abstraction == "fullAbstract") {
-			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_non-abstract-symbol.jpg"+"'>";
+			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+value[2].toUpperCase()+"_non-abstract-symbol.jpg"+"'>";
 			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
 		} else {
 			var absImg = "<img style='' class='legendImgSize' src='assets/images/"+"legend-unknown.gif"+"'>";
 			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
 		}
 		if(abstraction == "partialAbstract" || abstraction == "fullAbstract") {
-			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_partial-abstract-symbol.jpg"+"'>";
+			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+value[2].toUpperCase()+"_partial-abstract-symbol.jpg"+"'>";
 			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
 		} else {
 			var absImg = "<img style='' class='legendImgSize' src='assets/images/"+"legend-unknown.gif"+"'>";
 			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
 		}
 		if(abstraction == "fullAbstract") {
-			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_abstract-symbol.jpg"+"'>";
+			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+value[2].toUpperCase()+"_abstract-symbol.jpg"+"'>";
 			htmlout += "<div style='display:inline-block'>"+absImg+"</div></div>";
 		} else {
 			var absImg = "<img style='' class='legendImgSize' src='assets/images/"+"legend-unknown.gif"+"'>";
@@ -151,9 +151,9 @@ var openLegendModal = function(closeCallback) {
 var createLegend = function() {
 	var htmlout = "<div style='width:100%;height:100%;box-sizing:border-box;border: 2px solid gray;padding:5px;'>";
 	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel],function(key,value){
-		var posturl = util.getCluePath(key);
-		var clueImg = "<img style='width:30px;height:30px;display:inline-block;vertical-align:middle;' src='assets/images/clue/"+key.toUpperCase()+posturl+"'>";
-		htmlout += "<div>"+clueImg+key+"</div>";
+		var posturl = util.getCluePath(value[2]);
+		var clueImg = "<img style='width:30px;height:30px;display:inline-block;vertical-align:middle;' src='assets/images/clue/"+value[2].toUpperCase()+posturl+"'>";
+		htmlout += "<div>"+clueImg+value[2]+"</div>";
 	});
 	htmlout += "</div>";
 	jQuery("#clueLegend").html(htmlout);
