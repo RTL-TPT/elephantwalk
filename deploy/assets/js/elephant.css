@@ -51,26 +51,6 @@ img {
 .exploremap .mapSection {
 	/**/
 }
-.triangle {
-	width:0px;
-	height:0px;
-	border-left:calc(475px * 0.5) solid transparent;
-	border-right:calc(475px * 0.5) solid transparent;
-	border-top:calc(310px * 0.5) solid transparent;
-	border-bottom:calc(310px * 0.5) solid transparent;
-}
-.triangle.up{
-	border-top:calc(310px * 0.5) solid rgba(247,255,0,0.9);
-}
-.triangle.right{
-	border-right:calc(475px * 0.5) solid rgba(247,255,0,0.9);
-}
-.triangle.left{
-	border-left:calc(475px * 0.5) solid rgba(247,255,0,0.9);
-}
-.triangle.down{
-	border-bottom:calc(310px * 0.5) solid rgba(247,255,0,0.9);
-}
 .firstPerson {
 	font-size:0px;
 	display:inline-block;
