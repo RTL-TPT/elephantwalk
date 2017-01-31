@@ -106,7 +106,7 @@ var searchRotate = function(direction) {
 			g_heading = direction === "right" ? "north" : "south";
 			break;
 	}
-	//g_directionsRemaining = g_directionsRemaining.replace(g_heading[0], ""); //no need to return to map for search's 360 view
+	g_directionsRemaining = g_directionsRemaining.replace(g_heading[0], "");
 	jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 	createSearchGPS();
 	var cElephant = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
@@ -121,6 +121,6 @@ var searchRotate = function(direction) {
 		jQuery("#rightArrow").unbind();
 
 	}else if(g_directionsRemaining === ""){
-		setStateSearchSelect();
+		//setStateSearchSelect();
 	}
 };
