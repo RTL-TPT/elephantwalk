@@ -43,6 +43,7 @@ var g_directionsRemaining = "nesw";
 var g_currentClue = "";
 var g_hasDrag = false;
 var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":"_partial-abstract-symbol.jpg","fullAbstract":"_abstract-symbol.jpg"};
+var g_isAlpha = true;
 
 var g_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -214,15 +215,39 @@ var fillLevels = function() {
 	var htmlout = "<div class='difficultyTitle'>Choose a Difficulty</div>";
 	htmlout += "<div class='missionBoxContainer' >";
 	htmlout += "<center><table style='width:900px'>";
+	var difflen = g_LEVEL_GRID["EASY"].length;
+	difflen = difflen > g_LEVEL_GRID["MEDIUM"].length ? difflen : g_LEVEL_GRID["MEDIUM"].length;
+	difflen = difflen > g_LEVEL_GRID["HARD"].length ? difflen : g_LEVEL_GRID["HARD"].length;
 	for(var i = 0; i < g_LEVEL_GRID["TUTORIAL"].length; i++) {
 		htmlout += "<tr><td><center><div class='missionBox d1' difficulty='TUTORIAL' level='"+i+"' id='tutorial"+(i+1)+"btn'>TUTORIAL "+(i+1)+"</div></center></td>";
 		htmlout += "<td><center><div class='missionBox d2' difficulty='TUTORIAL' level='"+i+"' style='opacity:0'></div></center></td>";
 		htmlout += "<td><center><div class='missionBox d3' difficulty='TUTORIAL' level='"+i+"' style='opacity:0'></div></center></td></tr>";
 	}
-	for(var i = 0; i < 4; i++) {
+	for(var i = 0; i < difflen; i++) {
 		htmlout += "<tr><td><center><div class='missionBox d1' difficulty='EASY' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["EASY"].length ? 1 : 0)+"' id='easy"+(i+1)+"btn'>EASY "+(i+1)+"</div></center></td>";
 		htmlout += "<td><center><div class='missionBox d2' difficulty='MEDIUM' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["MEDIUM"].length ? 1 : 0)+"' id='medium"+(i+1)+"btn'>MEDIUM "+(i+1)+"</div></center></td>";
 		htmlout += "<td><center><div class='missionBox d3' difficulty='HARD' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["HARD"].length ? 1 : 0)+"' id='hard"+(i+1)+"btn'>HARD "+(i+1)+"</div></center></td></tr>";
+	}
+	htmlout += "</table></center>";
+	htmlout += "</div>";
+	jQuery("#difficultySelect").html(htmlout);
+};
+
+var fillLevelsAlpha = function() {
+		var htmlout = "<div class='difficultyTitle'>Choose a Level</div>";
+	htmlout += "<div class='missionBoxContainer' >";
+	htmlout += "<center><table style='width:900px'>";
+	var difflen = g_LEVEL_GRID["EASY"].length;
+	var twidth = 0;
+	for(var i = 0; i < difflen; i++) {
+		if(twidth == 0) {
+			htmlout += "<tr>";
+		}
+		htmlout += "<td><center><div class='missionBox d1' difficulty='EASY' level='"+i+"' style='' id='easy"+(i+1)+"btn'>LEVEL "+(i+1)+"</div></center></td>";
+		if(twidth == 2) {
+			htmlout += "</tr>";
+		}
+		twidth = (twidth + 1) % 3;
 	}
 	htmlout += "</table></center>";
 	htmlout += "</div>";
@@ -242,7 +267,13 @@ var setStateTitle = function() {
 var setStateLevelSelect = function() {
 	util.template.getHTML("assets/js/menu.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
-		fillLevels();
+		if(g_isAlpha) {
+			fillLevelsAlpha();
+			jQuery("#missionSelect").hide();
+			jQuery("#difficultySelect").show();
+		} else {
+			fillLevels();
+		}
 		//init here
 		jQuery(".missionBox.b1").click(function(){
 			jQuery("#missionSelect").hide();
