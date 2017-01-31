@@ -69,7 +69,7 @@ var g_leveldata =
                 "clueLocations": [[1.5,1,"forest"],[1,0.5,"mountain"],[0.5,1,"desert"],[1,1.5,"hill"]],
                 "unlocked": true,
                 "hasExploration": true,
-                "mapset": 1
+                "mapset": 3
             },
             {
                 "clues": [
@@ -94,7 +94,7 @@ var g_leveldata =
                 "clueLocations": [[0.5,0.5,"stream"],[0.75,0.5,"forest"],[0.5,1.5,"stream"],[0.5,2,"waterfall"],[0.5,2.5,"stream"],[0.5,2.5,"mountain"],[1.75,0.5,"mountain"],[1.5,1,"lake"],[1.25,2.5,"forest"],[1.7,2.5,"ocean"]],
                 "unlocked": true,
                 "hasExploration": true,
-                "mapset": 1
+                "mapset": 4
             },
             {
                 "clues": [
@@ -121,7 +121,7 @@ var g_leveldata =
                 "clueLocations": [[0.25,0.25,"forest"],[0.5,1,"park"],[0.4,2.5,"forest"],[1.5,0.5,"road"],[1.5,1,"bridge"],[1.5,1.5,"road"],[1,1.5,"hill"],[1,2.5,"building"],[1.5,2.5,"road"],[2,0.5,"mountain"],[2.5,1,"building"],[2.5,1.9,"desert"],[2.7,2.5,"mountain"]],
                 "unlocked": true,
                 "hasExploration": true,
-                "mapset": 1
+                "mapset": 7
             },
             {
                 "clues": [
@@ -148,7 +148,7 @@ var g_leveldata =
                 "clueLocations": [[0.5,0.2,"road"],[1.5,0.2,"road"],[2.5,0.2,"road"],[2,0.2,"bridge"],[0.2,1,"desert"],[1.5,1,"forest"],[2.6,1,"mountain"],[1,1.5,"hill"],[2.2,1.5,"building"],[0.5,2.1,"building"],[2.7,1.9,"desert"],[1,2.5,"mountain"],[1.7,2.5,"park"],[2.2,2.5,"hill"]],
                 "unlocked": true,
                 "hasExploration": true,
-                "mapset": 1
+                "mapset": 9
             },
             {
                 "clues": [
@@ -179,7 +179,7 @@ var g_leveldata =
                 "clueLocations": [[0.3,0.5,"desert"],[0.7,0.5,"hill"],[1.5,0.5,"forest"],[2.6,0.5,"road"],[0.3,1.5,"building"],[1,1.5,"park"],[2.5,0.8,"lake"],[0.5,2.5,"mountain"],[1.5,2.5,"stream"],[1.8,2.5,"bridge"],[2.3,2.5,"waterfall"],[2.7,2.5,"ocean"]],
                 "unlocked": true,
                 "hasExploration": true,
-                "mapset": 1
+                "mapset": 10
             }
         ],
         "MEDIUM": [],
