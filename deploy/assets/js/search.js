@@ -86,6 +86,15 @@ var createSearchView = function() {
 	jQuery(".arrow").show();
 	jQuery("#rightArrow").unbind().click(function(){searchRotate("right")});
 	jQuery("#leftArrow").unbind().click(function(){searchRotate("left")});
+	jQuery("#exploremap").unbind().click(function(){
+		if(g_heading == g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel][2]) {
+			jQuery("#leftArrow").unbind();
+			jQuery("#rightArrow").unbind();
+			alert("You found the elephant!");
+			g_hasDrag = false;
+			setStateLevelSelect();
+		}
+	});
 };
 
 var searchRotate = function(direction) {
@@ -113,13 +122,12 @@ var searchRotate = function(direction) {
 	if(cElephant[0] == g_activeTile[0] && cElephant[1] == g_activeTile[1] && cElephant[2] == g_heading) {
 		jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 		createSearchGPS();
-		setTimeout(function(){
+		/*setTimeout(function(){
 			alert("You found the elephant!");
 			setStateLevelSelect();
 		},500);
 		jQuery("#leftArrow").unbind();
-		jQuery("#rightArrow").unbind();
-
+		jQuery("#rightArrow").unbind();*/
 	}else if(g_directionsRemaining === ""){
 		//setStateSearchSelect();
 	}
