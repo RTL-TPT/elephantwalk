@@ -50,6 +50,7 @@ var openClueModal = function(closeCallback) {
 	htmlout += "<div class='modalOverlay'></div>";
 	htmlout += "<div class='modalContainer'>";
 	htmlout += "<div class='closeBtn'></div>";
+	htmlout += "<div class='sfxBtn'></div>";
 	htmlout += "<div class='clueContainer'></div>";
 	htmlout += "<div class='clueImg'><img style='position:absolute;opacity:0;' src='' class='clueImgSrc' id='clueImgSrc'></div>";
 	htmlout += "<div class='clueText'>"+g_currentClue.toUpperCase()+"</div>";
@@ -63,6 +64,11 @@ var openClueModal = function(closeCallback) {
 	jQuery("#clueImgSrc").attr("src","assets/images/clue/"+g_currentClue.toUpperCase()+"_clue.png");
 	//play clue sfx
 	g_sfx[g_currentClue].play();
+
+	jQuery(".modalContainer .sfxBtn").click(function(){
+		g_sfx[g_currentClue].stop();
+		g_sfx[g_currentClue].play();
+	});
 
 	jQuery(".modalContainer .closeBtn").click(function(){
 		g_sfx[g_currentClue].stop();

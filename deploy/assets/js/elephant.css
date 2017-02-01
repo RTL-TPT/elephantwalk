@@ -300,6 +300,18 @@ img {
     background: url('../images/closeicon-300.png');
     background-size: 100% 100%;
 }
+.modalContainer .sfxBtn{
+    position: absolute;
+    bottom: 34px;
+    left: 256px;
+    width: 48px;
+    height: 48px;
+    background: url('../images/ic_hearing_black_24dp_2x.png');
+    background-size: 100% 100%;
+    background-color: white;
+    border: solid 2px black;
+    border-radius: 10px;
+}
 .modalContainer .clueContainer{
     position: absolute;
     top: 10px;
