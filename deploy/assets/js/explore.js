@@ -58,10 +58,10 @@ var createExploreGPS = function() {
 	htmlout += "<div id='' class='mapGPSOverlay'>";
 	for(indy = 0; indy < g_activeGrid.y; indy++) {
 		for(indx = 0; indx < g_activeGrid.x; indx++) {
-			var left = "border-left:"+950/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("w") != -1 ? "rgba(255,255,0,0.3);" : "transparent;");
-			var right = "border-right:"+950/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("e") != -1 ? "rgba(255,255,0,0.3);" : "transparent;");
-			var top = "border-top:"+620/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("n") != -1 ? "rgba(255,255,0,0.3);" : "transparent;");
-			var bottom = "border-bottom:"+620/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("s") != -1 ? "rgba(255,255,0,0.3);" : "transparent;");
+			var left = "border-left:"+950/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("w") != -1 ? "yellow;" : "transparent;");
+			var right = "border-right:"+950/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("e") != -1 ? "yellow;" : "transparent;");
+			var top = "border-top:"+620/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("n") != -1 ? "yellow;" : "transparent;");
+			var bottom = "border-bottom:"+620/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("s") != -1 ? "yellow;" : "transparent;");
 			var blockstyle = "width:0px;height:0px;" + left + right + top + bottom;
 			if(indy == g_activeTile[0] && indx == g_activeTile[1]) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 

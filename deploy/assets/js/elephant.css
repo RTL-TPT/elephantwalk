@@ -106,25 +106,25 @@ img {
 }
 .gps-arrow-north{
     background-image: url('../images/gps-pointer-large-up.png');
-    background-size: 40%;
+    background-size: 25%;
     background-position: center center;
     background-repeat: no-repeat;
 }
 .gps-arrow-east{
     background-image: url('../images/gps-pointer-large-right.png');
-    background-size: 40%;
+    background-size: 25%;
     background-position: center center;
     background-repeat: no-repeat;
 }
 .gps-arrow-west{
     background-image: url('../images/gps-pointer-large-left.png');
-    background-size: 40%;
+    background-size: 25%;
     background-position: center center;
     background-repeat: no-repeat;
 }
 .gps-arrow-south{
     background-image: url('../images/gps-pointer-large.png');
-    background-size: 40%;
+    background-size: 25%;
     background-position: center center;
     background-repeat: no-repeat;
 }
