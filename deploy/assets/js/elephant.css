@@ -129,21 +129,21 @@ img {
     background-repeat: no-repeat;
 }
 .leftArrow {
-	background: url('../images/btn_360_left.png');
+	background: url('../images/btn_360_left_2.png');
     position: absolute;
-    bottom: 19px;
-    left: 28px;
-    width: 105px;
-    height: 65px;
+    bottom: 400px;
+    left: 24px;
+    width: 201px;
+    height: 97px;
     display: none;
 }
 .rightArrow {
-	background: url('../images/btn_360_right.png');
+	background: url('../images/btn_360_right_2.png');
     position: absolute;
-    bottom: 19px;
-    right: 28px;
-    width: 105px;
-    height: 65px;
+    bottom: 400px;
+    right: 24px;
+    width: 201px;
+    height: 97px;
     display: none;
 }
 .returnBtn {
