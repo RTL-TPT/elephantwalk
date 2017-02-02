@@ -75,6 +75,25 @@ var util = {};
 util.player = (function() {
 	var currentplayer = 1;
 
+	var openPlayerModal_ = function(closeCallback) {
+		if(closeCallback === undefined) {closeCallback = function(){};}
+		var htmlout = "";
+		htmlout += "<div class='playerModalOverlay'></div>";
+		htmlout += "<div class='playerModalContainer'>";
+		htmlout += "<div class='closeBtn'></div>";
+
+		htmlout += "<div>" + "It's your turn Player number".replace("number",util.player.getPlayer()) + "</div>"
+
+		htmlout += "</div>";
+
+		jQuery("#uiLayer").append(htmlout);
+		jQuery(".playerModalContainer .closeBtn").click(function(){
+			jQuery(".playerModalContainer").remove();
+			jQuery(".playerModalOverlay").remove();
+			closeCallback();
+		});
+	};
+
 	var setPlayerImg_ = function() {
 		jQuery("#playerIcon").html("<img style='width:100%;height:100%' src='assets/images/icon_p"+currentplayer+".png'>");
 	};
@@ -82,7 +101,8 @@ util.player = (function() {
 		if(callback === undefined) {callback = function(){};}
 		currentplayer = currentplayer === 1 ? 2 : 1;
 		setPlayerImg_();
-		util.animation.playerAnim(callback);
+		openPlayerModal_(callback);
+		//util.animation.playerAnim(callback);
 	};
 	var getPlayer_ = function() {
 		return currentplayer;
@@ -91,7 +111,8 @@ util.player = (function() {
 		if(callback === undefined) {callback = function(){};}
 		currentplayer = playerNum;
 		setPlayerImg_();
-		util.animation.playerAnim(callback);
+		openPlayerModal_(callback);
+		//util.animation.playerAnim(callback);
 	};
 
 	return {
