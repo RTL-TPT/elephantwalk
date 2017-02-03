@@ -47,15 +47,18 @@ var createClueMap = function() {
 var openClueModal = function(closeCallback) {
 	if(closeCallback === undefined) {closeCallback = function(){};}
 	var htmlout = "";
-	htmlout += "<div class='modalOverlay'></div>";
+	/*htmlout += "<div class='modalOverlay'></div>";
 	htmlout += "<div class='modalContainer'>";
-	htmlout += "<div class='closeBtn'></div>";
+	htmlout += "<div class='closeBtn'></div>";*/
 	htmlout += "<div class='sfxBtn'></div>";
 	htmlout += "<div class='clueContainer'></div>";
 	htmlout += "<div class='clueImg'><img style='position:absolute;opacity:0;' src='' class='clueImgSrc' id='clueImgSrc'></div>";
 	htmlout += "<div class='clueText'>"+g_currentClue.toUpperCase()+"</div>";
 	htmlout += "</div>";
-	jQuery("#uiLayer").append(htmlout);
+	
+	//jQuery("#uiLayer").append(htmlout);
+	util.openModal(closeCallback,htmlout);
+
 	jQuery("#clueImgSrc").one("load", function(){
 		var containerHeight = jQuery(".clueImg").height();
 		var clueheight = jQuery("#clueImgSrc").height();
@@ -63,17 +66,22 @@ var openClueModal = function(closeCallback) {
 	});
 	jQuery("#clueImgSrc").attr("src","assets/images/clue/"+g_currentClue.toUpperCase()+"_clue.png");
 	//play clue sfx
-	g_sfx[g_currentClue].play();
+	if(jQuery(".playerModalContainer").length > 0) {
+		//
+	} else {
+		g_sfx[g_currentClue].play();
+	}
 
 	jQuery(".modalContainer .sfxBtn").click(function(){
 		g_sfx[g_currentClue].stop();
 		g_sfx[g_currentClue].play();
 	});
 
-	jQuery(".modalContainer .closeBtn").click(function(){
+	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
 		g_sfx[g_currentClue].stop();
-		closeModal();
-		closeCallback();
+		//jQuery(".modalContainer").remove();
+		//jQuery(".modalOverlay").remove();
+		//closeCallback();
 	});
 };
 
@@ -92,8 +100,8 @@ var confirmClue = function() {
 					setStateSearchSelect();
 				} else {
 					g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
-					openClueModal();
 					util.player.togglePlayer();
+					openClueModal();
 				}
 			};
 			util.animation.correctAnim(onAnimComplete);
@@ -111,9 +119,9 @@ var confirmClue = function() {
 var openLegendModal = function(closeCallback) {
 	if(closeCallback === undefined) {closeCallback = function(){};}
 	var htmlout = "";
-	htmlout += "<div class='modalOverlay'></div>";
+	/*htmlout += "<div class='modalOverlay'></div>";
 	htmlout += "<div class='modalContainer'>";
-	htmlout += "<div class='closeBtn'></div>";
+	htmlout += "<div class='closeBtn'></div>";*/
 
 	htmlout += "<center><div style='width:100%;margin-top:20px;font-size:50px;'>LEGEND</div><div style='width:100%;height:526px;box-sizing:border-box;padding:5px;margin-top:30px;overflow-y:auto;'>";
 	jQuery.each(g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel],function(key,value){
@@ -145,13 +153,14 @@ var openLegendModal = function(closeCallback) {
 	});
 	htmlout += "</div></center>";
 
-	htmlout += "</div>";
+	/*htmlout += "</div>";*/
+	util.openModal(closeCallback,htmlout);
 
-	jQuery("#uiLayer").append(htmlout);
+	/*jQuery("#uiLayer").append(htmlout);
 	jQuery(".modalContainer .closeBtn").click(function(){
 		closeModal();
 		closeCallback();
-	});
+	});*/
 };
 
 var createLegend = function() {

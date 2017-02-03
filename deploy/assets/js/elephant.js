@@ -44,6 +44,7 @@ var g_currentClue = "";
 var g_hasDrag = false;
 var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":"_partial-abstract-symbol.jpg","fullAbstract":"_abstract-symbol.jpg"};
 var g_isAlpha = true;
+var g_modalLevel = 0;
 
 var g_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -90,6 +91,9 @@ util.player = (function() {
 		jQuery(".playerModalContainer .closeBtn").click(function(){
 			jQuery(".playerModalContainer").remove();
 			jQuery(".playerModalOverlay").remove();
+			if(jQuery(".modalContainer._"+g_modalLevel+" .clueContainer").length > 0) {
+				g_sfx[g_currentClue].play();
+			}
 			closeCallback();
 		});
 	};
@@ -98,7 +102,6 @@ util.player = (function() {
 		jQuery("#playerIcon").html("<img style='width:100%;height:100%' src='assets/images/icon_p"+currentplayer+".png'>");
 	};
 	var togglePlayer_ = function(callback) {
-		if(callback === undefined) {callback = function(){};}
 		currentplayer = currentplayer === 1 ? 2 : 1;
 		setPlayerImg_();
 		openPlayerModal_(callback);
@@ -108,7 +111,6 @@ util.player = (function() {
 		return currentplayer;
 	};
 	var setPlayer_ = function(playerNum, callback) {
-		if(callback === undefined) {callback = function(){};}
 		currentplayer = playerNum;
 		setPlayerImg_();
 		openPlayerModal_(callback);
@@ -168,6 +170,27 @@ util.getFacingPathElephant = function(indx,indy,direction) {
 };
 util.getCluePath = function(clue) {
 	return g_clueUrlPost[ g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][clue] ];
+};
+
+util.openModal = function(closeCallback, content) {
+	if(closeCallback === undefined) {closeCallback = function(){};}
+	g_modalLevel++;
+	var htmlout = "";
+	htmlout += "<div class='modalOverlay _"+g_modalLevel+"'></div>";
+	htmlout += "<div class='modalContainer _"+g_modalLevel+"'>";
+	htmlout += "<div class='closeBtn _"+g_modalLevel+"'></div>";
+
+	htmlout += content;
+
+	htmlout += "</div>";
+
+	jQuery("#uiLayer").append(htmlout);
+	jQuery(".modalContainer._"+g_modalLevel+" .closeBtn").click(function(){
+		jQuery(".modalContainer._"+g_modalLevel).remove();
+		jQuery(".modalOverlay._"+g_modalLevel).remove();
+		g_modalLevel--;
+		closeCallback();
+	});
 };
 
 util.animation = (function() {
@@ -348,6 +371,7 @@ var setStateClue = function() {
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
+		util.player.setPlayer(1);
 		//init here
 		createClueMap();
 		jQuery("#clueLegend").unbind().click(function(){
@@ -361,7 +385,6 @@ var setStateClue = function() {
 			//setStateSearch();
 		});
 		openClueModal(util.animation.dragDropAnim);
-		util.player.setPlayer(1);
 	});
 };
 var setStateSearchSelect = function() {
