@@ -204,3 +204,28 @@ var g_leveldata =
         "HARD": []
     }
 };
+
+var g_mapsetdata = [
+    { //mapset 1
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_0_south":[240,235,300,200]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [366,50,226,173,"forest"],
+            [291,417,384,149,"mountain"],
+            [28,220,373,136,"desert"],
+            [576,251,298,92,"hill"]
+        ]
+    },
+    { //mapset 2
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_0_south":[240,235,300,200]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [0,0,0,0,"forest"],
+            [0,0,0,0,"mountain"],
+            [0,0,0,0,"desert"],
+            [0,0,0,0,"hill"]
+        ]
+    }
+];

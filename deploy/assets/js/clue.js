@@ -9,12 +9,14 @@ var drop = function(ev) {
     var children = target.children();
     if(children.length === 0 && target.attr("id") === "clueDrop1") {
     	//add attribute stripped clone of clue to drop box
-    	jQuery(document.getElementById(data)).clone().attr("cname",data).removeAttr("id draggable ondragstart").css("pointer-events","none").appendTo(target);
+    	var cluesrc = jQuery(document.getElementById(data)).attr("csrc");
+    	jQuery(document.getElementById(data)).clone().attr("cname",data).attr("src",cluesrc).css("opacity",1).removeAttr("id draggable ondragstart").css("pointer-events","none").appendTo(target);
     	//target.append(document.getElementById(data));
     } else if(children.length !== 0 && target.attr("id") === "clueDrop1") {
     	//clear previous drop and add new attribute stripped clone of clue to drop box
     	jQuery(target).html("");
-    	jQuery(document.getElementById(data)).clone().attr("cname",data).removeAttr("id draggable ondragstart").css("pointer-events","none").appendTo(target);
+    	var cluesrc = jQuery(document.getElementById(data)).attr("csrc");
+    	jQuery(document.getElementById(data)).clone().attr("cname",data).attr("src",cluesrc).css("opacity",1).removeAttr("id draggable ondragstart").css("pointer-events","none").appendTo(target);
     } else if(target.attr("id") === ("clue_" + data.replace("img_","")) ) {
     	//target.append(document.getElementById(data));
     } else {
@@ -29,10 +31,29 @@ var getCluePX = function(gridx,gridy) {
 	return [725 / gridx, 575 / gridx];
 };
 
+
 var createClueMap = function() {
 	var htmlout = "";
+	//bg
+	var currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
+	htmlout = "<div style='width:100%;height:100%;background:url(../assets/images/lvlsets/"+currentSet+"/map_"+currentSet+".jpg) center center no-repeat;background-size:725px'></div>";
+	jQuery("#clueMap").append(htmlout);
+	//asdf
+	for(var i = 0; i < g_mapsetdata[currentSet-1].clues.length; i++) {
+		var cClue = g_mapsetdata[currentSet-1].clues[i];
+		var cx = 725/950 * cClue[0];
+		var cy = 725/950 * cClue[1] + ((575-473.16)/2);
+		var cwidth = 725/950 * cClue[2];
+		var cheight = 725/950 * cClue[3];
+		var cstyle = "style='left:"+cx+"px;top:"+cy+"px;width:"+cwidth+"px;height:"+cheight+"px;'";
+		htmlout = "<div id='clue_"+cClue[4]+"' class='dragClue' "+cstyle+" >";
+		var posturl = util.getCluePath(cClue[4]);
+		htmlout += "<img id='img_"+cClue[4]+"' draggable='true' ondragstart='drag(event)' style='width:100%;height:100%;opacity:0;' csrc='"+"assets/images/clue/"+cClue[4].toUpperCase()+posturl+"' src='"+"assets/images/clue/"+cClue[4].toUpperCase()+posturl+"'>";
+		htmlout += "</div>";
+		jQuery("#clueMap").append(htmlout);
+	}
 	//create draggable clue features
-	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel], function(key,value){
+	/*jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel], function(key,value){
 		var location = [jQuery("#clueMap").height() / g_activeGrid.x * value[0] - 87.5, jQuery("#clueMap").width() / g_activeGrid.x * value[1] - 75];
 		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
 		htmlout = "<div id='clue_"+value[2]+"' class='dragClue' "+locStyle+" >"; // ondrop='drop(event)' ondragover='allowDrop(event)'
@@ -40,7 +61,7 @@ var createClueMap = function() {
 		htmlout += "<img id='img_"+value[2]+"' draggable='true' ondragstart='drag(event)' style='width:100%;height:100%;' src='"+"assets/images/clue/"+value[2].toUpperCase()+posturl+"'>";
 		htmlout += "</div>";
 		jQuery("#clueMap").append(htmlout);
-	} );
+	} );*/
 	g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
 };
 

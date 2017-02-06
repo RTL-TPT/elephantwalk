@@ -71,7 +71,7 @@ img {
 	left:0px;
 }
 .mapGrid {
-    background: url('../images/bg_explore.gif');
+    /*background: url('../images/bg_explore.gif');*/
 	font-size:0px;
 	display:inline-block;
 	position:absolute;
@@ -88,7 +88,7 @@ img {
     border: solid 2px black;
 }
 .mapGPS {
-    background: url('../images/bg_explore.gif');
+    /*background: url('../images/bg_explore.gif');*/
     font-size:0px;
     display:inline-block;
     position:absolute;

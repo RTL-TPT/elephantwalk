@@ -7,12 +7,22 @@ var createExploreMap = function() {
 	var gridPX = getSearchPX(g_activeGrid.x);
 	g_activeTile = [util.getRandomInt(0,g_activeGrid.y),util.getRandomInt(0,g_activeGrid.x)];
 	//map feature layer
-	var htmlout = "<div id='mapGrid' class='mapGrid'>";
+	var htmlout = "";
+	//
+	var currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
+	htmlout += "<div style='position:absolute;width:100%;height:100%'><img src='assets/images/lvlsets/"+(currentSet)+"/map_"+(currentSet)+".jpg'></div>";
+	//
+	htmlout += "<div id='mapGrid' class='mapGrid'>";
+	//
 	for(var indy = 0; indy < g_activeGrid.y; indy++) {
 		for(var indx = 0; indx < g_activeGrid.x; indx++) {
-			htmlout += "<img class='exploreMapImg' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;opacity:0;' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
+			htmlout += "<img class='exploreMapImg' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;opacity:1;' coordinant='"+indy+"_"+indx+"' src='assets/images/bg_explore.gif'>";
 			g_tilesRemaining[""+indy+","+indx] = 1;
 		}
+		/*for(var indx = 0; indx < g_activeGrid.x; indx++) {
+			htmlout += "<img class='exploreMapImg' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;opacity:0;' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
+			g_tilesRemaining[""+indy+","+indx] = 1;
+		}*/
 	}
 	htmlout += "</div>";
 	//highlight active block
@@ -44,14 +54,25 @@ var createExploreMap = function() {
 
 var createExploreGPS = function() {
 	var gridPX = getSearchPX(g_activeGrid.x);
+	var htmlout = "";
+	//
+	htmlout += "<div id='gpsmap' class='GPSContainer'>";
+	//
+	var currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
+	htmlout += "<div style='position:absolute;width:100%;height:100%'><img src='assets/images/lvlsets/"+(currentSet)+"/map_"+(currentSet)+".jpg'></div>";
 	//map feature layer
-	var htmlout = "<div id='gpsmap' class='GPSContainer'><div id='' class='mapGPS'>";
+	htmlout += "<div id='' class='mapGPS'>";
 	for(var indy = 0; indy < g_activeGrid.y; indy++) {
 		for(var indx = 0; indx < g_activeGrid.x; indx++) {
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
 			var cTileIsVisited = g_tilesRemaining[""+indy+","+indx] === undefined;
-			htmlout += "<img class='exploreMapImg' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;opacity:"+(cTileIsActive || cTileIsVisited ? 1 : 0)+";' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
+			htmlout += "<img class='exploreMapImg' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;opacity:"+(cTileIsActive || cTileIsVisited ? 0 : 1)+";' coordinant='"+indy+"_"+indx+"' src='assets/images/bg_explore.gif'>";
 		}
+		/*for(var indx = 0; indx < g_activeGrid.x; indx++) {
+			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
+			var cTileIsVisited = g_tilesRemaining[""+indy+","+indx] === undefined;
+			htmlout += "<img class='exploreMapImg' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;opacity:"+(cTileIsActive || cTileIsVisited ? 0 : 1)+";' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
+		}*/
 	}
 	htmlout += "</div>";
 	//highlight active block
@@ -98,7 +119,7 @@ var bindActiveTile = function() {
 	jQuery(".activeTile").click(function(){
 		jQuery.each(jQuery(".exploreMapImg"),function(key,value){
 			if( jQuery(value).attr("coordinant") == g_activeTile[0]+"_"+g_activeTile[1] ) {
-				jQuery(value).css("opacity",1);
+				jQuery(value).css("opacity",0);
 			}
 		});
 		jQuery(".exploreMapImg");
