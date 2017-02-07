@@ -310,7 +310,7 @@ img {
     border: solid 3px white;
     box-sizing: border-box;
     z-index: 10001;
-    line-height: 640px;
+    /*line-height: 640px;*/
     font-size: 70px;
     text-align: center;
     font-weight: bold;
@@ -322,6 +322,15 @@ img {
     width: 50px;
     height: 50px;
     background: url('../images/closeicon-300.png');
+    background-size: 100% 100%;
+}
+.playerModalContainer .playerNextBtn{
+    position: absolute;
+    top: 400px;
+    left: 400px;
+    width: 85px;
+    height: 44px;
+    background: url('../images/btn_next.gif');
     background-size: 100% 100%;
 }
 .modalContainer .sfxBtn{
@@ -387,7 +396,7 @@ img {
     position: absolute;
     width: 160px;
     height: 54px;
-    line-height: 52px;
+    line-height: 54px;
     text-align: center;
     top: calc(50% + 40px);
     font-size: 36px;

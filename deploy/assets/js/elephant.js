@@ -76,13 +76,14 @@ util.player = (function() {
 		htmlout += "<div class='playerModalOverlay'></div>";
 		htmlout += "<div class='playerModalContainer'>";
 		htmlout += "<div class='closeBtn'></div>";
+		htmlout += "<div class='playerNextBtn'></div>";
 
-		htmlout += "<div>" + "It's your turn Player number".replace("number",util.player.getPlayer()) + "</div>"
+		htmlout += "<div style='position:absolute;top:180px;width:100%;'><span style='font-size:40px;'>It's your turn</span><br/><span style='font-size:100px;'>Player number</span></div>".replace("number",util.player.getPlayer());
 
 		htmlout += "</div>";
 
 		jQuery("#uiLayer").append(htmlout);
-		jQuery(".playerModalContainer .closeBtn").click(function(){
+		jQuery(".playerModalContainer .closeBtn, .playerModalContainer .playerNextBtn").click(function(){
 			jQuery(".playerModalContainer").remove();
 			jQuery(".playerModalOverlay").remove();
 			if(jQuery(".modalContainer._"+g_modalLevel+" .clueContainer").length > 0) {
