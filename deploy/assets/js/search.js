@@ -24,7 +24,6 @@ var createSearchMap = function() {
 		}
 	}
 	htmlout += "</div>";
-	//g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
 	jQuery("#clueMap").append(htmlout);
 };
 
@@ -56,10 +55,6 @@ var createSearchGPS = function() {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
 				+"' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;'></div>";
 			}
-			/*
-			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
-				+"' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(255,255,0,0.30)" : "")+"'></div>";
-			*/
 		}
 	}
 	htmlout += "</div>";
@@ -86,15 +81,6 @@ var createSearchView = function() {
 	jQuery(".arrow").show();
 	jQuery("#rightArrow").unbind().click(function(){searchRotate("right")});
 	jQuery("#leftArrow").unbind().click(function(){searchRotate("left")});
-	jQuery("#exploremap").unbind().click(function(){
-		if(g_heading == g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel][2]) {
-			jQuery("#leftArrow").unbind();
-			jQuery("#rightArrow").unbind();
-			alert("You found the elephant!");
-			g_hasDrag = false;
-			setStateLevelSelect();
-		}
-	});
 };
 
 var searchRotate = function(direction) {
@@ -121,13 +107,19 @@ var searchRotate = function(direction) {
 	var cElephant = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
 	if(cElephant[0] == g_activeTile[0] && cElephant[1] == g_activeTile[1] && cElephant[2] == g_heading) {
 		jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
-		createSearchGPS();
-		/*setTimeout(function(){
+		//set elephant hitbox
+		var boxdata = g_mapsetdata[g_currentSet-1].elephant[g_activeTile[1]+"_"+g_activeTile[0]+"_"+g_heading];
+		var ebox = "<div id='elephantBox' style='position:absolute;left:"+boxdata[0]+"px;top:"+boxdata[1]+"px;width:"+boxdata[2]+"px;height:"+boxdata[3]+"px;'></div>";
+		jQuery("#exploremap").append(ebox);
+		jQuery("#elephantBox").unbind().click(function(){
+			jQuery("#leftArrow").unbind();
+			jQuery("#rightArrow").unbind();
 			alert("You found the elephant!");
+			g_hasDrag = false;
 			setStateLevelSelect();
-		},500);
-		jQuery("#leftArrow").unbind();
-		jQuery("#rightArrow").unbind();*/
+		});
+		//add gps
+		createSearchGPS();
 	}else if(g_directionsRemaining === ""){
 		//setStateSearchSelect();
 	}

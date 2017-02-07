@@ -34,13 +34,12 @@ var getCluePX = function(gridx,gridy) {
 
 var createClueMap = function() {
 	var htmlout = "";
-	//bg
-	var currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
-	htmlout = "<div style='width:100%;height:100%;background:url(../assets/images/lvlsets/"+currentSet+"/map_"+currentSet+".jpg) center center no-repeat;background-size:725px'></div>";
+	//map bg
+	htmlout = "<div style='width:100%;height:100%;background:url(../assets/images/lvlsets/"+g_currentSet+"/map_"+g_currentSet+".jpg) center center no-repeat;background-size:725px'></div>";
 	jQuery("#clueMap").append(htmlout);
-	//asdf
-	for(var i = 0; i < g_mapsetdata[currentSet-1].clues.length; i++) {
-		var cClue = g_mapsetdata[currentSet-1].clues[i];
+	//create draggable clues
+	for(var i = 0; i < g_mapsetdata[g_currentSet-1].clues.length; i++) {
+		var cClue = g_mapsetdata[g_currentSet-1].clues[i];
 		var cx = 725/950 * cClue[0];
 		var cy = 725/950 * cClue[1] + ((575-473.16)/2);
 		var cwidth = 725/950 * cClue[2];
@@ -52,25 +51,12 @@ var createClueMap = function() {
 		htmlout += "</div>";
 		jQuery("#clueMap").append(htmlout);
 	}
-	//create draggable clue features
-	/*jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel], function(key,value){
-		var location = [jQuery("#clueMap").height() / g_activeGrid.x * value[0] - 87.5, jQuery("#clueMap").width() / g_activeGrid.x * value[1] - 75];
-		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
-		htmlout = "<div id='clue_"+value[2]+"' class='dragClue' "+locStyle+" >"; // ondrop='drop(event)' ondragover='allowDrop(event)'
-		var posturl = util.getCluePath(value[2]);
-		htmlout += "<img id='img_"+value[2]+"' draggable='true' ondragstart='drag(event)' style='width:100%;height:100%;' src='"+"assets/images/clue/"+value[2].toUpperCase()+posturl+"'>";
-		htmlout += "</div>";
-		jQuery("#clueMap").append(htmlout);
-	} );*/
 	g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
 };
 
 var openClueModal = function(closeCallback) {
 	if(closeCallback === undefined) {closeCallback = function(){};}
 	var htmlout = "";
-	/*htmlout += "<div class='modalOverlay'></div>";
-	htmlout += "<div class='modalContainer'>";
-	htmlout += "<div class='closeBtn'></div>";*/
 	htmlout += "<div class='sfxBtn'></div>";
 	htmlout += "<div class='clueContainer'></div>";
 	htmlout += "<div class='clueImg'><img style='position:absolute;opacity:0;' src='' class='clueImgSrc' id='clueImgSrc'></div>";
@@ -100,15 +86,7 @@ var openClueModal = function(closeCallback) {
 
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
 		g_sfx[g_currentClue].stop();
-		//jQuery(".modalContainer").remove();
-		//jQuery(".modalOverlay").remove();
-		//closeCallback();
 	});
-};
-
-var closeModal = function() {
-	jQuery(".modalContainer").remove();
-	jQuery(".modalOverlay").remove();
 };
 
 var confirmClue = function() {
@@ -126,12 +104,10 @@ var confirmClue = function() {
 				}
 			};
 			util.animation.correctAnim(onAnimComplete);
-			//jQuery("#clue_"+g_currentClue).append(jQuery(clueChildren[0])); //reset position of dragged element
 			jQuery("#clueDrop1").html("");
 
 		} else {
 			util.animation.incorrectAnim(function(){});
-			//jQuery("#clue_"+selectedClue).append(jQuery(clueChildren[0])); //reset position of dragged element
 			jQuery("#clueDrop1").html("");
 		}
 	}
@@ -140,9 +116,6 @@ var confirmClue = function() {
 var openLegendModal = function(closeCallback) {
 	if(closeCallback === undefined) {closeCallback = function(){};}
 	var htmlout = "";
-	/*htmlout += "<div class='modalOverlay'></div>";
-	htmlout += "<div class='modalContainer'>";
-	htmlout += "<div class='closeBtn'></div>";*/
 
 	htmlout += "<center><div style='width:100%;margin-top:20px;font-size:50px;'>LEGEND</div><div style='width:100%;height:526px;box-sizing:border-box;padding:5px;margin-top:30px;overflow-y:auto;'>";
 	jQuery.each(g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel],function(key,value){
@@ -178,14 +151,7 @@ var openLegendModal = function(closeCallback) {
 	});
 	htmlout += "</div></center>";
 
-	/*htmlout += "</div>";*/
 	util.openModal(closeCallback,htmlout);
-
-	/*jQuery("#uiLayer").append(htmlout);
-	jQuery(".modalContainer .closeBtn").click(function(){
-		closeModal();
-		closeCallback();
-	});*/
 };
 
 var createLegend = function() {

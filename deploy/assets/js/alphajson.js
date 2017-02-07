@@ -208,7 +208,7 @@ var g_leveldata =
 var g_mapsetdata = [
     { //mapset 1
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_0_south":[240,235,300,200]
+            "0_0_south":[228,235,321,281]
         }, 
         "clues": [ //[left,top,width,height,clue]
             [366,50,226,173,"forest"],

@@ -45,6 +45,7 @@ var g_hasDrag = false;
 var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":"_partial-abstract-symbol.jpg","fullAbstract":"_abstract-symbol.jpg"};
 var g_isAlpha = true;
 var g_modalLevel = 0;
+var g_currentSet = 1; //current level mapset
 
 var g_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -105,7 +106,6 @@ util.player = (function() {
 		currentplayer = currentplayer === 1 ? 2 : 1;
 		setPlayerImg_();
 		openPlayerModal_(callback);
-		//util.animation.playerAnim(callback);
 	};
 	var getPlayer_ = function() {
 		return currentplayer;
@@ -114,7 +114,6 @@ util.player = (function() {
 		currentplayer = playerNum;
 		setPlayerImg_();
 		openPlayerModal_(callback);
-		//util.animation.playerAnim(callback);
 	};
 
 	return {
@@ -157,15 +156,12 @@ util.template = (function() {
 })();
 
 util.getTilePath = function(indx,indy) {
-	//return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_map.gif";
 	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_map.gif";
 };
 util.getFacingPath = function(indx,indy,direction) {
-	//return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_"+direction+".jpg";
 	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_"+direction+".jpg";
 };
 util.getFacingPathElephant = function(indx,indy,direction) {
-	//return "assets/images/"+g_LevelTerrain+"/"+g_selectedDifficulty.toLowerCase()+"/"+parseInt(g_selectedLevel+1)+"/"+indx+"_"+indy+"_"+direction+"-elephant.jpg";
 	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_"+direction+"_elephant.jpg";
 };
 util.getCluePath = function(clue) {
@@ -327,6 +323,7 @@ var setStateLevelSelect = function() {
 			g_selectedDifficulty = jQuery(this).attr("difficulty");
 			g_selectedLevel = +jQuery(this).attr("level");
 			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
+			g_currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
 			if(g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].hasExploration) {
 				setStateExplore();
 			} else {
@@ -337,6 +334,7 @@ var setStateLevelSelect = function() {
 			g_selectedDifficulty = jQuery(this).attr("difficulty");
 			g_selectedLevel = +jQuery(this).attr("level");
 			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
+			g_currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
 			if(g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].hasExploration) {
 				setStateExplore();
 			} else {
@@ -347,14 +345,13 @@ var setStateLevelSelect = function() {
 			g_selectedDifficulty = jQuery(this).attr("difficulty");
 			g_selectedLevel = +jQuery(this).attr("level");
 			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
+			g_currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
 			if(g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].hasExploration) {
 				setStateExplore();
 			} else {
 				setStateClue();
 			}
 		});
-		//jQuery("#tutorial1btn").click(function(){setStateExplore();});
-		jQuery("#tempNextBox").click(function(){setStateExplore();});
 	});
 };
 var setStateExplore = function() {
@@ -382,7 +379,6 @@ var setStateClue = function() {
 		});
 		jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
 			confirmClue();
-			//setStateSearch();
 		});
 		openClueModal(util.animation.dragDropAnim);
 	});
@@ -409,10 +405,7 @@ var setStateSearchSelect = function() {
 		//bind overlay grid
 		jQuery(".clueOverlayBox").unbind().click(function(){
 			if( jQuery(this).hasClass("active") ){
-				//OPEN FPS VIEW
-				/*g_activeTile = [jQuery(this).attr("coordinant").split("_")[0], jQuery(this).attr("coordinant").split("_")[1]];
-				g_heading = "north";
-				setStateSearchFirstPerson();*/
+				//
 			} else {
 				jQuery(".clueOverlayBox").removeClass("active");
 				jQuery(this).addClass("active");
@@ -427,7 +420,6 @@ var setStateSearchSelect = function() {
 				var clueData = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
 				if(clueData[0] == g_activeTile[0] && clueData[1] == g_activeTile[1]) {
 					util.animation.correctAnim(setStateSearchFirstPerson);
-					//setStateSearchFirstPerson();
 				} else {
 					util.animation.incorrectAnim();
 				}
