@@ -1,9 +1,9 @@
 var getSearchPX = function(gridx,gridy) {
-	return [950 / gridx, 620 / gridx];
+	return [950 / gridx, 620 / gridy];
 };
 
 var createExploreMap = function() {
-	var gridPX = getSearchPX(g_activeGrid.x);
+	var gridPX = getSearchPX(g_activeGrid.x, g_activeGrid.y);
 	g_activeTile = [util.getRandomInt(0,g_activeGrid.y),util.getRandomInt(0,g_activeGrid.x)];
 	//map feature layer
 	var htmlout = "";
@@ -47,7 +47,7 @@ var createExploreMap = function() {
 };
 
 var createExploreGPS = function() {
-	var gridPX = getSearchPX(g_activeGrid.x);
+	var gridPX = getSearchPX(g_activeGrid.x,g_activeGrid.y);
 	var htmlout = "";
 	//
 	htmlout += "<div id='gpsmap' class='GPSContainer'>";
@@ -69,8 +69,8 @@ var createExploreGPS = function() {
 		for(indx = 0; indx < g_activeGrid.x; indx++) {
 			var left = "border-left:"+950/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("w") != -1 ? "yellow;" : "transparent;");
 			var right = "border-right:"+950/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("e") != -1 ? "yellow;" : "transparent;");
-			var top = "border-top:"+620/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("n") != -1 ? "yellow;" : "transparent;");
-			var bottom = "border-bottom:"+620/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("s") != -1 ? "yellow;" : "transparent;");
+			var top = "border-top:"+620/g_activeGrid.y/2+"px solid " + (g_directionsRemaining.indexOf("n") != -1 ? "yellow;" : "transparent;");
+			var bottom = "border-bottom:"+620/g_activeGrid.y/2+"px solid " + (g_directionsRemaining.indexOf("s") != -1 ? "yellow;" : "transparent;");
 			var blockstyle = "width:0px;height:0px;" + left + right + top + bottom;
 			if(indy == g_activeTile[0] && indx == g_activeTile[1]) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
@@ -159,7 +159,7 @@ var firstPersonToMap = function() {
 };
 
 var setNewExploreSpace = function() {
-	var gridPX = getSearchPX(g_activeGrid.x);
+	var gridPX = getSearchPX(g_activeGrid.x, g_activeGrid.y);
 	var remainingCoords = Object.keys(g_tilesRemaining);
 	if(remainingCoords.length === 0) {
 		setStateClue();

@@ -14,7 +14,7 @@ var createSearchMap = function() {
 			var borderup = indy > 0 ? "border-top: 1px dashed black;" : "";
 			var borderdown = indy < g_activeGrid.y - 1 ? "border-bottom: 1px dashed black;" : "";
 			var borderSum = borderright + borderleft + borderup + borderdown;
-			htmlout += "<div class='clueOverlayBox' coordinant='"+indy+"_"+indx+"' style='display:inline-block;box-sizing:border-box;"+borderSum+"width:"+(jQuery("#clueMap").width() / grid.x)+"px;height:"+(jQuery("#clueMap").height() / grid.x)+"px;'></div>";
+			htmlout += "<div class='clueOverlayBox' coordinant='"+indy+"_"+indx+"' style='display:inline-block;box-sizing:border-box;"+borderSum+"width:"+(jQuery("#clueMap").width() / grid.x)+"px;height:"+(jQuery("#clueMap").height() / grid.y)+"px;'></div>";
 		}
 	}
 	htmlout += "</div>";
@@ -22,7 +22,7 @@ var createSearchMap = function() {
 };
 
 var createSearchGPS = function() {
-	var gridPX = getSearchPX(g_activeGrid.x);
+	var gridPX = getSearchPX(g_activeGrid.x, g_activeGrid.y);
 	//map feature layer
 	var htmlout = "<div id='gpsmap' class='GPSContainer'>";
 	htmlout += "<div style='position:absolute;width:100%;height:100%'><img src='assets/images/lvlsets/"+(g_currentSet)+"/map_"+(g_currentSet)+".jpg'></div>";
@@ -34,8 +34,8 @@ var createSearchGPS = function() {
 		for(indx = 0; indx < g_activeGrid.x; indx++) {
 			var left = "border-left:"+950/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("w") != -1 ? "yellow;" : "transparent;");
 			var right = "border-right:"+950/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("e") != -1 ? "yellow;" : "transparent;");
-			var top = "border-top:"+620/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("n") != -1 ? "yellow;" : "transparent;");
-			var bottom = "border-bottom:"+620/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("s") != -1 ? "yellow;" : "transparent;");
+			var top = "border-top:"+620/g_activeGrid.y/2+"px solid " + (g_directionsRemaining.indexOf("n") != -1 ? "yellow;" : "transparent;");
+			var bottom = "border-bottom:"+620/g_activeGrid.y/2+"px solid " + (g_directionsRemaining.indexOf("s") != -1 ? "yellow;" : "transparent;");
 			var blockstyle = "width:0px;height:0px;" + left + right + top + bottom;
 			if(indy == g_activeTile[0] && indx == g_activeTile[1]) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
