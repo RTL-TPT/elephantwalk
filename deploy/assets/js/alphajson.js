@@ -251,6 +251,28 @@ var g_mapsetdata = [
     },
     { //mapset 5
         "elephant": { //y_x_direction: [left,top,width,height]
+            "0_1_west":[228,235,321,281]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [0,0,0,0,"forest"],
+            [0,0,0,0,"mountain"],
+            [0,0,0,0,"desert"],
+            [0,0,0,0,"hill"]
+        ]
+    },
+    { //mapset 6
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_1_west":[228,235,321,281]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [0,0,0,0,"forest"],
+            [0,0,0,0,"mountain"],
+            [0,0,0,0,"desert"],
+            [0,0,0,0,"hill"]
+        ]
+    },
+    { //mapset 7
+        "elephant": { //y_x_direction: [left,top,width,height]
             "0_0_north":[228,235,321,281]
         }, 
         "clues": [ //[left,top,width,height,clue]
@@ -269,7 +291,18 @@ var g_mapsetdata = [
             [0,0,0,0,"mountain"]
         ]
     },
-    { //mapset 6
+    { //mapset 8
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_1_west":[228,235,321,281]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [0,0,0,0,"forest"],
+            [0,0,0,0,"mountain"],
+            [0,0,0,0,"desert"],
+            [0,0,0,0,"hill"]
+        ]
+    },
+    { //mapset 9
         "elephant": { //y_x_direction: [left,top,width,height]
             "1_2_west":[228,235,321,281]
         }, 
@@ -290,7 +323,7 @@ var g_mapsetdata = [
             [0,0,0,0,"hill"]
         ]
     },
-    { //mapset 7
+    { //mapset 10
         "elephant": { //y_x_direction: [left,top,width,height]
             "1_1_north":[228,235,321,281]
         }, 
@@ -307,6 +340,28 @@ var g_mapsetdata = [
             [0,0,0,0,"bridge"],
             [0,0,0,0,"waterfall"],
             [0,0,0,0,"ocean"]
+        ]
+    },
+    { //mapset 11
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_0_south":[228,235,321,281]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [366,50,226,173,"forest"],
+            [291,417,384,149,"mountain"],
+            [28,220,373,136,"desert"],
+            [576,251,298,92,"hill"]
+        ]
+    },
+    { //mapset 12
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_0_south":[228,235,321,281]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [366,50,226,173,"forest"],
+            [291,417,384,149,"mountain"],
+            [28,220,373,136,"desert"],
+            [576,251,298,92,"hill"]
         ]
     }
 ];

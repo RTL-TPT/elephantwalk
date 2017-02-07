@@ -625,3 +625,12 @@ img {
     height: 143px;
     background-color: black;
 }
+.foundMsg {
+    font-size: 50px;
+    font-weight: bold;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    line-height: 610px;
+    pointer-events: none;
+}

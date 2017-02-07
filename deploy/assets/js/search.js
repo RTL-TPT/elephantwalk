@@ -103,13 +103,26 @@ var searchRotate = function(direction) {
 		jQuery("#elephantBox").unbind().click(function(){
 			jQuery("#leftArrow").unbind();
 			jQuery("#rightArrow").unbind();
-			alert("You found the elephant!");
+			//alert("You found the elephant!");
 			g_hasDrag = false;
-			setStateLevelSelect();
+			foundElephantModal();
 		});
 		//add gps
 		createSearchGPS();
 	}else if(g_directionsRemaining === ""){
 		//setStateSearchSelect();
 	}
+};
+
+var foundElephantModal = function(closeCallback) {
+	if(closeCallback === undefined) {closeCallback = function(){};}
+	var htmlout = "";
+
+	htmlout += "<center><div class='foundMsg'>You found the elephant!<div></center>";
+
+	util.openModal(closeCallback,htmlout);
+
+	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
+		setStateLevelSelect();
+	});
 };
