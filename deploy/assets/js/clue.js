@@ -153,14 +153,3 @@ var openLegendModal = function(closeCallback) {
 
 	util.openModal(closeCallback,htmlout);
 };
-
-var createLegend = function() {
-	var htmlout = "<div style='width:100%;height:100%;box-sizing:border-box;border: 2px solid gray;padding:5px;'>";
-	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel],function(key,value){
-		var posturl = util.getCluePath(value[2]);
-		var clueImg = "<img style='width:30px;height:30px;display:inline-block;vertical-align:middle;' src='assets/images/clue/"+value[2].toUpperCase()+posturl+"'>";
-		htmlout += "<div>"+clueImg+value[2]+"</div>";
-	});
-	htmlout += "</div>";
-	jQuery("#clueLegend").html(htmlout);
-};

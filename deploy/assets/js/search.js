@@ -1,16 +1,10 @@
 var createSearchMap = function() {
 	var htmlout = "";
+	//map bg
+	htmlout = "<div style='width:100%;height:100%;background:url(../assets/images/lvlsets/"+g_currentSet+"/map_"+g_currentSet+".jpg) center center no-repeat;background-size:725px'></div>";
+	jQuery("#clueMap").append(htmlout);
+	//
 	var grid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
-	//create draggable clue features
-	jQuery.each(g_LEVEL_CLUE_LOCATION[g_selectedDifficulty][g_selectedLevel], function(key,value){
-		var location = [jQuery("#clueMap").height() / grid.x * value[0] - 87.5, jQuery("#clueMap").width() / grid.x * value[1] - 75];
-		var locStyle = "style='top:"+location[0]+"px;left:"+location[1]+"px;'";
-		htmlout = "<div id='clue_"+value[2]+"' class='dragClue' "+locStyle+" >";
-		var posturl = util.getCluePath(value[2]);
-		htmlout += "<img id='img_"+value[2]+"' style='width:100%;height:100%;' src='"+"assets/images/clue/"+value[2].toUpperCase()+posturl+"'>";
-		htmlout += "</div>";
-		jQuery("#clueMap").append(htmlout);
-	} );
 	//grid for eventual answer selection
 	htmlout = "<div id='clueGridOverlay' style='display:none;' class='clueGridOverlay'>";
 	for(indy = 0; indy < g_activeGrid.y; indy++) {

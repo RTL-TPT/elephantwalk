@@ -20,7 +20,6 @@ var g_leveldata =
                     0,
                     "south"
                 ],
-                "clueLocations": [[0.5,1,"forest"],[1.5,1,"mountain"],[1,0.5,"desert"],[1,1.5,"hill"]],
                 "unlocked": true,
                 "hasExploration": true,
                 "mapset": 1
@@ -43,7 +42,6 @@ var g_leveldata =
                     1,
                     "south"
                 ],
-                "clueLocations": [[0.5,1,"forest"],[1.5,1,"mountain"],[1,0.5,"desert"],[1,1.5,"hill"]],
                 "unlocked": true,
                 "hasExploration": false,
                 "mapset": 1
@@ -66,7 +64,6 @@ var g_leveldata =
                     1,
                     "west"
                 ],
-                "clueLocations": [[1.5,1,"forest"],[1,0.5,"mountain"],[0.5,1,"desert"],[1,1.5,"hill"]],
                 "unlocked": true,
                 "hasExploration": true,
                 "mapset": 3
@@ -91,7 +88,6 @@ var g_leveldata =
                     0,
                     "east"
                 ],
-                "clueLocations": [[0.5,0.5,"stream"],[0.75,0.5,"forest"],[0.5,1.5,"stream"],[0.5,2,"waterfall"],[0.5,2.5,"stream"],[0.5,2.5,"mountain"],[1.75,0.5,"mountain"],[1.5,1,"lake"],[1.25,2.5,"forest"],[1.7,2.5,"ocean"]],
                 "unlocked": true,
                 "hasExploration": true,
                 "mapset": 4
@@ -118,7 +114,6 @@ var g_leveldata =
                     0,
                     "north"
                 ],
-                "clueLocations": [[0.25,0.25,"forest"],[0.5,1,"park"],[0.4,2.5,"forest"],[1.5,0.5,"road"],[1.5,1,"bridge"],[1.5,1.5,"road"],[1,1.5,"hill"],[1,2.5,"building"],[1.5,2.5,"road"],[2,0.5,"mountain"],[2.5,1,"building"],[2.5,1.9,"desert"],[2.7,2.5,"mountain"]],
                 "unlocked": true,
                 "hasExploration": true,
                 "mapset": 7
@@ -145,7 +140,6 @@ var g_leveldata =
                     2,
                     "west"
                 ],
-                "clueLocations": [[0.5,0.2,"road"],[1.5,0.2,"road"],[2.5,0.2,"road"],[2,0.2,"bridge"],[0.2,1,"desert"],[1.5,1,"forest"],[2.6,1,"mountain"],[1,1.5,"hill"],[2.2,1.5,"building"],[0.5,2.1,"building"],[2.7,1.9,"desert"],[1,2.5,"mountain"],[1.7,2.5,"park"],[2.2,2.5,"hill"]],
                 "unlocked": true,
                 "hasExploration": true,
                 "mapset": 9
@@ -176,7 +170,6 @@ var g_leveldata =
                     1,
                     "north"
                 ],
-                "clueLocations": [[0.3,0.5,"desert"],[0.7,0.5,"hill"],[1.5,0.5,"forest"],[2.6,0.5,"road"],[0.3,1.5,"building"],[1,1.5,"park"],[2.5,0.8,"lake"],[0.5,2.5,"mountain"],[1.5,2.5,"stream"],[1.8,2.5,"bridge"],[2.3,2.5,"waterfall"],[2.7,2.5,"ocean"]],
                 "unlocked": true,
                 "hasExploration": true,
                 "mapset": 10
@@ -226,6 +219,94 @@ var g_mapsetdata = [
             [0,0,0,0,"mountain"],
             [0,0,0,0,"desert"],
             [0,0,0,0,"hill"]
+        ]
+    },
+    { //mapset 3
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_0_south":[228,235,321,281]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [366,50,226,173,"forest"],
+            [291,417,384,149,"mountain"],
+            [28,220,373,136,"desert"],
+            [576,251,298,92,"hill"]
+        ]
+    },
+    { //mapset 4
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_0_south":[228,235,321,281]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [0,0,0,0,"stream"],
+            [0,0,0,0,"forest"],
+            [0,0,0,0,"stream"],
+            [0,0,0,0,"waterfall"],
+            [0,0,0,0,"stream"],
+            [0,0,0,0,"mountain"],
+            [0,0,0,0,"mountain"],
+            [0,0,0,0,"lake"],
+            [0,0,0,0,"forest"],
+            [0,0,0,0,"ocean"]
+        ]
+    },
+    { //mapset 5
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_0_south":[228,235,321,281]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [0,0,0,0,"forest"],
+            [0,0,0,0,"park"],
+            [0,0,0,0,"forest"],
+            [0,0,0,0,"road"],
+            [0,0,0,0,"bridge"],
+            [0,0,0,0,"road"],
+            [0,0,0,0,"hill"],
+            [0,0,0,0,"building"],
+            [0,0,0,0,"road"],
+            [0,0,0,0,"mountain"],
+            [0,0,0,0,"building"],
+            [0,0,0,0,"desert"],
+            [0,0,0,0,"mountain"]
+        ]
+    },
+    { //mapset 6
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_0_south":[228,235,321,281]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [0,0,0,0,"road"],
+            [0,0,0,0,"road"],
+            [0,0,0,0,"road"],
+            [0,0,0,0,"bridge"],
+            [0,0,0,0,"desert"],
+            [0,0,0,0,"forest"],
+            [0,0,0,0,"mountain"],
+            [0,0,0,0,"hill"],
+            [0,0,0,0,"building"],
+            [0,0,0,0,"building"],
+            [0,0,0,0,"desert"],
+            [0,0,0,0,"mountain"],
+            [0,0,0,0,"park"],
+            [0,0,0,0,"hill"]
+        ]
+    },
+    { //mapset 7
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_0_south":[228,235,321,281]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [0,0,0,0,"desert"],
+            [0,0,0,0,"hill"],
+            [0,0,0,0,"forest"],
+            [0,0,0,0,"road"],
+            [0,0,0,0,"building"],
+            [0,0,0,0,"park"],
+            [0,0,0,0,"lake"],
+            [0,0,0,0,"mountain"],
+            [0,0,0,0,"stream"],
+            [0,0,0,0,"bridge"],
+            [0,0,0,0,"waterfall"],
+            [0,0,0,0,"ocean"]
         ]
     }
 ];

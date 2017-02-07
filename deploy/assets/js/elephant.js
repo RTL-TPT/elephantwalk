@@ -10,11 +10,6 @@ var g_LEVEL_GRID = { //SET LEVEL'S GRID SIZE
 			{"x":2,"y":2}
 		]
 };
-var g_LEVEL_CLUE_LOCATION = { //SET CLUE LOCATIONS [y,x]
-	"TUTORIAL": [
-				[[1,0.5,"forest"],[0.5,1,"mountain"],[1.5,1,"desert"],[1,1.5,"hill"]]//{"forest":[1,0.5],"mountain":[0.5,1],"desert":[1.5,1],"hill":[1,1.5]}
-			]
-};
 var g_LEVEL_CLUES = { //SET ASSIGNED CLUES
 	"TUTORIAL": [
 				["hill","mountain"]
@@ -54,14 +49,12 @@ var g_init = function(landType) {
 	for(var i = 0; i < difficultyTypes.length; i++) {
 		var cDiff = difficultyTypes[i];
 		g_LEVEL_GRID[cDiff] = [];
-		g_LEVEL_CLUE_LOCATION[cDiff] = [];
 		g_LEVEL_CLUES[cDiff] = [];
 		g_LEVEL_ELEPHANT[cDiff] = [];
 		g_CLUE_ABSTRACTION[cDiff] = [];
 		for(var indx = 0; indx < g_leveldata[landType][cDiff].length; indx++) {
 			var cObj = g_leveldata[landType][cDiff][indx];
 			g_LEVEL_GRID[cDiff].push( {"x": parseInt(cObj.gridSize.split("x")[0]),"y": parseInt(cObj.gridSize.split("x")[1]) } );
-			g_LEVEL_CLUE_LOCATION[cDiff].push(cObj.clueLocations);
 			g_LEVEL_CLUES[cDiff].push(cObj.clues);
 			g_LEVEL_ELEPHANT[cDiff].push(cObj.elephantLocation);
 			g_CLUE_ABSTRACTION[cDiff].push(cObj.symbolStyle);
