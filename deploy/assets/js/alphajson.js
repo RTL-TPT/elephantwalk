@@ -212,7 +212,7 @@ var g_mapsetdata = [
     },
     { //mapset 2
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_0_south":[240,235,300,200]
+            "1_1_south":[240,235,300,200]
         }, 
         "clues": [ //[left,top,width,height,clue]
             [0,0,0,0,"forest"],
@@ -223,7 +223,7 @@ var g_mapsetdata = [
     },
     { //mapset 3
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_0_south":[228,235,321,281]
+            "0_1_west":[228,235,321,281]
         }, 
         "clues": [ //[left,top,width,height,clue]
             [0,0,0,0,"forest"],
@@ -234,7 +234,7 @@ var g_mapsetdata = [
     },
     { //mapset 4
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_0_south":[228,235,321,281]
+            "1_0_east":[228,235,321,281]
         }, 
         "clues": [ //[left,top,width,height,clue]
             [0,0,0,0,"stream"],
@@ -251,7 +251,7 @@ var g_mapsetdata = [
     },
     { //mapset 5
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_0_south":[228,235,321,281]
+            "0_0_north":[228,235,321,281]
         }, 
         "clues": [ //[left,top,width,height,clue]
             [0,0,0,0,"forest"],
@@ -271,7 +271,7 @@ var g_mapsetdata = [
     },
     { //mapset 6
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_0_south":[228,235,321,281]
+            "1_2_west":[228,235,321,281]
         }, 
         "clues": [ //[left,top,width,height,clue]
             [0,0,0,0,"road"],
@@ -292,7 +292,7 @@ var g_mapsetdata = [
     },
     { //mapset 7
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_0_south":[228,235,321,281]
+            "1_1_north":[228,235,321,281]
         }, 
         "clues": [ //[left,top,width,height,clue]
             [0,0,0,0,"desert"],
