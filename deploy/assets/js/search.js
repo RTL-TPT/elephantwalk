@@ -24,14 +24,9 @@ var createSearchMap = function() {
 var createSearchGPS = function() {
 	var gridPX = getSearchPX(g_activeGrid.x);
 	//map feature layer
-	var htmlout = "<div id='gpsmap' class='GPSContainer'><div id='' class='mapGPS'>";
-	for(var indy = 0; indy < g_activeGrid.y; indy++) {
-		for(var indx = 0; indx < g_activeGrid.x; indx++) {
-			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
-			var cTileIsVisited = g_tilesRemaining[""+indy+","+indx] === undefined;
-			htmlout += "<img class='exploreMapImg' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+"' coordinant='"+indy+"_"+indx+"' src='"+util.getTilePath(indx,indy)+"'>";
-		}
-	}
+	var htmlout = "<div id='gpsmap' class='GPSContainer'>";
+	htmlout += "<div style='position:absolute;width:100%;height:100%'><img src='assets/images/lvlsets/"+(g_currentSet)+"/map_"+(g_currentSet)+".jpg'></div>";
+	htmlout += "<div id='' class='mapGPS'>";
 	htmlout += "</div>";
 	//highlight active block
 	htmlout += "<div id='' class='mapGPSOverlay'>";
