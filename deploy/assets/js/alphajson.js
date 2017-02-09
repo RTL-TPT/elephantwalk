@@ -274,27 +274,6 @@ var g_mapsetdata = [
             "0_1_west":[228,235,321,281]
         }, 
         "clues": [ //[left,top,width,height,clue]
-            [130,146,127,204,"road"],
-            [148,412,148,202,"road"],
-            [160,610,160,171,"road"],
-            [10,381,160,75,"bridge"],
-            [124,20,286,144,"desert"],
-            [177,294,205,131,"forest"],
-            [164,478,231,148,"mountain"],
-            [375,179,216,110,"hill"],
-            [610,67,137,112,"building"],
-            [397,431,153,99,"building"],
-            [497,519,265,110,"desert"],
-            [709,474,254,167,"mountain"],
-            [697,310,210,111,"park"],
-            [674,450,253,107,"hill"]
-        ]
-    },
-    { //mapset 7
-        "elephant": { //y_x_direction: [left,top,width,height]
-            "0_0_north":[228,235,321,281]
-        }, 
-        "clues": [ //[left,top,width,height,clue]
             [5,9,318,111,"desert"],
             [54,136,234,81,"hill"],
             [49,244,236,133,"forest"],
@@ -307,6 +286,26 @@ var g_mapsetdata = [
             [718,337,188,72,"bridge"],
             [750,457,166,104,"waterfall"],
             [328,494,635,145,"ocean"]
+        ]
+    },
+    { //mapset 7
+        "elephant": { //y_x_direction: [left,top,width,height]
+            "0_0_north":[228,235,321,281]
+        }, 
+        "clues": [ //[left,top,width,height,clue]
+            [11,25,181,142,"forest"],
+            [202,30,245,136,"park"],
+            [783,29,176,112,"forest"],
+            [8,234,224,133,"road"],
+            [232,232,191,140,"bridge"],
+            [418,242,224,138,"road"],
+            [362,148,259,113,"hill"],
+            [709,154,202,134,"building"],
+            [643,224,212,201,"road"],
+            [28,361,200,136,"mountain"],
+            [230,476,182,156,"building"],
+            [493,458,262,144,"desert"],
+            [686,444,269,190,"mountain"]
         ]
     },
     { //mapset 8
