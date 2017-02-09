@@ -74,12 +74,12 @@ var g_leveldata =
                     "lake"
                 ],
                 "symbolStyle": {
-                    "stream": "partialAbstract",
+                    "stream": "nonAbstract",
                     "forest": "partialAbstract",
-                    "waterfall": "partialAbstract",
+                    "waterfall": "nonAbstract",
                     "mountain": "partialAbstract",
-                    "lake": "partialAbstract",
-                    "ocean": "partialAbstract"
+                    "lake": "nonAbstract",
+                    "ocean": "nonAbstract"
                 },
                 "clueUnlock": "",
                 "gridSize": "3x2",
@@ -99,11 +99,11 @@ var g_leveldata =
                 ],
                 "symbolStyle": {
                     "forest": "partialAbstract",
-                    "park": "partialAbstract",
-                    "road": "partialAbstract",
-                    "bridge": "partialAbstract",
+                    "park": "nonAbstract",
+                    "road": "nonAbstract",
+                    "bridge": "nonAbstract",
                     "hill": "partialAbstract",
-                    "building": "partialAbstract",
+                    "building": "nonAbstract",
                     "desert": "partialAbstract",
                     "mountain": "partialAbstract"
                 },
@@ -124,13 +124,13 @@ var g_leveldata =
                     "mountain"
                 ],
                 "symbolStyle": {
-                    "road": "partialAbstract",
+                    "road": "fullAbstract",
                     "bridge": "partialAbstract",
-                    "desert": "partialAbstract",
-                    "forest": "partialAbstract",
-                    "mountain": "partialAbstract",
-                    "hill": "partialAbstract",
-                    "building": "partialAbstract",
+                    "desert": "fullAbstract",
+                    "forest": "fullAbstract",
+                    "mountain": "fullAbstract",
+                    "hill": "fullAbstract",
+                    "building": "fullAbstract",
                     "park": "partialAbstract"
                 },
                 "clueUnlock": "",
@@ -150,18 +150,18 @@ var g_leveldata =
                     "lake"
                 ],
                 "symbolStyle": {
-                    "desert": "partialAbstract",
-                    "hill": "partialAbstract",
-                    "forest": "partialAbstract",
-                    "road": "partialAbstract",
+                    "desert": "fullAbstract",
+                    "hill": "fullAbstract",
+                    "forest": "fullAbstract",
+                    "road": "fullAbstract",
                     "building": "partialAbstract",
                     "park": "partialAbstract",
-                    "lake": "partialAbstract",
-                    "mountain": "partialAbstract",
-                    "stream": "partialAbstract",
+                    "lake": "fullAbstract",
+                    "mountain": "fullAbstract",
+                    "stream": "fullAbstract",
                     "bridge": "partialAbstract",
-                    "waterfall": "partialAbstract",
-                    "ocean": "partialAbstract"
+                    "waterfall": "fullAbstract",
+                    "ocean": "fullAbstract"
                 },
                 "clueUnlock": "",
                 "gridSize": "3x3",
@@ -375,19 +375,20 @@ var g_mapsetdata = [
             "0_0_south":[228,235,321,281]
         }, 
         "clues": [ //[left,top,width,height,clue]
-            [0,0,311,116,"desert"],
-            [53,116,219,74,"hill"],
-            [60,239,194,95,"forest"],
-            [0,502,167,119,"road"],
-            [198,418,241,115,"lake"],
-            [419,18,132,91,"building"],
-            [397,147,173,119,"park"],
+            [662,550,288,71,"desert"],
+            [211,540,181,72,"hill"],
+            [468,477,104,143,"road"],
+            [571,477,164,59,"road"],
+            [871,477,84,55,"road"],
+            [148,340,154,60,"lake"],
+            [693,310,213,80, "lake"],
+            [417,384,112,78,"building"],
+            [89,426,142,90,"park"],
             [682,24,214,136,"mountain"],
-            [736,252,214,71,"stream"],
-            [723,323,169,83,"bridge"],
-            [764,424,126,129,"waterfall"],
-            [338,533,612,86,"ocean"],
-            [885,498,65,121,"ocean"]
+            [486,82,207,112,"stream"],
+            [748,467,108,65,"bridge"],
+            [790,55,112,114,"waterfall"],
+            [29,23,380,262,"ocean"]
         ]
     },
     { //mapset 12
@@ -395,10 +396,20 @@ var g_mapsetdata = [
             "0_0_south":[228,235,321,281]
         }, 
         "clues": [ //[left,top,width,height,clue]
-            [366,50,226,173,"forest"],
-            [291,417,384,149,"mountain"],
-            [28,220,373,136,"desert"],
+            [0,242,208,379,"ocean"],
+            [736,497,185,110,"mountain"],
+            [434,492,286,128,"desert"],
+            [266,234,137,99,"park"],
+            [824,419,102,69,"building"],
+            [687,256,226,142, "lake"],
             [576,251,298,92,"hill"]
+            [0,370,329,124,"road"],
+            [0,477,850,69,"road"],
+            [711,73,125,57,"bridge"],
+            [183,94,80,95,"waterfall"],
+            [54,35,200,52,"hill"],
+            [0,131,168,70,"stream"],
+            [273,131,541,70,"stream"]
         ]
     }
 ];

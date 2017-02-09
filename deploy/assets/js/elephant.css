@@ -571,19 +571,6 @@ img {
 .missionBox.d3 {
     background-color:#e57c69;
 }
-.tempNextBox{
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 80px;
-    height: 80px;
-    background-color: lightgray;
-    box-sizing: border-box;
-    border: solid 2px black;
-    line-height: 80px;
-    text-align: center;
-    font-weight: bold;
-}
 .legendImgSize {
     width:calc(150px / 2);
     height:calc(175px / 2);
