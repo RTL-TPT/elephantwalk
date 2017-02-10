@@ -98,9 +98,15 @@ var searchRotate = function(direction) {
 		jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 		//set elephant hitbox
 		var boxdata = g_mapsetdata[g_currentSet-1].elephant[g_activeTile[1]+"_"+g_activeTile[0]+"_"+g_heading];
-		var ebox = "<div id='elephantBox' style='position:absolute;left:"+boxdata[0]+"px;top:"+boxdata[1]+"px;width:"+boxdata[2]+"px;height:"+boxdata[3]+"px;'></div>";
-		jQuery("#exploremap").append(ebox);
-		jQuery("#elephantBox").unbind().click(function(){
+		var clickTarget = "";
+		if(boxdata === undefined) {
+			clickTarget = "#exploremap";
+		} else {
+			clickTarget = "#elephantBox";
+			var ebox = "<div id='elephantBox' style='position:absolute;left:"+boxdata[0]+"px;top:"+boxdata[1]+"px;width:"+boxdata[2]+"px;height:"+boxdata[3]+"px;'></div>";
+			jQuery("#exploremap").append(ebox);
+		}
+		jQuery(clickTarget).unbind().click(function(){
 			jQuery("#leftArrow").unbind();
 			jQuery("#rightArrow").unbind();
 			//alert("You found the elephant!");
