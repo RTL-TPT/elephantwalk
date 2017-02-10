@@ -144,7 +144,9 @@ var rotateView = function(direction) {
 		/*jQuery("#returnBtn").unbind().show().click(function(){
 			firstPersonToMap();
 		});*/
-		firstPersonToMap();
+		jQuery("#rightArrow").unbind();
+		jQuery("#leftArrow").unbind();
+		setTimeout(firstPersonToMap, 1000);
 	}
 };
 
