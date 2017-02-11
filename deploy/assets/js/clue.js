@@ -36,6 +36,7 @@ var createClueMap = function() {
 			var lFit = (lDiff >= 0 && lDiff <= 150) ? true : false;
 			var tFit = (tDiff >= 0 && tDiff <= 175) ? true : false;
 			if(lFit && tFit) {
+				jQuery("#clueDoneBtn").show();
 				jQuery("#clueDrop1").html("<img cname='img_"+g_currentDrag+"' style='width:100%;height:100%;' src='"+"assets/images/clue/"+g_currentDrag.toUpperCase()+util.getCluePath(g_currentDrag)+"'>");
 			}
 			jQuery(".mousefollower").remove();
@@ -101,13 +102,19 @@ var confirmClue = function() {
 					openClueModal();
 				}
 			};
+			jQuery("#clueDoneBtn").hide();
 			util.animation.correctAnim(onAnimComplete);
 			jQuery("#clueDrop1").html("");
 
 		} else {
+			jQuery("#clueDoneBtn").hide();
 			util.animation.incorrectAnim(function(){});
 			jQuery("#clueDrop1").html("");
 		}
+	} else {
+		/*var htmlout = "";
+		htmlout += "<center><div class='foundMsg'>Drag the right clue to the box!<div></center>";
+		util.openModal(function(){},htmlout);*/
 	}
 };
 

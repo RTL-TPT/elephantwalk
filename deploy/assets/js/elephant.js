@@ -398,6 +398,7 @@ var setStateSearchSelect = function() {
 		jQuery(".clueGridOverlay").show();
 		//bind overlay grid
 		jQuery(".clueOverlayBox").unbind().click(function(){
+			jQuery("#clueDoneBtn").show();
 			if( jQuery(this).hasClass("active") ){
 				//
 			} else {
@@ -417,6 +418,10 @@ var setStateSearchSelect = function() {
 				} else {
 					util.animation.incorrectAnim();
 				}
+			} else {
+				/*var htmlout = "";
+				htmlout += "<center><div class='foundMsg'>Select the correct tile!<div></center>";
+				util.openModal(function(){},htmlout);*/
 			}
 		});
 	});
