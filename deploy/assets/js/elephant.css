@@ -318,7 +318,7 @@ img {
     text-align: center;
     font-weight: bold;
 }
-.modalContainer .closeBtn, .playerModalContainer .closeBtn{
+.modalContainer .closeBtn, .playerModalContainer .closeBtn, .menuCloseBtn{
     position: absolute;
     top: 0px;
     right: 0px;
@@ -538,6 +538,9 @@ img {
 .missionBoxContainer.overlay {
     pointer-events:none;
 }
+.missionBox.x {
+    background-color:indianred;
+}
 .missionBox.b1 {
     background-color:#98c95c;
 }
@@ -563,13 +566,13 @@ img {
     /**/
 }
 .missionBox.d1 {
-    background-color:#98c95c;
+    background-color:dodgerblue;/*#98c95c;*/
 }
 .missionBox.d2 {
-    background-color:#f2d385;
+    background-color:dodgerblue;/*#f2d385;*/
 }
 .missionBox.d3 {
-    background-color:#e57c69;
+    background-color:dodgerblue;/*#e57c69;*/
 }
 .legendImgSize {
     width:calc(150px / 2);

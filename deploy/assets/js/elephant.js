@@ -25,6 +25,12 @@ var g_CLUE_ABSTRACTION = {
 				{"forest":"nonAbstract","mountain":"nonAbstract","desert":"nonAbstract","hill":"nonAbstract"}
 			]
 };
+var g_LEVEL_NULL = {
+	"TUTORIAL":[],
+	"EASY":[],
+	"MEDIUM":[],
+	"HARD":[]
+};
 //current level/location variables from most wide to most narrow
 var g_LevelTerrain = "land";
 var g_selectedDifficulty = "TUTORIAL";
@@ -38,11 +44,11 @@ var g_directionsRemaining = "nesw";
 var g_currentClue = "";
 var g_hasDrag = false;
 var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":"_partial-abstract-symbol.jpg","fullAbstract":"_abstract-symbol.jpg"};
-var g_isAlpha = true;
+var g_isAlpha = false;
 var g_modalLevel = 0;
 var g_currentSet = 1; //current level mapset
 
-var g_init = function(landType) {
+var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
 	g_LevelTerrain = landType.toLowerCase();
 	var difficultyTypes = ["TUTORIAL","EASY","MEDIUM","HARD"];
@@ -52,16 +58,26 @@ var g_init = function(landType) {
 		g_LEVEL_CLUES[cDiff] = [];
 		g_LEVEL_ELEPHANT[cDiff] = [];
 		g_CLUE_ABSTRACTION[cDiff] = [];
+		g_LEVEL_NULL[cDiff] = [];
 		for(var indx = 0; indx < g_leveldata[landType][cDiff].length; indx++) {
 			var cObj = g_leveldata[landType][cDiff][indx];
+			if(cObj.gridSize === undefined) { //sanity check (will fill in dummy data for empty levels)
+				g_LEVEL_GRID[cDiff].push( {"x": 1,"y": 1 } );
+				g_LEVEL_CLUES[cDiff].push([]);
+				g_LEVEL_ELEPHANT[cDiff].push([]);
+				g_CLUE_ABSTRACTION[cDiff].push({});
+				g_LEVEL_NULL[cDiff].push(true);
+				continue;
+			}
 			g_LEVEL_GRID[cDiff].push( {"x": parseInt(cObj.gridSize.split("x")[0]),"y": parseInt(cObj.gridSize.split("x")[1]) } );
 			g_LEVEL_CLUES[cDiff].push(cObj.clues);
 			g_LEVEL_ELEPHANT[cDiff].push(cObj.elephantLocation);
 			g_CLUE_ABSTRACTION[cDiff].push(cObj.symbolStyle);
+			g_LEVEL_NULL[cDiff].push(false);
 		}
 	}
 };
-g_init();
+g_data_init();
 
 //////////////// UTILITY
 ////////////////
@@ -245,47 +261,55 @@ var fillMissions = function() {
 	//
 };
 
-var fillLevels = function() {
-	var htmlout = "<div class='difficultyTitle'>Choose a Difficulty</div>";
+var fillLevels = function(ltype) {
+	var diffmap = {"LAND":1,"WATER":4,"MANMADE":7,"MASTER":10};
+	var htmlout = "<div class='difficultyTitle'>"+ltype+"</div>";
 	htmlout += "<div class='missionBoxContainer' >";
 	htmlout += "<center><table style='width:900px'>";
-	var difflen = g_LEVEL_GRID["EASY"].length;
+	var tutorial_len = g_LEVEL_GRID["TUTORIAL"].length;
+	var difflen = g_LEVEL_GRID["EASY"].length + tutorial_len;
 	difflen = difflen > g_LEVEL_GRID["MEDIUM"].length ? difflen : g_LEVEL_GRID["MEDIUM"].length;
 	difflen = difflen > g_LEVEL_GRID["HARD"].length ? difflen : g_LEVEL_GRID["HARD"].length;
-	for(var i = 0; i < g_LEVEL_GRID["TUTORIAL"].length; i++) {
-		htmlout += "<tr><td><center><div class='missionBox d1' difficulty='TUTORIAL' level='"+i+"' id='tutorial"+(i+1)+"btn'>TUTORIAL "+(i+1)+"</div></center></td>";
-		htmlout += "<td><center><div class='missionBox d2' difficulty='TUTORIAL' level='"+i+"' style='opacity:0'></div></center></td>";
-		htmlout += "<td><center><div class='missionBox d3' difficulty='TUTORIAL' level='"+i+"' style='opacity:0'></div></center></td></tr>";
-	}
+	/*for(var a = 0; a < g_LEVEL_GRID["TUTORIAL"].length; a++) {
+		htmlout += "<tr><td><center><div class='missionBox level d1' difficulty='TUTORIAL' level='"+a+"' id='tutorial"+(a+1)+"btn'>TUTORIAL "+diffmap[ltype]+"." +(a+1)+"</div></center></td>";
+		htmlout += "<td><center><div class='missionBox level d2' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td>";
+		htmlout += "<td><center><div class='missionBox level d3' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td></tr>";
+	}*/
 	for(var i = 0; i < difflen; i++) {
-		htmlout += "<tr><td><center><div class='missionBox d1' difficulty='EASY' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["EASY"].length ? 1 : 0)+"' id='easy"+(i+1)+"btn'>EASY "+(i+1)+"</div></center></td>";
-		htmlout += "<td><center><div class='missionBox d2' difficulty='MEDIUM' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["MEDIUM"].length ? 1 : 0)+"' id='medium"+(i+1)+"btn'>MEDIUM "+(i+1)+"</div></center></td>";
-		htmlout += "<td><center><div class='missionBox d3' difficulty='HARD' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["HARD"].length ? 1 : 0)+"' id='hard"+(i+1)+"btn'>HARD "+(i+1)+"</div></center></td></tr>";
+		var cNull = g_LEVEL_NULL["TUTORIAL"][i];
+		if(i < tutorial_len) {
+			htmlout += "<tr><td><center><div class='missionBox level "+(cNull ? "x":"d1")+"' difficulty='TUTORIAL' level='"+i+"' style='opacity:"+(i < tutorial_len ? 1 : 0)+"' id='tutorial"+(i+1)+"btn'> TUTORIAL "+diffmap[ltype]+"." +(i+1)+"</div></center></td>";
+		} else {
+			cNull = g_LEVEL_NULL["EASY"][i-tutorial_len];
+			htmlout += "<tr><td><center><div class='missionBox level "+(cNull ? "x":"d1")+"' difficulty='EASY' level='"+(i-tutorial_len)+"' style='opacity:"+(i-tutorial_len < g_LEVEL_GRID["EASY"].length ? 1 : 0)+"' id='easy"+(i-tutorial_len+1)+"btn'>"+diffmap[ltype]+"." +(i+1)+"</div></center></td>";
+		}
+		cNull = g_LEVEL_NULL["MEDIUM"][i];
+		htmlout += "<td><center><div class='missionBox level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["MEDIUM"].length ? 1 : 0)+"' id='medium"+(i+1)+"btn'>"+(diffmap[ltype]+1)+"."+(i+1)+"</div></center></td>";
+		cNull = g_LEVEL_NULL["HARD"][i];
+		htmlout += "<td><center><div class='missionBox level "+(cNull ? "x":"d3")+"' difficulty='HARD' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["HARD"].length ? 1 : 0)+"' id='hard"+(i+1)+"btn'>"+(diffmap[ltype]+2)+"."+(i+1)+"</div></center></td></tr>";
 	}
 	htmlout += "</table></center>";
 	htmlout += "</div>";
 	jQuery("#difficultySelect").html(htmlout);
-};
-
-var fillLevelsAlpha = function() {
-		var htmlout = "<div class='difficultyTitle'>Choose a Level</div>";
-	htmlout += "<div class='missionBoxContainer' >";
-	htmlout += "<center><table style='width:900px'>";
-	var difflen = g_LEVEL_GRID["EASY"].length;
-	var twidth = 0;
-	for(var i = 0; i < difflen; i++) {
-		if(twidth == 0) {
-			htmlout += "<tr>";
+	//bind
+	jQuery(".missionBox.level").click(function(){
+		if(jQuery(this).hasClass("x")) {return;}
+		g_selectedDifficulty = jQuery(this).attr("difficulty");
+		g_selectedLevel = +jQuery(this).attr("level");
+		g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
+		g_currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
+		if(g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].hasExploration) {
+			setStateExplore();
+		} else {
+			setStateClue();
 		}
-		htmlout += "<td><center><div class='missionBox d1' difficulty='EASY' level='"+i+"' style='' id='easy"+(i+1)+"btn'>LEVEL "+(i+1)+"</div></center></td>";
-		if(twidth == 2) {
-			htmlout += "</tr>";
-		}
-		twidth = (twidth + 1) % 3;
-	}
-	htmlout += "</table></center>";
-	htmlout += "</div>";
-	jQuery("#difficultySelect").html(htmlout);
+	});
+	jQuery("#menuCloseBtn").show();
+	jQuery("#menuCloseBtn").unbind().click(function(){
+		jQuery(this).hide();
+		jQuery("#difficultySelect").hide();
+		jQuery("#missionSelect").show();
+	});
 };
 
 //////////////// State Transitions
@@ -301,50 +325,23 @@ var setStateTitle = function() {
 var setStateLevelSelect = function() {
 	util.template.getHTML("assets/js/menu.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
-		if(g_isAlpha) {
-			fillLevelsAlpha();
-			jQuery("#missionSelect").hide();
-			jQuery("#difficultySelect").show();
-		} else {
-			fillLevels();
-		}
 		//init here
-		jQuery(".missionBox.b1").click(function(){
+		jQuery(".missionBox").click(function(){
+			if(jQuery(this).hasClass("b1")) {
+				g_data_init("LAND");
+				fillLevels("LAND");
+			} else if(jQuery(this).hasClass("b2")) {
+				g_data_init("WATER");
+				fillLevels("WATER");
+			} else if(jQuery(this).hasClass("b3")) {
+				g_data_init("MANMADE");
+				fillLevels("MANMADE");
+			} else if(jQuery(this).hasClass("b4")) {
+				g_data_init("MASTER");
+				fillLevels("MASTER");
+			}
 			jQuery("#missionSelect").hide();
 			jQuery("#difficultySelect").show();
-		});
-		jQuery(".missionBox.d1").click(function(){
-			g_selectedDifficulty = jQuery(this).attr("difficulty");
-			g_selectedLevel = +jQuery(this).attr("level");
-			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
-			g_currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
-			if(g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].hasExploration) {
-				setStateExplore();
-			} else {
-				setStateClue();
-			}
-		});
-		jQuery(".missionBox.d2").click(function(){
-			g_selectedDifficulty = jQuery(this).attr("difficulty");
-			g_selectedLevel = +jQuery(this).attr("level");
-			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
-			g_currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
-			if(g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].hasExploration) {
-				setStateExplore();
-			} else {
-				setStateClue();
-			}
-		});
-		jQuery(".missionBox.d3").click(function(){
-			g_selectedDifficulty = jQuery(this).attr("difficulty");
-			g_selectedLevel = +jQuery(this).attr("level");
-			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
-			g_currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
-			if(g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].hasExploration) {
-				setStateExplore();
-			} else {
-				setStateClue();
-			}
 		});
 	});
 };
