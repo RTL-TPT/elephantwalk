@@ -46,7 +46,7 @@ var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":
 var g_isAlpha = false; //alpha flag
 var g_modalLevel = 0; //keeps track of how many modals are open
 var g_currentSet = 1; //current level mapset
-var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"MASTER":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
+var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -262,7 +262,7 @@ var fillMissions = function() {
 };
 
 var fillLevels = function(ltype) {
-	var diffmap = {"LAND":1,"WATER":4,"MANMADE":7,"MASTER":10};
+	var diffmap = {"LAND":1,"WATER":4,"MANMADE":7,"EXPERT":10};
 	var htmlout = "<div class='difficultyTitle'>"+ltype+"</div>";
 	htmlout += "<div class='missionBoxContainer' >";
 	htmlout += "<center><table style='width:900px'>";
@@ -360,9 +360,9 @@ var setStateLevelSelect = function() {
 					setToTutorialLevel();
 				}
 			} else if(jQuery(this).hasClass("b4")) {
-				g_data_init("MASTER");
-				if(g_tutorial_complete["MASTER"]) {
-					fillLevels("MASTER");
+				g_data_init("EXPERT");
+				if(g_tutorial_complete["EXPERT"]) {
+					fillLevels("EXPERT");
 				} else {
 					setToTutorialLevel();
 				}

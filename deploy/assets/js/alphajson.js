@@ -190,7 +190,7 @@ var g_leveldata =
         "MEDIUM": [],
         "HARD": []
     },
-    "MASTER": {
+    "EXPERT": {
         "TUTORIAL": [],
         "EASY": [],
         "MEDIUM": [],

@@ -60,6 +60,34 @@ var createSearchView = function() {
 	jQuery(".arrow").show();
 	jQuery("#rightArrow").unbind().click(function(){searchRotate("right")});
 	jQuery("#leftArrow").unbind().click(function(){searchRotate("left")});
+	//logic for if you start facing the elephant
+	var cElephant = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
+	if(cElephant[0] == g_activeTile[0] && cElephant[1] == g_activeTile[1] && cElephant[2] == g_heading) {
+		jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
+		//set elephant hitbox
+		var boxdata = g_mapsetdata[g_currentSet-1].elephant[g_activeTile[1]+"_"+g_activeTile[0]+"_"+g_heading];
+		var clickTarget = "";
+		if(boxdata === undefined) {
+			clickTarget = "#exploremap";
+		} else {
+			clickTarget = "#elephantBox";
+			var ebox = "<div id='elephantBox' style='position:absolute;left:"+boxdata[0]+"px;top:"+boxdata[1]+"px;width:"+boxdata[2]+"px;height:"+boxdata[3]+"px;'></div>";
+			jQuery("#exploremap").append(ebox);
+		}
+		jQuery("#exploremap").unbind();
+		jQuery("#elephantBox").unbind();
+		jQuery(clickTarget).click(function(){
+			jQuery("#leftArrow").unbind();
+			jQuery("#rightArrow").unbind();
+			//alert("You found the elephant!");
+			g_hasDrag = false;
+			foundElephantModal();
+		});
+		//add gps
+		createSearchGPS();
+	}else if(g_directionsRemaining === ""){
+		//setStateSearchSelect();
+	}
 };
 
 var searchRotate = function(direction) {
@@ -96,7 +124,9 @@ var searchRotate = function(direction) {
 			var ebox = "<div id='elephantBox' style='position:absolute;left:"+boxdata[0]+"px;top:"+boxdata[1]+"px;width:"+boxdata[2]+"px;height:"+boxdata[3]+"px;'></div>";
 			jQuery("#exploremap").append(ebox);
 		}
-		jQuery(clickTarget).unbind().click(function(){
+		jQuery("#exploremap").unbind();
+		jQuery("#elephantBox").unbind();
+		jQuery(clickTarget).click(function(){
 			jQuery("#leftArrow").unbind();
 			jQuery("#rightArrow").unbind();
 			//alert("You found the elephant!");
@@ -151,9 +181,9 @@ var foundElephantModal = function(closeCallback) {
 				setStateLevelSelect();
 				jQuery(".missionBox.b3").click();
 			}
-		} else if(g_LevelTerrain == "MASTER" && !g_tutorial_complete["MASTER"]) {
+		} else if(g_LevelTerrain == "EXPERT" && !g_tutorial_complete["EXPERT"]) {
 			if(g_selectedLevel == 0) {
-				g_tutorial_complete["MASTER"] = true;
+				g_tutorial_complete["EXPERT"] = true;
 				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
 				setStateLevelSelect();
 				jQuery(".missionBox.b4").click();

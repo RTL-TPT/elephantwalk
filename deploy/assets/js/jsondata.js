@@ -70,7 +70,7 @@ var g_leveldata =
                     "west"
                 ],
                 "unlocked": true,
-                "hasExploration": true,
+                "hasExploration": false,
                 "mapset": 3
             },
             {},{},{}
@@ -99,7 +99,7 @@ var g_leveldata =
                     "east"
                 ],
                 "unlocked": true,
-                "hasExploration": true,
+                "hasExploration": false,
                 "mapset": 4
             }
         ],
@@ -132,7 +132,7 @@ var g_leveldata =
                     "north"
                 ],
                 "unlocked": true,
-                "hasExploration": true,
+                "hasExploration": false,
                 "mapset": 7
             }
         ],
@@ -162,13 +162,13 @@ var g_leveldata =
                     "west"
                 ],
                 "unlocked": true,
-                "hasExploration": true,
+                "hasExploration": false,
                 "mapset": 9
             },
             {},{},{},{},{}
         ]
     },
-    "MASTER": {
+    "EXPERT": {
         "TUTORIAL": [
             {
                 "clues": [
@@ -197,7 +197,7 @@ var g_leveldata =
                     "north"
                 ],
                 "unlocked": true,
-                "hasExploration": true,
+                "hasExploration": false,
                 "mapset": 10
             }
         ],
