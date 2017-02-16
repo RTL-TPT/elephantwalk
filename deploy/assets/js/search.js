@@ -119,6 +119,47 @@ var foundElephantModal = function(closeCallback) {
 	util.openModal(closeCallback,htmlout);
 
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
-		setStateLevelSelect();
+		//send player back to appropriate state depenending on if they're still in the tutorial or not
+		if(g_LevelTerrain == "LAND" && !g_tutorial_complete["LAND"]) {
+			if(g_selectedLevel == 0) {
+				g_selectedDifficulty = "TUTORIAL";
+				g_selectedLevel = 1;
+				g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
+				g_currentSet = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
+				if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].hasExploration) {
+					setStateExplore();
+				} else {
+					setStateClue();
+				}
+			} else if(g_selectedLevel == 1) {
+				g_tutorial_complete["LAND"] = true;
+				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
+				setStateLevelSelect();
+				jQuery(".missionBox.b1").click();
+			}
+		} else if(g_LevelTerrain == "WATER" && !g_tutorial_complete["WATER"]) {
+			if(g_selectedLevel == 0) {
+				g_tutorial_complete["WATER"] = true;
+				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
+				setStateLevelSelect();
+				jQuery(".missionBox.b2").click();
+			}
+		} else if(g_LevelTerrain == "MANMADE" && !g_tutorial_complete["MANMADE"]) {
+			if(g_selectedLevel == 0) {
+				g_tutorial_complete["MANMADE"] = true;
+				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
+				setStateLevelSelect();
+				jQuery(".missionBox.b3").click();
+			}
+		} else if(g_LevelTerrain == "MASTER" && !g_tutorial_complete["MASTER"]) {
+			if(g_selectedLevel == 0) {
+				g_tutorial_complete["MASTER"] = true;
+				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
+				setStateLevelSelect();
+				jQuery(".missionBox.b4").click();
+			}
+		} else {
+			setStateLevelSelect();
+		}
 	});
 };

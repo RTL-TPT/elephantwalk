@@ -1,56 +1,56 @@
 //////////////// GlOBALS
 ////////////////
 
-var g_WIDTH = 1024;
-var g_HEIGHT = 768;
+var g_WIDTH = 1024; //unusued
+var g_HEIGHT = 768; //unusued
 var g_STATES = ["title","levelselect","explore","clue","search"]; //unusued
 //LEVEL DATA
-var g_LEVEL_GRID = { //SET LEVEL'S GRID SIZE
+var g_LEVEL_GRID = { //LEVELS' GRID SIZE (filled in by g_data_init)
 	"TUTORIAL": [
 			{"x":2,"y":2}
 		]
 };
-var g_LEVEL_CLUES = { //SET ASSIGNED CLUES
+var g_LEVEL_CLUES = { //LEVELS' TARGET CLUES (filled in by g_data_init)
 	"TUTORIAL": [
 				["hill","mountain"]
 			]
 };
-var g_LEVEL_ELEPHANT = { //SET ELEPHANT LOCATION
+var g_LEVEL_ELEPHANT = { //LEVELS' DEFAULT ELEPHANT LOCATION (filled in by g_data_init)
 	"TUTORIAL": [
 				[0,1,"south"] //[y,x]
 			]
 };
-var g_CLUE_ABSTRACTION = {
+var g_CLUE_ABSTRACTION = { //LEVELS' CLUE DISPLAY TYPE (filled in by g_data_init)
 	"TUTORIAL": [
 				{"forest":"nonAbstract","mountain":"nonAbstract","desert":"nonAbstract","hill":"nonAbstract"}
 			]
 };
-var g_LEVEL_NULL = {
+var g_LEVEL_NULL = { //keeps track of which levels are using null data, shouldn't be needed once everything is finished
 	"TUTORIAL":[],
 	"EASY":[],
 	"MEDIUM":[],
 	"HARD":[]
 };
-//current level/location variables from most wide to most narrow
-var g_LevelTerrain = "land";
-var g_selectedDifficulty = "TUTORIAL";
-var g_selectedLevel = 0;
-var g_activeTile = [0,0];
-var g_heading = "north";
+var g_LevelTerrain = "LAND"; //current terrain type
+var g_selectedDifficulty = "TUTORIAL"; //current level difficulty
+var g_selectedLevel = 0; //current level index
+var g_activeTile = [0,0]; //current exploration or search tile
+var g_heading = "north"; //current 360 view heading
 //other globals
 var g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel]; //ONLY USED FOR LEVEL'S GRID SIZE
-var g_tilesRemaining = {};
-var g_directionsRemaining = "nesw";
-var g_currentClue = "";
-var g_hasDrag = false;
-var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":"_partial-abstract-symbol.jpg","fullAbstract":"_abstract-symbol.jpg"};
-var g_isAlpha = false;
-var g_modalLevel = 0;
+var g_tilesRemaining = {};  //keep track of tiles that have yet to be visited in exploration view
+var g_directionsRemaining = "nesw"; //keep track of directions visited in 360 view
+var g_currentClue = ""; //current clue phase clue
+var g_hasDrag = false; //has user attempted drag-drop yet
+var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":"_partial-abstract-symbol.jpg","fullAbstract":"_abstract-symbol.jpg"}; //clue type url mapper
+var g_isAlpha = false; //alpha flag
+var g_modalLevel = 0; //keeps track of how many modals are open
 var g_currentSet = 1; //current level mapset
-
+var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"MASTER":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
+//fill in level data variables for specified land type
 var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
-	g_LevelTerrain = landType.toLowerCase();
+	g_LevelTerrain = landType.toUpperCase(); //keep case the same
 	var difficultyTypes = ["TUTORIAL","EASY","MEDIUM","HARD"];
 	for(var i = 0; i < difficultyTypes.length; i++) {
 		var cDiff = difficultyTypes[i];
@@ -166,13 +166,13 @@ util.template = (function() {
 })();
 
 util.getTilePath = function(indx,indy) {
-	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_map.gif";
+	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_map.gif";
 };
 util.getFacingPath = function(indx,indy,direction) {
-	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_"+direction+".jpg";
+	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_"+direction+".jpg";
 };
 util.getFacingPathElephant = function(indx,indy,direction) {
-	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_"+direction+"_elephant.jpg";
+	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_"+direction+"_elephant.jpg";
 };
 util.getCluePath = function(clue) {
 	return g_clueUrlPost[ g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][clue] ];
@@ -297,8 +297,8 @@ var fillLevels = function(ltype) {
 		g_selectedDifficulty = jQuery(this).attr("difficulty");
 		g_selectedLevel = +jQuery(this).attr("level");
 		g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
-		g_currentSet = g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].mapset;
-		if(g_leveldata[g_LevelTerrain.toUpperCase()][g_selectedDifficulty][g_selectedLevel].hasExploration) {
+		g_currentSet = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
+		if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].hasExploration) {
 			setStateExplore();
 		} else {
 			setStateClue();
@@ -322,6 +322,17 @@ var setStateTitle = function() {
 		jQuery("#playBtn").click(function(){setStateLevelSelect();});
 	});
 };
+var setToTutorialLevel = function() {
+	g_selectedDifficulty = "TUTORIAL";
+	g_selectedLevel = 0;
+	g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
+	g_currentSet = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
+	if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].hasExploration) {
+		setStateExplore();
+	} else {
+		setStateClue();
+	}
+};
 var setStateLevelSelect = function() {
 	util.template.getHTML("assets/js/menu.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
@@ -329,16 +340,32 @@ var setStateLevelSelect = function() {
 		jQuery(".missionBox").click(function(){
 			if(jQuery(this).hasClass("b1")) {
 				g_data_init("LAND");
-				fillLevels("LAND");
+				if(g_tutorial_complete["LAND"]) {
+					fillLevels("LAND");
+				} else {
+					setToTutorialLevel();
+				}
 			} else if(jQuery(this).hasClass("b2")) {
 				g_data_init("WATER");
-				fillLevels("WATER");
+				if(g_tutorial_complete["WATER"]) {
+					fillLevels("WATER");
+				} else {
+					setToTutorialLevel();
+				}
 			} else if(jQuery(this).hasClass("b3")) {
 				g_data_init("MANMADE");
-				fillLevels("MANMADE");
+				if(g_tutorial_complete["MANMADE"]) {
+					fillLevels("MANMADE");
+				} else {
+					setToTutorialLevel();
+				}
 			} else if(jQuery(this).hasClass("b4")) {
 				g_data_init("MASTER");
-				fillLevels("MASTER");
+				if(g_tutorial_complete["MASTER"]) {
+					fillLevels("MASTER");
+				} else {
+					setToTutorialLevel();
+				}
 			}
 			jQuery("#missionSelect").hide();
 			jQuery("#difficultySelect").show();
