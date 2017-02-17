@@ -34,7 +34,7 @@ var g_LEVEL_NULL = { //keeps track of which levels are using null data, shouldn'
 var g_LevelTerrain = "LAND"; //current terrain type
 var g_selectedDifficulty = "TUTORIAL"; //current level difficulty
 var g_selectedLevel = 0; //current level index
-var g_activeTile = [0,0]; //current exploration or search tile
+var g_activeTile = [0,0]; //current exploration or search tile [y,x]
 var g_heading = "north"; //current 360 view heading
 //other globals
 var g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel]; //ONLY USED FOR LEVEL'S GRID SIZE
@@ -178,8 +178,7 @@ util.getCluePath = function(clue) {
 	return g_clueUrlPost[ g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][clue] ];
 };
 
-util.openModal = function(closeCallback, content) {
-	if(closeCallback === undefined) {closeCallback = function(){};}
+util.openModal = function(content) {
 	g_modalLevel++;
 	var htmlout = "";
 	htmlout += "<div class='modalOverlay _"+g_modalLevel+"'></div>";
@@ -195,7 +194,6 @@ util.openModal = function(closeCallback, content) {
 		jQuery(".modalContainer._"+g_modalLevel).remove();
 		jQuery(".modalOverlay._"+g_modalLevel).remove();
 		g_modalLevel--;
-		closeCallback();
 	});
 };
 
@@ -333,7 +331,17 @@ var setToTutorialLevel = function() {
 		setStateClue();
 	}
 };
-var setStateLevelSelect = function() {
+var setStateSubLevelSelect = function(landtype) { //jump directly to second half of level selection
+	if(landtype === undefined){landtype = g_LevelTerrain;}
+	setStateLevelSelect(function(){
+		g_data_init(landtype);
+		fillLevels(landtype);
+		jQuery("#missionSelect").hide();
+		jQuery("#difficultySelect").show();
+	});
+};
+var setStateLevelSelect = function(cb) {
+	if(cb === undefined){cb = function(){};}
 	util.template.getHTML("assets/js/menu.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
 		//init here
@@ -370,6 +378,7 @@ var setStateLevelSelect = function() {
 			jQuery("#missionSelect").hide();
 			jQuery("#difficultySelect").show();
 		});
+		cb();
 	});
 };
 var setStateExplore = function() {
@@ -443,9 +452,7 @@ var setStateSearchSelect = function() {
 					util.animation.incorrectAnim();
 				}
 			} else {
-				/*var htmlout = "";
-				htmlout += "<center><div class='foundMsg'>Select the correct tile!<div></center>";
-				util.openModal(function(){},htmlout);*/
+				//
 			}
 		});
 	});

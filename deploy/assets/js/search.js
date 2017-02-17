@@ -54,12 +54,7 @@ var createSearchGPS = function() {
 	jQuery("#exploremap").append(htmlout);
 };
 
-var createSearchView = function() {
-	jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
-	createSearchGPS();
-	jQuery(".arrow").show();
-	jQuery("#rightArrow").unbind().click(function(){searchRotate("right")});
-	jQuery("#leftArrow").unbind().click(function(){searchRotate("left")});
+var create360Elephant = function() {
 	//logic for if you start facing the elephant
 	var cElephant = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
 	if(cElephant[0] == g_activeTile[0] && cElephant[1] == g_activeTile[1] && cElephant[2] == g_heading) {
@@ -90,6 +85,15 @@ var createSearchView = function() {
 	}
 };
 
+var createSearchView = function() {
+	jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
+	createSearchGPS();
+	jQuery(".arrow").show();
+	jQuery("#rightArrow").unbind().click(function(){searchRotate("right")});
+	jQuery("#leftArrow").unbind().click(function(){searchRotate("left")});
+	create360Elephant();
+};
+
 var searchRotate = function(direction) {
 	if(direction === undefined) {
 		direction = "right";
@@ -111,42 +115,15 @@ var searchRotate = function(direction) {
 	g_directionsRemaining = g_directionsRemaining.replace(g_heading[0], "");
 	jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 	createSearchGPS();
-	var cElephant = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
-	if(cElephant[0] == g_activeTile[0] && cElephant[1] == g_activeTile[1] && cElephant[2] == g_heading) {
-		jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
-		//set elephant hitbox
-		var boxdata = g_mapsetdata[g_currentSet-1].elephant[g_activeTile[1]+"_"+g_activeTile[0]+"_"+g_heading];
-		var clickTarget = "";
-		if(boxdata === undefined) {
-			clickTarget = "#exploremap";
-		} else {
-			clickTarget = "#elephantBox";
-			var ebox = "<div id='elephantBox' style='position:absolute;left:"+boxdata[0]+"px;top:"+boxdata[1]+"px;width:"+boxdata[2]+"px;height:"+boxdata[3]+"px;'></div>";
-			jQuery("#exploremap").append(ebox);
-		}
-		jQuery("#exploremap").unbind();
-		jQuery("#elephantBox").unbind();
-		jQuery(clickTarget).click(function(){
-			jQuery("#leftArrow").unbind();
-			jQuery("#rightArrow").unbind();
-			//alert("You found the elephant!");
-			g_hasDrag = false;
-			foundElephantModal();
-		});
-		//add gps
-		createSearchGPS();
-	}else if(g_directionsRemaining === ""){
-		//setStateSearchSelect();
-	}
+	create360Elephant();
 };
 
-var foundElephantModal = function(closeCallback) {
-	if(closeCallback === undefined) {closeCallback = function(){};}
+var foundElephantModal = function() {
 	var htmlout = "";
 
 	htmlout += "<center><div class='foundMsg'>You found the elephant!<div></center>";
 
-	util.openModal(closeCallback,htmlout);
+	util.openModal(htmlout);
 
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
 		//send player back to appropriate state depenending on if they're still in the tutorial or not
@@ -164,29 +141,25 @@ var foundElephantModal = function(closeCallback) {
 			} else if(g_selectedLevel == 1) {
 				g_tutorial_complete["LAND"] = true;
 				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
-				setStateLevelSelect();
-				jQuery(".missionBox.b1").click();
+				setStateSubLevelSelect("LAND");
 			}
 		} else if(g_LevelTerrain == "WATER" && !g_tutorial_complete["WATER"]) {
 			if(g_selectedLevel == 0) {
 				g_tutorial_complete["WATER"] = true;
 				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
-				setStateLevelSelect();
-				jQuery(".missionBox.b2").click();
+				setStateSubLevelSelect("WATER");
 			}
 		} else if(g_LevelTerrain == "MANMADE" && !g_tutorial_complete["MANMADE"]) {
 			if(g_selectedLevel == 0) {
 				g_tutorial_complete["MANMADE"] = true;
 				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
-				setStateLevelSelect();
-				jQuery(".missionBox.b3").click();
+				setStateSubLevelSelect("MANMADE");
 			}
 		} else if(g_LevelTerrain == "EXPERT" && !g_tutorial_complete["EXPERT"]) {
 			if(g_selectedLevel == 0) {
 				g_tutorial_complete["EXPERT"] = true;
 				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
-				setStateLevelSelect();
-				jQuery(".missionBox.b4").click();
+				setStateSubLevelSelect("EXPERT");
 			}
 		} else {
 			setStateLevelSelect();

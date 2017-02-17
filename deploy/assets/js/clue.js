@@ -51,8 +51,7 @@ var createClueMap = function() {
 	g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
 };
 
-var openClueModal = function(closeCallback) {
-	if(closeCallback === undefined) {closeCallback = function(){};}
+var openClueModal = function() {
 	var htmlout = "";
 	htmlout += "<div class='sfxBtn'></div>";
 	htmlout += "<div class='clueContainer'></div>";
@@ -61,7 +60,7 @@ var openClueModal = function(closeCallback) {
 	htmlout += "</div>";
 	
 	//jQuery("#uiLayer").append(htmlout);
-	util.openModal(closeCallback,htmlout);
+	util.openModal(htmlout);
 
 	jQuery("#clueImgSrc").one("load", function(){
 		var containerHeight = jQuery(".clueImg").height();
@@ -114,12 +113,11 @@ var confirmClue = function() {
 	} else {
 		/*var htmlout = "";
 		htmlout += "<center><div class='foundMsg'>Drag the right clue to the box!<div></center>";
-		util.openModal(function(){},htmlout);*/
+		util.openModal(htmlout);*/
 	}
 };
 
-var openLegendModal = function(closeCallback) {
-	if(closeCallback === undefined) {closeCallback = function(){};}
+var openLegendModal = function() {
 	var htmlout = "";
 
 	htmlout += "<center><div style='width:100%;margin-top:20px;font-size:50px;'>LEGEND</div><div style='width:100%;height:526px;box-sizing:border-box;padding:5px;margin-top:30px;overflow-y:auto;'>";
@@ -156,5 +154,5 @@ var openLegendModal = function(closeCallback) {
 	});
 	htmlout += "</div></center>";
 
-	util.openModal(closeCallback,htmlout);
+	util.openModal(htmlout);
 };
