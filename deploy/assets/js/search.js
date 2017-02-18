@@ -145,6 +145,9 @@ var foundElephantModal = function() {
 			}
 		} else if(g_LevelTerrain == "WATER" && !g_tutorial_complete["WATER"]) {
 			if(g_selectedLevel == 0) {
+				g_terrain_unlocked.MANMADE = true;
+				localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked) );
+				//
 				g_tutorial_complete["WATER"] = true;
 				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
 				setStateSubLevelSelect("WATER");
@@ -161,6 +164,15 @@ var foundElephantModal = function() {
 				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
 				setStateSubLevelSelect("EXPERT");
 			}
+		} else if(g_selectedDifficulty !== "TUTORIAL") {
+			if(g_LevelTerrain == "LAND") {
+				g_terrain_unlocked.WATER = true;
+			}
+			if(g_LevelTerrain == "MANMADE") {
+				g_terrain_unlocked.EXPERT = true;
+			}
+			localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked) );
+			setStateLevelSelect();
 		} else {
 			setStateLevelSelect();
 		}

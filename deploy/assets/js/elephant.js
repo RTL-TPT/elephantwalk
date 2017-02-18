@@ -47,6 +47,7 @@ var g_isAlpha = false; //alpha flag
 var g_modalLevel = 0; //keeps track of how many modals are open
 var g_currentSet = 1; //current level mapset
 var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
+var g_terrain_unlocked = (localStorage.getItem("g_terrain_unlocked") == null) ? {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_terrain_unlocked")); //keep track of land unlocks
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -344,7 +345,16 @@ var setStateLevelSelect = function(cb) {
 	if(cb === undefined){cb = function(){};}
 	util.template.getHTML("assets/js/menu.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
-		//init here
+		if(g_terrain_unlocked.WATER) {
+			jQuery(".missionBoxOverlay.l2").css("opacity",0);
+		}
+		if(g_terrain_unlocked.MANMADE) {
+			jQuery(".missionBoxOverlay.l3").css("opacity",0);
+		}
+		if(g_terrain_unlocked.EXPERT) {
+			jQuery(".missionBoxOverlay.l4").css("opacity",0);
+		}
+		//bind buttons
 		jQuery(".missionBox").click(function(){
 			if(jQuery(this).hasClass("b1")) {
 				g_data_init("LAND");
