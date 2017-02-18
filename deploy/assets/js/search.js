@@ -60,7 +60,7 @@ var create360Elephant = function() {
 	if(cElephant[0] == g_activeTile[0] && cElephant[1] == g_activeTile[1] && cElephant[2] == g_heading) {
 		jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 		//set elephant hitbox
-		var boxdata = g_mapsetdata[g_currentSet-1].elephant[g_activeTile[1]+"_"+g_activeTile[0]+"_"+g_heading];
+		var boxdata = g_mapsetdata[g_currentSet-1].elephant[g_activeTile[0]+"_"+g_activeTile[1]+"_"+g_heading];
 		var clickTarget = "";
 		if(boxdata === undefined) {
 			clickTarget = "#exploremap";

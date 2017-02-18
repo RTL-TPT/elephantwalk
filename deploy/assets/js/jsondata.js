@@ -211,7 +211,7 @@ var g_mapsetdata = [
     { //mapset 1
         "elephant": { //y_x_direction: [left,top,width,height]
             "0_0_south":[544,278,277,230],
-            "0_0_east":[660,136,253,207],
+            "1_1_south":[52,212,323,273]
         }, 
         "clues": [ //[left,top,width,height,clue]
             [366,50,226,173,"forest"],
@@ -222,7 +222,7 @@ var g_mapsetdata = [
     },
     { //mapset 2
         "elephant": { //y_x_direction: [left,top,width,height]
-            "1_1_south":[240,235,300,200]
+            
         }, 
         "clues": [ //[left,top,width,height,clue]
             [108,226,202,155,"forest"],
@@ -261,7 +261,7 @@ var g_mapsetdata = [
     },
     { //mapset 5
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_1_west":[228,235,321,281]
+            
         }, 
         "clues": [ //[left,top,width,height,clue]
             [0,131,279,188,"ocean"],
@@ -277,7 +277,7 @@ var g_mapsetdata = [
     },
     { //mapset 6
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_1_west":[228,235,321,281]
+            
         }, 
         "clues": [ //[left,top,width,height,clue]
             [23,529,232,71,"hill"],
@@ -316,7 +316,7 @@ var g_mapsetdata = [
     },
     { //mapset 8
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_1_west":[228,235,321,281]
+            
         }, 
         "clues": [ //[left,top,width,height,clue]
             [18,17,153,95,"forest"],
@@ -378,7 +378,7 @@ var g_mapsetdata = [
     },
     { //mapset 11
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_0_south":[228,235,321,281]
+            
         }, 
         "clues": [ //[left,top,width,height,clue]
             [662,550,288,71,"desert"],
@@ -399,7 +399,7 @@ var g_mapsetdata = [
     },
     { //mapset 12
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_0_south":[228,235,321,281]
+            
         }, 
         "clues": [ //[left,top,width,height,clue]
             [0,242,208,379,"ocean"],
