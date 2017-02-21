@@ -7,10 +7,10 @@ var g_leveldata =
                     "forest"
                 ],
                 "symbolStyle": {
-                    "forest": "nonAbstract",
-                    "mountain": "nonAbstract",
                     "desert": "nonAbstract",
-                    "hill": "nonAbstract"
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
                 },
                 "clueUnlock": "forest1",
                 "gridSize": "2x2",
@@ -29,10 +29,10 @@ var g_leveldata =
                     "mountain"
                 ],
                 "symbolStyle": {
-                    "forest": "nonAbstract",
-                    "mountain": "nonAbstract",
                     "desert": "nonAbstract",
-                    "hill": "nonAbstract"
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
                 },
                 "clueUnlock": "mountain1",
                 "gridSize": "2x2",
@@ -57,10 +57,10 @@ var g_leveldata =
                     "hill"
                 ],
                 "symbolStyle": {
-                    "forest": "partialAbstract",
-                    "mountain": "partialAbstract",
                     "desert": "partialAbstract",
-                    "hill": "partialAbstract"
+                    "forest": "partialAbstract",
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract"
                 },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
@@ -84,12 +84,12 @@ var g_leveldata =
                     "lake"
                 ],
                 "symbolStyle": {
-                    "stream": "nonAbstract",
                     "forest": "partialAbstract",
-                    "waterfall": "nonAbstract",
-                    "mountain": "partialAbstract",
                     "lake": "nonAbstract",
-                    "ocean": "nonAbstract"
+                    "mountain": "partialAbstract",
+                    "ocean": "nonAbstract",
+                    "stream": "nonAbstract",
+                    "waterfall": "nonAbstract"
                 },
                 "clueUnlock": "",
                 "gridSize": "3x2",
@@ -115,14 +115,14 @@ var g_leveldata =
                     "forest"
                 ],
                 "symbolStyle": {
-                    "forest": "partialAbstract",
-                    "park": "nonAbstract",
-                    "road": "nonAbstract",
                     "bridge": "nonAbstract",
-                    "hill": "partialAbstract",
                     "building": "nonAbstract",
                     "desert": "partialAbstract",
-                    "mountain": "partialAbstract"
+                    "forest": "partialAbstract",
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "park": "nonAbstract",
+                    "road": "nonAbstract"
                 },
                 "clueUnlock": "",
                 "gridSize": "3x3",
@@ -145,14 +145,14 @@ var g_leveldata =
                     "mountain"
                 ],
                 "symbolStyle": {
-                    "road": "fullAbstract",
                     "bridge": "partialAbstract",
+                    "building": "fullAbstract",
                     "desert": "fullAbstract",
                     "forest": "fullAbstract",
-                    "mountain": "fullAbstract",
                     "hill": "fullAbstract",
-                    "building": "fullAbstract",
-                    "park": "partialAbstract"
+                    "mountain": "fullAbstract",
+                    "park": "partialAbstract",
+                    "road": "fullAbstract"
                 },
                 "clueUnlock": "",
                 "gridSize": "3x3",
@@ -176,18 +176,18 @@ var g_leveldata =
                     "lake"
                 ],
                 "symbolStyle": {
-                    "desert": "fullAbstract",
-                    "hill": "fullAbstract",
-                    "forest": "fullAbstract",
-                    "road": "fullAbstract",
+                    "bridge": "partialAbstract",
                     "building": "partialAbstract",
-                    "park": "partialAbstract",
+                    "desert": "fullAbstract",
+                    "forest": "fullAbstract",
+                    "hill": "fullAbstract",
                     "lake": "fullAbstract",
                     "mountain": "fullAbstract",
+                    "ocean": "fullAbstract",
+                    "park": "partialAbstract",
+                    "road": "fullAbstract",
                     "stream": "fullAbstract",
-                    "bridge": "partialAbstract",
-                    "waterfall": "fullAbstract",
-                    "ocean": "fullAbstract"
+                    "waterfall": "fullAbstract"
                 },
                 "clueUnlock": "",
                 "gridSize": "3x3",
