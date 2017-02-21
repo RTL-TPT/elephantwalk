@@ -12,10 +12,17 @@ img {
     margin:0px;
 }
 
+.pContent {
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor:default;
+}
 .gameCanvas {
     position: absolute;
-    top: calc(50% - 384px);
-    left: calc(50% - 512px);
+    /*top: calc(50% - 384px);
+    left: calc(50% - 512px);*/
     pointer-events:none;
     /*z-index: 3;*/
 }

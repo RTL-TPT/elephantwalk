@@ -21,13 +21,13 @@ var createClueMap = function() {
 		jQuery("#clueMap").append(htmlout);
 	}
 	//SET UP DRAG AND DROP EVENTS
-	jQuery("#uiLayer").unbind().mousemove(function(event){
+	jQuery("#content").unbind().mousemove(function(event){
 		var mousefollower = jQuery(".mousefollower");
 		if(mousefollower.length > 0) {
 			jQuery(".mousefollower").css("left",(event.pageX-75)+"px").css("top",(event.pageY-(175/2))+"px");
 		}
 	});
-	jQuery("#uiLayer").mouseup(function(event){
+	jQuery("#content").mouseup(function(event){
 		var mousefollower = jQuery(".mousefollower");
 		if(mousefollower.length > 0) {
 			var droplocation = jQuery("#clueDrop1").offset();
@@ -44,8 +44,8 @@ var createClueMap = function() {
 	});
 	jQuery(".dragClue").unbind().mousedown(function(event){
 		g_currentDrag = event.currentTarget.id.split("_")[1];
-		var mousefollower = "<div class='mousefollower' style='position:fixed;width:150px;height:175px;left:"+(event.pageX-75)+"px;top:"+(event.pageY-(175/2))+"px;background:url("+"assets/images/clue/"+(event.currentTarget.id.split("_")[1]).toUpperCase()+util.getCluePath(g_currentDrag)+")'></div>";
-		jQuery("#uiLayer").append(mousefollower);
+		var mousefollower = "<div class='mousefollower' style='position:fixed;transform:scale("+g_scale+");width:150px;height:175px;left:"+(event.pageX-75)+"px;top:"+(event.pageY-(175/2))+"px;background:url("+"assets/images/clue/"+(event.currentTarget.id.split("_")[1]).toUpperCase()+util.getCluePath(g_currentDrag)+")'></div>";
+		jQuery("#content").append(mousefollower);
 		g_hasDrag = true;
 	});
 	g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
