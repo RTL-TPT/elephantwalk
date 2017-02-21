@@ -1,7 +1,7 @@
 var createSearchMap = function() {
 	var htmlout = "";
 	//map bg
-	htmlout = "<div style='width:100%;height:100%;background:url(assets/images/lvlsets/"+g_currentSet+"/map_"+g_currentSet+".jpg) center center no-repeat;background-size:725px'></div>";
+	htmlout = "<div style='width:100%;height:100%;background:url(assets/images/lvlsets/"+g_currentSet+"/map_"+g_currentSet+".jpg) center center no-repeat;background-size:750px'></div>";
 	jQuery("#clueMap").append(htmlout);
 	//
 	var grid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];

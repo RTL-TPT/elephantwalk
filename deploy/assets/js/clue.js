@@ -7,13 +7,13 @@ var getCluePX = function(gridx,gridy) {
 var createClueMap = function() {
 	var htmlout = "";
 	//map bg
-	htmlout = "<div style='width:100%;height:100%;background:url(assets/images/lvlsets/"+g_currentSet+"/map_"+g_currentSet+".jpg) center center no-repeat;background-size:725px'></div>";
+	htmlout = "<div style='width:100%;height:100%;background:url(assets/images/lvlsets/"+g_currentSet+"/map_"+g_currentSet+".jpg) center center no-repeat;background-size:750px'></div>";
 	jQuery("#clueMap").append(htmlout);
 	//CREATE DRAGABLE CLUES
 	for(var i = 0; i < g_mapsetdata[g_currentSet-1].clues.length; i++) {
 		var cClue = g_mapsetdata[g_currentSet-1].clues[i];
 		var cx = 725/950 * cClue[0];
-		var cy = 725/950 * cClue[1] + ((575-473.16)/2);
+		var cy = 725/950 * cClue[1] /*+ ((575-473.16)/2)*/;
 		var cwidth = 725/950 * cClue[2];
 		var cheight = 725/950 * cClue[3];
 		var cstyle = "style='left:"+cx+"px;top:"+cy+"px;width:"+cwidth+"px;height:"+cheight+"px;'";

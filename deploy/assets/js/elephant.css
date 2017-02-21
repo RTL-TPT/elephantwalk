@@ -172,10 +172,10 @@ img {
 }
 .clueMap {
     position: absolute;
-    top: 50px;
-    left: 50px;
-    width: 725px;
-    height: 575px;
+    top: 84px;
+    left: 37px;
+    width: 750px;
+    height: 489px;
     background-color: white;
 }
 .clueBar, .searchBar {
