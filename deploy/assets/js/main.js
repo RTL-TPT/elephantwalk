@@ -117,8 +117,6 @@
 		//canvas resize
 		app.game.scale.setGameSize(cw,ch);
 		jQuery(".gameCanvas").css("top",($(window).height()/2 - ch/2)+"px").css("left",($(window).width()/2 - cw/2)+"px");
-		//app.game.width = cw;
-		//app.game.height = ch;
 		g_scale = percent;
 	};
 

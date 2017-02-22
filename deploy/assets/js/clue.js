@@ -27,24 +27,34 @@ var createClueMap = function() {
 			px = event.pageX;
 			py = event.pageY;
 		} else {
-			px = event.originalEvent.touches[0].pageX;
-			py = event.originalEvent.touches[0].pageY;
+			if(event.originalEvent.touches[0] !== undefined) {
+				px = event.originalEvent.touches[0].pageX;
+				py = event.originalEvent.touches[0].pageY;
+			} else {
+				return [0,0];
+			}
 		}
 		return [px,py];
 	};
 	jQuery("#content").unbind().on("mousemove touchmove",function(event){
+		event.preventDefault();
 		var coord = getXY(event);
 		var mousefollower = jQuery(".mousefollower");
 		if(mousefollower.length > 0) {
 			jQuery(".mousefollower").css("left",(coord[0]-75)+"px").css("top",(coord[1]-(175/2))+"px");
 		}
 	});
-	jQuery("#content").on("mouseup touchend",function(event){
+	jQuery("#content").on("mouseup touchend touchcancel",function(event){
 		var coord = getXY(event);
 		var dropWidth = 150 * g_scale;
 		var dropHeight = 175 * g_scale;
 		var mousefollower = jQuery(".mousefollower");
 		if(mousefollower.length > 0) {
+			event.preventDefault();
+			if(coord[0] == 0 && coord[1] == 0) {
+				coord[0] = jQuery(".mousefollower").position().left+(75*g_scale);
+				coord[1] = jQuery(".mousefollower").position().top+(175/2*g_scale);
+			}
 			var droplocation = jQuery("#clueDrop1").offset();
 			var lDiff = coord[0] - droplocation.left;
 			var tDiff = coord[1] - droplocation.top;
@@ -58,6 +68,7 @@ var createClueMap = function() {
 		}
 	});
 	jQuery(".dragClue").unbind().on("mousedown touchstart",function(event){
+		//event.preventDefault();
 		var coord = getXY(event);
 		g_currentDrag = event.currentTarget.id.split("_")[1];
 		var mousefollower = "<div class='mousefollower' style='position:fixed;transform:scale("+g_scale+");width:150px;height:175px;left:"+(coord[0]-75)+"px;top:"+(coord[1]-(175/2))+"px;background:url("+"assets/images/clue/"+(event.currentTarget.id.split("_")[1]).toUpperCase()+util.getCluePath(g_currentDrag)+")'></div>";
