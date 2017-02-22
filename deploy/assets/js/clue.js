@@ -21,20 +21,35 @@ var createClueMap = function() {
 		jQuery("#clueMap").append(htmlout);
 	}
 	//SET UP DRAG AND DROP EVENTS
+	var getXY = function(event) {
+		var px, py;
+		if(event.originalEvent.touches === undefined) {
+			px = event.pageX;
+			py = event.pageY;
+		} else {
+			px = event.originalEvent.touches[0].pageX;
+			py = event.originalEvent.touches[0].pageX;
+		}
+		return [px,py];
+	};
 	jQuery("#content").unbind().on("mousemove touchmove",function(event){
+		var coord = getXY(event);
 		var mousefollower = jQuery(".mousefollower");
 		if(mousefollower.length > 0) {
-			jQuery(".mousefollower").css("left",(event.pageX-75)+"px").css("top",(event.pageY-(175/2))+"px");
+			jQuery(".mousefollower").css("left",(coord[0]-75)+"px").css("top",(coord[1]-(175/2))+"px");
 		}
 	});
 	jQuery("#content").on("mouseup touchend",function(event){
+		var coord = getXY(event);
+		var dropWidth = 150 * g_scale;
+		var dropHeight = 175 * g_scale;
 		var mousefollower = jQuery(".mousefollower");
 		if(mousefollower.length > 0) {
 			var droplocation = jQuery("#clueDrop1").offset();
-			var lDiff = event.pageX - droplocation.left;
-			var tDiff = event.pageY - droplocation.top;
-			var lFit = (lDiff >= 0 && lDiff <= 150) ? true : false;
-			var tFit = (tDiff >= 0 && tDiff <= 175) ? true : false;
+			var lDiff = coord[0] - droplocation.left;
+			var tDiff = coord[1] - droplocation.top;
+			var lFit = (lDiff >= 0 && lDiff <= dropWidth) ? true : false;
+			var tFit = (tDiff >= 0 && tDiff <= dropHeight) ? true : false;
 			if(lFit && tFit) {
 				jQuery("#clueDoneBtn").show();
 				jQuery("#clueDrop1").html("<img cname='img_"+g_currentDrag+"' style='width:100%;height:100%;' src='"+"assets/images/clue/"+g_currentDrag.toUpperCase()+util.getCluePath(g_currentDrag)+"'>");
@@ -43,8 +58,9 @@ var createClueMap = function() {
 		}
 	});
 	jQuery(".dragClue").unbind().on("mousedown touchstart",function(event){
+		var coord = getXY(event);
 		g_currentDrag = event.currentTarget.id.split("_")[1];
-		var mousefollower = "<div class='mousefollower' style='position:fixed;transform:scale("+g_scale+");width:150px;height:175px;left:"+(event.pageX-75)+"px;top:"+(event.pageY-(175/2))+"px;background:url("+"assets/images/clue/"+(event.currentTarget.id.split("_")[1]).toUpperCase()+util.getCluePath(g_currentDrag)+")'></div>";
+		var mousefollower = "<div class='mousefollower' style='position:fixed;transform:scale("+g_scale+");width:150px;height:175px;left:"+(coord[0]-75)+"px;top:"+(coord[1]-(175/2))+"px;background:url("+"assets/images/clue/"+(event.currentTarget.id.split("_")[1]).toUpperCase()+util.getCluePath(g_currentDrag)+")'></div>";
 		jQuery("#content").append(mousefollower);
 		g_hasDrag = true;
 	});
