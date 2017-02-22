@@ -21,13 +21,13 @@ var createClueMap = function() {
 		jQuery("#clueMap").append(htmlout);
 	}
 	//SET UP DRAG AND DROP EVENTS
-	jQuery("#content").unbind().mousemove(function(event){
+	jQuery("#content").unbind().on("mousemove touchmove",function(event){
 		var mousefollower = jQuery(".mousefollower");
 		if(mousefollower.length > 0) {
 			jQuery(".mousefollower").css("left",(event.pageX-75)+"px").css("top",(event.pageY-(175/2))+"px");
 		}
 	});
-	jQuery("#content").mouseup(function(event){
+	jQuery("#content").on("mouseup touchend",function(event){
 		var mousefollower = jQuery(".mousefollower");
 		if(mousefollower.length > 0) {
 			var droplocation = jQuery("#clueDrop1").offset();
@@ -42,7 +42,7 @@ var createClueMap = function() {
 			jQuery(".mousefollower").remove();
 		}
 	});
-	jQuery(".dragClue").unbind().mousedown(function(event){
+	jQuery(".dragClue").unbind().on("mousedown touchstart",function(event){
 		g_currentDrag = event.currentTarget.id.split("_")[1];
 		var mousefollower = "<div class='mousefollower' style='position:fixed;transform:scale("+g_scale+");width:150px;height:175px;left:"+(event.pageX-75)+"px;top:"+(event.pageY-(175/2))+"px;background:url("+"assets/images/clue/"+(event.currentTarget.id.split("_")[1]).toUpperCase()+util.getCluePath(g_currentDrag)+")'></div>";
 		jQuery("#content").append(mousefollower);
