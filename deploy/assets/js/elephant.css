@@ -584,6 +584,7 @@ img {
 .legendImgSize {
     width:calc(150px / 2);
     height:calc(175px / 2);
+    margin-right:4px;
 }
 .clueMapMask {
     pointer-events: none;

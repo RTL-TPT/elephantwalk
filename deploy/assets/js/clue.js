@@ -126,29 +126,30 @@ var openLegendModal = function() {
 		var posturl = util.getCluePath(key);
 		var clueImg = "<img style='display:inline-block;height:87.5px;' class='' src='assets/images/clue/"+key+".jpg'>";
 		htmlout += "<div style='width:100%;height:87.5px;margin-bottom:4px;'> <div style='display:inline-block'>"+clueImg+"</div><div style='display:inline-block;width:100px;height:87.5px;transform: translateY(-50%)'>"+key+"</div>";
+		
+		var lockImg = "<div style='display:inline-block;width:75px;height:87.5px;background:url(assets/images/lock.png) center center no-repeat;'></div>";
+		var overlay = "<div style='display:inline-block;width:75px;height:87.5px;background-color:rgba(0,0,0,0.5);'>"+lockImg+"</div>";
+
 		if(abstraction == "nonAbstract" || abstraction == "partialAbstract" || abstraction == "fullAbstract") {
 			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_non-abstract-symbol.jpg"+"'>";
 			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
 		} else {
-			var absImg = "<img style='' class='legendImgSize' src='assets/images/"+"legend-unknown.gif"+"'>";
-			//htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
-			htmlout += "<div style='display:inline-block;width:75px;height:87.5px;background:url(assets/images/lock.png) center center no-repeat;'></div>";
+			var clueImg = "assets/images/clue/"+key.toUpperCase()+"_non-abstract-symbol.jpg";
+			htmlout += "<div style='display:inline-block;margin-right:4px;width:75px;height:87.5px;background:url("+clueImg+") center center no-repeat;'>"+overlay+"</div>";
 		}
 		if(abstraction == "partialAbstract" || abstraction == "fullAbstract") {
 			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_partial-abstract-symbol.jpg"+"'>";
 			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
 		} else {
-			var absImg = "<img style='' class='legendImgSize' src='assets/images/"+"legend-unknown.gif"+"'>";
-			//htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
-			htmlout += "<div style='display:inline-block;width:75px;height:87.5px;background:url(assets/images/lock.png) center center no-repeat;'></div>";
+			var clueImg = "assets/images/clue/"+key.toUpperCase()+"_partial-abstract-symbol.jpg";
+			htmlout += "<div style='display:inline-block;margin-right:4px;width:75px;height:87.5px;background:url("+clueImg+") center center no-repeat;'>"+overlay+"</div>";
 		}
 		if(abstraction == "fullAbstract") {
 			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_abstract-symbol.jpg"+"'>";
 			htmlout += "<div style='display:inline-block'width:75px;height:87.5px;>"+absImg+"</div>";
 		} else {
-			var absImg = "<img style='' class='legendImgSize' src='assets/images/"+"legend-unknown.gif"+"'>";
-			//htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
-			htmlout += "<div style='display:inline-block;width:75px;height:87.5px;background:url(assets/images/lock.png) center center no-repeat;'></div>";
+			var clueImg = "assets/images/clue/"+key.toUpperCase()+"_abstract-symbol.jpg";
+			htmlout += "<div style='display:inline-block;margin-right:4px;width:75px;height:87.5px;background:url("+clueImg+") center center no-repeat;'>"+overlay+"</div>";
 		}
 		htmlout += "</div>";
 	});
