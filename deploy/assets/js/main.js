@@ -85,6 +85,9 @@
 		}
 		jQuery("#frame canvas").addClass("gameCanvas");
 		jQuery("#content").addClass("pContent");
+		if(g_scaleGameToWindow) {
+			fitCanvasToWindow();
+		}
 		setStateTitle(); //set state to title screen
 	}
 
