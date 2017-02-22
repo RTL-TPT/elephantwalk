@@ -28,7 +28,7 @@ var createClueMap = function() {
 			py = event.pageY;
 		} else {
 			px = event.originalEvent.touches[0].pageX;
-			py = event.originalEvent.touches[0].pageX;
+			py = event.originalEvent.touches[1].pageX;
 		}
 		return [px,py];
 	};
