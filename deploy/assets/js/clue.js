@@ -78,7 +78,7 @@ var createClueMap = function() {
 	g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
 };
 
-var openClueModal = function() {
+var openClueModal = function(callback) {
 	var htmlout = "";
 	htmlout += "<div class='sfxBtn'></div>";
 	htmlout += "<div class='clueContainer'></div>";
@@ -109,6 +109,7 @@ var openClueModal = function() {
 
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
 		g_sfx[g_currentClue].stop();
+		if(callback !== undefined){callback();}
 	});
 };
 
