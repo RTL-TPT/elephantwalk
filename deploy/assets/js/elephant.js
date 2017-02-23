@@ -466,8 +466,8 @@ var setStateSearchSelect = function() {
 		var extra = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].searchClues ? true : false;
 		var mapset = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
 		//set clue urls
-		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+(extra ? "/"+mapset+"/" : "")+clue1.toUpperCase()+clue1post+"'>";
-		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+(extra ? "/"+mapset+"/" : "")+clue2.toUpperCase()+clue2post+"'>";
+		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+(extra ? mapset+"/" : "")+clue1.toUpperCase()+clue1post+"'>";
+		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+(extra ? mapset+"/" : "")+clue2.toUpperCase()+clue2post+"'>";
 		jQuery("#clueDrop1").html(clueurl1);
 		jQuery("#clueDrop2").html(clueurl2);
 		//show overlay grid (dotted line)
