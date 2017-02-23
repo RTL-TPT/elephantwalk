@@ -8,7 +8,7 @@ var createExploreMap = function() {
 	//map feature layer
 	var htmlout = "";
 	//
-	htmlout += "<div style='position:absolute;width:100%;height:100%'><img src='assets/images/lvlsets/"+(g_currentSet)+"/map_"+(g_currentSet)+".jpg'></div>";
+	htmlout += "<div id='exMapImg' style='position:absolute;width:100%;height:100%'><img src='assets/images/lvlsets/"+(g_currentSet)+"/map_"+(g_currentSet)+".jpg'></div>";
 	//
 	htmlout += "<div id='mapGrid' class='mapGrid'>";
 	//
@@ -128,6 +128,8 @@ var bindActiveTile = function() {
 		jQuery("#leftArrow").unbind().click(function(){rotateView("left")});
 		jQuery("#mapGrid").hide();
 		jQuery(".mapGridOverlay").hide();
+		jQuery(".mapGridLines").hide();
+		jQuery("#exMapImg").hide();
 		delete g_tilesRemaining[""+g_activeTile[0]+","+g_activeTile[1]];
 	});
 };
@@ -167,6 +169,8 @@ var firstPersonToMap = function() {
 	jQuery("#returnBtn").hide();
 	jQuery("#mapGrid").show();
 	jQuery(".mapGridOverlay").show();
+	jQuery(".mapGridLines").show();
+	jQuery("#exMapImg").show();
 	jQuery("#firstPerson").html("");
 	jQuery("#rightArrow").hide();
 	jQuery("#leftArrow").hide();
