@@ -433,8 +433,12 @@ var setStateSearchSelect = function() {
 		var clue2 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
 		var clue1post = util.getCluePath(clue1);
 		var clue2post = util.getCluePath(clue2);
-		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue1.toUpperCase()+clue1post+"'>";
-		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue2.toUpperCase()+clue2post+"'>";
+		//for custom positioning clues
+		var extra = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].searchClues ? true : false;
+		var mapset = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
+		//set clue urls
+		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+(extra ? "/"+mapset+"/" : "")+clue1.toUpperCase()+clue1post+"'>";
+		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+(extra ? "/"+mapset+"/" : "")+clue2.toUpperCase()+clue2post+"'>";
 		jQuery("#clueDrop1").html(clueurl1);
 		jQuery("#clueDrop2").html(clueurl2);
 		//show overlay grid (dotted line)

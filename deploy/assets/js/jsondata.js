@@ -200,6 +200,7 @@ var g_leveldata =
                 ],
                 "unlocked": true,
                 "hasExploration": false,
+                "searchClues": true,
                 "mapset": 10
             }
         ],
