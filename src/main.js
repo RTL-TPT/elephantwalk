@@ -84,6 +84,10 @@
 			jQuery("#uiLayer").addClass("uiLayer");
 		}
 		jQuery("#frame canvas").addClass("gameCanvas");
+		jQuery("#content").addClass("pContent");
+		if(g_scaleGameToWindow) {
+			fitCanvasToWindow();
+		}
 		setStateTitle(); //set state to title screen
 	}
 
@@ -93,5 +97,33 @@
 
 	// Assign to the window for easy access
 	window.app = app;
+	window.g_scale = 1;
+	window.g_scaleGameToWindow = true; //scale game to fit window or not
+
+	var fitCanvasToWindow = function() {
+		var canvasOffset = 20;
+		var cw = 0;
+		var ch = 0;
+		var percent = 0;
+		if(window.innerHeight * (4/3) > window.innerWidth) {
+			cw = window.innerWidth - canvasOffset;
+			ch = Math.floor((window.innerWidth - canvasOffset) * (3/4));
+		} else {
+			ch = window.innerHeight - canvasOffset;
+			cw = Math.floor((window.innerHeight - canvasOffset) * (4/3));
+		}
+		percent = cw/1024;
+		jQuery("#uiLayer").css("transform","scale("+percent+")");
+		//canvas resize
+		app.game.scale.setGameSize(cw,ch);
+		jQuery(".gameCanvas").css("top",($(window).height()/2 - ch/2)+"px").css("left",($(window).width()/2 - cw/2)+"px");
+		g_scale = percent;
+	};
+
+	window.addEventListener("resize", function(){
+		if(g_scaleGameToWindow) {
+			fitCanvasToWindow();
+		}
+	});
 	
 }());
