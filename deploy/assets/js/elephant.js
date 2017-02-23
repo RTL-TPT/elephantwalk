@@ -253,6 +253,35 @@ util.animation = (function() {
 	};
 })();
 
+util.loadImages = function(imageArray, callback) {
+	jQuery("#imgloadarea").html("");
+	//add images to dom
+	var imghtml = "";
+	for(var i = 0; i < imageArray.length; i++) {
+		imghtml += "<img src='"+imageArray[i]+"'> ";
+	}
+	jQuery("#imgloadarea").html(imghtml);
+	var loaderoverlay = "<div id='loaderDiv' style='z-index:20000;position:absolute;top:0px;left:0px;width:100%;height:100%;background-color:rgba(255,255,255,0.75)'><div style='width:100%;height:100%;background:url(assets/images/spin.gif) center center no-repeat;'></div></div>";
+	jQuery("#uiLayer").append(loaderoverlay);
+	//set progress checker
+	var loadcheck = setInterval(function(){
+		var children = jQuery("#imgloadarea").children();
+		var allLoaded = true;
+		for(var i = 0; i < children.length; i++) {
+			if (!jQuery(children[i]).prop("complete")) {
+				allLoaded = false;
+			}
+		}
+		if(allLoaded) {
+			//console.log("all images loaded");
+			clearInterval(loadcheck);
+			jQuery("#imgloadarea").html("");
+			jQuery("#loaderDiv").remove();
+			callback();
+		}
+	}, 250);
+};
+
 //////////////// MISC
 ////////////////
 

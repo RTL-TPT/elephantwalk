@@ -42,8 +42,21 @@ var createExploreMap = function() {
 	}
 	htmlout += "</div>";
 	htmlout += "<div id='firstPerson' class='firstPerson'></div>";
-	jQuery("#exploremap").html(htmlout);
-	bindActiveTile();
+	///// explore view image loading
+	var firstpersonimgs = [];
+	for(var i = 0; i < g_activeGrid.x; i++) {
+		for(var j = 0; j < g_activeGrid.y; j++) {
+			firstpersonimgs.push(util.getFacingPath(j,i,"north"));
+			firstpersonimgs.push(util.getFacingPath(j,i,"west"));
+			firstpersonimgs.push(util.getFacingPath(j,i,"east"));
+			firstpersonimgs.push(util.getFacingPath(j,i,"south"));
+		}
+	}
+	util.loadImages(firstpersonimgs, function(){
+		jQuery("#exploremap").html(htmlout);
+		bindActiveTile();
+	});
+	/////
 };
 
 var createExploreGPS = function() {

@@ -80,6 +80,7 @@
 
 		var uiHTML = "<div id='uiLayer'></div>";
 		if(jQuery("#uiLayer").length === 0) {
+			jQuery("#content").prepend("<div id='imgloadarea' style='display:none;'><img src='assets/images/spin.gif'></div>");
 			jQuery("#content").prepend(uiHTML);
 			jQuery("#uiLayer").addClass("uiLayer");
 		}
