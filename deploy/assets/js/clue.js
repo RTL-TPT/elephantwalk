@@ -163,21 +163,21 @@ var openLegendModal = function() {
 			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
 		} else {
 			var clueImg = "assets/images/clue/"+key.toUpperCase()+"_non-abstract-symbol.jpg";
-			htmlout += "<div style='display:inline-block;margin-right:4px;width:75px;height:87.5px;background:url("+clueImg+") center center no-repeat;'>"+overlay+"</div>";
+			htmlout += "<div style='display:inline-block;margin-right:4px;width:75px;height:87.5px;background:url("+clueImg+") center center no-repeat;background-size:75px 87.5px;'>"+overlay+"</div>";
 		}
 		if(abstraction == "partialAbstract" || abstraction == "fullAbstract") {
 			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_partial-abstract-symbol.jpg"+"'>";
 			htmlout += "<div style='display:inline-block'>"+absImg+"</div>";
 		} else {
 			var clueImg = "assets/images/clue/"+key.toUpperCase()+"_partial-abstract-symbol.jpg";
-			htmlout += "<div style='display:inline-block;margin-right:4px;width:75px;height:87.5px;background:url("+clueImg+") center center no-repeat;'>"+overlay+"</div>";
+			htmlout += "<div style='display:inline-block;margin-right:4px;width:75px;height:87.5px;background:url("+clueImg+") center center no-repeat;background-size:75px 87.5px;'>"+overlay+"</div>";
 		}
 		if(abstraction == "fullAbstract") {
 			var absImg = "<img style='' class='legendImgSize' src='assets/images/clue/"+key.toUpperCase()+"_abstract-symbol.jpg"+"'>";
 			htmlout += "<div style='display:inline-block'width:75px;height:87.5px;>"+absImg+"</div>";
 		} else {
 			var clueImg = "assets/images/clue/"+key.toUpperCase()+"_abstract-symbol.jpg";
-			htmlout += "<div style='display:inline-block;margin-right:4px;width:75px;height:87.5px;background:url("+clueImg+") center center no-repeat;'>"+overlay+"</div>";
+			htmlout += "<div style='display:inline-block;margin-right:4px;width:75px;height:87.5px;background:url("+clueImg+") center center no-repeat;background-size:75px 87.5px;'>"+overlay+"</div>";
 		}
 		htmlout += "</div>";
 	});
