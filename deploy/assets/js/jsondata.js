@@ -148,7 +148,7 @@ var g_leveldata =
                 ],
                 "symbolStyle": {
                     "bridge": "partialAbstract",
-                    "building": "partialAbstract",
+                    "building": "fullAbstract",
                     "desert": "partialAbstract",
                     "forest": "fullAbstract",
                     "hill": "partialAbstract",
