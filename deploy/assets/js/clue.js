@@ -71,7 +71,7 @@ var createClueMap = function() {
 		//event.preventDefault();
 		var coord = getXY(event);
 		g_currentDrag = event.currentTarget.id.split("_")[1];
-		var mousefollower = "<div class='mousefollower' style='position:fixed;transform:scale("+g_scale+");width:150px;height:175px;left:"+(coord[0]-75)+"px;top:"+(coord[1]-(175/2))+"px;background:url("+"assets/images/clue/"+(event.currentTarget.id.split("_")[1]).toUpperCase()+util.getCluePath(g_currentDrag)+")'></div>";
+		var mousefollower = "<div class='mousefollower' style='position:fixed;"+util.getScaleString(g_scale)+"width:150px;height:175px;left:"+(coord[0]-75)+"px;top:"+(coord[1]-(175/2))+"px;background:url("+"assets/images/clue/"+(event.currentTarget.id.split("_")[1]).toUpperCase()+util.getCluePath(g_currentDrag)+")'></div>";
 		jQuery("#content").append(mousefollower);
 		g_hasDrag = true;
 	});
@@ -153,7 +153,7 @@ var openLegendModal = function() {
 		var abstraction = g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][key];
 		var posturl = util.getCluePath(key);
 		var clueImg = "<img style='display:inline-block;height:87.5px;' class='' src='assets/images/clue/"+key+".jpg'>";
-		htmlout += "<div style='width:100%;height:87.5px;margin-bottom:4px;'> <div style='display:inline-block'>"+clueImg+"</div><div style='display:inline-block;width:100px;height:87.5px;transform: translateY(-50%)'>"+key+"</div>";
+		htmlout += "<div style='width:100%;height:87.5px;margin-bottom:4px;'> <div style='display:inline-block'>"+clueImg+"</div><div style='display:inline-block;width:100px;height:87.5px;"+util.getTranslateYString("-50%")+"'>"+key+"</div>";
 		
 		var lockImg = "<div style='display:inline-block;width:75px;height:87.5px;background:url(assets/images/lock.png) center center no-repeat;'></div>";
 		var overlay = "<div style='display:inline-block;width:75px;height:87.5px;background-color:rgba(0,0,0,0.5);'>"+lockImg+"</div>";

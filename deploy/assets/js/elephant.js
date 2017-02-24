@@ -178,6 +178,12 @@ util.getFacingPathElephant = function(indx,indy,direction) {
 util.getCluePath = function(clue) {
 	return g_clueUrlPost[ g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][clue] ];
 };
+util.getScaleString = function(scale) {
+	return "transform:scale("+scale+");"+"-webkit-transform:scale("+scale+");";
+};
+util.getTranslateYString = function(ty) {
+	return "transform:translateY("+ty+");"+"-webkit-transform:translateY("+ty+");";
+};
 
 util.openModal = function(content) {
 	g_modalLevel++;

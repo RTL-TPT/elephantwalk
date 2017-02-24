@@ -89,6 +89,7 @@ img {
 	left:0px;
 }
 .GPSContainer {
+    -webkit-transform: scale(0.23);
     transform: scale(0.23);
     position: absolute;
     width: 100%;
