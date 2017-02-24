@@ -149,12 +149,12 @@ var g_leveldata =
                 "symbolStyle": {
                     "bridge": "partialAbstract",
                     "building": "fullAbstract",
-                    "desert": "partialAbstract",
+                    "desert": "fullAbstract",
                     "forest": "fullAbstract",
-                    "hill": "partialAbstract",
-                    "mountain": "partialAbstract",
+                    "hill": "fullAbstract",
+                    "mountain": "fullAbstract",
                     "park": "partialAbstract",
-                    "road": "partialAbstract"
+                    "road": "fullAbstract"
                 },
                 "clueUnlock": "",
                 "gridSize": "3x3",
