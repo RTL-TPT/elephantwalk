@@ -37,6 +37,9 @@ var createClueMap = function() {
 		return [px,py];
 	};
 	jQuery("#content").unbind().on("mousemove touchmove",function(event){
+		if(g_modalLevel != 0) {
+			return;
+		}
 		event.preventDefault();
 		var coord = getXY(event);
 		var mousefollower = jQuery(".mousefollower");
@@ -45,6 +48,9 @@ var createClueMap = function() {
 		}
 	});
 	jQuery("#content").on("mouseup touchend touchcancel",function(event){
+		if(g_modalLevel != 0) {
+			return;
+		}
 		var coord = getXY(event);
 		var dropWidth = 150 * g_scale;
 		var dropHeight = 175 * g_scale;

@@ -114,7 +114,7 @@
 			cw = Math.floor((window.innerHeight - canvasOffset) * (4/3));
 		}
 		percent = cw/1024;
-		jQuery("#uiLayer").css("transform","scale("+percent+")");
+		jQuery("#uiLayer").css("transform","scale("+percent+")").css("-webkit-transform","scale("+percent+")");
 		//canvas resize
 		app.game.scale.setGameSize(cw,ch);
 		jQuery(".gameCanvas").css("top",($(window).height()/2 - ch/2)+"px").css("left",($(window).width()/2 - cw/2)+"px");
