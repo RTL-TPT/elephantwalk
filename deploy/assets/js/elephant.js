@@ -360,6 +360,16 @@ var fillLevels = function(ltype) {
 	});
 };
 
+var toggleDebugMenu = function() {
+	if(jQuery("#debugBtn").css("opacity") == 1) {
+		jQuery("#debugBtn").css("opacity",0);
+		jQuery("#debugMenu").hide();
+	} else {
+		jQuery("#debugBtn").css("opacity",1);
+		jQuery("#debugMenu").show();
+	}
+};
+
 //////////////// State Transitions
 ////////////////
 
@@ -367,7 +377,10 @@ var setStateTitle = function() {
 	util.template.getHTML("assets/js/title.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
 		//init here
-		jQuery("#playBtn").click(function(){setStateLevelSelect();});
+		jQuery("#playBtn").unbind().click(function(){setStateLevelSelect();});
+		jQuery("#debugBtn").unbind().click(function(){toggleDebugMenu();});
+		jQuery("#debugLock").unbind().click(function(){util.clearSave();});
+		jQuery("#debugUnlock").unbind().click(function(){util.unlockAll();});
 	});
 };
 var setToTutorialLevel = function() {

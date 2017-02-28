@@ -636,3 +636,52 @@ img {
     line-height: 610px;
     pointer-events: none;
 }
+.debugBtn {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    opacity:0;
+    background: url('../images/debug-left1.png') center center no-repeat;
+    background-color: gray;
+    background-size: 90%;
+}
+.debugMenu {
+    position: absolute;
+    top: 0px;
+    left: 50px;
+    width: 300px;
+    height: 50px;
+    background-color: darkgray;
+    display:none;
+    font-size:0px;
+}
+.debugitem {
+    display:inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 5px;
+    margin-right: 8px;
+}
+.debugitem.debugLock {
+    margin-left: 8px;
+    background: url('../images/debug-lock-close.png') center center no-repeat;
+    background-color: white;
+    background-size: 60%;
+}
+.debugitem.debugUnlock {
+    margin-left: 8px;
+    background: url('../images/debug-lock-open.png') center center no-repeat;
+    background-color: white;
+    background-size: 90%;
+}
+.debugitem.debugSound {
+    margin-left: 8px;
+    background: none;
+}
+.debugitem:hover {
+    background-color: lightblue;
+}
