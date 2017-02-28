@@ -57,9 +57,9 @@ var g_leveldata =
                     "hill"
                 ],
                 "symbolStyle": {
-                    "desert": "nonAbstract",
+                    "desert": "partialAbstract",
                     "forest": "partialAbstract",
-                    "hill": "nonAbstract",
+                    "hill": "partialAbstract",
                     "mountain": "partialAbstract"
                 },
                 "clueUnlock": "hill1",

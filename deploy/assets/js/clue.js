@@ -88,19 +88,20 @@ var openClueModal = function(callback) {
 	var htmlout = "";
 	htmlout += "<div class='sfxBtn'></div>";
 	htmlout += "<div class='clueContainer'></div>";
-	htmlout += "<div class='clueImg'><img style='position:absolute;opacity:0;' src='' class='clueImgSrc' id='clueImgSrc'></div>";
+	htmlout += "<div class='clueImg' style='background:url(assets/images/clue/"+g_currentClue.toUpperCase()+"_clue.jpg) center center no-repeat;background-size:100%;'></div>";
+	//htmlout += "<div class='clueImg'><img style='position:absolute;opacity:0;' src='' class='clueImgSrc' id='clueImgSrc'></div>";
 	htmlout += "<div class='clueText'>"+g_currentClue.toUpperCase()+"</div>";
 	htmlout += "</div>";
 	
 	//jQuery("#uiLayer").append(htmlout);
 	util.openModal(htmlout);
 
-	jQuery("#clueImgSrc").one("load", function(){
+	/*jQuery("#clueImgSrc").one("load", function(){
 		var containerHeight = jQuery(".clueImg").height();
 		var clueheight = jQuery("#clueImgSrc").height();
 		jQuery("#clueImgSrc").css("top", (containerHeight / 2) - (clueheight / 2) + "px" ).css("opacity",1);
 	});
-	jQuery("#clueImgSrc").attr("src","assets/images/clue/"+g_currentClue.toUpperCase()+"_clue.png");
+	jQuery("#clueImgSrc").attr("src","assets/images/clue/"+g_currentClue.toUpperCase()+"_clue.png");*/
 	//play clue sfx
 	if(jQuery(".playerModalContainer").length > 0) {
 		//
