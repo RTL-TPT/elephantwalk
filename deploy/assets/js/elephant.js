@@ -204,6 +204,20 @@ util.openModal = function(content) {
 	});
 };
 
+util.clearSave = function() {
+	g_tutorial_complete = {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false};
+	g_terrain_unlocked = {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false};
+	localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete));
+	localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked));
+};
+
+util.unlockAll = function() {
+	g_tutorial_complete = {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true};
+	g_terrain_unlocked = {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true};
+	localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete));
+	localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked));
+};
+
 util.animation = (function() {
 	var correctAnim = function(callback) {
 		if(callback === undefined) {callback = function(){};}
