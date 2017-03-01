@@ -46,6 +46,7 @@ var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":
 var g_isAlpha = false; //alpha flag
 var g_modalLevel = 0; //keeps track of how many modals are open
 var g_currentSet = 1; //current level mapset
+var g_volumeLevel = 1;
 var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
 var g_terrain_unlocked = (localStorage.getItem("g_terrain_unlocked") == null) ? {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_terrain_unlocked")); //keep track of land unlocks
 //fill in level data variables for specified land type
@@ -104,7 +105,7 @@ util.player = (function() {
 			jQuery(".playerModalContainer").remove();
 			jQuery(".playerModalOverlay").remove();
 			if(jQuery(".modalContainer._"+g_modalLevel+" .clueContainer").length > 0) {
-				g_sfx[g_currentClue].play();
+				g_sfx[g_currentClue].play(undefined,undefined,g_volumeLevel);
 			}
 			closeCallback();
 		});
@@ -370,6 +371,16 @@ var toggleDebugMenu = function() {
 	}
 };
 
+var toggleMute = function() {
+	if(jQuery("#debugSound").hasClass("mute")) {
+		jQuery("#debugSound").removeClass("mute");
+		g_volumeLevel = 1;
+	} else {
+		jQuery("#debugSound").addClass("mute");
+		g_volumeLevel = 0;
+	}
+};
+
 //////////////// State Transitions
 ////////////////
 
@@ -381,6 +392,7 @@ var setStateTitle = function() {
 		jQuery("#debugBtn").unbind().click(function(){toggleDebugMenu();});
 		jQuery("#debugLock").unbind().click(function(){util.clearSave();});
 		jQuery("#debugUnlock").unbind().click(function(){util.unlockAll();});
+		jQuery("#debugSound").unbind().click(function(){toggleMute();});
 	});
 };
 var setToTutorialLevel = function() {

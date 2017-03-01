@@ -106,12 +106,12 @@ var openClueModal = function(callback) {
 	if(jQuery(".playerModalContainer").length > 0) {
 		//
 	} else {
-		g_sfx[g_currentClue].play();
+		g_sfx[g_currentClue].play(undefined,undefined,g_volumeLevel);
 	}
 
 	jQuery(".modalContainer .sfxBtn").click(function(){
 		g_sfx[g_currentClue].stop();
-		g_sfx[g_currentClue].play();
+		g_sfx[g_currentClue].play(undefined,undefined,g_volumeLevel);
 	});
 
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
