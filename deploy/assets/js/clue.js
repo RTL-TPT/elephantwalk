@@ -9,6 +9,16 @@ var createClueMap = function() {
 	//map bg
 	htmlout = "<div style='width:100%;height:100%;background:url(assets/images/lvlsets/"+g_currentSet+"/map_"+g_currentSet+".jpg) center center no-repeat;background-size:750px'></div>";
 	jQuery("#clueMap").append(htmlout);
+	//CACHE IMAGES
+	var cacheAr = [];
+	jQuery.each(g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel],function(key,value){
+		cacheAr.push("assets/images/clue/"+key+".jpg");
+		cacheAr.push("assets/images/clue/"+key.toUpperCase()+"_abstract-symbol.jpg");
+		cacheAr.push("assets/images/clue/"+key.toUpperCase()+"_clue.jpg");
+		cacheAr.push("assets/images/clue/"+key.toUpperCase()+"_non-abstract-symbol.jpg");
+		cacheAr.push("assets/images/clue/"+key.toUpperCase()+"_partial-abstract-symbol.jpg");
+	});
+	util.loadImages(cacheAr,function(){});
 	//CREATE DRAGABLE CLUES
 	for(var i = 0; i < g_mapsetdata[g_currentSet-1].clues.length; i++) {
 		var cClue = g_mapsetdata[g_currentSet-1].clues[i];

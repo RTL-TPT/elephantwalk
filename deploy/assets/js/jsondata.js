@@ -422,3 +422,38 @@ var g_mapsetdata = [
         ]
     }
 ];
+
+var g_cacheList = [
+    "assets/images/debug-sound-off.png",
+    "assets/images/debug-sound.png",
+    "assets/images/debug-left1.png",
+    "assets/images/debug-lock-open.png",
+    "assets/images/debug-lock-close.png",
+    "assets/images/title.jpg",
+    "assets/images/bg_exp_btm.gif",
+    "assets/images/bg_exp_top.gif",
+    "assets/images/bg_explore.gif",
+    "assets/images/btn_360_left_2.png",
+    "assets/images/btn_360_right_2.png",
+    "assets/images/btn_clue.png",
+    "assets/images/btn_done.png",
+    "assets/images/btn_legend.png",
+    "assets/images/btn_legend1.png",
+    "assets/images/btn_next.gif",
+    "assets/images/check-green-hi.png",
+    "assets/images/closeicon-300.png",
+    "assets/images/cross-hi.png",
+    "assets/images/elephant_bg1.gif",
+    "assets/images/elephant_bg1.png",
+    "assets/images/gps-pointer.png",
+    "assets/images/gps-pointer-large.png",
+    "assets/images/gps-pointer-large-left.png",
+    "assets/images/gps-pointer-large-right.png",
+    "assets/images/gps-pointer-large-up.png",
+    "assets/images/ic_hearing_black_24dp_2x.png",
+    "assets/images/icon_p1.png",
+    "assets/images/icon_p2.png",
+    "assets/images/indicator-hand.png",
+    "assets/images/lock.png",
+    "assets/images/logo.png"
+];
