@@ -275,6 +275,8 @@ util.animation = (function() {
 })();
 
 util.loadImages = function(imageArray, callback) {
+	var checkinterval = 250; //ms
+	var timeloading = 0;
 	jQuery("#imgloadarea").html("");
 	//add images to dom
 	var imghtml = "";
@@ -286,12 +288,16 @@ util.loadImages = function(imageArray, callback) {
 	jQuery("#uiLayer").append(loaderoverlay);
 	//set progress checker
 	var loadcheck = setInterval(function(){
+		timeloading += checkinterval;
 		var children = jQuery("#imgloadarea").children();
 		var allLoaded = true;
 		for(var i = 0; i < children.length; i++) {
 			if (!jQuery(children[i]).prop("complete")) {
 				allLoaded = false;
 			}
+		}
+		if(timeloading > (checkinterval*4*45)) {  //force progress if it's been more than 45 seconds
+			allLoaded = true;
 		}
 		if(allLoaded) {
 			//console.log("all images loaded");
@@ -300,7 +306,7 @@ util.loadImages = function(imageArray, callback) {
 			jQuery("#loaderDiv").remove();
 			callback();
 		}
-	}, 250);
+	}, checkinterval);
 };
 
 //////////////// MISC
