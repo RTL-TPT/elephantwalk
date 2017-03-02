@@ -1,7 +1,7 @@
 var g_currentDrag = "";
 
 var getCluePX = function(gridx,gridy) {
-	return [725 / gridx, 575 / gridx];
+	return [g_cluescalex / gridx, g_cluescaley / gridx];
 };
 
 var createClueMap = function() {
@@ -22,10 +22,10 @@ var createClueMap = function() {
 	//CREATE DRAGABLE CLUES
 	for(var i = 0; i < g_mapsetdata[g_currentSet-1].clues.length; i++) {
 		var cClue = g_mapsetdata[g_currentSet-1].clues[i];
-		var cx = 725/950 * cClue[0];
-		var cy = 725/950 * cClue[1] /*+ ((575-473.16)/2)*/;
-		var cwidth = 725/950 * cClue[2];
-		var cheight = 725/950 * cClue[3];
+		var cx = g_cluescalex/950 * cClue[0];
+		var cy = g_cluescalex/950 * cClue[1] /*+ ((575-473.16)/2)*/;
+		var cwidth = g_cluescalex/950 * cClue[2];
+		var cheight = g_cluescalex/950 * cClue[3];
 		var cstyle = "style='left:"+cx+"px;top:"+cy+"px;width:"+cwidth+"px;height:"+cheight+"px;'";
 		htmlout = "<div id='clue_"+cClue[4]+"' class='dragClue' "+cstyle+" ></div>";
 		jQuery("#clueMap").append(htmlout);

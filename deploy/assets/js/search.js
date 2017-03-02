@@ -9,14 +9,19 @@ var createSearchMap = function() {
 	htmlout = "<div id='clueGridOverlay' style='display:none;' class='clueGridOverlay'>";
 	for(indy = 0; indy < g_activeGrid.y; indy++) {
 		for(indx = 0; indx < g_activeGrid.x; indx++) {
-			var borderright = indx < g_activeGrid.x - 1 ? "border-right: 1px dashed black;" : "";
-			var borderleft = indx > 0 ? "border-left: 1px dashed black;" : "";
-			var borderup = indy > 0 ? "border-top: 1px dashed black;" : "";
-			var borderdown = indy < g_activeGrid.y - 1 ? "border-bottom: 1px dashed black;" : "";
-			var borderSum = borderright + borderleft + borderup + borderdown;
-			htmlout += "<div class='clueOverlayBox' coordinant='"+indy+"_"+indx+"' style='display:inline-block;box-sizing:border-box;"+borderSum+"width:"+(jQuery("#clueMap").width() / grid.x)+"px;height:"+(jQuery("#clueMap").height() / grid.y)+"px;'></div>";
+			htmlout += "<div class='clueOverlayBox' coordinant='"+indy+"_"+indx+"' style='display:inline-block;box-sizing:border-box;width:"+(jQuery("#clueMap").width() / grid.x)+"px;height:"+(jQuery("#clueMap").height() / grid.y)+"px;'></div>";
 		}
 	}
+	//dotted lines
+	var coordx = g_cluescalex / g_activeGrid.x;
+	var coordy = g_cluescaley / g_activeGrid.y;
+	for(var i = 1; i < g_activeGrid.x; i++) {
+		htmlout += "<div class='mapGridLines' style='position:absolute;top:0px;left:"+(coordx*i-1)+"px;width:2px;height:"+g_cluescaley+"px;background:url(assets/images/linev.png)'></div>";
+	}
+	for(var i = 1; i < g_activeGrid.y; i++) {
+		htmlout += "<div class='mapGridLines' style='position:absolute;top:"+(coordy*i-1)+"px;left:0px;width:"+g_cluescalex+"px;height:2px;background:url(assets/images/lineh.png)'></div>";
+	}
+	//
 	htmlout += "</div>";
 	jQuery("#clueMap").append(htmlout);
 };
@@ -37,20 +42,26 @@ var createSearchGPS = function() {
 		}
 	}
 	htmlout += "</div>";
-	//map grid layer (dotted-lines) + pointer arrow
+	//pointer arrow
 	htmlout += "<div id='' class='mapGPSOverlay'>";
 	for(indy = 0; indy < g_activeGrid.y; indy++) {
 		for(indx = 0; indx < g_activeGrid.x; indx++) {
-			var borderright = indx < g_activeGrid.x - 1 ? "border-right: 2px dashed black;" : "";
-			var borderleft = indx > 0 ? "border-left: 2px dashed black;" : "";
-			var borderup = indy > 0 ? "border-top: 2px dashed black;" : "";
-			var borderdown = indy < g_activeGrid.y - 1 ? "border-bottom: 2px dashed black;" : "";
-			var borderSum = borderright + borderleft + borderup + borderdown;
 			var cTileIsActive = g_activeTile[0] == indy && g_activeTile[1] == indx;
-			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+borderSum+"' class='"+(cTileIsActive ? "gps-arrow-"+g_heading : "")+"'></div>";
+			htmlout += "<div style='display:inline-block;box-sizing:border-box;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;' class='"+(cTileIsActive ? "gps-arrow-"+g_heading : "")+"'></div>";
 		}
 	}
-	htmlout += "</div></div>";
+	htmlout += "</div>";
+	//dotted-lines
+	var coordx = 950 / g_activeGrid.x;
+	var coordy = 620 / g_activeGrid.y;
+	for(var i = 1; i < g_activeGrid.x; i++) {
+		htmlout += "<div style='position:absolute;top:0px;left:"+(coordx*i-1)+"px;width:2px;height:620px;background:url(assets/images/linev.png)'></div>";
+	}
+	for(var i = 1; i < g_activeGrid.y; i++) {
+		htmlout += "<div style='position:absolute;top:"+(coordy*i-1)+"px;left:0px;width:950px;height:2px;background:url(assets/images/lineh.png)'></div>";
+	}
+	//
+	htmlout += "</div>";
 	jQuery("#exploremap").append(htmlout);
 };
 
