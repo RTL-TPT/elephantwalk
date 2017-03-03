@@ -104,10 +104,10 @@ var createExploreGPS = function() {
 	var coordx = 950 / g_activeGrid.x;
 	var coordy = 620 / g_activeGrid.y;
 	for(var i = 1; i < g_activeGrid.x; i++) {
-		htmlout += "<div style='position:absolute;top:0px;left:"+(coordx*i-1)+"px;width:2px;height:620px;background:url(assets/images/linev.png)'></div>";
+		htmlout += "<div style='position:absolute;top:0px;left:"+(coordx*i-2)+"px;width:4px;height:620px;background:url(assets/images/linevl.png)'></div>";
 	}
 	for(var i = 1; i < g_activeGrid.y; i++) {
-		htmlout += "<div style='position:absolute;top:"+(coordy*i-1)+"px;left:0px;width:950px;height:2px;background:url(assets/images/lineh.png)'></div>";
+		htmlout += "<div style='position:absolute;top:"+(coordy*i-2)+"px;left:0px;width:950px;height:4px;background:url(assets/images/linehl.png)'></div>";
 	}
 	//
 	htmlout += "</div>";
