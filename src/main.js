@@ -89,7 +89,8 @@
 		if(g_scaleGameToWindow) {
 			fitCanvasToWindow();
 		}
-		setStateTitle(); //set state to title screen
+		util.loadImages(g_cacheList,setStateTitle);
+		//setStateTitle(); //set state to title screen
 	}
 
 	function update() {
