@@ -1,5 +1,5 @@
 var getSearchPX = function(gridx,gridy) {
-	return [950 / gridx, 620 / gridy];
+	return [g_mapscalex / gridx, g_mapscaley / gridy];
 };
 
 var createExploreMap = function() {
@@ -29,13 +29,13 @@ var createExploreMap = function() {
 	}
 	htmlout += "</div>";
 	//map grid layer (dotted-lines)
-	var coordx = 950 / g_activeGrid.x;
-	var coordy = 620 / g_activeGrid.y;
+	var coordx = g_mapscalex / g_activeGrid.x;
+	var coordy = g_mapscaley / g_activeGrid.y;
 	for(var i = 1; i < g_activeGrid.x; i++) {
-		htmlout += "<div class='mapGridLines' style='position:absolute;top:0px;left:"+(coordx*i-1)+"px;width:2px;height:620px;background:url(assets/images/linev.png)'></div>";
+		htmlout += "<div class='mapGridLines' style='position:absolute;top:0px;left:"+(coordx*i-1)+"px;width:2px;height:"+g_mapscaley+"px;background:url(assets/images/linev.png)'></div>";
 	}
 	for(var i = 1; i < g_activeGrid.y; i++) {
-		htmlout += "<div class='mapGridLines' style='position:absolute;top:"+(coordy*i-1)+"px;left:0px;width:950px;height:2px;background:url(assets/images/lineh.png)'></div>";
+		htmlout += "<div class='mapGridLines' style='position:absolute;top:"+(coordy*i-1)+"px;left:0px;width:"+g_mapscalex+"px;height:2px;background:url(assets/images/lineh.png)'></div>";
 	}
 	htmlout += "<div id='firstPerson' class='firstPerson'></div>";
 	///// explore view image loading
@@ -76,10 +76,10 @@ var createExploreGPS = function() {
 	htmlout += "<div id='' class='mapGPSOverlay'>";
 	for(indy = 0; indy < g_activeGrid.y; indy++) {
 		for(indx = 0; indx < g_activeGrid.x; indx++) {
-			var left = "border-left:"+950/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("w") != -1 ? "yellow;" : "transparent;");
-			var right = "border-right:"+950/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("e") != -1 ? "yellow;" : "transparent;");
-			var top = "border-top:"+620/g_activeGrid.y/2+"px solid " + (g_directionsRemaining.indexOf("n") != -1 ? "yellow;" : "transparent;");
-			var bottom = "border-bottom:"+620/g_activeGrid.y/2+"px solid " + (g_directionsRemaining.indexOf("s") != -1 ? "yellow;" : "transparent;");
+			var left = "border-left:"+g_mapscalex/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("w") != -1 ? "yellow;" : "transparent;");
+			var right = "border-right:"+g_mapscalex/g_activeGrid.x/2+"px solid " + (g_directionsRemaining.indexOf("e") != -1 ? "yellow;" : "transparent;");
+			var top = "border-top:"+g_mapscaley/g_activeGrid.y/2+"px solid " + (g_directionsRemaining.indexOf("n") != -1 ? "yellow;" : "transparent;");
+			var bottom = "border-bottom:"+g_mapscaley/g_activeGrid.y/2+"px solid " + (g_directionsRemaining.indexOf("s") != -1 ? "yellow;" : "transparent;");
 			var blockstyle = "width:0px;height:0px;" + left + right + top + bottom;
 			if(indy == g_activeTile[0] && indx == g_activeTile[1]) {
 			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
@@ -101,13 +101,13 @@ var createExploreGPS = function() {
 	}
 	htmlout += "</div>";
 	//dotted-lines
-	var coordx = 950 / g_activeGrid.x;
-	var coordy = 620 / g_activeGrid.y;
+	var coordx = g_mapscalex / g_activeGrid.x;
+	var coordy = g_mapscaley / g_activeGrid.y;
 	for(var i = 1; i < g_activeGrid.x; i++) {
-		htmlout += "<div style='position:absolute;top:0px;left:"+(coordx*i-2)+"px;width:4px;height:620px;background:url(assets/images/linevl.png)'></div>";
+		htmlout += "<div style='position:absolute;top:0px;left:"+(coordx*i-2)+"px;width:4px;height:"+g_mapscaley+"px;background:url(assets/images/linevl.png)'></div>";
 	}
 	for(var i = 1; i < g_activeGrid.y; i++) {
-		htmlout += "<div style='position:absolute;top:"+(coordy*i-2)+"px;left:0px;width:950px;height:4px;background:url(assets/images/linehl.png)'></div>";
+		htmlout += "<div style='position:absolute;top:"+(coordy*i-2)+"px;left:0px;width:"+g_mapscalex+"px;height:4px;background:url(assets/images/linehl.png)'></div>";
 	}
 	//
 	htmlout += "</div>";

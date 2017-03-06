@@ -52,13 +52,13 @@ var createSearchGPS = function() {
 	}
 	htmlout += "</div>";
 	//dotted-lines
-	var coordx = 950 / g_activeGrid.x;
-	var coordy = 620 / g_activeGrid.y;
+	var coordx = g_mapscalex / g_activeGrid.x;
+	var coordy = g_mapscaley / g_activeGrid.y;
 	for(var i = 1; i < g_activeGrid.x; i++) {
-		htmlout += "<div style='position:absolute;top:0px;left:"+(coordx*i-2)+"px;width:4px;height:620px;background:url(assets/images/linevl.png)'></div>";
+		htmlout += "<div style='position:absolute;top:0px;left:"+(coordx*i-2)+"px;width:4px;height:"+g_mapscaley+"px;background:url(assets/images/linevl.png)'></div>";
 	}
 	for(var i = 1; i < g_activeGrid.y; i++) {
-		htmlout += "<div style='position:absolute;top:"+(coordy*i-2)+"px;left:0px;width:950px;height:4px;background:url(assets/images/linehl.png)'></div>";
+		htmlout += "<div style='position:absolute;top:"+(coordy*i-2)+"px;left:0px;width:"+g_mapscalex+"px;height:4px;background:url(assets/images/linehl.png)'></div>";
 	}
 	//
 	htmlout += "</div>";

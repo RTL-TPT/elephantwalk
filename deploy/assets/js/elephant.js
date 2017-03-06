@@ -46,9 +46,12 @@ var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":
 var g_isAlpha = false; //alpha flag
 var g_modalLevel = 0; //keeps track of how many modals are open
 var g_currentSet = 1; //current level mapset
-var g_volumeLevel = 1;
-var g_cluescalex = 750; //725
-var g_cluescaley = 489; //575
+var g_volumeLevel = 1; //currently used as global volume level for mute/unmute etch.
+var g_mapscalex = 950; //dimensions of map images
+var g_mapscaley = 620; //dimensions of map images
+var g_cluescalex = 750; //725 //dimensions of clue/search map
+var g_cluescaley = 489; //575 //dimensions of clue/search map
+var g_currentDrag = ""; //clue type currently being used in drag/drop
 var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
 var g_terrain_unlocked = (localStorage.getItem("g_terrain_unlocked") == null) ? {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_terrain_unlocked")); //keep track of land unlocks
 //fill in level data variables for specified land type

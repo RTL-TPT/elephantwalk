@@ -457,5 +457,7 @@ var g_cacheList = [
     "assets/images/lock.png",
     "assets/images/logo.png",
     "assets/images/lineh.png",
-    "assets/images/linev.png"
+    "assets/images/linev.png",
+    "assets/images/linehl.png",
+    "assets/images/linevl.png"
 ];
