@@ -15,6 +15,7 @@
 	var game;
 	//sfx player
 	var sfx = {};
+	var music = {};
 
 	// Handle when app is ready to use
 	app.on('init', function()
@@ -49,6 +50,8 @@
 		game.load.audio('road', 'assets/sound/road.mp3');
 		game.load.audio('stream', 'assets/sound/stream.mp3');
 		game.load.audio('waterfall', 'assets/sound/waterfall.mp3');
+		game.load.audio('music_menu', 'assets/sound/music_menu.mp3');
+		game.load.audio('music_game', 'assets/sound/music_game.mp3');
 	}
 
 	// When the Phaser game has been created
@@ -77,6 +80,11 @@
 		sfx.waterfall = game.add.audio('waterfall');
 		//sfx.allowMultiple = true;
 		window.g_sfx = sfx;
+		music.music_menu = game.add.audio('music_menu');
+		music.music_game = game.add.audio('music_game');
+		music.music_menu.loop = true;
+		music.music_game.loop = true;
+		window.g_music = music;
 
 		var uiHTML = "<div id='uiLayer'></div>";
 		if(jQuery("#uiLayer").length === 0) {
