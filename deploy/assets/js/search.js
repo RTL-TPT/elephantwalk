@@ -68,6 +68,10 @@ var createSearchGPS = function() {
 var create360Elephant = function() {
 	//logic for if you start facing the elephant
 	var cElephant = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
+	if(g_isRandomElephant) {
+		cElephant = cElephant.slice();
+		cElephant[2] = g_randomElephantHeading;
+	}
 	if(cElephant[0] == g_activeTile[0] && cElephant[1] == g_activeTile[1] && cElephant[2] == g_heading) {
 		jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 		//set elephant hitbox

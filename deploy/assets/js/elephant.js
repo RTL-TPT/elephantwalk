@@ -52,6 +52,8 @@ var g_mapscaley = 620; //dimensions of map images
 var g_cluescalex = 750; //725 //dimensions of clue/search map
 var g_cluescaley = 489; //575 //dimensions of clue/search map
 var g_currentDrag = ""; //clue type currently being used in drag/drop
+var g_isRandomElephant = false; //toggle random elephant on/off
+var g_randomElephantHeading = "north"; //use when elephant heading is to be random
 var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
 var g_terrain_unlocked = (localStorage.getItem("g_terrain_unlocked") == null) ? {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_terrain_unlocked")); //keep track of land unlocks
 //fill in level data variables for specified land type
@@ -558,6 +560,22 @@ var setStateSearchSelect = function() {
 
 };
 var setStateSearchFirstPerson = function() {
+	if(g_isRandomElephant) {
+		switch(util.getRandomInt(1,4)) {
+			case 1:
+				g_randomElephantHeading = "north";
+				break;
+			case 2:
+				g_randomElephantHeading = "east";
+				break;
+			case 3:
+				g_randomElephantHeading = "south";
+				break;
+			case 4:
+				g_randomElephantHeading = "west";
+				break;
+		}
+	}
 	util.template.getHTML("assets/js/search.html", function(data){
 		g_directionsRemaining = "nesw".replace(g_heading[0], "");
 		jQuery("#uiLayer").html(data);
