@@ -585,7 +585,7 @@ img {
 .legendImgSize {
     width:calc(150px / 2);
     height:calc(175px / 2);
-    margin-right:4px;
+    margin-right:18px;
 }
 .clueMapMask {
     pointer-events: none;
@@ -692,4 +692,7 @@ img {
 }
 .debugitem:hover {
     background-color: lightblue;
+}
+.cap1:first-letter {
+    text-transform: capitalize;
 }
