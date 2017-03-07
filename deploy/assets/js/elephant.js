@@ -388,9 +388,31 @@ var toggleMute = function() {
 	if(jQuery("#debugSound").hasClass("mute")) {
 		jQuery("#debugSound").removeClass("mute");
 		g_volumeLevel = 1;
+		g_music["music_menu"].volume = 1;
+		g_music["music_game"].volume = 1;
 	} else {
 		jQuery("#debugSound").addClass("mute");
 		g_volumeLevel = 0;
+		g_music["music_menu"].volume = 0;
+		g_music["music_game"].volume = 0;
+	}
+};
+
+var playMenuMusic = function() {
+	if(g_music["music_game"].isPlaying) {
+		g_music["music_game"].stop();
+	}
+	if(!g_music["music_menu"].isPlaying) {
+		g_music["music_menu"].play(undefined,undefined,g_volumeLevel);
+	}
+};
+
+var playGameMusic = function() {
+	if(g_music["music_menu"].isPlaying) {
+		g_music["music_menu"].stop();
+	}
+	if(!g_music["music_game"].isPlaying) {
+		g_music["music_game"].play(undefined,undefined,g_volumeLevel);
 	}
 };
 
@@ -398,6 +420,7 @@ var toggleMute = function() {
 ////////////////
 
 var setStateTitle = function() {
+	playMenuMusic();
 	util.template.getHTML("assets/js/title.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
 		//init here
@@ -429,6 +452,7 @@ var setStateSubLevelSelect = function(landtype) { //jump directly to second half
 	});
 };
 var setStateLevelSelect = function(cb) {
+	playMenuMusic();
 	if(cb === undefined){cb = function(){};}
 	util.template.getHTML("assets/js/menu.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
@@ -479,6 +503,7 @@ var setStateLevelSelect = function(cb) {
 	});
 };
 var setStateExplore = function() {
+	playGameMusic();
 	util.template.getHTML("assets/js/explore.html", function(data){
 		jQuery("#uiLayer").html(data);
 		//init here
@@ -488,6 +513,7 @@ var setStateExplore = function() {
 	});
 };
 var setStateClue = function() {
+	playGameMusic();
 	//console.log("cluephase");
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
