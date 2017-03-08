@@ -96,6 +96,7 @@ var createClueMap = function() {
 };
 
 var openClueModal = function(callback) {
+	g_music["music_game"].volume = g_volumeLevel / 3;
 	var htmlout = "";
 	htmlout += "<div class='sfxBtn'></div>";
 	htmlout += "<div class='clueContainer'></div>";
@@ -127,6 +128,7 @@ var openClueModal = function(callback) {
 
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
 		g_sfx[g_currentClue].stop();
+		g_music["music_game"].volume = g_volumeLevel;
 		if(callback !== undefined){callback();}
 	});
 };
