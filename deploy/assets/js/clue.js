@@ -96,7 +96,7 @@ var createClueMap = function() {
 };
 
 var openClueModal = function(callback) {
-	g_music["music_game"].volume = g_volumeLevel / 3;
+	g_music["music_game"].volume = g_volumeLevel / 4;
 	var htmlout = "";
 	htmlout += "<div class='sfxBtn'></div>";
 	htmlout += "<div class='clueContainer'></div>";
