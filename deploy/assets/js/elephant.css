@@ -148,6 +148,12 @@ img {
     height: 97px;
     display: none;
 }
+.leftArrow:hover {
+    background: url('../images/btn_360_left_2_hover.png');
+}
+.leftArrow:active {
+    background: url('../images/btn_360_left_2_on.png');
+}
 .rightArrow {
 	background: url('../images/btn_360_right_2.png');
     position: absolute;
@@ -156,6 +162,12 @@ img {
     width: 201px;
     height: 97px;
     display: none;
+}
+.rightArrow:hover {
+    background: url('../images/btn_360_right_2_hover.png');
+}
+.rightArrow:active {
+    background: url('../images/btn_360_right_2_on.png');
 }
 .returnBtn {
 	position: absolute;
@@ -236,6 +248,12 @@ img {
     height: 100px;
     background-color: white;
 }
+.clueBar .clueLegend:hover{
+    background: url('../images/btn_legend_hover.png') center center no-repeat;
+}
+.clueBar .clueLegend:active{
+    background: url('../images/btn_legend_on.png') center center no-repeat;
+}
 .clueBar .clueDoneBtn {
     background: url('../images/btn_done.png') center center no-repeat;
     position: absolute;
@@ -247,6 +265,12 @@ img {
     border-radius: 5px;
     border: solid 2px black;*/
 }
+.clueBar .clueDoneBtn:hover {
+    background: url('../images/btn_done_hover.png') center center no-repeat;
+}
+.clueBar .clueDoneBtn:active {
+    background: url('../images/btn_done_on.png') center center no-repeat;
+}
 .searchBar .clueDoneBtn {
     background: url('../images/btn_done.png') center center no-repeat;
     position: absolute;
@@ -254,6 +278,12 @@ img {
     left: calc(50% - 74px);
     width: 148px;
     height: 76px;
+}
+.searchBar .clueDoneBtn:hover {
+    background: url('../images/btn_done_hover.png') center center no-repeat;
+}
+.searchBar .clueDoneBtn:active {
+    background: url('../images/btn_done_on.png') center center no-repeat;
 }
 .cluePhase .playerIcon {
     position: absolute;
@@ -276,6 +306,12 @@ img {
     background: url('../images/btn_clue.png') center center no-repeat;
     width: 116px;
     height: 117px;
+}
+.cluePhase .clueIcon:hover {
+    background: url('../images/btn_clue_hover.png') center center no-repeat;
+}
+.cluePhase .clueIcon:active {
+    background: url('../images/btn_clue_on.png') center center no-repeat;
 }
 .dragClue {
     position: absolute;
@@ -335,6 +371,14 @@ img {
     background: url('../images/closeicon-300.png');
     background-size: 100% 100%;
 }
+.modalContainer .closeBtn:hover, .playerModalContainer .closeBtn:hover, .menuCloseBtn:hover{
+    background: url('../images/closeicon-300_hover.png');
+    background-size: 100% 100%;
+}
+.modalContainer .closeBtn:active, .playerModalContainer .closeBtn:active, .menuCloseBtn:active{
+    background: url('../images/closeicon-300_on.png');
+    background-size: 100% 100%;
+}
 .playerModalContainer .playerNextBtn{
     position: absolute;
     top: 400px;
@@ -342,6 +386,14 @@ img {
     width: 85px;
     height: 44px;
     background: url('../images/btn_next.gif');
+    background-size: 100% 100%;
+}
+.playerModalContainer .playerNextBtn:hover{
+    background: url('../images/btn_next_hover.png');
+    background-size: 100% 100%;
+}
+.playerModalContainer .playerNextBtn:active{
+    background: url('../images/btn_next_on.png');
     background-size: 100% 100%;
 }
 .modalContainer .sfxBtn{
@@ -355,6 +407,16 @@ img {
     background-color: white;
     border: solid 2px black;
     border-radius: 10px;
+}
+.modalContainer .sfxBtn:hover{
+    background: url('../images/ic_hearing_black_24dp_2x_hover.png');
+    background-size: 100% 100%;
+    background-color: white;
+}
+.modalContainer .sfxBtn:active{
+    background: url('../images/ic_hearing_black_24dp_2x_on.png');
+    background-size: 100% 100%;
+    background-color: white;
 }
 .modalContainer .clueContainer{
     position: absolute;
