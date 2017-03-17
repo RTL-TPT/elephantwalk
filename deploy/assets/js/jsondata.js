@@ -12,6 +12,12 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
+                "legendLocks": {
+                    "desert": "nonAbstract",
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
+                },
                 "clueUnlock": "forest1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -19,7 +25,7 @@ var g_leveldata =
                     0,
                     "south"
                 ],
-                "unlocked": true,
+                
                 "hasExploration": true,
                 "mapset": 1
             },
@@ -34,6 +40,12 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
+                "legendLocks": {
+                    "desert": "nonAbstract",
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
+                },
                 "clueUnlock": "mountain1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -41,7 +53,7 @@ var g_leveldata =
                     1,
                     "south"
                 ],
-                "unlocked": true,
+                
                 "hasExploration": false,
                 "mapset": 1
             }
@@ -62,6 +74,12 @@ var g_leveldata =
                     "hill": "partialAbstract",
                     "mountain": "partialAbstract"
                 },
+                "legendLocks": {
+                    "desert": "partialAbstract",
+                    "forest": "partialAbstract",
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract"
+                },
                 "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
@@ -69,7 +87,7 @@ var g_leveldata =
                     1,
                     "west"
                 ],
-                "unlocked": true,
+                
                 "hasExploration": false,
                 "mapset": 3
             },
@@ -91,6 +109,14 @@ var g_leveldata =
                     "stream": "nonAbstract",
                     "waterfall": "nonAbstract"
                 },
+                "legendLocks": {
+                    "forest": "partialAbstract",
+                    "lake": "nonAbstract",
+                    "mountain": "partialAbstract",
+                    "ocean": "nonAbstract",
+                    "stream": "nonAbstract",
+                    "waterfall": "nonAbstract"
+                },
                 "clueUnlock": "",
                 "gridSize": "3x2",
                 "elephantLocation": [
@@ -98,7 +124,7 @@ var g_leveldata =
                     0,
                     "east"
                 ],
-                "unlocked": true,
+                
                 "hasExploration": false,
                 "mapset": 4
             }
@@ -124,6 +150,16 @@ var g_leveldata =
                     "park": "nonAbstract",
                     "road": "nonAbstract"
                 },
+                "legendLocks": {
+                    "bridge": "nonAbstract",
+                    "building": "nonAbstract",
+                    "desert": "partialAbstract",
+                    "forest": "partialAbstract",
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "park": "nonAbstract",
+                    "road": "nonAbstract"
+                },
                 "clueUnlock": "",
                 "gridSize": "3x3",
                 "elephantLocation": [
@@ -131,7 +167,7 @@ var g_leveldata =
                     0,
                     "north"
                 ],
-                "unlocked": true,
+                
                 "hasExploration": false,
                 "mapset": 7
             }
@@ -154,6 +190,16 @@ var g_leveldata =
                     "park": "partialAbstract",
                     "road": "fullAbstract"
                 },
+                "legendLocks": {
+                    "bridge": "partialAbstract",
+                    "building": "fullAbstract",
+                    "desert": "fullAbstract",
+                    "forest": "fullAbstract",
+                    "hill": "fullAbstract",
+                    "mountain": "fullAbstract",
+                    "park": "partialAbstract",
+                    "road": "fullAbstract"
+                },
                 "clueUnlock": "",
                 "gridSize": "3x3",
                 "elephantLocation": [
@@ -161,7 +207,7 @@ var g_leveldata =
                     2,
                     "west"
                 ],
-                "unlocked": true,
+                
                 "hasExploration": false,
                 "mapset": 9
             },
@@ -189,6 +235,20 @@ var g_leveldata =
                     "stream": "partialAbstract",
                     "waterfall": "partialAbstract"
                 },
+                "legendLocks": {
+                    "bridge": "partialAbstract",
+                    "building": "fullAbstract",
+                    "desert": "fullAbstract",
+                    "forest": "fullAbstract",
+                    "hill": "fullAbstract",
+                    "lake": "partialAbstract",
+                    "mountain": "fullAbstract",
+                    "ocean": "partialAbstract",
+                    "park": "partialAbstract",
+                    "road": "fullAbstract",
+                    "stream": "partialAbstract",
+                    "waterfall": "partialAbstract"
+                },
                 "clueUnlock": "",
                 "gridSize": "3x3",
                 "elephantLocation": [
@@ -196,7 +256,7 @@ var g_leveldata =
                     1,
                     "north"
                 ],
-                "unlocked": true,
+                
                 "hasExploration": false,
                 "searchClues": true,
                 "mapset": 10

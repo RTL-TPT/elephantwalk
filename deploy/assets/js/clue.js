@@ -170,7 +170,7 @@ var openLegendModal = function() {
 
 	htmlout += "<center><div style='width:100%;margin-top:50px;font-size:50px;'>LEGEND</div><div style='width:100%;height:496px;box-sizing:border-box;padding:5px;margin-top:30px;overflow-y:auto;'>";
 	jQuery.each(g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel],function(key,value){
-		var abstraction = g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][key];
+		var abstraction = g_LEGEND_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][key];
 		var posturl = util.getCluePath(key);
 		var clueImg = "<img style='display:inline-block;height:87.5px;' class='' src='assets/images/clue/"+key+".jpg'>";
 		htmlout += "<div style='width:100%;height:87.5px;margin-bottom:25px;'> <div style='display:inline-block'>"+clueImg+"</div><div class='cap1' style='display:inline-block;width:100px;height:87.5px;"+util.getTranslateYString("-50%")+"'>"+key+"</div>";
