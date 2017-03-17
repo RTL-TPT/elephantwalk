@@ -84,9 +84,7 @@ var g_leveldata =
                     "lake"
                 ],
                 "symbolStyle": {
-                    "desert": "partialAbstract",
                     "forest": "partialAbstract",
-                    "hill": "partialAbstract",
                     "lake": "nonAbstract",
                     "mountain": "partialAbstract",
                     "ocean": "nonAbstract",
@@ -411,7 +409,7 @@ var g_mapsetdata = [
             [266,234,137,99,"park"],
             [824,419,102,69,"building"],
             [687,256,226,142, "lake"],
-            [576,251,298,92,"hill"]
+            [576,251,298,92,"hill"],
             [0,370,329,124,"road"],
             [0,477,850,69,"road"],
             [711,73,125,57,"bridge"],
