@@ -117,6 +117,7 @@ util.player = (function() {
 
 		jQuery("#uiLayer").append(htmlout);
 		jQuery(".playerModalContainer .closeBtn, .playerModalContainer .playerNextBtn").click(function(){
+			playClickSFX();
 			jQuery(".playerModalContainer").remove();
 			jQuery(".playerModalOverlay").remove();
 			if(jQuery(".modalContainer._"+g_modalLevel+" .clueContainer").length > 0) {
@@ -214,6 +215,7 @@ util.openModal = function(content) {
 
 	jQuery("#uiLayer").append(htmlout);
 	jQuery(".modalContainer._"+g_modalLevel+" .closeBtn").click(function(){
+		playClickSFX();
 		jQuery(".modalContainer._"+g_modalLevel).remove();
 		jQuery(".modalOverlay._"+g_modalLevel).remove();
 		g_modalLevel--;
@@ -363,6 +365,7 @@ var fillLevels = function(ltype) {
 	jQuery("#difficultySelect").html(htmlout);
 	//bind
 	jQuery(".missionBox.level").click(function(){
+		playClickSFX();
 		if(jQuery(this).hasClass("x")) {return;}
 		g_selectedDifficulty = jQuery(this).attr("difficulty");
 		g_selectedLevel = +jQuery(this).attr("level");
@@ -376,6 +379,7 @@ var fillLevels = function(ltype) {
 	});
 	jQuery("#menuCloseBtn").show();
 	jQuery("#menuCloseBtn").unbind().click(function(){
+		playClickSFX();
 		jQuery(this).hide();
 		jQuery("#difficultySelect").hide();
 		jQuery("#missionSelect").show();
@@ -434,6 +438,10 @@ var playGameMusic = function() {
 	}
 };
 
+var playClickSFX = function() {
+	g_sfx.clicksfx.play(undefined,undefined,g_volumeLevel);
+};
+
 //////////////// State Transitions
 ////////////////
 
@@ -442,12 +450,12 @@ var setStateTitle = function() {
 	util.template.getHTML("assets/js/title.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
 		//init here
-		jQuery("#playBtn").unbind().click(function(){setStateLevelSelect();});
-		jQuery("#debugBtn").unbind().click(function(){toggleDebugMenu();});
-		jQuery("#debugLock").unbind().click(function(){util.clearSave();});
-		jQuery("#debugUnlock").unbind().click(function(){util.unlockAll();});
-		jQuery("#debugSound").unbind().click(function(){toggleMute();});
-		jQuery("#debugRandom").unbind().click(function(){toggleRandom();});
+		jQuery("#playBtn").unbind().click(function(){playClickSFX();setStateLevelSelect();});
+		jQuery("#debugBtn").unbind().click(function(){playClickSFX();toggleDebugMenu();});
+		jQuery("#debugLock").unbind().click(function(){playClickSFX();util.clearSave();});
+		jQuery("#debugUnlock").unbind().click(function(){playClickSFX();util.unlockAll();});
+		jQuery("#debugSound").unbind().click(function(){playClickSFX();toggleMute();});
+		jQuery("#debugRandom").unbind().click(function(){playClickSFX();toggleRandom();});
 	});
 };
 var setToTutorialLevel = function() {
@@ -486,6 +494,7 @@ var setStateLevelSelect = function(cb) {
 		}
 		//bind buttons
 		jQuery(".missionBox").click(function(){
+			playClickSFX();
 			if(jQuery(this).hasClass("b1")) {
 				g_data_init("LAND");
 				if(g_tutorial_complete["LAND"]) {
@@ -541,12 +550,15 @@ var setStateClue = function() {
 		//init here
 		createClueMap();
 		jQuery("#clueLegend").unbind().click(function(){
+			playClickSFX();
 			openLegendModal();
 		});
 		jQuery(".clueBar .clueDrop2").unbind().click(function(){
+			playClickSFX();
 			openClueModal();
 		});
 		jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
+			playClickSFX();
 			confirmClue();
 		});
 		openClueModal(util.animation.dragDropAnim);
@@ -577,6 +589,7 @@ var setStateSearchSelect = function() {
 		jQuery(".clueGridOverlay").show();
 		//bind overlay grid
 		jQuery(".clueOverlayBox").unbind().click(function(){
+			playClickSFX();
 			jQuery("#clueDoneBtn").show();
 			if( jQuery(this).hasClass("active") ){
 				//
@@ -586,6 +599,7 @@ var setStateSearchSelect = function() {
 			}
 		});
 		jQuery("#clueDoneBtn").click(function(){
+			playClickSFX();
 			//OPEN FPS VIEW
 			var cTile = jQuery(".clueOverlayBox.active");
 			if(cTile.length > 0) {

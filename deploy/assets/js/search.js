@@ -87,6 +87,7 @@ var create360Elephant = function() {
 		jQuery("#exploremap").unbind();
 		jQuery("#elephantBox").unbind();
 		jQuery(clickTarget).click(function(){
+			playClickSFX();
 			jQuery("#leftArrow").unbind();
 			jQuery("#rightArrow").unbind();
 			//alert("You found the elephant!");
@@ -104,8 +105,8 @@ var createSearchView = function() {
 	jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 	createSearchGPS();
 	jQuery(".arrow").show();
-	jQuery("#rightArrow").unbind().click(function(){searchRotate("right")});
-	jQuery("#leftArrow").unbind().click(function(){searchRotate("left")});
+	jQuery("#rightArrow").unbind().click(function(){playClickSFX();searchRotate("right")});
+	jQuery("#leftArrow").unbind().click(function(){playClickSFX();searchRotate("left")});
 	create360Elephant();
 };
 

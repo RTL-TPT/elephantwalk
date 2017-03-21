@@ -63,6 +63,7 @@
 		game.load.audio('waterfall', 'assets/sound/waterfall.mp3');
 		game.load.audio('music_menu', 'assets/sound/music_menu.mp3');
 		game.load.audio('music_game', 'assets/sound/music_game.mp3');
+		game.load.audio('clicksfx', 'assets/sound/click-basic.wav');
 	}
 
 	// When the Phaser game has been created
@@ -89,6 +90,7 @@
 		sfx.road = game.add.audio('road');
 		sfx.stream = game.add.audio('stream');
 		sfx.waterfall = game.add.audio('waterfall');
+		sfx.clicksfx = game.add.audio('clicksfx');
 		//sfx.allowMultiple = true;
 		window.g_sfx = sfx;
 		music.music_menu = game.add.audio('music_menu');

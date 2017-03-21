@@ -116,6 +116,7 @@ var createExploreGPS = function() {
 
 var bindActiveTile = function() {
 	jQuery(".activeTile").click(function(){
+		playClickSFX();
 		jQuery.each(jQuery(".exploreMapImg"),function(key,value){
 			if( jQuery(value).attr("coordinant") == g_activeTile[0]+"_"+g_activeTile[1] ) {
 				jQuery(value).css("opacity",0);
@@ -126,8 +127,8 @@ var bindActiveTile = function() {
 		jQuery("#firstPerson").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 		createExploreGPS();
 		jQuery(".arrow").show();
-		jQuery("#rightArrow").unbind().click(function(){rotateView("right")});
-		jQuery("#leftArrow").unbind().click(function(){rotateView("left")});
+		jQuery("#rightArrow").unbind().click(function(){playClickSFX();rotateView("right")});
+		jQuery("#leftArrow").unbind().click(function(){playClickSFX();rotateView("left")});
 		jQuery("#mapGrid").hide();
 		jQuery(".mapGridOverlay").hide();
 		jQuery(".mapGridLines").hide();

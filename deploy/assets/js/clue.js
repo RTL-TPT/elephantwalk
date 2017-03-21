@@ -122,6 +122,7 @@ var openClueModal = function(callback) {
 	}
 
 	jQuery(".modalContainer .sfxBtn").click(function(){
+		playClickSFX();
 		g_sfx[g_currentClue].stop();
 		g_sfx[g_currentClue].play(undefined,undefined,g_volumeLevel);
 	});
