@@ -37,6 +37,17 @@
 	// Preload assets for Phaser
 	function preload()
 	{
+		var uiHTML = "<div id='uiLayer'></div>";
+		if(jQuery("#uiLayer").length === 0) {
+			jQuery("#content").prepend("<div id='imgloadarea' style='display:none;'><img src='assets/images/spin.gif'></div>");
+			jQuery("#content").prepend(uiHTML);
+			jQuery("#uiLayer").addClass("uiLayer");
+		}
+		jQuery("#frame canvas").addClass("gameCanvas");
+		jQuery("#content").addClass("pContent");
+		if(g_scaleGameToWindow) {
+			fitCanvasToWindow();
+		}
 		//game.load.image('logo', 'assets/images/logo.png');
 		game.load.audio('bridge', 'assets/sound/bridge.mp3');
 		game.load.audio('building', 'assets/sound/building.mp3');
@@ -86,19 +97,7 @@
 		music.music_game.loop = true;
 		window.g_music = music;
 
-		var uiHTML = "<div id='uiLayer'></div>";
-		if(jQuery("#uiLayer").length === 0) {
-			jQuery("#content").prepend("<div id='imgloadarea' style='display:none;'><img src='assets/images/spin.gif'></div>");
-			jQuery("#content").prepend(uiHTML);
-			jQuery("#uiLayer").addClass("uiLayer");
-		}
-		jQuery("#frame canvas").addClass("gameCanvas");
-		jQuery("#content").addClass("pContent");
-		if(g_scaleGameToWindow) {
-			fitCanvasToWindow();
-		}
 		util.loadImages(g_cacheList,setStateTitle);
-		//setStateTitle(); //set state to title screen
 	}
 
 	function update() {

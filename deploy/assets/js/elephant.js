@@ -392,6 +392,16 @@ var toggleDebugMenu = function() {
 	}
 };
 
+var toggleRandom = function() {
+	if(jQuery("#debugRandom").hasClass("random")) {
+		jQuery("#debugRandom").removeClass("random");
+		g_isRandomElephant = false;
+	} else {
+		jQuery("#debugRandom").addClass("random");
+		g_isRandomElephant = true;
+	}
+};
+
 var toggleMute = function() {
 	if(jQuery("#debugSound").hasClass("mute")) {
 		jQuery("#debugSound").removeClass("mute");
@@ -437,6 +447,7 @@ var setStateTitle = function() {
 		jQuery("#debugLock").unbind().click(function(){util.clearSave();});
 		jQuery("#debugUnlock").unbind().click(function(){util.unlockAll();});
 		jQuery("#debugSound").unbind().click(function(){toggleMute();});
+		jQuery("#debugRandom").unbind().click(function(){toggleRandom();});
 	});
 };
 var setToTutorialLevel = function() {
