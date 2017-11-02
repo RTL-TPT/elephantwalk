@@ -1,7 +1,6 @@
 //////////////// GlOBALS
 ////////////////
 
-//LEVEL DATA
 var g_LEVEL_GRID = { //LEVELS' GRID SIZE (filled in by g_data_init)
 	"TUTORIAL": [
 			{"x":2,"y":2}
@@ -38,8 +37,7 @@ var g_selectedDifficulty = "TUTORIAL"; //current level difficulty
 var g_selectedLevel = 0; //current level index
 var g_activeTile = [0,0]; //current exploration or search tile [y,x]
 var g_heading = "north"; //current 360 view heading
-//other globals
-var g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel]; //ONLY USED FOR LEVEL'S GRID SIZE
+var g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel]; //only used to determine level's grid size
 var g_tilesRemaining = {};  //keep track of tiles that have yet to be visited in exploration view
 var g_directionsRemaining = "nesw"; //keep track of directions visited in 360 view
 var g_currentClue = ""; //current clue phase clue
@@ -48,17 +46,21 @@ var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":
 var g_isAlpha = false; //alpha flag
 var g_modalLevel = 0; //keeps track of how many modals are open
 var g_currentSet = 1; //current level mapset
-var g_volumeLevel = 1; //currently used as global volume level for mute/unmute etch.
+var g_volumeLevel = 1; //currently used as global volume level for mute/unmute etc.
 var g_mapscalex = 950; //dimensions of map images
 var g_mapscaley = 620; //dimensions of map images
-var g_cluescalex = 750; //725 //dimensions of clue/search map
-var g_cluescaley = 489; //575 //dimensions of clue/search map
+var g_cluescalex = 750; //dimensions of clue/search map old:725
+var g_cluescaley = 489; //dimensions of clue/search map old:575
 var g_currentDrag = ""; //clue type currently being used in drag/drop
 var g_isRandomElephant = false; //toggle random elephant on/off
 var g_randomElephantHeading = "north"; //use when elephant heading is to be random
 var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
 var g_terrain_unlocked = (localStorage.getItem("g_terrain_unlocked") == null) ? {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_terrain_unlocked")); //keep track of land unlocks
-var g_savestate = {}; //unused
+var g_savestate = { //unused
+	"tutorial_complete": {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false},
+	"terrain_unlocked": {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false},
+	"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "explore"}
+};
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -83,7 +85,7 @@ var g_data_init = function(landType) {
 				g_LEVEL_NULL[cDiff].push(true);
 				continue;
 			}
-			g_LEVEL_GRID[cDiff].push( {"x": parseInt(cObj.gridSize.split("x")[0]),"y": parseInt(cObj.gridSize.split("x")[1]) } );
+			g_LEVEL_GRID[cDiff].push( {"x": parseInt(cObj.gridSize.split("x")[0]),"y": parseInt(cObj.gridSize.split("x")[1])} );
 			g_LEVEL_CLUES[cDiff].push(cObj.clues);
 			g_LEVEL_ELEPHANT[cDiff].push(cObj.elephantLocation);
 			g_CLUE_ABSTRACTION[cDiff].push(cObj.symbolStyle);
@@ -443,6 +445,12 @@ var playClickSFX = function() {
 //////////////// State Transitions
 ////////////////
 
+var saveState = function() {
+	//
+};
+var loadState = function() {
+	//
+};
 var setStateTitle = function() {
 	playMenuMusic();
 	util.template.getHTML("assets/js/title.html", function(data){
@@ -465,6 +473,25 @@ var setToTutorialLevel = function() {
 		setStateExplore();
 	} else {
 		setStateClue();
+	}
+};
+//jump to a specific part of a level
+var setToLevel = function(landType, diff, level, phase) {
+	g_data_init(landType);
+	g_selectedDifficulty = diff;
+	g_selectedLevel = level;
+	g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
+	g_currentSet = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
+	if(phase == "explore") {
+		setStateExplore();
+	} else if(phase == "clue") {
+		setStateClue();
+	} else if(phase == "clue2") {
+		setStateClueTwo();
+	} else if(phase == "search") {
+		setStateSearchSelect();
+	} else if(phase == "searchfp") {
+		setStateSearchFirstPerson();
 	}
 };
 var setStateSubLevelSelect = function(landtype) { //jump directly to second half of level selection
@@ -532,6 +559,7 @@ var setStateLevelSelect = function(cb) {
 		cb();
 	});
 };
+//set state to exploration
 var setStateExplore = function() {
 	playGameMusic();
 	util.template.getHTML("assets/js/explore.html", function(data){
@@ -542,9 +570,9 @@ var setStateExplore = function() {
 		createExploreMap();
 	});
 };
+//set state to first clue
 var setStateClue = function() {
 	playGameMusic();
-	//console.log("cluephase");
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
@@ -566,6 +594,32 @@ var setStateClue = function() {
 		openClueModal(util.animation.dragDropAnim);
 	});
 };
+//set state to second clue
+var setStateClueTwo = function() {
+	playGameMusic();
+	jQuery("#uiLayer").html("");
+	util.template.getHTML("assets/js/clue.html", function(data){
+		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
+		util.player.setPlayer(2);
+		//init here
+		createClueMap();
+		g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
+		jQuery("#clueLegend").unbind().click(function(){
+			playClickSFX();
+			openLegendModal();
+		});
+		jQuery(".clueBar .clueDrop2").unbind().click(function(){
+			playClickSFX();
+			openClueModal();
+		});
+		jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
+			playClickSFX();
+			confirmClue();
+		});
+		openClueModal(util.animation.dragDropAnim);
+	});
+};
+//set state to map square selection
 var setStateSearchSelect = function() {
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/searchmap.html", function(data){
@@ -620,6 +674,7 @@ var setStateSearchSelect = function() {
 	});
 
 };
+//set state to elephant search first person
 var setStateSearchFirstPerson = function() {
 	if(g_isRandomElephant) {
 		switch(util.getRandomInt(1,4)) {
