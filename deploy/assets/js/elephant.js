@@ -1,9 +1,6 @@
-//////////////// GlOBALS //
+//////////////// GlOBALS
 ////////////////
 
-var g_WIDTH = 1024; //unusued
-var g_HEIGHT = 768; //unusued
-var g_STATES = ["title","levelselect","explore","clue","search"]; //unusued
 //LEVEL DATA
 var g_LEVEL_GRID = { //LEVELS' GRID SIZE (filled in by g_data_init)
 	"TUTORIAL": [
@@ -61,6 +58,7 @@ var g_isRandomElephant = false; //toggle random elephant on/off
 var g_randomElephantHeading = "north"; //use when elephant heading is to be random
 var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
 var g_terrain_unlocked = (localStorage.getItem("g_terrain_unlocked") == null) ? {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_terrain_unlocked")); //keep track of land unlocks
+var g_savestate = {}; //unused
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -365,8 +363,8 @@ var fillLevels = function(ltype) {
 	jQuery("#difficultySelect").html(htmlout);
 	//bind
 	jQuery(".missionBox.level").click(function(){
-		playClickSFX();
 		if(jQuery(this).hasClass("x")) {return;}
+		playClickSFX();		
 		g_selectedDifficulty = jQuery(this).attr("difficulty");
 		g_selectedLevel = +jQuery(this).attr("level");
 		g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
@@ -496,6 +494,7 @@ var setStateLevelSelect = function(cb) {
 		jQuery(".missionBox").click(function(){
 			playClickSFX();
 			if(jQuery(this).hasClass("b1")) {
+				if(jQuery(".missionBoxOverlay.l1").css("opacity") != 0){return;}
 				g_data_init("LAND");
 				if(g_tutorial_complete["LAND"]) {
 					fillLevels("LAND");
@@ -503,6 +502,7 @@ var setStateLevelSelect = function(cb) {
 					setToTutorialLevel();
 				}
 			} else if(jQuery(this).hasClass("b2")) {
+				if(jQuery(".missionBoxOverlay.l2").css("opacity") != 0){return;}
 				g_data_init("WATER");
 				if(g_tutorial_complete["WATER"]) {
 					fillLevels("WATER");
@@ -510,6 +510,7 @@ var setStateLevelSelect = function(cb) {
 					setToTutorialLevel();
 				}
 			} else if(jQuery(this).hasClass("b3")) {
+				if(jQuery(".missionBoxOverlay.l3").css("opacity") != 0){return;}
 				g_data_init("MANMADE");
 				if(g_tutorial_complete["MANMADE"]) {
 					fillLevels("MANMADE");
@@ -517,6 +518,7 @@ var setStateLevelSelect = function(cb) {
 					setToTutorialLevel();
 				}
 			} else if(jQuery(this).hasClass("b4")) {
+				if(jQuery(".missionBoxOverlay.l4").css("opacity") != 0){return;}
 				g_data_init("EXPERT");
 				if(g_tutorial_complete["EXPERT"]) {
 					fillLevels("EXPERT");
