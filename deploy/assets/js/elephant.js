@@ -446,10 +446,10 @@ var playClickSFX = function() {
 ////////////////
 
 var saveState = function() {
-	//
+	localStorage.setItem("savestate", JSON.stringify(g_savestate));
 };
 var loadState = function() {
-	//
+	g_savestate = (localStorage.getItem("savestate") == null) ? g_savestate : JSON.parse(localStorage.getItem("savestate"));
 };
 var setStateTitle = function() {
 	playMenuMusic();
@@ -492,6 +492,8 @@ var setToLevel = function(landType, diff, level, phase) {
 		setStateSearchSelect();
 	} else if(phase == "searchfp") {
 		setStateSearchFirstPerson();
+	} else {
+		setStateTitle();
 	}
 };
 var setStateSubLevelSelect = function(landtype) { //jump directly to second half of level selection
@@ -561,6 +563,7 @@ var setStateLevelSelect = function(cb) {
 };
 //set state to exploration
 var setStateExplore = function() {
+	g_savestate.game_state.phase = "explore";
 	playGameMusic();
 	util.template.getHTML("assets/js/explore.html", function(data){
 		jQuery("#uiLayer").html(data);
@@ -572,6 +575,7 @@ var setStateExplore = function() {
 };
 //set state to first clue
 var setStateClue = function() {
+	g_savestate.game_state.phase = "clue";
 	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
@@ -596,6 +600,7 @@ var setStateClue = function() {
 };
 //set state to second clue
 var setStateClueTwo = function() {
+	g_savestate.game_state.phase = "clue2";
 	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
@@ -621,6 +626,7 @@ var setStateClueTwo = function() {
 };
 //set state to map square selection
 var setStateSearchSelect = function() {
+	g_savestate.game_state.phase = "search";
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/searchmap.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
@@ -676,6 +682,7 @@ var setStateSearchSelect = function() {
 };
 //set state to elephant search first person
 var setStateSearchFirstPerson = function() {
+	g_savestate.game_state.phase = "searchfp";
 	if(g_isRandomElephant) {
 		switch(util.getRandomInt(1,4)) {
 			case 1:
