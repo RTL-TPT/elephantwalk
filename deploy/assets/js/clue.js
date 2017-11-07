@@ -147,6 +147,8 @@ var confirmClue = function() {
 				} else {
 					g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
 					util.player.togglePlayer();
+					g_savestate.game_state.phase = "clue2";
+					saveState();
 					openClueModal();
 				}
 			};

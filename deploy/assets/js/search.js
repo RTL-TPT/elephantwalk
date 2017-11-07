@@ -143,7 +143,7 @@ var foundElephantModal = function() {
 
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
 		//send player back to appropriate state depenending on if they're still in the tutorial or not
-		if(g_LevelTerrain == "LAND" && !g_tutorial_complete["LAND"]) {
+		if(g_LevelTerrain == "LAND" && !g_savestate.tutorial_complete["LAND"]) {
 			if(g_selectedLevel == 0) {
 				g_selectedDifficulty = "TUTORIAL";
 				g_selectedLevel = 1;
@@ -155,39 +155,32 @@ var foundElephantModal = function() {
 					setStateClue();
 				}
 			} else if(g_selectedLevel == 1) {
-				g_tutorial_complete["LAND"] = true;
-				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
+				g_savestate.tutorial_complete["LAND"] = true;
 				setStateSubLevelSelect("LAND");
 			}
-		} else if(g_LevelTerrain == "WATER" && !g_tutorial_complete["WATER"]) {
+		} else if(g_LevelTerrain == "WATER" && !g_savestate.tutorial_complete["WATER"]) {
 			if(g_selectedLevel == 0) {
-				g_terrain_unlocked.MANMADE = true;
-				localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked) );
-				//
-				g_tutorial_complete["WATER"] = true;
-				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
+				g_savestate.terrain_unlocked.MANMADE = true;
+				g_savestate.tutorial_complete["WATER"] = true;
 				setStateSubLevelSelect("WATER");
 			}
-		} else if(g_LevelTerrain == "MANMADE" && !g_tutorial_complete["MANMADE"]) {
+		} else if(g_LevelTerrain == "MANMADE" && !g_savestate.tutorial_complete["MANMADE"]) {
 			if(g_selectedLevel == 0) {
-				g_tutorial_complete["MANMADE"] = true;
-				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
+				g_savestate.tutorial_complete["MANMADE"] = true;
 				setStateSubLevelSelect("MANMADE");
 			}
-		} else if(g_LevelTerrain == "EXPERT" && !g_tutorial_complete["EXPERT"]) {
+		} else if(g_LevelTerrain == "EXPERT" && !g_savestate.tutorial_complete["EXPERT"]) {
 			if(g_selectedLevel == 0) {
-				g_tutorial_complete["EXPERT"] = true;
-				localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete) );
+				g_savestate.tutorial_complete["EXPERT"] = true;
 				setStateSubLevelSelect("EXPERT");
 			}
 		} else if(g_selectedDifficulty !== "TUTORIAL") {
 			if(g_LevelTerrain == "LAND") {
-				g_terrain_unlocked.WATER = true;
+				g_savestate.terrain_unlocked.WATER = true;
 			}
 			if(g_LevelTerrain == "MANMADE") {
-				g_terrain_unlocked.EXPERT = true;
+				g_savestate.terrain_unlocked.EXPERT = true;
 			}
-			localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked) );
 			setStateLevelSelect();
 		} else {
 			setStateLevelSelect();

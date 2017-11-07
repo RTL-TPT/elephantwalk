@@ -54,12 +54,12 @@ var g_cluescaley = 489; //dimensions of clue/search map old:575
 var g_currentDrag = ""; //clue type currently being used in drag/drop
 var g_isRandomElephant = false; //toggle random elephant on/off
 var g_randomElephantHeading = "north"; //use when elephant heading is to be random
-var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
-var g_terrain_unlocked = (localStorage.getItem("g_terrain_unlocked") == null) ? {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_terrain_unlocked")); //keep track of land unlocks
-var g_savestate = { //unused
+//var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
+//var g_terrain_unlocked = (localStorage.getItem("g_terrain_unlocked") == null) ? {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_terrain_unlocked")); //keep track of land unlocks
+var g_savestate = {
 	"tutorial_complete": {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false},
 	"terrain_unlocked": {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false},
-	"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "explore"}
+	"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"}
 };
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
@@ -223,17 +223,21 @@ util.openModal = function(content) {
 };
 
 util.clearSave = function() {
-	g_tutorial_complete = {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false};
-	g_terrain_unlocked = {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false};
-	localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete));
-	localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked));
+	g_savestate.tutorial_complete = {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false};
+	g_savestate.terrain_unlocked = {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false};
+	g_savestate.game_state.phase = "levelselect";
+	//localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete));
+	//localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked));
+	saveState();
 };
 
 util.unlockAll = function() {
-	g_tutorial_complete = {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true};
-	g_terrain_unlocked = {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true};
-	localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete));
-	localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked));
+	g_savestate.tutorial_complete = {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true};
+	g_savestate.terrain_unlocked = {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true};
+	g_savestate.game_state.phase = "levelselect";
+	//localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete));
+	//localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked));
+	saveState();
 };
 
 util.animation = (function() {
@@ -451,12 +455,24 @@ var saveState = function() {
 var loadState = function() {
 	g_savestate = (localStorage.getItem("savestate") == null) ? g_savestate : JSON.parse(localStorage.getItem("savestate"));
 };
+var resumeState = function() {
+	if(g_savestate.game_state !== undefined) {
+		setToLevel(g_savestate.game_state.landType, g_savestate.game_state.diff, g_savestate.game_state.level, g_savestate.game_state.phase);
+	} else {
+		console.log("missing game state data");
+	}	
+};
 var setStateTitle = function() {
 	playMenuMusic();
+	loadState();
 	util.template.getHTML("assets/js/title.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
 		//init here
-		jQuery("#playBtn").unbind().click(function(){playClickSFX();setStateLevelSelect();});
+		jQuery("#playBtn").unbind().click(function(){
+			playClickSFX();
+			//setStateLevelSelect();
+			resumeState();
+		});
 		jQuery("#debugBtn").unbind().click(function(){playClickSFX();toggleDebugMenu();});
 		jQuery("#debugLock").unbind().click(function(){playClickSFX();util.clearSave();});
 		jQuery("#debugUnlock").unbind().click(function(){playClickSFX();util.unlockAll();});
@@ -492,6 +508,8 @@ var setToLevel = function(landType, diff, level, phase) {
 		setStateSearchSelect();
 	} else if(phase == "searchfp") {
 		setStateSearchFirstPerson();
+	} else if(phase == "levelselect") {
+		setStateLevelSelect();
 	} else {
 		setStateTitle();
 	}
@@ -507,16 +525,18 @@ var setStateSubLevelSelect = function(landtype) { //jump directly to second half
 };
 var setStateLevelSelect = function(cb) {
 	playMenuMusic();
+	g_savestate.game_state.phase = "levelselect";
+	saveState();
 	if(cb === undefined){cb = function(){};}
 	util.template.getHTML("assets/js/menu.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
-		if(g_terrain_unlocked.WATER) {
+		if(g_savestate.terrain_unlocked.WATER) {
 			jQuery(".missionBoxOverlay.l2").css("opacity",0);
 		}
-		if(g_terrain_unlocked.MANMADE) {
+		if(g_savestate.terrain_unlocked.MANMADE) {
 			jQuery(".missionBoxOverlay.l3").css("opacity",0);
 		}
-		if(g_terrain_unlocked.EXPERT) {
+		if(g_savestate.terrain_unlocked.EXPERT) {
 			jQuery(".missionBoxOverlay.l4").css("opacity",0);
 		}
 		//bind buttons
@@ -525,7 +545,7 @@ var setStateLevelSelect = function(cb) {
 			if(jQuery(this).hasClass("b1")) {
 				if(jQuery(".missionBoxOverlay.l1").css("opacity") != 0){return;}
 				g_data_init("LAND");
-				if(g_tutorial_complete["LAND"]) {
+				if(g_savestate.tutorial_complete["LAND"]) {
 					fillLevels("LAND");
 				} else {
 					setToTutorialLevel();
@@ -533,7 +553,7 @@ var setStateLevelSelect = function(cb) {
 			} else if(jQuery(this).hasClass("b2")) {
 				if(jQuery(".missionBoxOverlay.l2").css("opacity") != 0){return;}
 				g_data_init("WATER");
-				if(g_tutorial_complete["WATER"]) {
+				if(g_savestate.tutorial_complete["WATER"]) {
 					fillLevels("WATER");
 				} else {
 					setToTutorialLevel();
@@ -541,7 +561,7 @@ var setStateLevelSelect = function(cb) {
 			} else if(jQuery(this).hasClass("b3")) {
 				if(jQuery(".missionBoxOverlay.l3").css("opacity") != 0){return;}
 				g_data_init("MANMADE");
-				if(g_tutorial_complete["MANMADE"]) {
+				if(g_savestate.tutorial_complete["MANMADE"]) {
 					fillLevels("MANMADE");
 				} else {
 					setToTutorialLevel();
@@ -549,7 +569,7 @@ var setStateLevelSelect = function(cb) {
 			} else if(jQuery(this).hasClass("b4")) {
 				if(jQuery(".missionBoxOverlay.l4").css("opacity") != 0){return;}
 				g_data_init("EXPERT");
-				if(g_tutorial_complete["EXPERT"]) {
+				if(g_savestate.tutorial_complete["EXPERT"]) {
 					fillLevels("EXPERT");
 				} else {
 					setToTutorialLevel();
@@ -564,6 +584,7 @@ var setStateLevelSelect = function(cb) {
 //set state to exploration
 var setStateExplore = function() {
 	g_savestate.game_state.phase = "explore";
+	saveState();
 	playGameMusic();
 	util.template.getHTML("assets/js/explore.html", function(data){
 		jQuery("#uiLayer").html(data);
@@ -576,6 +597,7 @@ var setStateExplore = function() {
 //set state to first clue
 var setStateClue = function() {
 	g_savestate.game_state.phase = "clue";
+	saveState();
 	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
@@ -601,6 +623,7 @@ var setStateClue = function() {
 //set state to second clue
 var setStateClueTwo = function() {
 	g_savestate.game_state.phase = "clue2";
+	saveState();
 	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
@@ -627,6 +650,8 @@ var setStateClueTwo = function() {
 //set state to map square selection
 var setStateSearchSelect = function() {
 	g_savestate.game_state.phase = "search";
+	saveState();
+	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/searchmap.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
@@ -683,6 +708,8 @@ var setStateSearchSelect = function() {
 //set state to elephant search first person
 var setStateSearchFirstPerson = function() {
 	g_savestate.game_state.phase = "searchfp";
+	saveState();
+	playGameMusic();
 	if(g_isRandomElephant) {
 		switch(util.getRandomInt(1,4)) {
 			case 1:
