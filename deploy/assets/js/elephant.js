@@ -111,7 +111,11 @@ util.player = (function() {
 		htmlout += "<div class='closeBtn'></div>";
 		htmlout += "<div class='playerNextBtn'></div>";
 
-		htmlout += "<div style='position:absolute;top:180px;width:100%;'><span style='font-size:40px;'>It's your turn</span><br/><span style='font-size:100px;'>Player number</span></div>".replace("number",util.player.getPlayer());
+		if(currentplayer === 0) {
+			htmlout += "<div style='position:absolute;top:180px;width:100%;'><span style='font-size:40px;'>It's your turn</span><br/><span style='font-size:100px;'>all players</span></div>";
+		} else {
+			htmlout += "<div style='position:absolute;top:180px;width:100%;'><span style='font-size:40px;'>It's your turn</span><br/><span style='font-size:100px;'>Player number</span></div>".replace("number",util.player.getPlayer());
+		}
 
 		htmlout += "</div>";
 
@@ -128,7 +132,11 @@ util.player = (function() {
 	};
 
 	var setPlayerImg_ = function() {
-		jQuery("#playerIcon").html("<img style='width:100%;height:100%' src='assets/images/icon_p"+currentplayer+".png'>");
+		if(currentplayer === 0) {
+			jQuery("#playerIcon").html("");
+		} else {
+			jQuery("#playerIcon").html("<img style='width:100%;height:100%' src='assets/images/icon_p"+currentplayer+".png'>");
+		}
 	};
 	var togglePlayer_ = function(callback) {
 		currentplayer = currentplayer === 1 ? 2 : 1;
@@ -657,7 +665,7 @@ var setStateSearchSelect = function() {
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
 		//init here
 		//util.player.togglePlayer();
-		util.player.setPlayer(1);
+		util.player.setPlayer(0);
 		createSearchMap();
 		//clue icons
 		var clue1 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
@@ -730,7 +738,7 @@ var setStateSearchFirstPerson = function() {
 		g_directionsRemaining = "nesw".replace(g_heading[0], "");
 		jQuery("#uiLayer").html(data);
 		//init here
-		util.player.setPlayer(2);
+		util.player.setPlayer(0);
 		jQuery("#uiLayer").addClass("bg1").removeClass("cluePhase");
 		createSearchView();
 	});
