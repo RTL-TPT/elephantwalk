@@ -231,20 +231,20 @@ util.openModal = function(content) {
 };
 
 util.clearSave = function() {
-	g_savestate.tutorial_complete = {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false};
-	g_savestate.terrain_unlocked = {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false};
-	g_savestate.game_state.phase = "levelselect";
-	//localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete));
-	//localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked));
+	g_savestate = {
+		"tutorial_complete": {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false},
+		"terrain_unlocked": {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false},
+		"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"}
+	};
 	saveState();
 };
 
 util.unlockAll = function() {
-	g_savestate.tutorial_complete = {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true};
-	g_savestate.terrain_unlocked = {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true};
-	g_savestate.game_state.phase = "levelselect";
-	//localStorage.setItem("g_tutorial_complete", JSON.stringify(g_tutorial_complete));
-	//localStorage.setItem("g_terrain_unlocked", JSON.stringify(g_terrain_unlocked));
+	g_savestate = {
+		"tutorial_complete": {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true},
+		"terrain_unlocked": {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true},
+		"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"}
+	};
 	saveState();
 };
 
