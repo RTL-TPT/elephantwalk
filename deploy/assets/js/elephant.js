@@ -458,10 +458,16 @@ var playClickSFX = function() {
 ////////////////
 
 var saveState = function() {
+	g_savestate.game_state.landType = g_LevelTerrain;
+	g_savestate.game_state.diff = g_selectedDifficulty;
+	g_savestate.game_state.level = g_selectedLevel;
 	localStorage.setItem("savestate", JSON.stringify(g_savestate));
 };
 var loadState = function() {
 	g_savestate = (localStorage.getItem("savestate") == null) ? g_savestate : JSON.parse(localStorage.getItem("savestate"));
+	g_LevelTerrain = g_savestate.game_state.landType;
+	g_selectedDifficulty = g_savestate.game_state.diff;
+	g_selectedLevel = g_savestate.game_state.level;
 };
 var resumeState = function() {
 	if(g_savestate.game_state !== undefined) {
@@ -532,9 +538,9 @@ var setStateSubLevelSelect = function(landtype) { //jump directly to second half
 	});
 };
 var setStateLevelSelect = function(cb) {
-	playMenuMusic();
 	g_savestate.game_state.phase = "levelselect";
 	saveState();
+	playMenuMusic();
 	if(cb === undefined){cb = function(){};}
 	util.template.getHTML("assets/js/menu.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
