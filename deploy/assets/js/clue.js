@@ -80,6 +80,7 @@ var createClueMap = function() {
 			if(lFit && tFit) {
 				jQuery("#clueDoneBtn").show();
 				jQuery("#clueDrop1").html("<img cname='img_"+g_currentDrag+"' style='width:100%;height:100%;' src='"+"assets/images/clue/"+g_currentDrag.toUpperCase()+util.getCluePath(g_currentDrag)+"'>");
+				elephantTelemetry.createEvent("clue_select");
 			}
 			jQuery(".mousefollower").remove();
 		}
@@ -161,6 +162,7 @@ var confirmClue = function() {
 			util.animation.incorrectAnim(function(){});
 			jQuery("#clueDrop1").html("");
 		}
+		elephantTelemetry.createEvent("clue_done");
 	} else {
 		/*var htmlout = "";
 		htmlout += "<center><div class='foundMsg'>Drag the right clue to the box!<div></center>";
@@ -207,4 +209,6 @@ var openLegendModal = function() {
 	htmlout += "</div></center>";
 
 	util.openModal(htmlout);
+
+	elephantTelemetry.createEvent("clue_legend");
 };

@@ -61,7 +61,7 @@ var g_savestate = {
 };
 var g_p1_id = "00000001"; //player 1 id (dummy)
 var g_p2_id = "00000002"; //player 2 id (dummy)
-var g_telemetry_cache = {};
+var g_telemetry_cache = [];
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -698,6 +698,7 @@ var setStateSearchSelect = function() {
 			} else {
 				jQuery(".clueOverlayBox").removeClass("active");
 				jQuery(this).addClass("active");
+				elephantTelemetry.createEvent("search_select");
 			}
 		});
 		jQuery("#clueDoneBtn").click(function(){
@@ -713,6 +714,7 @@ var setStateSearchSelect = function() {
 				} else {
 					util.animation.incorrectAnim();
 				}
+				elephantTelemetry.createEvent("search_done");
 			} else {
 				//
 			}
