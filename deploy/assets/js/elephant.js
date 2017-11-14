@@ -54,13 +54,14 @@ var g_cluescaley = 489; //dimensions of clue/search map old:575
 var g_currentDrag = ""; //clue type currently being used in drag/drop
 var g_isRandomElephant = false; //toggle random elephant on/off
 var g_randomElephantHeading = "north"; //use when elephant heading is to be random
-//var g_tutorial_complete = (localStorage.getItem("g_tutorial_complete") == null) ? {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_tutorial_complete")); //keep track of tutorial status
-//var g_terrain_unlocked = (localStorage.getItem("g_terrain_unlocked") == null) ? {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false} : JSON.parse(localStorage.getItem("g_terrain_unlocked")); //keep track of land unlocks
 var g_savestate = {
 	"tutorial_complete": {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false},
 	"terrain_unlocked": {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false},
 	"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"}
 };
+var g_p1_id = "00000001"; //player 1 id (dummy)
+var g_p2_id = "00000002"; //player 2 id (dummy)
+var g_telemetry_cache = {};
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
