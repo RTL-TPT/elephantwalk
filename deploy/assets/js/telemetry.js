@@ -1,11 +1,9 @@
 var elephantTelemetry = (function(){
 	var empty_tobj = {
-		"p1_id": "",
-		"p2_id": "",
 		"event_name": "",
 		"device_time_stamp": "",
 		"time_played": "",
-		"game_version": "",
+		"game_version": "0.1",
 		"session_id": "",
 		"device_id": "",
 		"task_id": "",
@@ -18,30 +16,54 @@ var elephantTelemetry = (function(){
 		"player_selection": ""
 	};
 
-	var container = {
-		"userid": "",
-		"activity_id": "",
-		"isSecondPlayer": "",
+	var container = { //this should be generated automatically by the server
+		"userId": "",
+		"xpId": "", //activity id
+		"isSecondPlayer": false, //bool default false
 		"otherPlayerId": "",
-		"instructorIds": "",
+		"instructorIds": "", //array
 		"groupId": "",
 		"clientTimestamp": "",
 		"serverTimestamp": "",
 		"userAgent": "",
-		"eventName": ""
+		"eventName": "",
+		"telemetryData": ""
 	};
 
-	var sendEvent = function(eventName, containerData, eventData){
+	//send telemetry event using springroll container
+	var sendEvent = function(eventName, eventData){
 		if(app === undefined) {
 			return;
 		}
-		app.container.send(eventName, eventData);
-	};
-	var createEvent = function(eventName, containerData, eventData){
+		if(eventData === undefined){eventData = {};}
+		if(eventName === undefined){eventName = "";}
+
 		var eventObj = JSON.parse(JSON.stringify(empty_tobj));
 		eventObj.event_name = eventName;
+
+		var eventKeys = Object.keys(eventData);
+		for(var i = 0; i < eventKeys.length; i++) {
+			eventObj[eventKeys[i]] = eventData[eventKeys[i]];
+		}
+
+		app.container.send(eventName, eventObj);
+	};
+	//create telemetry event object and store locally
+	var createEvent = function(eventName, eventData){
+		if(eventData === undefined){eventData = {};}
+		if(eventName === undefined){eventName = "";}
+
+		var eventObj = JSON.parse(JSON.stringify(empty_tobj));
+		eventObj.event_name = eventName;
+
+		var eventKeys = Object.keys(eventData);
+		for(var i = 0; i < eventKeys.length; i++) {
+			eventObj[eventKeys[i]] = eventData[eventKeys[i]];
+		}
+
 		g_telemetry_cache.push(eventObj);
 	};
+	//create csv report of local telemetry event cache
 	var createLocalReport = function() {
 		var reportKeys = Object.keys(empty_tobj);
 		var blobout = "";
