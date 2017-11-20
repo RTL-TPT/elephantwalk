@@ -50,7 +50,8 @@ var createExploreMap = function() {
 	}
 	util.loadImages(firstpersonimgs, function(){
 		jQuery("#exploremap").html(htmlout);
-		bindActiveTile();
+		//bindActiveTile();
+		jumpToExploreFirstPerson();
 	});
 	/////
 };
@@ -114,6 +115,26 @@ var createExploreGPS = function() {
 	jQuery("#firstPerson").append(htmlout);
 };
 
+var jumpToExploreFirstPerson = function() {
+	playClickSFX();
+	jQuery.each(jQuery(".exploreMapImg"),function(key,value){
+		if( jQuery(value).attr("coordinant") == g_activeTile[0]+"_"+g_activeTile[1] ) {
+			jQuery(value).css("opacity",0);
+		}
+	});
+	g_directionsRemaining = "nesw".replace(g_heading[0], "");
+	jQuery("#firstPerson").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
+	createExploreGPS();
+	jQuery(".arrow").show();
+	jQuery("#rightArrow").unbind().click(function(){playClickSFX();rotateView("right")});
+	jQuery("#leftArrow").unbind().click(function(){playClickSFX();rotateView("left")});
+	jQuery("#mapGrid").hide();
+	jQuery(".mapGridOverlay").hide();
+	jQuery(".mapGridLines").hide();
+	jQuery("#exMapImg").hide();
+	delete g_tilesRemaining[""+g_activeTile[0]+","+g_activeTile[1]];
+};
+
 var bindActiveTile = function() {
 	jQuery(".activeTile").click(function(){
 		playClickSFX();
@@ -122,7 +143,6 @@ var bindActiveTile = function() {
 				jQuery(value).css("opacity",0);
 			}
 		});
-		jQuery(".exploreMapImg");
 		g_directionsRemaining = "nesw".replace(g_heading[0], "");
 		jQuery("#firstPerson").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 		createExploreGPS();
@@ -169,6 +189,9 @@ var rotateView = function(direction) {
 };
 
 var firstPersonToMap = function() {
+	setStateClue();
+	return;
+	//
 	jQuery("#returnBtn").hide();
 	jQuery("#mapGrid").show();
 	jQuery(".mapGridOverlay").show();

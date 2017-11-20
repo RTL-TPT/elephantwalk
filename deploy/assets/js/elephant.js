@@ -720,7 +720,6 @@ var setStateSearchSelect = function() {
 			}
 		});
 	});
-
 };
 //set state to elephant search first person
 var setStateSearchFirstPerson = function() {
