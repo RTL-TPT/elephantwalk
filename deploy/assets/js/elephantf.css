@@ -1,0 +1,39 @@
+/*hover*/
+    .playBtn:hover {
+        background-color:gray;
+    }
+    .leftArrow:hover {
+        background: url('../images/btn_360_left_2_hover.png');
+    }
+    .rightArrow:hover {
+        background: url('../images/btn_360_right_2_hover.png');
+    }
+    .clueBar .clueLegend:hover{
+        background: url('../images/btn_legend_hover.png') center center no-repeat;
+    }
+    .clueBar .clueDoneBtn:hover {
+        background: url('../images/btn_done_hover.png') center center no-repeat;
+    }
+    .searchBar .clueDoneBtn:hover {
+        background: url('../images/btn_done_hover.png') center center no-repeat;
+    }
+    .cluePhase .clueIcon:hover {
+        background: url('../images/btn_clue_hover.png') center center no-repeat;
+    }
+    .modalContainer .closeBtn:hover, .playerModalContainer .closeBtn:hover, .menuCloseBtn:hover{
+        background: url('../images/closeicon-300_hover.png');
+        background-size: 100% 100%;
+    }
+    .playerModalContainer .playerNextBtn:hover{
+        background: url('../images/btn_next_hover.png');
+        background-size: 100% 100%;
+    }
+    .modalContainer .sfxBtn:hover{
+        background: url('../images/ic_hearing_black_24dp_2x_hover.png');
+        background-size: 100% 100%;
+        background-color: white;
+    }
+    .debugMenu .debugitem:hover {
+        background-color: lightblue;
+    }
+/*hover*/
