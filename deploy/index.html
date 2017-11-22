@@ -7,12 +7,14 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <!--<link rel="stylesheet" href="assets/css/libraries.css">-->
-        <link rel="stylesheet" href="assets/js/elephant.css">
+        <!--link rel="stylesheet" href="assets/js/elephant.css">-->
         <!--Fix hover css conditional not working in firefox by giving it its own additional css file-->
         <script>
             if(navigator.userAgent.indexOf("Firefox") != -1) {
                 console.log("firefox");
                 document.write('<link rel="stylesheet" href="assets/js/elephantf.css">');
+            } else {
+                document.write('<link rel="stylesheet" href="assets/js/elephant.css">');
             }
         </script>
     </head>
