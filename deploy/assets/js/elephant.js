@@ -486,6 +486,7 @@ var setStateTitle = function() {
 		//init here
 		jQuery("#playBtn").unbind().click(function(){
 			g_startTime = (new Date).getTime();
+			elephantTelemetry.createEvent("start_game");
 			playClickSFX();
 			//setStateLevelSelect();
 			resumeState();
