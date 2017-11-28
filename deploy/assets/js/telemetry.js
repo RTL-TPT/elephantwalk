@@ -53,18 +53,23 @@ var elephantTelemetry = (function(){
 		if(eventData === undefined){eventData = {};}
 		if(eventName === undefined){eventName = "";}
 
+		//fill passed event name
 		var eventObj = JSON.parse(JSON.stringify(empty_tobj));
 		eventObj.event_name = eventName;
 
+		//fill time
 		var timeobj = new Date();
 		var datestr = "" + (timeobj.getMonth() + 1) + "/" + timeobj.getDate() + "/" + timeobj.getFullYear() + "/" + timeobj.getHours() + "/" + timeobj.getMinutes() + "/" + timeobj.getSeconds();
-
 		eventObj.device_time_stamp = datestr;
+		//fill task id
 		eventObj.task_id = "1_T";
 		if(eventObj.event_name == "start_game" || eventObj.event_name == "quit_game") {
 			eventObj.task_id = "";
 		}
+		//fill time played
+		eventObj.time_played = (new Date).getTime() - g_startTime;
 
+		//fill in passed event data
 		var eventKeys = Object.keys(eventData);
 		for(var i = 0; i < eventKeys.length; i++) {
 			eventObj[eventKeys[i]] = eventData[eventKeys[i]];

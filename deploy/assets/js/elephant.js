@@ -62,6 +62,7 @@ var g_savestate = {
 var g_p1_id = "00000001"; //player 1 id (dummy)
 var g_p2_id = "00000002"; //player 2 id (dummy)
 var g_telemetry_cache = [];
+var g_startTime = (new Date).getTime(); //for tracking time played
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -484,6 +485,7 @@ var setStateTitle = function() {
 		jQuery("#uiLayer").removeClass("bg1").removeClass("cluePhase").html(data);
 		//init here
 		jQuery("#playBtn").unbind().click(function(){
+			g_startTime = (new Date).getTime();
 			playClickSFX();
 			//setStateLevelSelect();
 			resumeState();
