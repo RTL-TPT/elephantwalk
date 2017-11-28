@@ -66,7 +66,7 @@ var elephantTelemetry = (function(){
 		if(eventObj.event_name == "start_game" || eventObj.event_name == "quit_game") {
 			eventObj.task_id = "";
 		}
-		//fill time played
+		//fill time played. currently in ms
 		eventObj.time_played = (new Date).getTime() - g_startTime;
 
 		//fill in passed event data

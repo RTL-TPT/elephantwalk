@@ -629,6 +629,7 @@ var setStateClue = function() {
 		jQuery(".clueBar .clueDrop2").unbind().click(function(){
 			playClickSFX();
 			openClueModal();
+			elephantTelemetry.createEvent("clue_repeat");
 		});
 		jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
 			playClickSFX();
@@ -656,6 +657,7 @@ var setStateClueTwo = function() {
 		jQuery(".clueBar .clueDrop2").unbind().click(function(){
 			playClickSFX();
 			openClueModal();
+			elephantTelemetry.createEvent("clue_repeat");
 		});
 		jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
 			playClickSFX();
