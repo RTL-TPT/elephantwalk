@@ -137,6 +137,7 @@ var openClueModal = function(callback) {
 
 var confirmClue = function() {
 	var clueChildren = jQuery("#clueDrop1").children();
+	var isCorrect = false; // for telemetry
 	if(clueChildren.length > 0) {
 		var selectedClue = jQuery(clueChildren[0]).attr("cname").replace("img_","");
 		if(selectedClue === g_currentClue) {
@@ -156,13 +157,13 @@ var confirmClue = function() {
 			jQuery("#clueDoneBtn").hide();
 			util.animation.correctAnim(onAnimComplete);
 			jQuery("#clueDrop1").html("");
-
+			isCorrect = true;
 		} else {
 			jQuery("#clueDoneBtn").hide();
 			util.animation.incorrectAnim(function(){});
 			jQuery("#clueDrop1").html("");
 		}
-		elephantTelemetry.createEvent("clue_done");
+		elephantTelemetry.createEvent("clue_done", {"pass_fail":isCorrect});
 	} else {
 		/*var htmlout = "";
 		htmlout += "<center><div class='foundMsg'>Drag the right clue to the box!<div></center>";

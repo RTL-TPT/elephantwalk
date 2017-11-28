@@ -703,6 +703,7 @@ var setStateSearchSelect = function() {
 		});
 		jQuery("#clueDoneBtn").click(function(){
 			playClickSFX();
+			var isCorrect = false; //for telemetry
 			//OPEN FPS VIEW
 			var cTile = jQuery(".clueOverlayBox.active");
 			if(cTile.length > 0) {
@@ -711,10 +712,11 @@ var setStateSearchSelect = function() {
 				var clueData = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
 				if(clueData[0] == g_activeTile[0] && clueData[1] == g_activeTile[1]) {
 					util.animation.correctAnim(setStateSearchFirstPerson);
+					isCorrect = true;
 				} else {
 					util.animation.incorrectAnim();
 				}
-				elephantTelemetry.createEvent("search_done");
+				elephantTelemetry.createEvent("search_done", {"pass_fail":isCorrect});
 			} else {
 				//
 			}
