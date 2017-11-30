@@ -63,6 +63,8 @@ var g_p1_id = "00000001"; //player 1 id (dummy)
 var g_p2_id = "00000002"; //player 2 id (dummy)
 var g_telemetry_cache = [];
 var g_startTime = (new Date).getTime(); //for tracking time played
+var g_clueAttempts = []; //clue answer tracking
+var g_searchAttempts = []; //search answer tracking
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -616,6 +618,7 @@ var setStateExplore = function() {
 var setStateClue = function() {
 	g_savestate.game_state.phase = "clue";
 	saveState();
+	g_clueAttempts = []; //reset attempt tracking
 	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
@@ -671,6 +674,7 @@ var setStateClueTwo = function() {
 var setStateSearchSelect = function() {
 	g_savestate.game_state.phase = "search";
 	saveState();
+	g_searchAttempts = []; //reset attempt tracking
 	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/searchmap.html", function(data){
@@ -723,7 +727,8 @@ var setStateSearchSelect = function() {
 				} else {
 					util.animation.incorrectAnim();
 				}
-				elephantTelemetry.createEvent("search_done", {"pass_fail":isCorrect,"player_selection":g_activeTile,"correct_selection":clueData});
+				g_searchAttempts.push(isCorrect);
+				elephantTelemetry.createEvent("search_done", {"pass_fail":isCorrect,"player_selection":g_activeTile,"correct_selection":clueData,"attempt_num":g_searchAttempts.length});
 			} else {
 				//
 			}

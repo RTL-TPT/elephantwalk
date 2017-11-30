@@ -163,7 +163,11 @@ var confirmClue = function() {
 			util.animation.incorrectAnim(function(){});
 			jQuery("#clueDrop1").html("");
 		}
-		elephantTelemetry.createEvent("clue_done", {"pass_fail":isCorrect,"player_selection":selectedClue,"correct_selection":g_currentClue});
+		g_clueAttempts.push(isCorrect);
+		elephantTelemetry.createEvent("clue_done", {"pass_fail":isCorrect,"player_selection":selectedClue,"correct_selection":g_currentClue,"attempt_num":g_clueAttempts.length});
+		if(isCorrect){
+			g_clueAttempts = []; //reset attempts for next clue
+		}
 	} else {
 		/*var htmlout = "";
 		htmlout += "<center><div class='foundMsg'>Drag the right clue to the box!<div></center>";
