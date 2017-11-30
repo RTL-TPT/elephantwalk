@@ -1,7 +1,7 @@
 (function(){
 
-	var g_gameWidth = 1024;
-	var g_gameHeight = 768;
+	window.g_gameWidth = 1024;
+	window.g_gameHeight = 768;
 
 	// Library depencencies
 	var Application = include('springroll.Application'),
