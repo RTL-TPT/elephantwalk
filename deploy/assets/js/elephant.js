@@ -630,7 +630,7 @@ var setStateClue = function() {
 		jQuery(".clueBar .clueDrop2").unbind().click(function(){
 			playClickSFX();
 			openClueModal();
-			elephantTelemetry.createEvent("clue_repeat");
+			elephantTelemetry.createEvent("clue_repeat",{"correct_selection":g_currentClue});
 		});
 		jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
 			playClickSFX();
@@ -703,7 +703,9 @@ var setStateSearchSelect = function() {
 			} else {
 				jQuery(".clueOverlayBox").removeClass("active");
 				jQuery(this).addClass("active");
-				elephantTelemetry.createEvent("search_select");
+				var tilecoords = [jQuery(this).attr("coordinant").split("_")[0], jQuery(this).attr("coordinant").split("_")[1]];
+				var clueData = [ g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel][0], g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel][1] ];
+				elephantTelemetry.createEvent("search_select",{"player_selection":tilecoords,"correct_selection":clueData});
 			}
 		});
 		jQuery("#clueDoneBtn").click(function(){
@@ -714,14 +716,14 @@ var setStateSearchSelect = function() {
 			if(cTile.length > 0) {
 				g_activeTile = [cTile.attr("coordinant").split("_")[0], cTile.attr("coordinant").split("_")[1]];
 				g_heading = "north";
-				var clueData = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
+				var clueData = [ g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel][0], g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel][1] ];
 				if(clueData[0] == g_activeTile[0] && clueData[1] == g_activeTile[1]) {
 					util.animation.correctAnim(setStateSearchFirstPerson);
 					isCorrect = true;
 				} else {
 					util.animation.incorrectAnim();
 				}
-				elephantTelemetry.createEvent("search_done", {"pass_fail":isCorrect});
+				elephantTelemetry.createEvent("search_done", {"pass_fail":isCorrect,"player_selection":g_activeTile,"correct_selection":clueData});
 			} else {
 				//
 			}

@@ -80,7 +80,7 @@ var createClueMap = function() {
 			if(lFit && tFit) {
 				jQuery("#clueDoneBtn").show();
 				jQuery("#clueDrop1").html("<img cname='img_"+g_currentDrag+"' style='width:100%;height:100%;' src='"+"assets/images/clue/"+g_currentDrag.toUpperCase()+util.getCluePath(g_currentDrag)+"'>");
-				elephantTelemetry.createEvent("clue_select");
+				elephantTelemetry.createEvent("clue_select",{"player_selection":g_currentDrag,"correct_selection":g_currentClue});
 			}
 			jQuery(".mousefollower").remove();
 		}
@@ -163,7 +163,7 @@ var confirmClue = function() {
 			util.animation.incorrectAnim(function(){});
 			jQuery("#clueDrop1").html("");
 		}
-		elephantTelemetry.createEvent("clue_done", {"pass_fail":isCorrect});
+		elephantTelemetry.createEvent("clue_done", {"pass_fail":isCorrect,"player_selection":selectedClue,"correct_selection":g_currentClue});
 	} else {
 		/*var htmlout = "";
 		htmlout += "<center><div class='foundMsg'>Drag the right clue to the box!<div></center>";
@@ -211,5 +211,5 @@ var openLegendModal = function() {
 
 	util.openModal(htmlout);
 
-	elephantTelemetry.createEvent("clue_legend");
+	elephantTelemetry.createEvent("clue_legend",{"correct_selection":g_currentClue});
 };
