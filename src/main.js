@@ -1,5 +1,8 @@
 (function(){
 
+	window.g_gameWidth = 1024;
+	window.g_gameHeight = 768;
+
 	// Library depencencies
 	var Application = include('springroll.Application'),
 		Game = include('Phaser.Game'),
@@ -22,8 +25,8 @@
 	{
 		// Start application
 		this.game = game = new Game(
-			1024,
-			768,
+			g_gameWidth,
+			g_gameHeight,
 			Phaser.CANVAS,
 			"content",
 			{
@@ -123,7 +126,7 @@
 			ch = window.innerHeight - canvasOffset;
 			cw = Math.floor((window.innerHeight - canvasOffset) * (4/3));
 		}
-		percent = cw/1024;
+		percent = cw/g_gameWidth;
 		jQuery("#uiLayer").css("transform","scale("+percent+")").css("-webkit-transform","scale("+percent+")");
 		//canvas resize
 		app.game.scale.setGameSize(cw,ch);
