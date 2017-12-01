@@ -68,10 +68,10 @@ var elephantTelemetry = (function(){
 		}
 		//fill time played. currently in ms
 		var timeplayedms = (new Date).getTime() - g_startTime;
-		var seconds = Math.floor(timeplayedms / 1000) % 60 ;
-		var minutes = (Math.floor(timeplayedms / (1000*60)) % 60);
-		var hours   = (Math.floor(timeplayedms / (1000*60*60)) % 24);
-		eventObj.time_played = hours + "/" + minutes + "/" + seconds;
+		var seconds = parseInt(timeplayedms / 1000) % 60 ;
+		var minutes = parseInt(timeplayedms / (1000*60)) % 60;
+		var hours   = parseInt(timeplayedms / (1000*60*60)) % 24;
+		eventObj.time_played = "" + hours + "/" + minutes + "/" + seconds;
 
 		//fill in passed event data
 		var eventKeys = Object.keys(eventData);
