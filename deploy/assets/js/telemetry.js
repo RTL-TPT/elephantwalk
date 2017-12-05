@@ -38,13 +38,12 @@ var elephantTelemetry = (function(){
 		if(eventData === undefined){eventData = {};}
 		if(eventName === undefined){eventName = "";}
 
-		var eventObj = JSON.parse(JSON.stringify(empty_tobj));
-		eventObj.event_name = eventName;
+		var eventObj = jQuery.extend({},container);
 
-		var eventKeys = Object.keys(eventData);
-		for(var i = 0; i < eventKeys.length; i++) {
-			eventObj[eventKeys[i]] = eventData[eventKeys[i]];
-		}
+		eventObj.event_data = eventData;
+
+		//player
+		eventObj.isSecondPlayer = (util.player.getPlayer() == 2);
 
 		app.container.send(eventName, eventObj);
 	};
@@ -79,7 +78,8 @@ var elephantTelemetry = (function(){
 			eventObj[eventKeys[i]] = eventData[eventKeys[i]];
 		}
 
-		g_telemetry_cache.push(eventObj);
+		g_telemetry_cache.push(eventObj); //store event info locally
+		sendEvent("telemetry_save", eventObj); //send event to container
 	};
 	//create csv report of local telemetry event cache
 	var createLocalReport = function() {
