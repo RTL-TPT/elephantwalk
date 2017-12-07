@@ -87,6 +87,9 @@ var create360Elephant = function() {
 		jQuery("#exploremap").unbind();
 		jQuery("#elephantBox").unbind();
 		jQuery(clickTarget).click(function(){
+			if(clickTarget == "#exploremap" && g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel][2] != g_heading) {
+				return;
+			}
 			playClickSFX();
 			jQuery("#leftArrow").unbind();
 			jQuery("#rightArrow").unbind();
