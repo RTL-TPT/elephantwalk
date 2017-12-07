@@ -57,7 +57,8 @@ var g_randomElephantHeading = "north"; //use when elephant heading is to be rand
 var g_savestate = {
 	"tutorial_complete": {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false},
 	"terrain_unlocked": {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false},
-	"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"}
+	"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"},
+	"telemetry": {"session_id":0}
 };
 var g_p1_id = "00000001"; //player 1 id (dummy)
 var g_p2_id = "00000002"; //player 2 id (dummy)
@@ -238,7 +239,8 @@ util.clearSave = function() {
 	g_savestate = {
 		"tutorial_complete": {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false},
 		"terrain_unlocked": {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false},
-		"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"}
+		"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"},
+		"telemetry": {"session_id":0}
 	};
 	saveState();
 };
@@ -247,7 +249,8 @@ util.unlockAll = function() {
 	g_savestate = {
 		"tutorial_complete": {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true},
 		"terrain_unlocked": {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true},
-		"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"}
+		"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"},
+		"telemetry": {"session_id":0}
 	};
 	saveState();
 };
@@ -472,6 +475,12 @@ var loadState = function() {
 	g_LevelTerrain = g_savestate.game_state.landType;
 	g_selectedDifficulty = g_savestate.game_state.diff;
 	g_selectedLevel = g_savestate.game_state.level;
+	if(g_savestate.telemetry === undefined) {
+		g_savestate.telemetry = {};
+		g_savestate.telemetry.session_id = 0;
+	} else {
+		g_savestate.telemetry.session_id += 1;
+	}
 };
 var resumeState = function() {
 	if(g_savestate.game_state !== undefined) {

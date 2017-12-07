@@ -27,6 +27,7 @@ var g_leveldata =
                 ],
                 
                 "hasExploration": true,
+                "taskid": "1_T1",
                 "mapset": 1
             },
             {
@@ -55,6 +56,7 @@ var g_leveldata =
                 ],
                 
                 "hasExploration": false,
+                "taskid": "1_T2",
                 "mapset": 1
             }
         ],
@@ -89,6 +91,7 @@ var g_leveldata =
                 ],
                 
                 "hasExploration": false,
+                "taskid": "3_1",
                 "mapset": 3
             },
             {},{},{}
@@ -98,8 +101,8 @@ var g_leveldata =
         "TUTORIAL": [
             {
                 "clues": [
-                    "mountain",
-                    "lake"
+                    "lake",
+                    "mountain"
                 ],
                 "symbolStyle": {
                     "forest": "partialAbstract",
@@ -126,6 +129,7 @@ var g_leveldata =
                 ],
                 
                 "hasExploration": false,
+                "taskid": "4_T",
                 "mapset": 4
             }
         ],
@@ -169,6 +173,7 @@ var g_leveldata =
                 ],
                 
                 "hasExploration": false,
+                "taskid": "7_T",
                 "mapset": 7
             }
         ],
@@ -209,6 +214,7 @@ var g_leveldata =
                 ],
                 
                 "hasExploration": false,
+                "taskid": "9_1",
                 "mapset": 9
             },
             {},{},{},{},{}
@@ -259,6 +265,7 @@ var g_leveldata =
                 
                 "hasExploration": false,
                 "searchClues": true,
+                "taskid": "10_T",
                 "mapset": 10
             }
         ],

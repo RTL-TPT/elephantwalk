@@ -5,7 +5,7 @@ var elephantTelemetry = (function(){
 		"time_played": "",
 		"game_version": "0.1",
 		"session_id": "",
-		"device_id": "",
+		//"device_id": "",
 		"task_id": "",
 		"attempt_num": "",
 		"pass_fail": "",
@@ -61,9 +61,11 @@ var elephantTelemetry = (function(){
 		var datestr = "" + (timeobj.getMonth() + 1) + "/" + timeobj.getDate() + "/" + timeobj.getFullYear() + "/" + timeobj.getHours() + "/" + timeobj.getMinutes() + "/" + timeobj.getSeconds();
 		eventObj.device_time_stamp = datestr;
 		//fill task id
-		eventObj.task_id = "1_T";
+		eventObj.task_id = "";
 		if(eventObj.event_name == "start_game" || eventObj.event_name == "quit_game") {
-			eventObj.task_id = "";
+			//eventObj.task_id = "";
+		} else {
+			eventObj.task_id = g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid;
 		}
 		//fill time played. currently in ms
 		var timeplayedms = (new Date).getTime() - g_startTime;
@@ -71,6 +73,8 @@ var elephantTelemetry = (function(){
 		var minutes = parseInt(timeplayedms / (1000*60)) % 60;
 		var hours   = parseInt(timeplayedms / (1000*60*60)) % 24;
 		eventObj.time_played = "" + hours + "/" + minutes + "/" + seconds;
+		//session id
+		eventObj.session_id = g_savestate.telemetry.session_id;
 
 		//fill in passed event data
 		var eventKeys = Object.keys(eventData);
