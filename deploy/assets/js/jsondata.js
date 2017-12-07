@@ -61,7 +61,35 @@ var g_leveldata =
             }
         ],
         "EASY": [
-            {},{}
+            {
+                "clues": [
+                    "forest",
+                    "hill"
+                ],
+                "symbolStyle": {
+                    "desert": "nonAbstract",
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
+                },
+                "legendLocks": {
+                    "desert": "nonAbstract",
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
+                },
+                "clueUnlock": "mountain1",
+                "gridSize": "2x2",
+                "elephantLocation": [
+                    0,
+                    1,
+                    "south"
+                ],
+                
+                "hasExploration": false,
+                "taskid": "1_1",
+                "mapset": 1
+            },{}
         ],
         "MEDIUM": [{},{},{},{}],
         "HARD": [
@@ -94,7 +122,35 @@ var g_leveldata =
                 "taskid": "3_1",
                 "mapset": 3
             },
-            {},{},{}
+            {
+                "clues": [
+                    "mountain",
+                    "desert"
+                ],
+                "symbolStyle": {
+                    "desert": "partialAbstract",
+                    "forest": "partialAbstract",
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract"
+                },
+                "legendLocks": {
+                    "desert": "partialAbstract",
+                    "forest": "partialAbstract",
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract"
+                },
+                "clueUnlock": "hill1",
+                "gridSize": "2x2",
+                "elephantLocation": [
+                    0,
+                    0,
+                    "east"
+                ],
+                
+                "hasExploration": false,
+                "taskid": "3_2",
+                "mapset": 3
+            },{},{}
         ]
     },
     "WATER": {
@@ -177,7 +233,81 @@ var g_leveldata =
                 "mapset": 7
             }
         ],
-        "EASY": [{},{},{},{},{}],
+        "EASY": [
+            {
+                "clues": [
+                    "forest",
+                    "building"
+                ],
+                "symbolStyle": {
+                    "bridge": "nonAbstract",
+                    "building": "nonAbstract",
+                    "desert": "partialAbstract",
+                    "forest": "partialAbstract",
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "park": "nonAbstract",
+                    "road": "nonAbstract"
+                },
+                "legendLocks": {
+                    "bridge": "nonAbstract",
+                    "building": "nonAbstract",
+                    "desert": "partialAbstract",
+                    "forest": "partialAbstract",
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "park": "nonAbstract",
+                    "road": "nonAbstract"
+                },
+                "clueUnlock": "",
+                "gridSize": "3x3",
+                "elephantLocation": [
+                    0,
+                    2,
+                    "east"
+                ],
+                
+                "hasExploration": false,
+                "taskid": "7_1",
+                "mapset": 7
+            },
+            {
+                "clues": [
+                    "hill",
+                    "road"
+                ],
+                "symbolStyle": {
+                    "bridge": "nonAbstract",
+                    "building": "nonAbstract",
+                    "desert": "partialAbstract",
+                    "forest": "partialAbstract",
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "park": "nonAbstract",
+                    "road": "nonAbstract"
+                },
+                "legendLocks": {
+                    "bridge": "nonAbstract",
+                    "building": "nonAbstract",
+                    "desert": "partialAbstract",
+                    "forest": "partialAbstract",
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract",
+                    "park": "nonAbstract",
+                    "road": "nonAbstract"
+                },
+                "clueUnlock": "",
+                "gridSize": "3x3",
+                "elephantLocation": [
+                    1,
+                    1,
+                    "south"
+                ],
+                
+                "hasExploration": false,
+                "taskid": "7_2",
+                "mapset": 7
+            },{},{},{}],
         "MEDIUM": [{},{},{},{},{},{}],
         "HARD": [
             {
@@ -217,7 +347,117 @@ var g_leveldata =
                 "taskid": "9_1",
                 "mapset": 9
             },
-            {},{},{},{},{}
+            {
+                "clues": [
+                    "forest",
+                    "bridge"
+                ],
+                "symbolStyle": {
+                    "bridge": "partialAbstract",
+                    "building": "fullAbstract",
+                    "desert": "fullAbstract",
+                    "forest": "fullAbstract",
+                    "hill": "fullAbstract",
+                    "mountain": "fullAbstract",
+                    "park": "partialAbstract",
+                    "road": "fullAbstract"
+                },
+                "legendLocks": {
+                    "bridge": "partialAbstract",
+                    "building": "fullAbstract",
+                    "desert": "fullAbstract",
+                    "forest": "fullAbstract",
+                    "hill": "fullAbstract",
+                    "mountain": "fullAbstract",
+                    "park": "partialAbstract",
+                    "road": "fullAbstract"
+                },
+                "clueUnlock": "",
+                "gridSize": "3x3",
+                "elephantLocation": [
+                    1,
+                    0,
+                    "west"
+                ],
+                
+                "hasExploration": false,
+                "taskid": "9_2",
+                "mapset": 9
+            },
+            {
+                "clues": [
+                    "mountain",
+                    "desert"
+                ],
+                "symbolStyle": {
+                    "bridge": "partialAbstract",
+                    "building": "fullAbstract",
+                    "desert": "fullAbstract",
+                    "forest": "fullAbstract",
+                    "hill": "fullAbstract",
+                    "mountain": "fullAbstract",
+                    "park": "partialAbstract",
+                    "road": "fullAbstract"
+                },
+                "legendLocks": {
+                    "bridge": "partialAbstract",
+                    "building": "fullAbstract",
+                    "desert": "fullAbstract",
+                    "forest": "fullAbstract",
+                    "hill": "fullAbstract",
+                    "mountain": "fullAbstract",
+                    "park": "partialAbstract",
+                    "road": "fullAbstract"
+                },
+                "clueUnlock": "",
+                "gridSize": "3x3",
+                "elephantLocation": [
+                    2,
+                    1,
+                    "south"
+                ],
+                
+                "hasExploration": false,
+                "taskid": "9_3",
+                "mapset": 9
+            },
+            {
+                "clues": [
+                    "hill",
+                    "forest"
+                ],
+                "symbolStyle": {
+                    "bridge": "partialAbstract",
+                    "building": "fullAbstract",
+                    "desert": "fullAbstract",
+                    "forest": "fullAbstract",
+                    "hill": "fullAbstract",
+                    "mountain": "fullAbstract",
+                    "park": "partialAbstract",
+                    "road": "fullAbstract"
+                },
+                "legendLocks": {
+                    "bridge": "partialAbstract",
+                    "building": "fullAbstract",
+                    "desert": "fullAbstract",
+                    "forest": "fullAbstract",
+                    "hill": "fullAbstract",
+                    "mountain": "fullAbstract",
+                    "park": "partialAbstract",
+                    "road": "fullAbstract"
+                },
+                "clueUnlock": "",
+                "gridSize": "3x3",
+                "elephantLocation": [
+                    1,
+                    1,
+                    "south"
+                ],
+                
+                "hasExploration": false,
+                "taskid": "9_4",
+                "mapset": 9
+            },{},{}
         ]
     },
     "EXPERT": {
