@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.26 */
+/*! SpringRoll 1.0.3 */
 /**
  * @module Hints
  * @namespace springroll
