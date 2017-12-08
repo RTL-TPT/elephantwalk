@@ -121,7 +121,7 @@
 	window.g_scaleGameToWindow = true; //scale game to fit window or not
 
 	var fitCanvasToWindow = function() {
-		var canvasOffset = 20;
+		var canvasOffset = 0; //was 20, removed padding
 		var cw = 0;
 		var ch = 0;
 		var percent = 0;
