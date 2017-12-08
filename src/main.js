@@ -35,12 +35,6 @@
 			},
 			true
 		);
-
-		app.container.on("user_data", function(ud){
-			console.log(ud);
-		});
-
-		app.container.send("loaded",{});
 	});
 
 	// Preload assets for Phaser
@@ -121,7 +115,7 @@
 	window.g_scaleGameToWindow = true; //scale game to fit window or not
 
 	var fitCanvasToWindow = function() {
-		var canvasOffset = 0; //was 20, removed padding
+		var canvasOffset = 10;
 		var cw = 0;
 		var ch = 0;
 		var percent = 0;
