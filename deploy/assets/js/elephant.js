@@ -43,7 +43,6 @@ var g_directionsRemaining = "nesw"; //keep track of directions visited in 360 vi
 var g_currentClue = ""; //current clue phase clue
 var g_hasDrag = false; //has user attempted drag-drop yet
 var g_clueUrlPost = {"nonAbstract":"_non-abstract-symbol.jpg","partialAbstract":"_partial-abstract-symbol.jpg","fullAbstract":"_abstract-symbol.jpg"}; //clue type url mapper
-var g_isAlpha = false; //alpha flag
 var g_modalLevel = 0; //keeps track of how many modals are open
 var g_currentSet = 1; //current level mapset
 var g_volumeLevel = 1; //currently used as global volume level for mute/unmute etc.
@@ -64,7 +63,8 @@ var g_p1_id = "00000001"; //player 1 id (dummy)
 var g_p2_id = "00000002"; //player 2 id (dummy)
 var g_telemetry_cache = [];
 var g_startTime = (new Date).getTime(); //for tracking time played
-var g_clueAttempts = []; //clue answer tracking
+var g_clueAttempts_p1 = []; //clue answer tracking
+var g_clueAttempts_p2 = [];
 var g_searchAttempts = []; //search answer tracking
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
