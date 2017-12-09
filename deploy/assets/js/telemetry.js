@@ -16,18 +16,18 @@ var elephantTelemetry = (function(){
 		"player_selection": ""
 	};
 
-	var container = { //this should be generated automatically by the server
-		"userId": "",
-		"xpId": "", //activity id
+	var container = { //these should be generated automatically by the server
+		//"userId": "",
+		//"xpId": "", //activity id
 		"isSecondPlayer": false, //bool default false
-		"otherPlayerId": "",
-		"instructorIds": "", //array
-		"groupId": "",
-		"clientTimestamp": "",
-		"serverTimestamp": "",
-		"userAgent": "",
-		"eventName": "",
-		"telemetryData": ""
+		//"otherPlayerId": "",
+		//"instructorIds": "", //array
+		//"groupId": "",
+		//"clientTimestamp": "",
+		//"serverTimestamp": "",
+		//"userAgent": "",
+		"eventName": ""
+		//"telemetryData": ""
 	};
 
 	//send telemetry event using springroll container
@@ -40,7 +40,7 @@ var elephantTelemetry = (function(){
 
 		var eventObj = jQuery.extend({},container);
 
-		eventObj.event_data = eventData;
+		eventObj.event_data = JSON.stringify(eventData);
 
 		//player
 		eventObj.isSecondPlayer = (util.player.getPlayer() == 2);
