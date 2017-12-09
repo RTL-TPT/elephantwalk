@@ -26,7 +26,7 @@ var elephantTelemetry = (function(){
 		//"clientTimestamp": "",
 		//"serverTimestamp": "",
 		//"userAgent": "",
-		"eventName": ""
+		"event_name": ""
 		//"telemetryData": ""
 	};
 
@@ -40,6 +40,7 @@ var elephantTelemetry = (function(){
 
 		var eventObj = jQuery.extend({},container);
 
+		eventObj.event_name = eventData.event_name;
 		eventObj.event_data = JSON.stringify(eventData);
 
 		//player
