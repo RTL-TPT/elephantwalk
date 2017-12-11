@@ -541,7 +541,8 @@ var g_mapsetdata = [
     },
     { //mapset 3
         "elephant": { //y_x_direction: [left,top,width,height]
-            "0_1_west":[612,260,285,224]
+            "0_1_west":[612,260,285,224],
+            "0_0_east":[612,255,235,239]
         }, 
         "clues": [ //[left,top,width,height,clue]
             [348,427,252,143,"forest"],
