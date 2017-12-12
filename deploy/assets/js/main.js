@@ -35,6 +35,11 @@
 			},
 			true
 		);
+
+		app.container.on("user_data", function(data){
+			console.log("got user data from back end");
+			window.g_BEuserdata = data;
+		});
 	});
 
 	// Preload assets for Phaser
