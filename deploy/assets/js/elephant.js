@@ -468,7 +468,10 @@ var saveState = function() {
 	g_savestate.game_state.landType = g_LevelTerrain;
 	g_savestate.game_state.diff = g_selectedDifficulty;
 	g_savestate.game_state.level = g_selectedLevel;
+	//save local
 	localStorage.setItem("savestate", JSON.stringify(g_savestate));
+	//save remote
+	app.container.send("game_data_save", {is_second_player: false, "game_data": JSON.stringify(g_savestate)});
 };
 var loadState = function() {
 	g_savestate = (localStorage.getItem("savestate") == null) ? g_savestate : JSON.parse(localStorage.getItem("savestate"));
