@@ -1,4 +1,7 @@
 var elephantTelemetry = (function(){
+	
+	var last_five = [];
+
 	var empty_tobj = {
 		"event_name": "",
 		"device_time_stamp": "",
@@ -128,6 +131,21 @@ var elephantTelemetry = (function(){
 		let f = new Blob([blobout], {type: "text/plain;charset=utf-8"});
 		saveAs(f, "elephantTelemetry.csv");
 	};
+
+	//Allow user to type "print" to generate telemetry csv
+	window.addEventListener('keyup',function(event){
+		var kcode = event.keyCode;
+		last_five.push(kcode);
+		if(last_five.length > 5) {
+			last_five.splice(0,1);
+		}
+		if(last_five.length == 5) {
+			if(last_five[0] == 80 && last_five[1] == 82 && last_five[2] == 73 && last_five[3] == 78 && last_five[4] == 84) {
+				last_five = [];
+				createLocalReport();
+			}
+		}
+	});
 
 	return {
 		"sendEvent":sendEvent,

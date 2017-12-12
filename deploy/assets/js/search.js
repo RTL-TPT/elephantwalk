@@ -200,6 +200,6 @@ var foundElephantModal = function() {
 			setStateLevelSelect();
 		}
 		//spit out local telemetry
-		elephantTelemetry.createLocalReport();
+		//elephantTelemetry.createLocalReport();
 	});
 };
