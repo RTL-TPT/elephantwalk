@@ -68,6 +68,25 @@ var elephantTelemetry = (function(){
 		} else {
 			eventObj.task_id = g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid;
 		}
+		//progress vars
+		var levelNum = parseInt(g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid.split("_")[0]);
+		if(levelNum >= 1 && levelNum <= 3) {
+			eventObj.as_mastery = "0";
+			eventObj.rl_mastery = "1";
+		} else if(levelNum >= 4 && levelNum <= 6) {
+			eventObj.as_mastery = "1";
+			eventObj.rl_mastery = "2a";
+		} else if(levelNum >= 7 && levelNum <= 9) {
+			eventObj.as_mastery = "2";
+			eventObj.rl_mastery = "2b";
+		} else if(levelNum == 10) {
+			eventObj.as_mastery = "2";
+			eventObj.rl_mastery = "3";
+		}
+		if(eventName == "start_game") {
+			eventObj.as_mastery = "";
+			eventObj.rl_mastery = "";
+		}
 		//fill time played. currently in ms
 		var timeplayedms = (new Date).getTime() - g_startTime;
 		var seconds = parseInt(timeplayedms / 1000) % 60 ;
