@@ -600,6 +600,16 @@ img {
     text-align: center;
     font-weight: bold;
 }
+.missionBox.tutorial {
+    width: 160px;
+    height: 40px;
+    background-color: lightgray;
+    box-sizing: border-box;
+    border: solid 2px black;
+    line-height: 40px;
+    text-align: center;
+    font-weight: bold;
+}
 .missionBoxOverlay {
     width: 160px;
     height: 80px;

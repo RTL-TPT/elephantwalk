@@ -361,19 +361,19 @@ var fillLevels = function(ltype) {
 	var difflen = g_LEVEL_GRID["EASY"].length + tutorial_len;
 	difflen = difflen > g_LEVEL_GRID["MEDIUM"].length ? difflen : g_LEVEL_GRID["MEDIUM"].length;
 	difflen = difflen > g_LEVEL_GRID["HARD"].length ? difflen : g_LEVEL_GRID["HARD"].length;
-	/*for(var a = 0; a < g_LEVEL_GRID["TUTORIAL"].length; a++) {
-		htmlout += "<tr><td><center><div class='missionBox level d1' difficulty='TUTORIAL' level='"+a+"' id='tutorial"+(a+1)+"btn'>TUTORIAL "+diffmap[ltype]+"." +(a+1)+"</div></center></td>";
-		htmlout += "<td><center><div class='missionBox level d2' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td>";
-		htmlout += "<td><center><div class='missionBox level d3' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td></tr>";
-	}*/
+	for(var a = 0; a < g_LEVEL_GRID["TUTORIAL"].length; a++) {
+		htmlout += "<tr><td><center><div class='missionBox tutorial level d1' difficulty='TUTORIAL' level='"+a+"' id='tutorial"+(a+1)+"btn'>TUTORIAL "+(a+1)+"</div></center></td>";
+		htmlout += "<td><center><div class='missionBox tutorial level d2' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td>";
+		htmlout += "<td><center><div class='missionBox tutorial level d3' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td></tr>";
+	}
 	for(var i = 0; i < difflen; i++) {
-		var cNull = g_LEVEL_NULL["TUTORIAL"][i];
-		if(i < tutorial_len) {
-			htmlout += "<tr><td><center><div class='missionBox level "+(cNull ? "x":"d1")+"' difficulty='TUTORIAL' level='"+i+"' style='opacity:"+(i < tutorial_len ? 1 : 0)+"' id='tutorial"+(i+1)+"btn'> TUTORIAL "+diffmap[ltype]+"." +(i+1)+"</div></center></td>";
-		} else {
-			cNull = g_LEVEL_NULL["EASY"][i-tutorial_len];
-			htmlout += "<tr><td><center><div class='missionBox level "+(cNull ? "x":"d1")+"' difficulty='EASY' level='"+(i-tutorial_len)+"' style='opacity:"+(i-tutorial_len < g_LEVEL_GRID["EASY"].length ? 1 : 0)+"' id='easy"+(i-tutorial_len+1)+"btn'>"+diffmap[ltype]+"." +(i+1)+"</div></center></td>";
-		}
+		//var cNull = g_LEVEL_NULL["TUTORIAL"][i];
+		//if(i < tutorial_len) {
+			//htmlout += "<tr><td><center><div class='missionBox level "+(cNull ? "x":"d1")+"' difficulty='TUTORIAL' level='"+i+"' style='opacity:"+(i < tutorial_len ? 1 : 0)+"' id='tutorial"+(i+1)+"btn'> TUTORIAL "+diffmap[ltype]+"." +(i+1)+"</div></center></td>";
+		//} else {
+			cNull = g_LEVEL_NULL["EASY"][i];
+			htmlout += "<tr><td><center><div class='missionBox level "+(cNull ? "x":"d1")+"' difficulty='EASY' level='"+(i)+"' style='opacity:"+(i < g_LEVEL_GRID["EASY"].length ? 1 : 0)+"' id='easy"+(i+1)+"btn'>"+diffmap[ltype]+"." +(i+1)+"</div></center></td>";
+		//}
 		cNull = g_LEVEL_NULL["MEDIUM"][i];
 		htmlout += "<td><center><div class='missionBox level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["MEDIUM"].length ? 1 : 0)+"' id='medium"+(i+1)+"btn'>"+(diffmap[ltype]+1)+"."+(i+1)+"</div></center></td>";
 		cNull = g_LEVEL_NULL["HARD"][i];

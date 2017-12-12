@@ -89,7 +89,7 @@ var g_leveldata =
                 "hasExploration": false,
                 "taskid": "1_1",
                 "mapset": 1
-            },{}
+            },{},{},{}
         ],
         "MEDIUM": [{},{},{},{}],
         "HARD": [
@@ -189,7 +189,7 @@ var g_leveldata =
                 "mapset": 4
             }
         ],
-        "EASY": [{},{},{}],
+        "EASY": [{},{},{},{}],
         "MEDIUM": [{},{},{},{}],
         "HARD": [{},{},{},{}]
     },
@@ -307,7 +307,7 @@ var g_leveldata =
                 "hasExploration": false,
                 "taskid": "7_2",
                 "mapset": 7
-            },{},{},{}],
+            },{},{},{},{}],
         "MEDIUM": [{},{},{},{},{},{}],
         "HARD": [
             {
@@ -509,7 +509,7 @@ var g_leveldata =
                 "mapset": 10
             }
         ],
-        "EASY": [{},{},{},{},{}],
+        "EASY": [{},{},{},{},{},{}],
         "MEDIUM": [{},{},{},{},{},{}],
         "HARD": [{},{},{},{},{},{}]
     }
