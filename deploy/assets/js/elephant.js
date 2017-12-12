@@ -475,10 +475,10 @@ var saveState = function() {
 };
 var loadState = function() {
 	//load save from BE if availible, otherwise fall back to localstorage
-	if(g_BEuserdata !== undefined) {
-		g_savestate = JSON.parse(g_BEuserdata.data[0].game_data);
-	} else {
+	if(typeof g_BEuserdata === "undefined") {
 		g_savestate = (localStorage.getItem("savestate") == null) ? g_savestate : JSON.parse(localStorage.getItem("savestate"));
+	} else {
+		g_savestate = JSON.parse(g_BEuserdata.data[0].game_data);
 	}
 	g_LevelTerrain = g_savestate.game_state.landType;
 	g_selectedDifficulty = g_savestate.game_state.diff;
