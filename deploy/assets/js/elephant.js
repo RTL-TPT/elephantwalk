@@ -474,7 +474,12 @@ var saveState = function() {
 	app.container.send("game_data_save", {is_second_player: false, "game_data": JSON.stringify(g_savestate)});
 };
 var loadState = function() {
-	g_savestate = (localStorage.getItem("savestate") == null) ? g_savestate : JSON.parse(localStorage.getItem("savestate"));
+	//load save from BE if availible, otherwise fall back to localstorage
+	if(g_BEuserdata !== undefined) {
+		g_savestate = JSON.parse(g_BEuserdata.data[0].game_data);
+	} else {
+		g_savestate = (localStorage.getItem("savestate") == null) ? g_savestate : JSON.parse(localStorage.getItem("savestate"));
+	}
 	g_LevelTerrain = g_savestate.game_state.landType;
 	g_selectedDifficulty = g_savestate.game_state.diff;
 	g_selectedLevel = g_savestate.game_state.level;
