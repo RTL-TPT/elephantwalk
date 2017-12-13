@@ -755,7 +755,7 @@ var setStateSearchSelect = function() {
 						correctCount++;
 					}
 				}
-				if(g_searchAttempts_m.length >= 5) {
+				if(g_searchAttempts_m.length >= 5 || correctCount >= 3) {
 					if(correctCount >= 3) {
 						//do correct
 						masteryUp = true;

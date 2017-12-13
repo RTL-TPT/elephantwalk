@@ -175,7 +175,7 @@ var confirmClue = function() {
 					correctCount++;
 				}
 			}
-			if(g_clueAttempts_p2.length >= 5) {
+			if(g_clueAttempts_p2.length >= 5 || correctCount >= 3) {
 				if(correctCount >= 3) {
 					//do correct
 					masteryUp = true;
@@ -201,7 +201,7 @@ var confirmClue = function() {
 					correctCount++;
 				}
 			}
-			if(g_clueAttempts_p1.length >= 5) {
+			if(g_clueAttempts_p1.length >= 5 || correctCount >= 3) {
 				if(correctCount >= 3) {
 					//do correct
 					masteryUp = true;
