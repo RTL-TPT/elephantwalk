@@ -65,7 +65,8 @@ var g_telemetry_cache = [];
 var g_startTime = (new Date).getTime(); //for tracking time played
 var g_clueAttempts_p1 = []; //clue answer tracking
 var g_clueAttempts_p2 = [];
-var g_searchAttempts = []; //search answer tracking
+var g_searchAttempts = []; //telemetry
+var g_searchAttempts_m = []; //mastery
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -635,7 +636,7 @@ var setStateExplore = function() {
 var setStateClue = function() {
 	g_savestate.game_state.phase = "clue";
 	saveState();
-	g_clueAttempts = []; //reset attempt tracking
+	g_clueAttempts = []; //reset try number telemetry
 	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
@@ -691,7 +692,7 @@ var setStateClueTwo = function() {
 var setStateSearchSelect = function() {
 	g_savestate.game_state.phase = "search";
 	saveState();
-	g_searchAttempts = []; //reset attempt tracking
+	g_searchAttempts = []; //reset try number (telemetry)
 	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/searchmap.html", function(data){
@@ -745,9 +746,41 @@ var setStateSearchSelect = function() {
 					util.animation.incorrectAnim();
 				}
 				g_searchAttempts.push(isCorrect);
-				elephantTelemetry.createEvent("search_done", {"pass_fail":isCorrect,"player_selection":g_activeTile,"correct_selection":clueData,"attempt_num":g_searchAttempts.length});
+				//mastery check/////////
+				var masteryUp = false;
+				g_searchAttempts_m.push(isCorrect);
+				var correctCount = 0;
+				for(var i = 0; i < g_searchAttempts_m.length; i++) {
+					if(g_searchAttempts_m[i]) {
+						correctCount++;
+					}
+				}
+				if(g_searchAttempts_m.length >= 5) {
+					if(correctCount >= 3) {
+						//do correct
+						masteryUp = true;
+					} else {
+						//do failure
+						masteryUp = false;
+					}
+					app.container.send("objective_complete", {
+						"op_label": "search_mastery",
+						"success": masteryUp,
+						"is_second_player": false
+					});
+					app.container.send("objective_complete", {
+						"op_label": "search_mastery",
+						"success": masteryUp,
+						"is_second_player": true
+					});
+					console.log("search mastery:" + masteryUp);
+					//reset tracking
+					g_searchAttempts_m = [];
+				}
+				////////////////////////
+				elephantTelemetry.createEvent("search_done", {"pass_fail":isCorrect,"player_selection":g_activeTile,"correct_selection":clueData,"attempt_num":g_searchAttempts.length,"mastery_up":masteryUp});
 			} else {
-				//
+				//if no space selected
 			}
 		});
 	});

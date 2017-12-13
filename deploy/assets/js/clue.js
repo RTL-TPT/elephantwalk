@@ -164,14 +164,68 @@ var confirmClue = function() {
 			jQuery("#clueDrop1").html("");
 		}
 		g_clueAttempts.push(isCorrect);
-		elephantTelemetry.createEvent("clue_done", {"pass_fail":isCorrect,"player_selection":selectedClue,"correct_selection":g_currentClue,"attempt_num":g_clueAttempts.length});
+		//start attempt tracking section
+		var masteryUp = false;
+		if(util.player.getPlayer() == 2) {
+			//player 2
+			g_clueAttempts_p2.push(isCorrect);
+			var correctCount = 0;
+			for(var i = 0; i < g_clueAttempts_p2.length; i++) {
+				if(g_clueAttempts_p2[i]) {
+					correctCount++;
+				}
+			}
+			if(g_clueAttempts_p2.length >= 5) {
+				if(correctCount >= 3) {
+					//do correct
+					masteryUp = true;
+				} else {
+					//do failure
+					masteryUp = false;
+				}
+				app.container.send("objective_complete", {
+					"op_label": "clue_mastery",
+					"success": masteryUp,
+					"is_second_player": true
+				});
+				console.log("clue mastery p2:" + masteryUp);
+				//reset p2 tracking
+				g_clueAttempts_p2 = [];
+			}
+		} else {
+			//player 1
+			g_clueAttempts_p1.push(isCorrect);
+			var correctCount = 0;
+			for(var i = 0; i < g_clueAttempts_p1.length; i++) {
+				if(g_clueAttempts_p1[i]) {
+					correctCount++;
+				}
+			}
+			if(g_clueAttempts_p1.length >= 5) {
+				if(correctCount >= 3) {
+					//do correct
+					masteryUp = true;
+				} else {
+					//do failure
+					masteryUp = false;
+				}
+				app.container.send("objective_complete", {
+					"op_label": "clue_mastery",
+					"success": masteryUp,
+					"is_second_player": false
+				});
+				console.log("clue mastery p1:" + masteryUp);
+				//reset p1 tracking
+				g_clueAttempts_p1 = [];
+			}
+		}
+		//end attempt tracking section
+		elephantTelemetry.createEvent("clue_done", {"pass_fail":isCorrect,"player_selection":selectedClue,"correct_selection":g_currentClue,"attempt_num":g_clueAttempts.length,"mastery_up":masteryUp});
 		if(isCorrect){
 			g_clueAttempts = []; //reset attempts for next clue
 		}
 	} else {
-		/*var htmlout = "";
-		htmlout += "<center><div class='foundMsg'>Drag the right clue to the box!<div></center>";
-		util.openModal(htmlout);*/
+		//Case for when confirm button is clicked but no clue has been selected
 	}
 };
 
