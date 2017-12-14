@@ -13,7 +13,8 @@ var elephantTelemetry = (function(){
 		"attempt_num": "",
 		"pass_fail": "",
 		"mastery_up": "",
-		"as_mastery": "",
+		"as_mastery_p1": "",
+		"as_mastery_p2": "",
 		"rl_mastery": "",
 		"correct_selection": "",
 		"player_selection": ""
@@ -72,7 +73,7 @@ var elephantTelemetry = (function(){
 			eventObj.task_id = g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid;
 		}
 		//progress vars
-		var levelNum = parseInt(g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid.split("_")[0]);
+		/*var levelNum = parseInt(g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid.split("_")[0]);
 		if(levelNum >= 1 && levelNum <= 3) {
 			eventObj.as_mastery = "0";
 			eventObj.rl_mastery = "1";
@@ -89,7 +90,10 @@ var elephantTelemetry = (function(){
 		if(eventName == "start_game") {
 			eventObj.as_mastery = "";
 			eventObj.rl_mastery = "";
-		}
+		}*/
+		eventObj.as_mastery_p1 = g_savestate.clue_mastery_p1;
+		eventObj.as_mastery_p2 = g_savestate.clue_mastery_p2;
+		eventObj.rl_mastery = g_savestate.search_mastery;
 		//fill time played. currently in ms
 		var timeplayedms = (new Date).getTime() - g_startTime;
 		var seconds = parseInt(timeplayedms / 1000) % 60 ;

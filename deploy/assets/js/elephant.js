@@ -57,13 +57,17 @@ var g_savestate = {
 	"tutorial_complete": {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false},
 	"terrain_unlocked": {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false},
 	"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"},
-	"telemetry": {"session_id":0}
+	"telemetry": {"session_id":0},
+	"clue_mastery_p1": "0",
+	"clue_mastery_p2": "0",
+	"search_mastery": "0",
+	"clue_track_p1": [[],[],[],[]],
+	"clue_track_p2": [[],[],[],[]],
+	"search_track": [[],[],[],[]]
 };
-var g_p1_id = "00000001"; //player 1 id (dummy)
-var g_p2_id = "00000002"; //player 2 id (dummy)
 var g_telemetry_cache = [];
 var g_startTime = (new Date).getTime(); //for tracking time played
-var g_clueAttempts_p1 = []; //clue answer tracking
+var g_clueAttempts_p1 = []; //clue mastery tracking
 var g_clueAttempts_p2 = [];
 var g_searchAttempts = []; //telemetry
 var g_searchAttempts_m = []; //mastery
@@ -241,7 +245,13 @@ util.clearSave = function() {
 		"tutorial_complete": {"LAND":false,"WATER":false,"MANMADE":false,"EXPERT":false},
 		"terrain_unlocked": {"LAND":true,"WATER":false,"MANMADE":false,"EXPERT":false},
 		"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"},
-		"telemetry": {"session_id":0}
+		"telemetry": {"session_id":0},
+		"clue_mastery_p1": "0",
+		"clue_mastery_p2": "0",
+		"search_mastery": "0",
+		"clue_track_p1": [[],[],[],[]],
+		"clue_track_p2": [[],[],[],[]],
+		"search_track": [[],[],[],[]]
 	};
 	saveState();
 };
@@ -251,7 +261,13 @@ util.unlockAll = function() {
 		"tutorial_complete": {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true},
 		"terrain_unlocked": {"LAND":true,"WATER":true,"MANMADE":true,"EXPERT":true},
 		"game_state": {"landType": "LAND", "diff": "TUTORIAL", "level": 0, "phase": "levelselect"},
-		"telemetry": {"session_id":0}
+		"telemetry": {"session_id":0},
+		"clue_mastery_p1": "2",
+		"clue_mastery_p2": "2",
+		"search_mastery": "3",
+		"clue_track_p1": [[],[],[],[]],
+		"clue_track_p2": [[],[],[],[]],
+		"search_track": [[],[],[],[]]
 	};
 	saveState();
 };
@@ -345,6 +361,26 @@ util.loadImages = function(imageArray, callback) {
 		}
 	}, checkinterval);
 };
+
+util.getMasteryTargets = function() {
+	var levelNum = parseInt(g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid.split("_")[0]);
+	var as = "";
+	var rl = "";
+	if(levelNum >= 1 && levelNum <= 3) {
+		as = "0";
+		rl = "1";
+	} else if(levelNum >= 4 && levelNum <= 6) {
+		as = "1";
+		rl = "2a";
+	} else if(levelNum >= 7 && levelNum <= 9) {
+		as = "2";
+		rl = "2b";
+	} else if(levelNum == 10) {
+		as = "2";
+		rl = "3";
+	}
+	return [as,rl];
+}
 
 //////////////// MISC
 ////////////////
@@ -768,15 +804,19 @@ var setStateSearchSelect = function() {
 						masteryUp = false;
 					}
 					app.container.send("objective_complete", {
-						"op_label": "search_mastery",
+						"op_label": "rl_mastery_" + util.getMasteryTargets()[1],
 						"success": masteryUp,
 						"is_second_player": false
 					});
 					app.container.send("objective_complete", {
-						"op_label": "search_mastery",
+						"op_label": "rl_mastery_" + util.getMasteryTargets()[1],
 						"success": masteryUp,
 						"is_second_player": true
 					});
+					if(masteryUp) {
+						g_savestate.search_mastery = util.getMasteryTargets()[1];
+						saveState();
+					}
 					console.log("search mastery:" + masteryUp);
 					//reset tracking
 					g_searchAttempts_m = [];

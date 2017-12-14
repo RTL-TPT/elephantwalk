@@ -184,10 +184,14 @@ var confirmClue = function() {
 					masteryUp = false;
 				}
 				app.container.send("objective_complete", {
-					"op_label": "clue_mastery",
+					"op_label": "as_mastery_" + util.getMasteryTargets()[0],
 					"success": masteryUp,
 					"is_second_player": true
 				});
+				if(masteryUp) {
+					g_savestate.clue_mastery_p2 = util.getMasteryTargets()[0];
+					saveState();
+				}
 				console.log("clue mastery p2:" + masteryUp);
 				//reset p2 tracking
 				g_clueAttempts_p2 = [];
@@ -210,10 +214,14 @@ var confirmClue = function() {
 					masteryUp = false;
 				}
 				app.container.send("objective_complete", {
-					"op_label": "clue_mastery",
+					"op_label": "as_mastery_" + util.getMasteryTargets()[0],
 					"success": masteryUp,
 					"is_second_player": false
 				});
+				if(masteryUp) {
+					g_savestate.clue_mastery_p1 = util.getMasteryTargets()[0];
+					saveState();
+				}
 				console.log("clue mastery p1:" + masteryUp);
 				//reset p1 tracking
 				g_clueAttempts_p1 = [];
