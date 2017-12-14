@@ -380,7 +380,34 @@ util.getMasteryTargets = function() {
 		rl = "3";
 	}
 	return [as,rl];
-}
+};
+
+util.getMasteryIndex = function() {
+	var levelNum = parseInt(g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid.split("_")[0]);
+
+	if(levelNum >= 1 && levelNum <= 3) {
+		return 0;
+	} else if(levelNum >= 4 && levelNum <= 6) {
+		return 1;
+	} else if(levelNum >= 7 && levelNum <= 9) {
+		return 2;
+	} else if(levelNum == 10) {
+		return 3;
+	}
+	return 0;
+};
+
+util.getHigherMasteryAS = function(m1,m2) {
+	if(parseInt(m1) > parseInt(m2)) {
+		return m1;
+	} else{
+		return m2;
+	}
+};
+util.getHigherMasteryRL = function(m1,m2) {
+	var sorted = [m1,m2].sort();
+	return sorted[1];
+};
 
 //////////////// MISC
 ////////////////
@@ -788,14 +815,14 @@ var setStateSearchSelect = function() {
 				g_searchAttempts.push(isCorrect);
 				//mastery check/////////
 				var masteryUp = false;
-				g_searchAttempts_m.push(isCorrect);
+				g_savestate.search_track[util.getMasteryIndex()].push(isCorrect);
 				var correctCount = 0;
-				for(var i = 0; i < g_searchAttempts_m.length; i++) {
-					if(g_searchAttempts_m[i]) {
+				for(var i = 0; i < g_savestate.search_track[util.getMasteryIndex()].length; i++) {
+					if(g_savestate.search_track[util.getMasteryIndex()][i]) {
 						correctCount++;
 					}
 				}
-				if(g_searchAttempts_m.length >= 5 || correctCount >= 3) {
+				if(g_savestate.search_track[util.getMasteryIndex()].length >= 5 || correctCount >= 3) {
 					if(correctCount >= 3) {
 						//do correct
 						masteryUp = true;
@@ -814,14 +841,15 @@ var setStateSearchSelect = function() {
 						"is_second_player": true
 					});
 					if(masteryUp) {
-						g_savestate.search_mastery = util.getMasteryTargets()[1];
-						saveState();
+						g_savestate.search_mastery = util.getHigherMasteryRL(util.getMasteryTargets()[1], g_savestate.search_mastery);
+						//saveState();
 					}
 					console.log("search mastery:" + masteryUp);
 					//reset tracking
-					g_searchAttempts_m = [];
+					g_savestate.search_track[util.getMasteryIndex()] = [];
 				}
 				////////////////////////
+				saveState();
 				elephantTelemetry.createEvent("search_done", {"pass_fail":isCorrect,"player_selection":g_activeTile,"correct_selection":clueData,"attempt_num":g_searchAttempts.length,"mastery_up":masteryUp});
 			} else {
 				//if no space selected
