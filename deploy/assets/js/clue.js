@@ -166,6 +166,7 @@ var confirmClue = function() {
 		g_clueAttempts.push(isCorrect);
 		//start attempt tracking section
 		var masteryUp = false;
+		var isDuplicate = false;
 		if(util.player.getPlayer() == 2) {
 			//player 2
 			g_savestate.clue_track_p2[util.getMasteryIndex()].push(isCorrect);
@@ -183,11 +184,19 @@ var confirmClue = function() {
 					//do failure
 					masteryUp = false;
 				}
-				app.container.send("objective_complete", {
-					"op_label": "as_mastery_" + util.getMasteryTargets()[0],
-					"success": masteryUp,
-					"is_second_player": true
-				});
+				if( (util.getLowerMastery(g_savestate.clue_mastery_p2,util.getMasteryTargets()[0]) == g_savestate.clue_mastery_p2) && (g_savestate.clue_mastery_p2 != util.getMasteryTargets()[0])) {
+					//check to see if target mastery level has already been obtained
+					isDuplicate = false;
+				} else {
+					isDuplicate = true;
+				}
+				if(!isDuplicate) {
+					app.container.send("objective_complete", {
+						"op_label": "as_mastery_" + util.getMasteryTargets()[0],
+						"success": masteryUp,
+						"is_second_player": true
+					});
+				}
 				if(masteryUp) {
 					g_savestate.clue_mastery_p2 = util.getHigherMasteryAS(util.getMasteryTargets()[0], g_savestate.clue_mastery_p2);
 					//saveState();
@@ -213,11 +222,19 @@ var confirmClue = function() {
 					//do failure
 					masteryUp = false;
 				}
-				app.container.send("objective_complete", {
-					"op_label": "as_mastery_" + util.getMasteryTargets()[0],
-					"success": masteryUp,
-					"is_second_player": false
-				});
+				if( (util.getLowerMastery(g_savestate.clue_mastery_p1,util.getMasteryTargets()[0]) == g_savestate.clue_mastery_p1) && (g_savestate.clue_mastery_p1 != util.getMasteryTargets()[0])) {
+					//check to see if target mastery level has already been obtained
+					isDuplicate = false;
+				} else {
+					isDuplicate = true;
+				}
+				if(!isDuplicate) {
+					app.container.send("objective_complete", {
+						"op_label": "as_mastery_" + util.getMasteryTargets()[0],
+						"success": masteryUp,
+						"is_second_player": false
+					});
+				}
 				if(masteryUp) {
 					g_savestate.clue_mastery_p1 = util.getHigherMasteryAS(util.getMasteryTargets()[0], g_savestate.clue_mastery_p1);
 					//saveState();
@@ -229,6 +246,9 @@ var confirmClue = function() {
 		}
 		saveState();
 		//end attempt tracking section
+		if(isDuplicate){
+			masteryUp = false;
+		}
 		elephantTelemetry.createEvent("clue_done", {"pass_fail":isCorrect,"player_selection":selectedClue,"correct_selection":g_currentClue,"attempt_num":g_clueAttempts.length,"mastery_up":masteryUp});
 		if(isCorrect){
 			g_clueAttempts = []; //reset attempts for next clue

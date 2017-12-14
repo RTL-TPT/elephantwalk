@@ -409,6 +409,11 @@ util.getHigherMasteryRL = function(m1,m2) {
 	return sorted[1];
 };
 
+util.getLowerMastery = function(m1,m2) {
+	var sorted = [m1,m2].sort();
+	return sorted[0];
+};
+
 //////////////// MISC
 ////////////////
 
@@ -815,6 +820,7 @@ var setStateSearchSelect = function() {
 				g_searchAttempts.push(isCorrect);
 				//mastery check/////////
 				var masteryUp = false;
+				var isDuplicate = false;
 				g_savestate.search_track[util.getMasteryIndex()].push(isCorrect);
 				var correctCount = 0;
 				for(var i = 0; i < g_savestate.search_track[util.getMasteryIndex()].length; i++) {
@@ -830,16 +836,24 @@ var setStateSearchSelect = function() {
 						//do failure
 						masteryUp = false;
 					}
-					app.container.send("objective_complete", {
-						"op_label": "rl_mastery_" + util.getMasteryTargets()[1],
-						"success": masteryUp,
-						"is_second_player": false
-					});
-					app.container.send("objective_complete", {
-						"op_label": "rl_mastery_" + util.getMasteryTargets()[1],
-						"success": masteryUp,
-						"is_second_player": true
-					});
+					if( (util.getLowerMastery(g_savestate.search_mastery,util.getMasteryTargets()[1]) == g_savestate.search_mastery) && (g_savestate.search_mastery != util.getMasteryTargets()[1])) {
+						//check to see if target mastery level has already been obtained
+						isDuplicate = false;
+					} else {
+						isDuplicate = true;
+					}
+					if(!isDuplicate) {
+						app.container.send("objective_complete", {
+							"op_label": "rl_mastery_" + util.getMasteryTargets()[1],
+							"success": masteryUp,
+							"is_second_player": false
+						});
+						app.container.send("objective_complete", {
+							"op_label": "rl_mastery_" + util.getMasteryTargets()[1],
+							"success": masteryUp,
+							"is_second_player": true
+						});
+					}
 					if(masteryUp) {
 						g_savestate.search_mastery = util.getHigherMasteryRL(util.getMasteryTargets()[1], g_savestate.search_mastery);
 						//saveState();
@@ -850,6 +864,9 @@ var setStateSearchSelect = function() {
 				}
 				////////////////////////
 				saveState();
+				if(isDuplicate){
+					masteryUp = false;
+				}
 				elephantTelemetry.createEvent("search_done", {"pass_fail":isCorrect,"player_selection":g_activeTile,"correct_selection":clueData,"attempt_num":g_searchAttempts.length,"mastery_up":masteryUp});
 			} else {
 				//if no space selected
