@@ -326,13 +326,13 @@ var g_leveldata =
                     "road": "fullAbstract"
                 },
                 "legendLocks": {
-                    "bridge": "partialAbstract",
+                    "bridge": "fullAbstract",
                     "building": "fullAbstract",
                     "desert": "fullAbstract",
                     "forest": "fullAbstract",
                     "hill": "fullAbstract",
                     "mountain": "fullAbstract",
-                    "park": "partialAbstract",
+                    "park": "fullAbstract",
                     "road": "fullAbstract"
                 },
                 "clueUnlock": "",
@@ -363,13 +363,13 @@ var g_leveldata =
                     "road": "fullAbstract"
                 },
                 "legendLocks": {
-                    "bridge": "partialAbstract",
+                    "bridge": "fullAbstract",
                     "building": "fullAbstract",
                     "desert": "fullAbstract",
                     "forest": "fullAbstract",
                     "hill": "fullAbstract",
                     "mountain": "fullAbstract",
-                    "park": "partialAbstract",
+                    "park": "fullAbstract",
                     "road": "fullAbstract"
                 },
                 "clueUnlock": "",
@@ -400,13 +400,13 @@ var g_leveldata =
                     "road": "fullAbstract"
                 },
                 "legendLocks": {
-                    "bridge": "partialAbstract",
+                    "bridge": "fullAbstract",
                     "building": "fullAbstract",
                     "desert": "fullAbstract",
                     "forest": "fullAbstract",
                     "hill": "fullAbstract",
                     "mountain": "fullAbstract",
-                    "park": "partialAbstract",
+                    "park": "fullAbstract",
                     "road": "fullAbstract"
                 },
                 "clueUnlock": "",
@@ -437,13 +437,13 @@ var g_leveldata =
                     "road": "fullAbstract"
                 },
                 "legendLocks": {
-                    "bridge": "partialAbstract",
+                    "bridge": "fullAbstract",
                     "building": "fullAbstract",
                     "desert": "fullAbstract",
                     "forest": "fullAbstract",
                     "hill": "fullAbstract",
                     "mountain": "fullAbstract",
-                    "park": "partialAbstract",
+                    "park": "fullAbstract",
                     "road": "fullAbstract"
                 },
                 "clueUnlock": "",
