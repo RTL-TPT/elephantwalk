@@ -364,20 +364,21 @@ util.loadImages = function(imageArray, callback) {
 
 util.getMasteryTargets = function() {
 	var levelNum = parseInt(g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid.split("_")[0]);
-	var as = "";
-	var rl = "";
+	var as = "0";
+	var rl = "0";
 	if(levelNum >= 1 && levelNum <= 3) {
-		as = "0";
 		rl = "1";
-	} else if(levelNum >= 4 && levelNum <= 6) {
-		as = "1";
-		rl = "2a";
-	} else if(levelNum >= 7 && levelNum <= 9) {
-		as = "2";
-		rl = "2b";
+	} else if(levelNum >= 4 && levelNum <= 9) {
+		rl = "2";
 	} else if(levelNum == 10) {
-		as = "2";
 		rl = "3";
+	}
+	if(levelNum >= 1 && levelNum <= 3) {
+		as = "1";
+	} else if(levelNum >= 4 && levelNum <= 7) {
+		as = "2";
+	} else if(levelNum >= 8 && levelNum <= 10) {
+		as = "3";
 	}
 	return [as,rl];
 };
@@ -387,12 +388,23 @@ util.getMasteryIndex = function() {
 
 	if(levelNum >= 1 && levelNum <= 3) {
 		return 0;
-	} else if(levelNum >= 4 && levelNum <= 6) {
+	} else if(levelNum >= 4 && levelNum <= 9) {
 		return 1;
-	} else if(levelNum >= 7 && levelNum <= 9) {
-		return 2;
-	} else if(levelNum == 10) {
+	}  else if(levelNum == 10) {
 		return 3;
+	}
+	return 0;
+};
+
+util.getMasteryIndexAS = function() {
+	var levelNum = parseInt(g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid.split("_")[0]);
+
+	if(levelNum >= 1 && levelNum <= 3) {
+		return 0;
+	} else if(levelNum >= 4 && levelNum <= 7) {
+		return 1;
+	} else if(levelNum >= 8 && levelNum <= 10) {
+		return 2;
 	}
 	return 0;
 };
