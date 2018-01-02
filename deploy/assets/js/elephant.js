@@ -616,7 +616,12 @@ var setToLevel = function(landType, diff, level, phase) {
 		setStateClueTwo();
 	} else if(phase == "search") {
 		setStateSearchSelect();
-	} else if(phase == "searchfp") {
+	} else if(phase.indexOf("searchfp") != -1) {
+		var coordVals = phase.split("_");
+		if(coordVals.length == 3) {
+			g_activeTile[0] = coordVals[1];
+			g_activeTile[1] = coordVals[2];
+		}
 		setStateSearchFirstPerson();
 	} else if(phase == "levelselect") {
 		setStateLevelSelect();
@@ -876,7 +881,7 @@ var setStateSearchSelect = function() {
 };
 //set state to elephant search first person
 var setStateSearchFirstPerson = function() {
-	g_savestate.game_state.phase = "searchfp";
+	g_savestate.game_state.phase = "searchfp_"+g_activeTile[0]+"_"+g_activeTile[1];
 	saveState();
 	playGameMusic();
 	if(g_isRandomElephant) {
