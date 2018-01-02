@@ -169,14 +169,14 @@ var confirmClue = function() {
 		var isDuplicate = false;
 		if(util.player.getPlayer() == 2) {
 			//player 2
-			g_savestate.clue_track_p2[util.getMasteryIndexAS()].push(isCorrect);
+			g_savestate.clue_track_p2[util.getMasteryIndex()].push(isCorrect);
 			var correctCount = 0;
-			for(var i = 0; i < g_savestate.clue_track_p2[util.getMasteryIndexAS()].length; i++) {
-				if(g_savestate.clue_track_p2[util.getMasteryIndexAS()][i]) {
+			for(var i = 0; i < g_savestate.clue_track_p2[util.getMasteryIndex()].length; i++) {
+				if(g_savestate.clue_track_p2[util.getMasteryIndex()][i]) {
 					correctCount++;
 				}
 			}
-			if(g_savestate.clue_track_p2[util.getMasteryIndexAS()].length >= 5 || correctCount >= 3) {
+			if(g_savestate.clue_track_p2[util.getMasteryIndex()].length >= 5 || correctCount >= 3) {
 				if(correctCount >= 3) {
 					//do correct
 					masteryUp = true;
@@ -203,18 +203,18 @@ var confirmClue = function() {
 				}
 				console.log("clue mastery p2:" + masteryUp);
 				//reset p2 tracking
-				g_savestate.clue_track_p2[util.getMasteryIndexAS()] = [];
+				g_savestate.clue_track_p2[util.getMasteryIndex()] = [];
 			}
 		} else {
 			//player 1
-			g_savestate.clue_track_p1[util.getMasteryIndexAS()].push(isCorrect);
+			g_savestate.clue_track_p1[util.getMasteryIndex()].push(isCorrect);
 			var correctCount = 0;
-			for(var i = 0; i < g_savestate.clue_track_p1[util.getMasteryIndexAS()].length; i++) {
-				if(g_savestate.clue_track_p1[util.getMasteryIndexAS()][i]) {
+			for(var i = 0; i < g_savestate.clue_track_p1[util.getMasteryIndex()].length; i++) {
+				if(g_savestate.clue_track_p1[util.getMasteryIndex()][i]) {
 					correctCount++;
 				}
 			}
-			if(g_savestate.clue_track_p1[util.getMasteryIndexAS()].length >= 5 || correctCount >= 3) {
+			if(g_savestate.clue_track_p1[util.getMasteryIndex()].length >= 5 || correctCount >= 3) {
 				if(correctCount >= 3) {
 					//do correct
 					masteryUp = true;
@@ -241,7 +241,7 @@ var confirmClue = function() {
 				}
 				console.log("clue mastery p1:" + masteryUp);
 				//reset p1 tracking
-				g_savestate.clue_track_p1[util.getMasteryIndexAS()] = [];
+				g_savestate.clue_track_p1[util.getMasteryIndex()] = [];
 			}
 		}
 		saveState();

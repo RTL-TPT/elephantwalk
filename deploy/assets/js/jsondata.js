@@ -99,10 +99,10 @@ var g_leveldata =
                     "hill"
                 ],
                 "symbolStyle": {
-                    "desert": "nonAbstract",
-                    "forest": "nonAbstract",
-                    "hill": "nonAbstract",
-                    "mountain": "nonAbstract"
+                    "desert": "partialAbstract",
+                    "forest": "partialAbstract",
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract"
                 },
                 "legendLocks": {
                     "desert": "partialAbstract",
@@ -128,10 +128,10 @@ var g_leveldata =
                     "desert"
                 ],
                 "symbolStyle": {
-                    "desert": "nonAbstract",
+                    "desert": "partialAbstract",
                     "forest": "partialAbstract",
-                    "hill": "nonAbstract",
-                    "mountain": "nonAbstract"
+                    "hill": "partialAbstract",
+                    "mountain": "partialAbstract"
                 },
                 "legendLocks": {
                     "desert": "partialAbstract",
@@ -162,7 +162,7 @@ var g_leveldata =
                 ],
                 "symbolStyle": {
                     "forest": "partialAbstract",
-                    "lake": "partialAbstract",
+                    "lake": "nonAbstract",
                     "mountain": "partialAbstract",
                     "ocean": "nonAbstract",
                     "stream": "nonAbstract",
@@ -202,13 +202,13 @@ var g_leveldata =
                 ],
                 "symbolStyle": {
                     "bridge": "nonAbstract",
-                    "building": "partialAbstract",
+                    "building": "nonAbstract",
                     "desert": "partialAbstract",
                     "forest": "partialAbstract",
                     "hill": "partialAbstract",
                     "mountain": "partialAbstract",
-                    "park": "partialAbstract",
-                    "road": "partialAbstract"
+                    "park": "nonAbstract",
+                    "road": "nonAbstract"
                 },
                 "legendLocks": {
                     "bridge": "nonAbstract",
@@ -241,13 +241,13 @@ var g_leveldata =
                 ],
                 "symbolStyle": {
                     "bridge": "nonAbstract",
-                    "building": "partialAbstract",
+                    "building": "nonAbstract",
                     "desert": "partialAbstract",
                     "forest": "partialAbstract",
                     "hill": "partialAbstract",
                     "mountain": "partialAbstract",
-                    "park": "partialAbstract",
-                    "road": "partialAbstract"
+                    "park": "nonAbstract",
+                    "road": "nonAbstract"
                 },
                 "legendLocks": {
                     "bridge": "nonAbstract",
@@ -278,13 +278,13 @@ var g_leveldata =
                 ],
                 "symbolStyle": {
                     "bridge": "nonAbstract",
-                    "building": "partialAbstract",
+                    "building": "nonAbstract",
                     "desert": "partialAbstract",
                     "forest": "partialAbstract",
                     "hill": "partialAbstract",
                     "mountain": "partialAbstract",
-                    "park": "partialAbstract",
-                    "road": "partialAbstract"
+                    "park": "nonAbstract",
+                    "road": "nonAbstract"
                 },
                 "legendLocks": {
                     "bridge": "nonAbstract",
@@ -316,13 +316,13 @@ var g_leveldata =
                     "mountain"
                 ],
                 "symbolStyle": {
-                    "bridge": "fullAbstract",
+                    "bridge": "partialAbstract",
                     "building": "fullAbstract",
                     "desert": "fullAbstract",
                     "forest": "fullAbstract",
                     "hill": "fullAbstract",
                     "mountain": "fullAbstract",
-                    "park": "fullAbstract",
+                    "park": "partialAbstract",
                     "road": "fullAbstract"
                 },
                 "legendLocks": {
@@ -353,13 +353,13 @@ var g_leveldata =
                     "bridge"
                 ],
                 "symbolStyle": {
-                    "bridge": "fullAbstract",
+                    "bridge": "partialAbstract",
                     "building": "fullAbstract",
                     "desert": "fullAbstract",
                     "forest": "fullAbstract",
                     "hill": "fullAbstract",
                     "mountain": "fullAbstract",
-                    "park": "fullAbstract",
+                    "park": "partialAbstract",
                     "road": "fullAbstract"
                 },
                 "legendLocks": {
@@ -390,13 +390,13 @@ var g_leveldata =
                     "desert"
                 ],
                 "symbolStyle": {
-                    "bridge": "fullAbstract",
+                    "bridge": "partialAbstract",
                     "building": "fullAbstract",
                     "desert": "fullAbstract",
                     "forest": "fullAbstract",
                     "hill": "fullAbstract",
                     "mountain": "fullAbstract",
-                    "park": "fullAbstract",
+                    "park": "partialAbstract",
                     "road": "fullAbstract"
                 },
                 "legendLocks": {
@@ -427,13 +427,13 @@ var g_leveldata =
                     "forest"
                 ],
                 "symbolStyle": {
-                    "bridge": "fullAbstract",
+                    "bridge": "partialAbstract",
                     "building": "fullAbstract",
                     "desert": "fullAbstract",
                     "forest": "fullAbstract",
                     "hill": "fullAbstract",
                     "mountain": "fullAbstract",
-                    "park": "fullAbstract",
+                    "park": "partialAbstract",
                     "road": "fullAbstract"
                 },
                 "legendLocks": {
