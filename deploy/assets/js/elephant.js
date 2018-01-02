@@ -619,8 +619,8 @@ var setToLevel = function(landType, diff, level, phase) {
 	} else if(phase.indexOf("searchfp") != -1) {
 		var coordVals = phase.split("_");
 		if(coordVals.length == 3) {
-			g_activeTile[0] = coordVals[1];
-			g_activeTile[1] = coordVals[2];
+			g_activeTile[0] = parseInt(coordVals[1]);
+			g_activeTile[1] = parseInt(coordVals[2]);
 		}
 		setStateSearchFirstPerson();
 	} else if(phase == "levelselect") {
