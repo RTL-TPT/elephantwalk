@@ -414,6 +414,10 @@ util.getLowerMastery = function(m1,m2) {
 	return sorted[0];
 };
 
+util.strCoordToInt = function(inputArray) {
+	return [parseInt(inputArray[0]),parseInt(inputArray[1])];
+};
+
 //////////////// MISC
 ////////////////
 
@@ -804,7 +808,7 @@ var setStateSearchSelect = function() {
 				jQuery(this).addClass("active");
 				var tilecoords = [jQuery(this).attr("coordinant").split("_")[0], jQuery(this).attr("coordinant").split("_")[1]];
 				var clueData = [ g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel][0], g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel][1] ];
-				elephantTelemetry.createEvent("search_select",{"player_selection":tilecoords,"correct_selection":clueData});
+				elephantTelemetry.createEvent("search_select",{"player_selection":util.strCoordToInt(tilecoords),"correct_selection":clueData});
 			}
 		});
 		jQuery("#clueDoneBtn").click(function(){
@@ -872,7 +876,7 @@ var setStateSearchSelect = function() {
 				if(isDuplicate){
 					masteryUp = false;
 				}
-				elephantTelemetry.createEvent("search_done", {"pass_fail":isCorrect,"player_selection":g_activeTile,"correct_selection":clueData,"attempt_num":g_searchAttempts.length,"mastery_up":masteryUp});
+				elephantTelemetry.createEvent("search_done", {"pass_fail":isCorrect,"player_selection":util.strCoordToInt(g_activeTile),"correct_selection":clueData,"attempt_num":g_searchAttempts.length,"mastery_up":masteryUp});
 			} else {
 				//if no space selected
 			}
