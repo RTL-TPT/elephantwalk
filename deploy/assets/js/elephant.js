@@ -552,7 +552,8 @@ var loadState = function() {
 		g_savestate = (localStorage.getItem("savestate") == null) ? g_savestate : JSON.parse(localStorage.getItem("savestate"));
 	} else {
 		if(g_BEuserdata.data[0].game_data == "") {
-			g_savestate = (localStorage.getItem("savestate") == null) ? g_savestate : JSON.parse(localStorage.getItem("savestate"));
+			//use empty savedata rather than falling back to localstorage for now
+			//g_savestate = (localStorage.getItem("savestate") == null) ? g_savestate : JSON.parse(localStorage.getItem("savestate"));
 		} else {
 			g_savestate = JSON.parse(g_BEuserdata.data[0].game_data);
 		}
