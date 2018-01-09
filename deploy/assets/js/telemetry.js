@@ -48,7 +48,17 @@ var elephantTelemetry = (function(){
 		eventObj.event_data = JSON.stringify(eventData);
 
 		//player
-		eventObj.isSecondPlayer = (util.player.getPlayer() == 2);
+		var cPlayer = util.player.getPlayer();
+		if(cPlayer == 1) {
+			eventObj.isSecondPlayer = false;
+		} else if(cPlayer == 2) {
+			eventObj.isSecondPlayer = true;
+		} else if(cPlayer == 0) {
+			//send two events when both players are active
+			eventObj.isSecondPlayer = true;
+			app.container.send(eventName, eventObj);
+			eventObj.isSecondPlayer = false;
+		}
 
 		app.container.send(eventName, eventObj);
 	};
