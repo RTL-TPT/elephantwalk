@@ -23,7 +23,7 @@ var elephantTelemetry = (function(){
 	var container = { //these should be generated automatically by the server
 		//"userId": "",
 		//"xpId": "", //activity id
-		"isSecondPlayer": false, //bool default false
+		"is_second_player": false, //bool default false
 		//"otherPlayerId": "",
 		//"instructorIds": "", //array
 		//"groupId": "",
@@ -50,14 +50,14 @@ var elephantTelemetry = (function(){
 		//player
 		var cPlayer = util.player.getPlayer();
 		if(cPlayer == 1) {
-			eventObj.isSecondPlayer = false;
+			eventObj.is_second_player = false;
 		} else if(cPlayer == 2) {
-			eventObj.isSecondPlayer = true;
+			eventObj.is_second_player = true;
 		} else if(cPlayer == 0) {
 			//send two events when both players are active
-			eventObj.isSecondPlayer = true;
+			eventObj.is_second_player = true;
 			app.container.send(eventName, eventObj);
-			eventObj.isSecondPlayer = false;
+			eventObj.is_second_player = false;
 		}
 
 		app.container.send(eventName, eventObj);
