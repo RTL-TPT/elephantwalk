@@ -167,81 +167,81 @@ var confirmClue = function() {
 		//start attempt tracking section
 		var masteryUp = false;
 		var isDuplicate = false;
-		if(util.player.getPlayer() == 2) {
-			//player 2
-			g_savestate.clue_track_p2[util.getMasteryIndex()].push(isCorrect);
-			var correctCount = 0;
-			for(var i = 0; i < g_savestate.clue_track_p2[util.getMasteryIndex()].length; i++) {
-				if(g_savestate.clue_track_p2[util.getMasteryIndex()][i]) {
-					correctCount++;
+		if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid.indexOf("T") == -1) {
+			if(util.player.getPlayer() == 2) {
+				//player 2
+				g_savestate.clue_track_p2[util.getMasteryIndex()].push(isCorrect);
+				var correctCount = 0;
+				for(var i = 0; i < g_savestate.clue_track_p2[util.getMasteryIndex()].length; i++) {
+					if(g_savestate.clue_track_p2[util.getMasteryIndex()][i]) {
+						correctCount++;
+					}
 				}
-			}
-			if(g_savestate.clue_track_p2[util.getMasteryIndex()].length >= 5 || correctCount >= 3) {
-				if(correctCount >= 3) {
-					//do correct
-					masteryUp = true;
-				} else {
-					//do failure
-					masteryUp = false;
+				if(g_savestate.clue_track_p2[util.getMasteryIndex()].length >= 5 || correctCount >= 3) {
+					if(correctCount >= 3) {
+						//do correct
+						masteryUp = true;
+					} else {
+						//do failure
+						masteryUp = false;
+					}
+					if( (util.getLowerMastery(g_savestate.clue_mastery_p2,util.getMasteryTargets()[0]) == g_savestate.clue_mastery_p2) && (g_savestate.clue_mastery_p2 != util.getMasteryTargets()[0])) {
+						//check to see if target mastery level has already been obtained
+						isDuplicate = false;
+					} else {
+						isDuplicate = true;
+					}
+					if(!isDuplicate) {
+						app.container.send("objective_complete", {
+							"op_label": "as_mastery_" + util.getMasteryTargets()[0],
+							"success": masteryUp,
+							"is_second_player": true
+						});
+					}
+					if(masteryUp) {
+						g_savestate.clue_mastery_p2 = util.getHigherMasteryAS(util.getMasteryTargets()[0], g_savestate.clue_mastery_p2);
+					}
+					console.log("clue mastery p2:" + masteryUp);
+					//reset p2 tracking
+					g_savestate.clue_track_p2[util.getMasteryIndex()] = [];
 				}
-				if( (util.getLowerMastery(g_savestate.clue_mastery_p2,util.getMasteryTargets()[0]) == g_savestate.clue_mastery_p2) && (g_savestate.clue_mastery_p2 != util.getMasteryTargets()[0])) {
-					//check to see if target mastery level has already been obtained
-					isDuplicate = false;
-				} else {
-					isDuplicate = true;
+			} else {
+				//player 1
+				g_savestate.clue_track_p1[util.getMasteryIndex()].push(isCorrect);
+				var correctCount = 0;
+				for(var i = 0; i < g_savestate.clue_track_p1[util.getMasteryIndex()].length; i++) {
+					if(g_savestate.clue_track_p1[util.getMasteryIndex()][i]) {
+						correctCount++;
+					}
 				}
-				if(!isDuplicate) {
-					app.container.send("objective_complete", {
-						"op_label": "as_mastery_" + util.getMasteryTargets()[0],
-						"success": masteryUp,
-						"is_second_player": true
-					});
+				if(g_savestate.clue_track_p1[util.getMasteryIndex()].length >= 5 || correctCount >= 3) {
+					if(correctCount >= 3) {
+						//do correct
+						masteryUp = true;
+					} else {
+						//do failure
+						masteryUp = false;
+					}
+					if( (util.getLowerMastery(g_savestate.clue_mastery_p1,util.getMasteryTargets()[0]) == g_savestate.clue_mastery_p1) && (g_savestate.clue_mastery_p1 != util.getMasteryTargets()[0])) {
+						//check to see if target mastery level has already been obtained
+						isDuplicate = false;
+					} else {
+						isDuplicate = true;
+					}
+					if(!isDuplicate) {
+						app.container.send("objective_complete", {
+							"op_label": "as_mastery_" + util.getMasteryTargets()[0],
+							"success": masteryUp,
+							"is_second_player": false
+						});
+					}
+					if(masteryUp) {
+						g_savestate.clue_mastery_p1 = util.getHigherMasteryAS(util.getMasteryTargets()[0], g_savestate.clue_mastery_p1);
+					}
+					console.log("clue mastery p1:" + masteryUp);
+					//reset p1 tracking
+					g_savestate.clue_track_p1[util.getMasteryIndex()] = [];
 				}
-				if(masteryUp) {
-					g_savestate.clue_mastery_p2 = util.getHigherMasteryAS(util.getMasteryTargets()[0], g_savestate.clue_mastery_p2);
-					//saveState();
-				}
-				console.log("clue mastery p2:" + masteryUp);
-				//reset p2 tracking
-				g_savestate.clue_track_p2[util.getMasteryIndex()] = [];
-			}
-		} else {
-			//player 1
-			g_savestate.clue_track_p1[util.getMasteryIndex()].push(isCorrect);
-			var correctCount = 0;
-			for(var i = 0; i < g_savestate.clue_track_p1[util.getMasteryIndex()].length; i++) {
-				if(g_savestate.clue_track_p1[util.getMasteryIndex()][i]) {
-					correctCount++;
-				}
-			}
-			if(g_savestate.clue_track_p1[util.getMasteryIndex()].length >= 5 || correctCount >= 3) {
-				if(correctCount >= 3) {
-					//do correct
-					masteryUp = true;
-				} else {
-					//do failure
-					masteryUp = false;
-				}
-				if( (util.getLowerMastery(g_savestate.clue_mastery_p1,util.getMasteryTargets()[0]) == g_savestate.clue_mastery_p1) && (g_savestate.clue_mastery_p1 != util.getMasteryTargets()[0])) {
-					//check to see if target mastery level has already been obtained
-					isDuplicate = false;
-				} else {
-					isDuplicate = true;
-				}
-				if(!isDuplicate) {
-					app.container.send("objective_complete", {
-						"op_label": "as_mastery_" + util.getMasteryTargets()[0],
-						"success": masteryUp,
-						"is_second_player": false
-					});
-				}
-				if(masteryUp) {
-					g_savestate.clue_mastery_p1 = util.getHigherMasteryAS(util.getMasteryTargets()[0], g_savestate.clue_mastery_p1);
-					//saveState();
-				}
-				console.log("clue mastery p1:" + masteryUp);
-				//reset p1 tracking
-				g_savestate.clue_track_p1[util.getMasteryIndex()] = [];
 			}
 		}
 		saveState();

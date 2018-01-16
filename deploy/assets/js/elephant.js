@@ -67,10 +67,7 @@ var g_savestate = {
 };
 var g_telemetry_cache = [];
 var g_startTime = (new Date).getTime(); //for tracking time played
-var g_clueAttempts_p1 = []; //clue mastery tracking
-var g_clueAttempts_p2 = [];
 var g_searchAttempts = []; //telemetry
-var g_searchAttempts_m = []; //mastery
 //fill in level data variables for specified land type
 var g_data_init = function(landType) {
 	if(landType === undefined){landType = "LAND"}
@@ -831,46 +828,48 @@ var setStateSearchSelect = function() {
 				//mastery check/////////
 				var masteryUp = false;
 				var isDuplicate = false;
-				g_savestate.search_track[util.getMasteryIndex()].push(isCorrect);
-				var correctCount = 0;
-				for(var i = 0; i < g_savestate.search_track[util.getMasteryIndex()].length; i++) {
-					if(g_savestate.search_track[util.getMasteryIndex()][i]) {
-						correctCount++;
+				if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid.indexOf("T") == -1) {
+					g_savestate.search_track[util.getMasteryIndex()].push(isCorrect);
+					var correctCount = 0;
+					for(var i = 0; i < g_savestate.search_track[util.getMasteryIndex()].length; i++) {
+						if(g_savestate.search_track[util.getMasteryIndex()][i]) {
+							correctCount++;
+						}
 					}
-				}
-				if(g_savestate.search_track[util.getMasteryIndex()].length >= 5 || correctCount >= 3) {
-					if(correctCount >= 3) {
-						//do correct
-						masteryUp = true;
-					} else {
-						//do failure
-						masteryUp = false;
+					if(g_savestate.search_track[util.getMasteryIndex()].length >= 5 || correctCount >= 3) {
+						if(correctCount >= 3) {
+							//do correct
+							masteryUp = true;
+						} else {
+							//do failure
+							masteryUp = false;
+						}
+						if( (util.getLowerMastery(g_savestate.search_mastery,util.getMasteryTargets()[1]) == g_savestate.search_mastery) && (g_savestate.search_mastery != util.getMasteryTargets()[1])) {
+							//check to see if target mastery level has already been obtained
+							isDuplicate = false;
+						} else {
+							isDuplicate = true;
+						}
+						if(!isDuplicate) {
+							app.container.send("objective_complete", {
+								"op_label": "rl_mastery_" + util.getMasteryTargets()[1],
+								"success": masteryUp,
+								"is_second_player": false
+							});
+							app.container.send("objective_complete", {
+								"op_label": "rl_mastery_" + util.getMasteryTargets()[1],
+								"success": masteryUp,
+								"is_second_player": true
+							});
+						}
+						if(masteryUp) {
+							g_savestate.search_mastery = util.getHigherMasteryRL(util.getMasteryTargets()[1], g_savestate.search_mastery);
+							//saveState();
+						}
+						console.log("search mastery:" + masteryUp);
+						//reset tracking
+						g_savestate.search_track[util.getMasteryIndex()] = [];
 					}
-					if( (util.getLowerMastery(g_savestate.search_mastery,util.getMasteryTargets()[1]) == g_savestate.search_mastery) && (g_savestate.search_mastery != util.getMasteryTargets()[1])) {
-						//check to see if target mastery level has already been obtained
-						isDuplicate = false;
-					} else {
-						isDuplicate = true;
-					}
-					if(!isDuplicate) {
-						app.container.send("objective_complete", {
-							"op_label": "rl_mastery_" + util.getMasteryTargets()[1],
-							"success": masteryUp,
-							"is_second_player": false
-						});
-						app.container.send("objective_complete", {
-							"op_label": "rl_mastery_" + util.getMasteryTargets()[1],
-							"success": masteryUp,
-							"is_second_player": true
-						});
-					}
-					if(masteryUp) {
-						g_savestate.search_mastery = util.getHigherMasteryRL(util.getMasteryTargets()[1], g_savestate.search_mastery);
-						//saveState();
-					}
-					console.log("search mastery:" + masteryUp);
-					//reset tracking
-					g_savestate.search_track[util.getMasteryIndex()] = [];
 				}
 				////////////////////////
 				saveState();
