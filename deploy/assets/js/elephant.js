@@ -777,7 +777,6 @@ var setStateSearchSelect = function() {
 	util.template.getHTML("assets/js/searchmap.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
 		//init here
-		//util.player.togglePlayer();
 		util.player.setPlayer(0);
 		createSearchMap();
 		//clue icons
@@ -864,7 +863,6 @@ var setStateSearchSelect = function() {
 						}
 						if(masteryUp) {
 							g_savestate.search_mastery = util.getHigherMasteryRL(util.getMasteryTargets()[1], g_savestate.search_mastery);
-							//saveState();
 						}
 						console.log("search mastery:" + masteryUp);
 						//reset tracking

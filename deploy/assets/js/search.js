@@ -199,7 +199,5 @@ var foundElephantModal = function() {
 		} else {
 			setStateLevelSelect();
 		}
-		//spit out local telemetry
-		//elephantTelemetry.createLocalReport();
 	});
 };
