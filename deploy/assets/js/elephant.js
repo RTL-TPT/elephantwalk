@@ -827,8 +827,13 @@ var setStateSearchSelect = function() {
 				//mastery check/////////
 				var masteryUp = false;
 				var isDuplicate = false;
-				if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid.indexOf("T") == -1) {
-					g_savestate.search_track[util.getMasteryIndex()].push(isCorrect);
+				if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid.indexOf("T") == -1 &&
+					g_savestate.search_track[util.getMasteryIndex()].indexOf(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid) == -1) {
+					if(isCorrect) {
+						g_savestate.search_track[util.getMasteryIndex()].push(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid);
+					} else {
+						g_savestate.search_track[util.getMasteryIndex()].push(false);
+					}
 					var correctCount = 0;
 					for(var i = 0; i < g_savestate.search_track[util.getMasteryIndex()].length; i++) {
 						if(g_savestate.search_track[util.getMasteryIndex()][i]) {
