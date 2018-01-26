@@ -58,6 +58,13 @@ img {
     -moz-user-select: none;
     -webkit-user-select: none;
     cursor:default;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background: -webkit-linear-gradient(top, #cedce7 0%,#596a72 100%);
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 .gameCanvas {
     position: absolute;
