@@ -213,6 +213,7 @@ var confirmClue = function() {
 			} else if(g_savestate.clue_track_p1[util.getMasteryIndex()].indexOf(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid) == -1 ) {
 				//player 1
 				if(isCorrect) {
+					util.timer.resetTimer(); //timer reset for second player
 					g_savestate.clue_track_p1[util.getMasteryIndex()].push(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid);
 				} else {
 					g_savestate.clue_track_p1[util.getMasteryIndex()].push(false);

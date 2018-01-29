@@ -198,6 +198,35 @@ util.template = (function() {
 	};
 })();
 
+util.timer = (function() {
+	var start_time = new Date();
+	var timer_is_stopped = true;
+
+	var resetTimer = function() {
+		timer_is_stopped = false;
+		start_time = new Date();
+		setTimeout(function(){
+			if(!timer_is_stopped) {
+				console.log("one minute"); 
+			}
+		}, 60000);
+	};
+
+	var getTime = function() {
+		return parseInt( ((new Date).getTime() - start_time) / 1000 );
+	};
+
+	var stopTimer = function() {
+		timer_is_stopped = true;
+	};
+
+	return {
+		"getTime": getTime,
+		"resetTimer": resetTimer,
+		"stopTimer": stopTimer
+	};
+})();
+
 util.getTilePath = function(indx,indy) {
 	return "assets/images/lvlsets/"+g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].mapset+"/"+indx+"_"+indy+"_map.gif";
 };
@@ -716,6 +745,7 @@ var setStateClue = function() {
 	g_savestate.game_state.phase = "clue";
 	saveState();
 	g_clueAttempts = []; //reset try number telemetry
+	util.timer.resetTimer(); //timer for help
 	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
@@ -743,6 +773,7 @@ var setStateClue = function() {
 var setStateClueTwo = function() {
 	g_savestate.game_state.phase = "clue2";
 	saveState();
+	util.timer.resetTimer(); //timer for help
 	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
@@ -772,6 +803,7 @@ var setStateSearchSelect = function() {
 	g_savestate.game_state.phase = "search";
 	saveState();
 	g_searchAttempts = []; //reset try number (telemetry)
+	util.timer.resetTimer(); //timer for help
 	playGameMusic();
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/searchmap.html", function(data){
@@ -890,6 +922,7 @@ var setStateSearchSelect = function() {
 var setStateSearchFirstPerson = function() {
 	g_savestate.game_state.phase = "searchfp_"+g_activeTile[0]+"_"+g_activeTile[1];
 	saveState();
+	util.timer.stopTimer(); //don't think we'll need the timer for this section?
 	playGameMusic();
 	if(g_isRandomElephant) {
 		switch(util.getRandomInt(1,4)) {
