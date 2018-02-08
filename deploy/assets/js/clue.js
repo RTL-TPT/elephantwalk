@@ -169,20 +169,20 @@ var confirmClue = function() {
 		var isDuplicate = false;
 		if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid.indexOf("T") == -1) {
 			if(util.player.getPlayer() == 2 &&
-				g_savestate.clue_track_p2[util.getMasteryIndex()].indexOf(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid) == -1 ) {
+				g_savestate.clue_track_p2[util.getMasteryIndexAS()].indexOf(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid) == -1 ) {
 				//player 2
 				if(isCorrect) {
-					g_savestate.clue_track_p2[util.getMasteryIndex()].push(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid);
+					g_savestate.clue_track_p2[util.getMasteryIndexAS()].push(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid);
 				} else {
-					g_savestate.clue_track_p2[util.getMasteryIndex()].push(false);
+					g_savestate.clue_track_p2[util.getMasteryIndexAS()].push(false);
 				}
 				var correctCount = 0;
-				for(var i = 0; i < g_savestate.clue_track_p2[util.getMasteryIndex()].length; i++) {
-					if(g_savestate.clue_track_p2[util.getMasteryIndex()][i]) {
+				for(var i = 0; i < g_savestate.clue_track_p2[util.getMasteryIndexAS()].length; i++) {
+					if(g_savestate.clue_track_p2[util.getMasteryIndexAS()][i]) {
 						correctCount++;
 					}
 				}
-				if(g_savestate.clue_track_p2[util.getMasteryIndex()].length >= 5 || correctCount >= 3) {
+				if(g_savestate.clue_track_p2[util.getMasteryIndexAS()].length >= 5 || correctCount >= 3) {
 					if(correctCount >= 3) {
 						//do correct
 						masteryUp = true;
@@ -208,23 +208,23 @@ var confirmClue = function() {
 					}
 					console.log("clue mastery p2:" + masteryUp);
 					//reset p2 tracking
-					g_savestate.clue_track_p2[util.getMasteryIndex()] = [];
+					g_savestate.clue_track_p2[util.getMasteryIndexAS()] = [];
 				}
-			} else if(g_savestate.clue_track_p1[util.getMasteryIndex()].indexOf(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid) == -1 ) {
+			} else if(g_savestate.clue_track_p1[util.getMasteryIndexAS()].indexOf(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid) == -1 ) {
 				//player 1
 				if(isCorrect) {
 					util.timer.resetTimer(); //timer reset for second player
-					g_savestate.clue_track_p1[util.getMasteryIndex()].push(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid);
+					g_savestate.clue_track_p1[util.getMasteryIndexAS()].push(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid);
 				} else {
-					g_savestate.clue_track_p1[util.getMasteryIndex()].push(false);
+					g_savestate.clue_track_p1[util.getMasteryIndexAS()].push(false);
 				}
 				var correctCount = 0;
-				for(var i = 0; i < g_savestate.clue_track_p1[util.getMasteryIndex()].length; i++) {
-					if(g_savestate.clue_track_p1[util.getMasteryIndex()][i]) {
+				for(var i = 0; i < g_savestate.clue_track_p1[util.getMasteryIndexAS()].length; i++) {
+					if(g_savestate.clue_track_p1[util.getMasteryIndexAS()][i]) {
 						correctCount++;
 					}
 				}
-				if(g_savestate.clue_track_p1[util.getMasteryIndex()].length >= 5 || correctCount >= 3) {
+				if(g_savestate.clue_track_p1[util.getMasteryIndexAS()].length >= 5 || correctCount >= 3) {
 					if(correctCount >= 3) {
 						//do correct
 						masteryUp = true;
@@ -250,7 +250,7 @@ var confirmClue = function() {
 					}
 					console.log("clue mastery p1:" + masteryUp);
 					//reset p1 tracking
-					g_savestate.clue_track_p1[util.getMasteryIndex()] = [];
+					g_savestate.clue_track_p1[util.getMasteryIndexAS()] = [];
 				}
 			}
 		}
