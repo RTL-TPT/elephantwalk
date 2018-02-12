@@ -63,7 +63,22 @@ var g_savestate = {
 	"search_mastery": "0",
 	"clue_track_p1": [[],[],[],[]],
 	"clue_track_p2": [[],[],[],[]],
-	"search_track": [[],[],[],[]]
+	"search_track": [[],[],[],[]],
+	"legendLocks": {
+		"bridge": "nonAbstract",
+		"building": "nonAbstract",
+		"desert": "nonAbstract",
+		"forest": "nonAbstract",
+		"hill": "nonAbstract",
+		"lake": "nonAbstract",
+		"mountain": "nonAbstract",
+		"ocean": "nonAbstract",
+		"park": "nonAbstract",
+		"road": "nonAbstract",
+		"stream": "nonAbstract",
+		"waterfall": "nonAbstract"
+	},
+	"levelsComplete": []
 };
 var g_telemetry_cache = [];
 var g_startTime = (new Date).getTime(); //for tracking time played

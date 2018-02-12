@@ -182,18 +182,18 @@ util.clearSave = function() {
 		"clue_track_p2": [[],[],[],[]],
 		"search_track": [[],[],[],[]],
 		"legendLocks": {
-            "bridge": "nonAbstract",
-            "building": "nonAbstract",
-            "desert": "nonAbstract",
-            "forest": "nonAbstract",
-            "hill": "nonAbstract",
-            "lake": "nonAbstract",
-            "mountain": "nonAbstract",
-            "ocean": "nonAbstract",
-            "park": "nonAbstract",
-            "road": "nonAbstract",
-            "stream": "nonAbstract",
-            "waterfall": "nonAbstract"
+			"bridge": "nonAbstract",
+			"building": "nonAbstract",
+			"desert": "nonAbstract",
+			"forest": "nonAbstract",
+			"hill": "nonAbstract",
+			"lake": "nonAbstract",
+			"mountain": "nonAbstract",
+			"ocean": "nonAbstract",
+			"park": "nonAbstract",
+			"road": "nonAbstract",
+			"stream": "nonAbstract",
+			"waterfall": "nonAbstract"
 		},
 		"levelsComplete": []
 	};
@@ -213,18 +213,18 @@ util.unlockAll = function() {
 		"clue_track_p2": [[],[],[],[]],
 		"search_track": [[],[],[],[]],
 		"legendLocks": {
-            "bridge": "fullAbstract",
-            "building": "fullAbstract",
-            "desert": "fullAbstract",
-            "forest": "fullAbstract",
-            "hill": "fullAbstract",
-            "lake": "fullAbstract",
-            "mountain": "fullAbstract",
-            "ocean": "fullAbstract",
-            "park": "fullAbstract",
-            "road": "fullAbstract",
-            "stream": "fullAbstract",
-            "waterfall": "fullAbstract"
+			"bridge": "fullAbstract",
+			"building": "fullAbstract",
+			"desert": "fullAbstract",
+			"forest": "fullAbstract",
+			"hill": "fullAbstract",
+			"lake": "fullAbstract",
+			"mountain": "fullAbstract",
+			"ocean": "fullAbstract",
+			"park": "fullAbstract",
+			"road": "fullAbstract",
+			"stream": "fullAbstract",
+			"waterfall": "fullAbstract"
 		},
 		"levelsComplete": []
 	};
