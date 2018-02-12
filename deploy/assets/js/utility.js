@@ -180,7 +180,22 @@ util.clearSave = function() {
 		"search_mastery": "0",
 		"clue_track_p1": [[],[],[],[]],
 		"clue_track_p2": [[],[],[],[]],
-		"search_track": [[],[],[],[]]
+		"search_track": [[],[],[],[]],
+		"legendLocks": {
+            "bridge": "nonAbstract",
+            "building": "nonAbstract",
+            "desert": "nonAbstract",
+            "forest": "nonAbstract",
+            "hill": "nonAbstract",
+            "lake": "nonAbstract",
+            "mountain": "nonAbstract",
+            "ocean": "nonAbstract",
+            "park": "nonAbstract",
+            "road": "nonAbstract",
+            "stream": "nonAbstract",
+            "waterfall": "nonAbstract"
+		},
+		"levelsComplete": []
 	};
 	saveState();
 };
@@ -196,7 +211,22 @@ util.unlockAll = function() {
 		"search_mastery": "3",
 		"clue_track_p1": [[],[],[],[]],
 		"clue_track_p2": [[],[],[],[]],
-		"search_track": [[],[],[],[]]
+		"search_track": [[],[],[],[]],
+		"legendLocks": {
+            "bridge": "fullAbstract",
+            "building": "fullAbstract",
+            "desert": "fullAbstract",
+            "forest": "fullAbstract",
+            "hill": "fullAbstract",
+            "lake": "fullAbstract",
+            "mountain": "fullAbstract",
+            "ocean": "fullAbstract",
+            "park": "fullAbstract",
+            "road": "fullAbstract",
+            "stream": "fullAbstract",
+            "waterfall": "fullAbstract"
+		},
+		"levelsComplete": []
 	};
 	saveState();
 };
@@ -293,9 +323,14 @@ util.loadImages = function(imageArray, callback) {
 	}, checkinterval);
 };
 
+//
+util.currentLevelId = function() {
+	return g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid;
+};
+
 //mastery helper functions
 util.getMasteryTargets = function() {
-	var levelNum = parseInt(g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid.split("_")[0]);
+	var levelNum = parseInt(util.currentLevelId().split("_")[0]);
 	var as = "";
 	var rl = "";
 	//as
@@ -322,7 +357,7 @@ util.getMasteryTargets = function() {
 };
 
 util.getMasteryIndex = function() {
-	var levelNum = parseInt(g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid.split("_")[0]);
+	var levelNum = parseInt(util.currentLevelId().split("_")[0]);
 
 	if(levelNum >= 1 && levelNum <= 3) {
 		return 0;
@@ -337,7 +372,7 @@ util.getMasteryIndex = function() {
 };
 
 util.getMasteryIndexAS = function() {
-	var levelNum = parseInt(g_leveldata[g_LevelTerrain][g_selectedDifficulty][parseInt(g_selectedLevel)].taskid.split("_")[0]);
+	var levelNum = parseInt(util.currentLevelId().split("_")[0]);
 
 	if(levelNum >= 1 && levelNum <= 3) {
 		return 0;
@@ -372,3 +407,4 @@ util.getLowerMastery = function(m1,m2) {
 util.strCoordToInt = function(inputArray) {
 	return [parseInt(inputArray[0]),parseInt(inputArray[1])];
 };
+

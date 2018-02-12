@@ -518,10 +518,10 @@ var setStateSearchSelect = function() {
 				//mastery check/////////
 				var masteryUp = false;
 				var isDuplicate = false;
-				if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid.indexOf("T") == -1 &&
-					g_savestate.search_track[util.getMasteryIndex()].indexOf(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid) == -1) {
+				if(util.currentLevelId().indexOf("T") == -1 &&
+					g_savestate.search_track[util.getMasteryIndex()].indexOf(util.currentLevelId()) == -1) {
 					if(isCorrect) {
-						g_savestate.search_track[util.getMasteryIndex()].push(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid);
+						g_savestate.search_track[util.getMasteryIndex()].push(util.currentLevelId());
 					} else {
 						g_savestate.search_track[util.getMasteryIndex()].push(false);
 					}

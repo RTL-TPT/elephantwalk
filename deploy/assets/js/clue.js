@@ -167,12 +167,12 @@ var confirmClue = function() {
 		//start attempt tracking section
 		var masteryUp = false;
 		var isDuplicate = false;
-		if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid.indexOf("T") == -1) {
+		if(util.currentLevelId().indexOf("T") == -1) {
 			if(util.player.getPlayer() == 2 &&
-				g_savestate.clue_track_p2[util.getMasteryIndexAS()].indexOf(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid) == -1 ) {
+				g_savestate.clue_track_p2[util.getMasteryIndexAS()].indexOf(util.currentLevelId()) == -1 ) {
 				//player 2
 				if(isCorrect) {
-					g_savestate.clue_track_p2[util.getMasteryIndexAS()].push(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid);
+					g_savestate.clue_track_p2[util.getMasteryIndexAS()].push(util.currentLevelId());
 				} else {
 					g_savestate.clue_track_p2[util.getMasteryIndexAS()].push(false);
 				}
@@ -210,11 +210,11 @@ var confirmClue = function() {
 					//reset p2 tracking
 					g_savestate.clue_track_p2[util.getMasteryIndexAS()] = [];
 				}
-			} else if(g_savestate.clue_track_p1[util.getMasteryIndexAS()].indexOf(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid) == -1 ) {
+			} else if(g_savestate.clue_track_p1[util.getMasteryIndexAS()].indexOf(util.currentLevelId()) == -1 ) {
 				//player 1
 				if(isCorrect) {
 					util.timer.resetTimer(); //timer reset for second player
-					g_savestate.clue_track_p1[util.getMasteryIndexAS()].push(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid);
+					g_savestate.clue_track_p1[util.getMasteryIndexAS()].push(util.currentLevelId());
 				} else {
 					g_savestate.clue_track_p1[util.getMasteryIndexAS()].push(false);
 				}
@@ -273,7 +273,8 @@ var openLegendModal = function() {
 
 	htmlout += "<center><div style='width:100%;margin-top:50px;font-size:50px;'>LEGEND</div><div style='width:100%;height:496px;box-sizing:border-box;padding:5px;margin-top:30px;overflow-y:auto;'>";
 	jQuery.each(g_CLUE_ABSTRACTION[g_selectedDifficulty][g_selectedLevel],function(key,value){
-		var abstraction = g_LEGEND_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][key];
+		//var abstraction = g_LEGEND_ABSTRACTION[g_selectedDifficulty][g_selectedLevel][key];
+		var abstraction = g_savestate.legendLocks[key];
 		var posturl = util.getCluePath(key);
 		var clueImg = "<img style='display:inline-block;height:87.5px;' class='' src='assets/images/clue/"+key+".jpg'>";
 		htmlout += "<div style='width:100%;height:87.5px;margin-bottom:25px;'> <div style='display:inline-block'>"+clueImg+"</div><div class='cap1' style='display:inline-block;width:100px;height:87.5px;"+util.getTranslateYString("-50%")+"'>"+key+"</div>";

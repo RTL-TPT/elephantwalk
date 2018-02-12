@@ -94,6 +94,9 @@ var create360Elephant = function() {
 			jQuery("#leftArrow").unbind();
 			jQuery("#rightArrow").unbind();
 			//alert("You found the elephant!");
+			if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
+				g_savestate.levelsComplete.push(util.currentLevelId());
+			}
 			g_hasDrag = false;
 			foundElephantModal();
 		});
