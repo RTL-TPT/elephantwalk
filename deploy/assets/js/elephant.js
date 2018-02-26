@@ -21,11 +21,11 @@ var g_CLUE_ABSTRACTION = { //LEVELS' CLUE DISPLAY TYPE (filled in by g_data_init
 				{"forest":"nonAbstract","mountain":"nonAbstract","desert":"nonAbstract","hill":"nonAbstract"}
 			]
 };
-var g_LEGEND_ABSTRACTION = { //FOR FILLING MAP LEGEND
+/*var g_LEGEND_ABSTRACTION = { //FOR FILLING MAP LEGEND
 	"TUTORIAL": [
 				{"forest":"nonAbstract","mountain":"nonAbstract","desert":"nonAbstract","hill":"nonAbstract"}
 			]
-};
+};*/
 var g_LEVEL_NULL = { //keeps track of which levels are using null data, shouldn't be needed once everything is finished
 	"TUTORIAL":[],
 	"EASY":[],
@@ -94,7 +94,7 @@ var g_data_init = function(landType) {
 		g_LEVEL_CLUES[cDiff] = [];
 		g_LEVEL_ELEPHANT[cDiff] = [];
 		g_CLUE_ABSTRACTION[cDiff] = [];
-		g_LEGEND_ABSTRACTION[cDiff] = [];
+		//g_LEGEND_ABSTRACTION[cDiff] = [];
 		g_LEVEL_NULL[cDiff] = [];
 		for(var indx = 0; indx < g_leveldata[landType][cDiff].length; indx++) {
 			var cObj = g_leveldata[landType][cDiff][indx];
@@ -103,7 +103,7 @@ var g_data_init = function(landType) {
 				g_LEVEL_CLUES[cDiff].push([]);
 				g_LEVEL_ELEPHANT[cDiff].push([]);
 				g_CLUE_ABSTRACTION[cDiff].push({});
-				g_LEGEND_ABSTRACTION[cDiff].push({});
+				//g_LEGEND_ABSTRACTION[cDiff].push({});
 				g_LEVEL_NULL[cDiff].push(true);
 				continue;
 			}
@@ -111,7 +111,7 @@ var g_data_init = function(landType) {
 			g_LEVEL_CLUES[cDiff].push(cObj.clues);
 			g_LEVEL_ELEPHANT[cDiff].push(cObj.elephantLocation);
 			g_CLUE_ABSTRACTION[cDiff].push(cObj.symbolStyle);
-			g_LEGEND_ABSTRACTION[cDiff].push(cObj.legendLocks);
+			//g_LEGEND_ABSTRACTION[cDiff].push(cObj.legendLocks);
 			g_LEVEL_NULL[cDiff].push(false);
 		}
 	}

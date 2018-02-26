@@ -12,11 +12,8 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
-                "legendLocks": {
-                    "desert": "nonAbstract",
-                    "forest": "nonAbstract",
-                    "hill": "nonAbstract",
-                    "mountain": "nonAbstract"
+                "legendUnlocks": {
+                    "building": "nonAbstract"
                 },
                 "clueUnlock": "forest1",
                 "gridSize": "2x2",
@@ -28,7 +25,7 @@ var g_leveldata =
                 
                 "hasExploration": true,
                 "taskid": "1_T1",
-                "mapset": 1
+                "mapset": 11
             },
             {
                 "clues": [
@@ -41,11 +38,9 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
-                "legendLocks": {
-                    "desert": "nonAbstract",
+                "legendUnlocks": {
                     "forest": "nonAbstract",
-                    "hill": "nonAbstract",
-                    "mountain": "nonAbstract"
+                    "lake": "nonAbstract"
                 },
                 "clueUnlock": "mountain1",
                 "gridSize": "2x2",
@@ -55,9 +50,9 @@ var g_leveldata =
                     "south"
                 ],
                 
-                "hasExploration": false,
+                "hasExploration": true,
                 "taskid": "1_T2",
-                "mapset": 1
+                "mapset": 11
             }
         ],
         "EASY": [
@@ -72,7 +67,7 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
-                "legendLocks": {
+                "legendUnlocks": {
                     "desert": "nonAbstract",
                     "forest": "nonAbstract",
                     "hill": "nonAbstract",
@@ -89,7 +84,94 @@ var g_leveldata =
                 "hasExploration": false,
                 "taskid": "1_1",
                 "mapset": 1
-            },{},{},{}
+            },
+            {
+                "clues": [
+                    "forest",
+                    "hill"
+                ],
+                "symbolStyle": {
+                    "desert": "nonAbstract",
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
+                },
+                "legendUnlocks": {
+                    "desert": "nonAbstract",
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
+                },
+                "clueUnlock": "mountain1",
+                "gridSize": "2x2",
+                "elephantLocation": [
+                    0,
+                    1,
+                    "south"
+                ],
+                
+                "hasExploration": false,
+                "taskid": "1_1",
+                "mapset": 1
+            },
+            {
+                "clues": [
+                    "forest",
+                    "hill"
+                ],
+                "symbolStyle": {
+                    "desert": "nonAbstract",
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
+                },
+                "legendUnlocks": {
+                    "desert": "nonAbstract",
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
+                },
+                "clueUnlock": "mountain1",
+                "gridSize": "2x2",
+                "elephantLocation": [
+                    0,
+                    1,
+                    "south"
+                ],
+                
+                "hasExploration": false,
+                "taskid": "1_1",
+                "mapset": 1
+            },
+            {
+                "clues": [
+                    "forest",
+                    "hill"
+                ],
+                "symbolStyle": {
+                    "desert": "nonAbstract",
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
+                },
+                "legendUnlocks": {
+                    "desert": "nonAbstract",
+                    "forest": "nonAbstract",
+                    "hill": "nonAbstract",
+                    "mountain": "nonAbstract"
+                },
+                "clueUnlock": "mountain1",
+                "gridSize": "2x2",
+                "elephantLocation": [
+                    0,
+                    1,
+                    "south"
+                ],
+                
+                "hasExploration": false,
+                "taskid": "1_1",
+                "mapset": 1
+            }
         ],
         "MEDIUM": [{},{},{},{}],
         "HARD": [
@@ -104,7 +186,7 @@ var g_leveldata =
                     "hill": "partialAbstract",
                     "mountain": "partialAbstract"
                 },
-                "legendLocks": {
+                "legendUnlocks": {
                     "desert": "partialAbstract",
                     "forest": "partialAbstract",
                     "hill": "partialAbstract",
@@ -133,7 +215,7 @@ var g_leveldata =
                     "hill": "partialAbstract",
                     "mountain": "partialAbstract"
                 },
-                "legendLocks": {
+                "legendUnlocks": {
                     "desert": "partialAbstract",
                     "forest": "partialAbstract",
                     "hill": "partialAbstract",
@@ -343,46 +425,24 @@ var g_mapsetdata = [
             [885,498,65,121,"ocean"]
         ]
     },
-    { //mapset 11
+    { //mapset 11 (Tutorial 1)
         "elephant": { //y_x_direction: [left,top,width,height]
-            
+            "1_1_north":[662,246,258,214]
         }, 
         "clues": [ //[left,top,width,height,clue]
-            [662,550,288,71,"desert"],
-            [211,540,181,72,"hill"],
-            [468,477,104,143,"road"],
-            [571,477,164,59,"road"],
-            [871,477,84,55,"road"],
-            [148,340,154,60,"lake"],
-            [693,310,213,80, "lake"],
-            [417,384,112,78,"building"],
-            [89,426,142,90,"park"],
+            [0,0,311,116,"desert"],
+            [53,116,219,74,"hill"],
+            [60,239,194,95,"forest"],
+            [0,502,167,119,"road"],
+            [198,418,241,115,"lake"],
+            [419,18,132,91,"building"],
+            [397,147,173,119,"park"],
             [682,24,214,136,"mountain"],
-            [486,82,207,112,"stream"],
-            [748,467,108,65,"bridge"],
-            [790,55,112,114,"waterfall"],
-            [29,23,380,262,"ocean"]
-        ]
-    },
-    { //mapset 12
-        "elephant": { //y_x_direction: [left,top,width,height]
-            
-        }, 
-        "clues": [ //[left,top,width,height,clue]
-            [0,242,208,379,"ocean"],
-            [736,497,185,110,"mountain"],
-            [434,492,286,128,"desert"],
-            [266,234,137,99,"park"],
-            [824,419,102,69,"building"],
-            [687,256,226,142, "lake"],
-            [576,251,298,92,"hill"],
-            [0,370,329,124,"road"],
-            [0,477,850,69,"road"],
-            [711,73,125,57,"bridge"],
-            [183,94,80,95,"waterfall"],
-            [54,35,200,52,"hill"],
-            [0,131,168,70,"stream"],
-            [273,131,541,70,"stream"]
+            [736,252,214,71,"stream"],
+            [723,323,169,83,"bridge"],
+            [764,424,126,129,"waterfall"],
+            [338,533,612,86,"ocean"],
+            [885,498,65,121,"ocean"]
         ]
     }
 ];
