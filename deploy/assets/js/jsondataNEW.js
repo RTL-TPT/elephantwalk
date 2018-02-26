@@ -3,20 +3,15 @@ var g_leveldata =
     "LAND": {
         "TUTORIAL": [
             {"clues": [
-                    "desert",
-                    "forest"
+                    
                 ],
                 "symbolStyle": {
-                    "desert": "nonAbstract",
-                    "forest": "nonAbstract",
-                    "hill": "nonAbstract",
-                    "mountain": "nonAbstract"
+                    
                 },
                 "legendUnlocks": {
                     "building": "nonAbstract"
                 },
-                "clueUnlock": "forest1",
-                "gridSize": "2x2",
+                "gridSize": "2x1",
                 "elephantLocation": [
                     0,
                     0,
@@ -29,21 +24,16 @@ var g_leveldata =
             },
             {
                 "clues": [
-                    "hill",
-                    "mountain"
+                    
                 ],
                 "symbolStyle": {
-                    "desert": "nonAbstract",
-                    "forest": "nonAbstract",
-                    "hill": "nonAbstract",
-                    "mountain": "nonAbstract"
+                    
                 },
                 "legendUnlocks": {
                     "forest": "nonAbstract",
                     "lake": "nonAbstract"
                 },
-                "clueUnlock": "mountain1",
-                "gridSize": "2x2",
+                "gridSize": "2x1",
                 "elephantLocation": [
                     1,
                     1,
@@ -52,6 +42,31 @@ var g_leveldata =
                 
                 "hasExploration": true,
                 "taskid": "1_T2",
+                "mapset": 11
+            },
+            {
+                "clues": [
+                    "lake",
+                    "forest"
+                ],
+                "symbolStyle": {
+                    "lake": "nonAbstract",
+                    "forest": "nonAbstract",
+                    "building": "nonAbstract"
+                },
+                "legendUnlocks": {
+                    "forest": "nonAbstract",
+                    "lake": "nonAbstract"
+                },
+                "gridSize": "2x1",
+                "elephantLocation": [
+                    1,
+                    1,
+                    "south"
+                ],
+                
+                "hasExploration": false,
+                "taskid": "1_T3",
                 "mapset": 11
             }
         ],
@@ -73,7 +88,6 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
-                "clueUnlock": "mountain1",
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -102,7 +116,6 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
-                "clueUnlock": "mountain1",
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -131,7 +144,6 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
-                "clueUnlock": "mountain1",
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -160,7 +172,6 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
-                "clueUnlock": "mountain1",
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -192,7 +203,6 @@ var g_leveldata =
                     "hill": "partialAbstract",
                     "mountain": "partialAbstract"
                 },
-                "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -221,7 +231,6 @@ var g_leveldata =
                     "hill": "partialAbstract",
                     "mountain": "partialAbstract"
                 },
-                "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,

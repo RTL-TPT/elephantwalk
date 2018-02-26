@@ -18,7 +18,6 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
-                "clueUnlock": "forest1",
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -47,7 +46,6 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
-                "clueUnlock": "mountain1",
                 "gridSize": "2x2",
                 "elephantLocation": [
                     1,
@@ -78,7 +76,6 @@ var g_leveldata =
                     "hill": "nonAbstract",
                     "mountain": "nonAbstract"
                 },
-                "clueUnlock": "mountain1",
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -110,7 +107,6 @@ var g_leveldata =
                     "hill": "partialAbstract",
                     "mountain": "partialAbstract"
                 },
-                "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -139,7 +135,6 @@ var g_leveldata =
                     "hill": "partialAbstract",
                     "mountain": "partialAbstract"
                 },
-                "clueUnlock": "hill1",
                 "gridSize": "2x2",
                 "elephantLocation": [
                     0,
@@ -176,7 +171,7 @@ var g_leveldata =
                     "stream": "nonAbstract",
                     "waterfall": "nonAbstract"
                 },
-                "clueUnlock": "",
+                
                 "gridSize": "3x2",
                 "elephantLocation": [
                     1,
@@ -220,7 +215,7 @@ var g_leveldata =
                     "park": "nonAbstract",
                     "road": "nonAbstract"
                 },
-                "clueUnlock": "",
+                
                 "gridSize": "3x3",
                 "elephantLocation": [
                     0,
@@ -259,7 +254,7 @@ var g_leveldata =
                     "park": "nonAbstract",
                     "road": "nonAbstract"
                 },
-                "clueUnlock": "",
+                
                 "gridSize": "3x3",
                 "elephantLocation": [
                     0,
@@ -296,7 +291,7 @@ var g_leveldata =
                     "park": "nonAbstract",
                     "road": "nonAbstract"
                 },
-                "clueUnlock": "",
+                
                 "gridSize": "3x3",
                 "elephantLocation": [
                     1,
@@ -335,7 +330,7 @@ var g_leveldata =
                     "park": "partialAbstract",
                     "road": "fullAbstract"
                 },
-                "clueUnlock": "",
+                
                 "gridSize": "3x3",
                 "elephantLocation": [
                     1,
@@ -372,7 +367,7 @@ var g_leveldata =
                     "park": "partialAbstract",
                     "road": "fullAbstract"
                 },
-                "clueUnlock": "",
+                
                 "gridSize": "3x3",
                 "elephantLocation": [
                     1,
@@ -409,7 +404,7 @@ var g_leveldata =
                     "park": "partialAbstract",
                     "road": "fullAbstract"
                 },
-                "clueUnlock": "",
+                
                 "gridSize": "3x3",
                 "elephantLocation": [
                     2,
@@ -446,7 +441,7 @@ var g_leveldata =
                     "park": "partialAbstract",
                     "road": "fullAbstract"
                 },
-                "clueUnlock": "",
+                
                 "gridSize": "3x3",
                 "elephantLocation": [
                     1,
@@ -495,7 +490,7 @@ var g_leveldata =
                     "stream": "partialAbstract",
                     "waterfall": "partialAbstract"
                 },
-                "clueUnlock": "",
+                
                 "gridSize": "3x3",
                 "elephantLocation": [
                     1,
