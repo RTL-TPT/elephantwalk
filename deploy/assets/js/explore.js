@@ -42,10 +42,10 @@ var createExploreMap = function() {
 	var firstpersonimgs = [];
 	for(var i = 0; i < g_activeGrid.x; i++) {
 		for(var j = 0; j < g_activeGrid.y; j++) {
-			firstpersonimgs.push(util.getFacingPath(j,i,"north"));
-			firstpersonimgs.push(util.getFacingPath(j,i,"west"));
-			firstpersonimgs.push(util.getFacingPath(j,i,"east"));
-			firstpersonimgs.push(util.getFacingPath(j,i,"south"));
+			firstpersonimgs.push(util.getFacingPath(i,j,"north"));
+			firstpersonimgs.push(util.getFacingPath(i,j,"west"));
+			firstpersonimgs.push(util.getFacingPath(i,j,"east"));
+			firstpersonimgs.push(util.getFacingPath(i,j,"south"));
 		}
 	}
 	util.loadImages(firstpersonimgs, function(){
@@ -184,13 +184,19 @@ var rotateView = function(direction) {
 		});*/
 		jQuery("#rightArrow").unbind();
 		jQuery("#leftArrow").unbind();
-		setTimeout(firstPersonToMap, 1000);
+		setTimeout(exploreToNextLevel, 1000);
 	}
 };
 
-var firstPersonToMap = function() {
+var exploreToNextLevel = function() {
+	setStateSubLevelSelect(g_LevelTerrain);
+};
+
+var exploreToCluePhase = function() {
 	setStateClue();
-	return;
+}
+
+var firstPersonToMap = function() {
 	//
 	jQuery("#returnBtn").hide();
 	jQuery("#mapGrid").show();
