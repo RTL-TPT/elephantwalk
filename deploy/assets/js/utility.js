@@ -423,3 +423,7 @@ util.levelUpTerrain = function(terrainName, unlockLevel) {
 	}
 	g_savestate.legendLocks[terrainName] = unlockLevel;
 };
+
+util.getCurrentExploreTargets = function() {
+	return g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].exploreTargets;
+};

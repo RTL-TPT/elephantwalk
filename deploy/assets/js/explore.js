@@ -4,7 +4,9 @@ var getSearchPX = function(gridx,gridy) {
 
 var createExploreMap = function() {
 	var gridPX = getSearchPX(g_activeGrid.x, g_activeGrid.y);
-	g_activeTile = [util.getRandomInt(0,g_activeGrid.y),util.getRandomInt(0,g_activeGrid.x)];
+	//g_activeTile = [util.getRandomInt(0,g_activeGrid.y),util.getRandomInt(0,g_activeGrid.x)];
+	var eTargets = util.getCurrentExploreTargets();
+	g_activeTile = [eTargets[0][0],eTargets[0][1]];
 	//map feature layer
 	var htmlout = "";
 	//
