@@ -12,11 +12,7 @@ var g_leveldata =
 					"building": "nonAbstract"
 				},
 				"gridSize": "2x1",
-				"elephantLocation": [
-					0,
-					0,
-					"south"
-				],
+				"elephantLocation": [],
 				"hasExploration": true,
 				"exploreTargets": [ //y,x,facing,hitbox
 					[0,0,"north"]
@@ -36,11 +32,7 @@ var g_leveldata =
 					"lake": "nonAbstract"
 				},
 				"gridSize": "2x1",
-				"elephantLocation": [
-					1,
-					1,
-					"south"
-				],
+				"elephantLocation": [],
 				"hasExploration": true,
 				"exploreTargets": [ //y,x,facing,hitbox
 					[0,1,"north"],
@@ -87,14 +79,11 @@ var g_leveldata =
 					"desert": "nonAbstract"
 				},
 				"gridSize": "2x2",
-				"elephantLocation": [
-					1,
-					1,
-					"south"
-				],
+				"elephantLocation": [],
 				"hasExploration": true,
 				"exploreTargets": [ //y,x,facing,hitbox
-					//
+					[0,1,"north"],
+					[0,1,"west"]
 				],
 				"taskid": "1_E",
 				"mapset": 1
@@ -185,14 +174,11 @@ var g_leveldata =
 					"desert": "nonAbstract"
 				},
 				"gridSize": "2x2",
-				"elephantLocation": [
-					1,
-					1,
-					"south"
-				],
+				"elephantLocation": [],
 				"hasExploration": true,
 				"exploreTargets": [ //y,x,facing,hitbox
-					//
+					[0,1,"north"],
+					[0,1,"west"]
 				],
 				"taskid": "2_E",
 				"mapset": 2
@@ -286,14 +272,11 @@ var g_leveldata =
 					"desert": "nonAbstract"
 				},
 				"gridSize": "2x2",
-				"elephantLocation": [
-					1,
-					1,
-					"south"
-				],
+				"elephantLocation": [],
 				"hasExploration": true,
 				"exploreTargets": [ //y,x,facing,hitbox
-					//
+					[0,1,"north"],
+					[0,1,"west"]
 				],
 				"taskid": "3_E",
 				"mapset": 3

@@ -3,42 +3,9 @@ var getSearchPX = function(gridx,gridy) {
 };
 
 var createExploreMap = function() {
-	var gridPX = getSearchPX(g_activeGrid.x, g_activeGrid.y);
-	//g_activeTile = [util.getRandomInt(0,g_activeGrid.y),util.getRandomInt(0,g_activeGrid.x)];
 	var eTargets = util.getCurrentExploreTargets();
 	g_activeTile = [eTargets[0][0],eTargets[0][1]];
-	//map feature layer
 	var htmlout = "";
-	//
-	htmlout += "<div id='exMapImg' style='position:absolute;width:100%;height:100%'><img src='assets/images/lvlsets/"+(g_currentSet)+"/map_"+(g_currentSet)+".jpg'></div>";
-	//
-	htmlout += "<div id='mapGrid' class='mapGrid'>";
-	//
-	for(var indy = 0; indy < g_activeGrid.y; indy++) {
-		for(var indx = 0; indx < g_activeGrid.x; indx++) {
-			htmlout += "<img class='exploreMapImg' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;opacity:1;' coordinant='"+indy+"_"+indx+"' src='assets/images/bg_explore.gif'>";
-			g_tilesRemaining[""+indy+","+indx] = 1;
-		}
-	}
-	htmlout += "</div>";
-	//highlight active block
-	htmlout += "<div id='mapGridOverlay' class='mapGridOverlay'>";
-	for(indy = 0; indy < g_activeGrid.y; indy++) {
-		for(indx = 0; indx < g_activeGrid.x; indx++) {
-			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
-				+"' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
-		}
-	}
-	htmlout += "</div>";
-	//map grid layer (dotted-lines)
-	var coordx = g_mapscalex / g_activeGrid.x;
-	var coordy = g_mapscaley / g_activeGrid.y;
-	for(var i = 1; i < g_activeGrid.x; i++) {
-		htmlout += "<div class='mapGridLines' style='position:absolute;top:0px;left:"+(coordx*i-1)+"px;width:2px;height:"+g_mapscaley+"px;background:url(assets/images/linev.png)'></div>";
-	}
-	for(var i = 1; i < g_activeGrid.y; i++) {
-		htmlout += "<div class='mapGridLines' style='position:absolute;top:"+(coordy*i-1)+"px;left:0px;width:"+g_mapscalex+"px;height:2px;background:url(assets/images/lineh.png)'></div>";
-	}
 	htmlout += "<div id='firstPerson' class='firstPerson'></div>";
 	///// explore view image loading
 	var firstpersonimgs = [];
@@ -52,10 +19,8 @@ var createExploreMap = function() {
 	}
 	util.loadImages(firstpersonimgs, function(){
 		jQuery("#exploremap").html(htmlout);
-		//bindActiveTile();
 		jumpToExploreFirstPerson();
 	});
-	/////
 };
 
 var createExploreGPS = function() {
@@ -137,28 +102,6 @@ var jumpToExploreFirstPerson = function() {
 	delete g_tilesRemaining[""+g_activeTile[0]+","+g_activeTile[1]];
 };
 
-var bindActiveTile = function() {
-	jQuery(".activeTile").click(function(){
-		playClickSFX();
-		jQuery.each(jQuery(".exploreMapImg"),function(key,value){
-			if( jQuery(value).attr("coordinant") == g_activeTile[0]+"_"+g_activeTile[1] ) {
-				jQuery(value).css("opacity",0);
-			}
-		});
-		g_directionsRemaining = "nesw".replace(g_heading[0], "");
-		jQuery("#firstPerson").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
-		createExploreGPS();
-		jQuery(".arrow").show();
-		jQuery("#rightArrow").unbind().click(function(){playClickSFX();rotateView("right")});
-		jQuery("#leftArrow").unbind().click(function(){playClickSFX();rotateView("left")});
-		jQuery("#mapGrid").hide();
-		jQuery(".mapGridOverlay").hide();
-		jQuery(".mapGridLines").hide();
-		jQuery("#exMapImg").hide();
-		delete g_tilesRemaining[""+g_activeTile[0]+","+g_activeTile[1]];
-	});
-};
-
 var rotateView = function(direction) {
 	if(direction === undefined) {
 		direction = "right";
@@ -181,9 +124,6 @@ var rotateView = function(direction) {
 	jQuery("#firstPerson").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
 	createExploreGPS();
 	if(g_directionsRemaining === "" && jQuery("#returnBtn:visible").length === 0){
-		/*jQuery("#returnBtn").unbind().show().click(function(){
-			firstPersonToMap();
-		});*/
 		jQuery("#rightArrow").unbind();
 		jQuery("#leftArrow").unbind();
 		setTimeout(exploreToNextLevel, 1000);
@@ -197,38 +137,3 @@ var exploreToNextLevel = function() {
 var exploreToCluePhase = function() {
 	setStateClue();
 }
-
-var firstPersonToMap = function() {
-	//
-	jQuery("#returnBtn").hide();
-	jQuery("#mapGrid").show();
-	jQuery(".mapGridOverlay").show();
-	jQuery(".mapGridLines").show();
-	jQuery("#exMapImg").show();
-	jQuery("#firstPerson").html("");
-	jQuery("#rightArrow").hide();
-	jQuery("#leftArrow").hide();
-	setNewExploreSpace();
-};
-
-var setNewExploreSpace = function() {
-	var gridPX = getSearchPX(g_activeGrid.x, g_activeGrid.y);
-	var remainingCoords = Object.keys(g_tilesRemaining);
-	if(remainingCoords.length === 0) {
-		setStateClue();
-		return;
-	}
-	var coordStr = remainingCoords[util.getRandomInt(0,remainingCoords.length)];
-	var newCoord = [coordStr.split(",")[0],coordStr.split(",")[1]];
-	g_activeTile = newCoord;
-	util.player.togglePlayer();
-	var	htmlout = "";
-	for(var indy = 0; indy < g_activeGrid.y; indy++) {
-		for(var indx = 0; indx < g_activeGrid.x; indx++) {
-			htmlout += "<div class='"+ (indy == g_activeTile[0] && indx == g_activeTile[1] ? "activeTile" : "") 
-				+"' style='display:inline-block;width:"+gridPX[0]+"px;height:"+gridPX[1]+"px;"+(indy == g_activeTile[0] && indx == g_activeTile[1] ? "background-color:rgba(0,0,0,0.30)" : "")+"'></div>";
-		}
-	}
-	jQuery("#mapGridOverlay").html(htmlout);
-	bindActiveTile();
-};
