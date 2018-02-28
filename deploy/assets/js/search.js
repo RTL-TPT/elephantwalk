@@ -174,6 +174,8 @@ var foundElephantModal = function() {
 			} else if(g_selectedLevel == 1) {
 				g_savestate.tutorial_complete["LAND"] = true;
 				setStateSubLevelSelect("LAND");
+			} else {
+				setStateSubLevelSelect("LAND");
 			}
 		} else if(g_LevelTerrain == "WATER" && !g_savestate.tutorial_complete["WATER"]) {
 			if(g_selectedLevel == 0) {

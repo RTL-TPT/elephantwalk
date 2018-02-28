@@ -82,8 +82,8 @@ var g_leveldata =
 				"elephantLocation": [],
 				"hasExploration": true,
 				"exploreTargets": [ //y,x,facing,hitbox
-					[0,1,"north"],
-					[0,1,"west"]
+					[1,1,"north"],
+					[1,1,"south"]
 				],
 				"taskid": "1_E",
 				"mapset": 1
@@ -177,8 +177,8 @@ var g_leveldata =
 				"elephantLocation": [],
 				"hasExploration": true,
 				"exploreTargets": [ //y,x,facing,hitbox
-					[0,1,"north"],
-					[0,1,"west"]
+					[1,1,"north"],
+					[1,1,"south"]
 				],
 				"taskid": "2_E",
 				"mapset": 2
@@ -275,8 +275,8 @@ var g_leveldata =
 				"elephantLocation": [],
 				"hasExploration": true,
 				"exploreTargets": [ //y,x,facing,hitbox
-					[0,1,"north"],
-					[0,1,"west"]
+					[0,0,"north"],
+					[0,0,"south"]
 				],
 				"taskid": "3_E",
 				"mapset": 3
