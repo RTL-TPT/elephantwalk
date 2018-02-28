@@ -294,6 +294,7 @@ var setStateTitle = function() {
 		jQuery("#debugUnlock").unbind().click(function(){playClickSFX();util.unlockAll();});
 		jQuery("#debugSound").unbind().click(function(){playClickSFX();toggleMute();});
 		jQuery("#debugRandom").unbind().click(function(){playClickSFX();toggleRandom();});
+		toggleRandom();
 	});
 };
 var setToTutorialLevel = function() {
