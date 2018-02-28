@@ -127,7 +127,8 @@ var fillMissions = function() {
 
 var fillLevels = function(ltype) {
 	var diffmap = {"LAND":1,"WATER":4,"MANMADE":7,"EXPERT":10};
-	var htmlout = "<div class='difficultyTitle'>"+ltype+"</div>";
+	var titlemap = {"LAND":"A","WATER":"B","MANMADE":"C","EXPERT":"D"};
+	var htmlout = "<div class='difficultyTitle'>"+titlemap[ltype]+"</div>";
 	htmlout += "<div class='missionBoxContainer' >";
 	htmlout += "<center><table style='width:900px'>";
 	var tutorial_len = g_LEVEL_GRID["TUTORIAL"].length;
