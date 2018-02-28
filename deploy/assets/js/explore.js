@@ -2,9 +2,16 @@ var getSearchPX = function(gridx,gridy) {
 	return [g_mapscalex / gridx, g_mapscaley / gridy];
 };
 
-var createExploreMap = function() {
+var createExploreMap = function(player) {
 	var eTargets = util.getCurrentExploreTargets();
-	g_activeTile = [eTargets[0][0],eTargets[0][1]];
+	var target1 = eTargets[0][0];
+	var target2 = eTargets[0][1];
+	if(typeof player !== "undefined" && player == 2) {
+		target1 = eTargets[1][0];
+		target2 = eTargets[1][1];
+		util.player.setPlayer(2);
+	}
+	g_activeTile = [target1,target2];
 	var htmlout = "";
 	htmlout += "<div id='firstPerson' class='firstPerson'></div>";
 	///// explore view image loading
@@ -131,7 +138,11 @@ var rotateView = function(direction) {
 };
 
 var exploreToNextLevel = function() {
-	setStateSubLevelSelect(g_LevelTerrain);
+	if(typeof util.getCurrentExploreTargets()[1] !== "undefined" && util.player.getPlayer() != 2) {
+		createExploreMap(2);
+	} else {
+		setStateSubLevelSelect(g_LevelTerrain);
+	}
 };
 
 var exploreToCluePhase = function() {
