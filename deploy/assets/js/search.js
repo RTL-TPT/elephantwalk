@@ -108,6 +108,7 @@ var create360Elephant = function() {
 };
 
 var createSearchView = function() {
+	util.setRandomHeading();
 	//cache first person view images then set ui
 	var firstpersonimgs = [];
 	var cElephant = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];

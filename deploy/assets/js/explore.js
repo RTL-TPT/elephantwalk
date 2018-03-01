@@ -3,6 +3,7 @@ var getSearchPX = function(gridx,gridy) {
 };
 
 var createExploreMap = function(player) {
+	util.setRandomHeading();
 	var eTargets = util.getCurrentExploreTargets();
 	var target1 = eTargets[0][0];
 	var target2 = eTargets[0][1];

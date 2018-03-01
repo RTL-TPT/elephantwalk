@@ -428,6 +428,23 @@ util.getCurrentExploreTargets = function() {
 	return g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].exploreTargets;
 };
 
+util.setRandomHeading = function() {
+	switch(util.getRandomInt(1,4)) {
+		case 1:
+			g_heading = "north";
+			break;
+		case 2:
+			g_heading = "east";
+			break;
+		case 3:
+			g_heading = "south";
+			break;
+		case 4:
+			g_heading = "west";
+			break;
+	}
+};
+
 util.goToNextLevel = function() {
 	//
 };
