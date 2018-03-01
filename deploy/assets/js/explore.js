@@ -89,6 +89,25 @@ var createExploreGPS = function() {
 	jQuery("#firstPerson").append(htmlout);
 };
 
+var updateExploreHitbox = function() {
+	jQuery("#explHitbox").attr("style",'position:absolute;top:0px;left:0px;width:0px;height:0px');
+	jQuery("#explHitbox").unbind().click(function(){exploreToNextLevel();});
+	var eTargets = util.getCurrentExploreTargets();
+	if(util.player.getPlayer() == 2) {
+		if(eTargets[1][2] == g_heading) {
+			jQuery("#explHitbox").css("width","950px").css("height","620px");
+		} else {
+			jQuery("#explHitbox").css("width","0px").css("height","0px");
+		}
+	} else {
+		if(eTargets[0][2] == g_heading) {
+			jQuery("#explHitbox").css("width","950px").css("height","620px");
+		} else {
+			jQuery("#explHitbox").css("width","0px").css("height","0px");
+		}
+	}
+};
+
 var jumpToExploreFirstPerson = function() {
 	playClickSFX();
 	jQuery.each(jQuery(".exploreMapImg"),function(key,value){
@@ -98,6 +117,7 @@ var jumpToExploreFirstPerson = function() {
 	});
 	g_directionsRemaining = "nesw".replace(g_heading[0], "");
 	jQuery("#firstPerson").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
+	updateExploreHitbox();
 	createExploreGPS();
 	jQuery(".arrow").show();
 	jQuery("#rightArrow").unbind().click(function(){playClickSFX();rotateView("right")});
@@ -129,12 +149,13 @@ var rotateView = function(direction) {
 	}
 	g_directionsRemaining = g_directionsRemaining.replace(g_heading[0], "");
 	jQuery("#firstPerson").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
+	updateExploreHitbox();
 	createExploreGPS();
-	if(g_directionsRemaining === "" && jQuery("#returnBtn:visible").length === 0){
+	/*if(g_directionsRemaining === "" && jQuery("#returnBtn:visible").length === 0){
 		jQuery("#rightArrow").unbind();
 		jQuery("#leftArrow").unbind();
 		setTimeout(exploreToNextLevel, 1000);
-	}
+	}*/
 };
 
 var exploreToNextLevel = function() {
