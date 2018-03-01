@@ -101,15 +101,25 @@ util.template = (function() {
 util.timer = (function() {
 	var start_time = new Date();
 	var timer_is_stopped = true;
+	var lasttimeout = 0;
 
-	var resetTimer = function() {
+	var resetTimer = function(timeinms) {
+		var levelHint = g_helpLookup[util.currentLevelId()];
+		if(typeof timeinms === "undefined") {
+			timeinms = levelHint[0]*1000;
+		}
 		timer_is_stopped = false;
 		start_time = new Date();
-		setTimeout(function(){
+		if(lasttimeout != 0) {
+			clearTimeout(lasttimeout);
+		}
+		lasttimeout = setTimeout(function(){
 			if(!timer_is_stopped) {
-				console.log("one minute"); 
+				var hintstring = "<div style='position:absolute;top:180px;width:100%;text-align:center;'><span style='font-size:40px;'>"+levelHint[1]+"</span></div>";
+				util.openModal(hintstring);
+				console.log("timed hint"); 
 			}
-		}, 60000);
+		}, timeinms);
 	};
 
 	var getTime = function() {

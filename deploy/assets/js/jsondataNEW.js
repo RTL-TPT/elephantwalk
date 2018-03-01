@@ -530,6 +530,24 @@ var g_mapsetdata = [
 	}
 ];
 
+var g_helpLookup = {
+	"1_T1": [90, "Tutorial - Land (hint)"],
+	"1_T2": [90, "Tutorial - Land (hint)"],
+	"1_T3": [90, "Tutorial - Land (hint)"],
+	"1_E": [90, "Exploration - Land (hint)"],
+	"1_1": [90, "Land (hint) 1"],
+	"1_2": [90, "Land (hint) 2"],
+	"1_3": [90, "Land (hint) 3"],
+	"2_E": [90, "Exploration - Water (hint)"],
+	"2_1": [90, "Water (hint) 1"],
+	"2_2": [90, "Water (hint) 2"],
+	"2_3": [90, "Water (hint) 3"],
+	"3_E": [90, "Exploration - Human-made (hint)"],
+	"3_1": [90, "Human-made (hint) 1"],
+	"3_2": [90, "Human-made (hint) 2"],
+	"3_3": [90, "Human-made (hint) 3"]
+};
+
 var g_cacheList = [
 	"assets/images/debug-sound-off.png",
 	"assets/images/debug-sound.png",
