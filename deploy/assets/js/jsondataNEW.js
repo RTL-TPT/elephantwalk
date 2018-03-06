@@ -381,18 +381,18 @@ var g_leveldata =
 var g_mapsetdata = [
 	{ //mapset 1
 		"elephant": { //y_x_direction: [left,top,width,height]
-            "0_1_south":[0,0,950,620],
-            "0_1_north":[0,0,950,620],
-            "0_1_east":[0,0,950,620],
-            "0_1_west":[0,0,950,620],
-            "1_0_south":[0,0,950,620],
-            "1_0_north":[0,0,950,620],
-            "1_0_east":[0,0,950,620],
-            "1_0_west":[0,0,950,620],
-            "0_0_south":[0,0,950,620],
-            "0_0_north":[0,0,950,620],
-            "0_0_east":[0,0,950,620],
-            "0_0_west":[0,0,950,620]
+			"0_1_south":[0,0,950,620],
+			"0_1_north":[0,0,950,620],
+			"0_1_east":[0,0,950,620],
+			"0_1_west":[0,0,950,620],
+			"1_0_south":[0,0,950,620],
+			"1_0_north":[0,0,950,620],
+			"1_0_east":[0,0,950,620],
+			"1_0_west":[0,0,950,620],
+			"0_0_south":[0,0,950,620],
+			"0_0_north":[0,0,950,620],
+			"0_0_east":[0,0,950,620],
+			"0_0_west":[0,0,950,620]
 		}, 
 		"clues": [ //[left,top,width,height,clue]
 			[12,87,183,141,"forest"],
@@ -407,18 +407,18 @@ var g_mapsetdata = [
 	},
 	{ //mapset 2
 		"elephant": { //y_x_direction: [left,top,width,height]
-            "0_1_south":[0,0,950,620],
-            "0_1_north":[0,0,950,620],
-            "0_1_east":[0,0,950,620],
-            "0_1_west":[0,0,950,620],
-            "1_0_south":[0,0,950,620],
-            "1_0_north":[0,0,950,620],
-            "1_0_east":[0,0,950,620],
-            "1_0_west":[0,0,950,620],
-            "0_0_south":[0,0,950,620],
-            "0_0_north":[0,0,950,620],
-            "0_0_east":[0,0,950,620],
-            "0_0_west":[0,0,950,620]
+			"0_1_south":[0,0,950,620],
+			"0_1_north":[0,0,950,620],
+			"0_1_east":[0,0,950,620],
+			"0_1_west":[0,0,950,620],
+			"1_0_south":[0,0,950,620],
+			"1_0_north":[0,0,950,620],
+			"1_0_east":[0,0,950,620],
+			"1_0_west":[0,0,950,620],
+			"0_0_south":[0,0,950,620],
+			"0_0_north":[0,0,950,620],
+			"0_0_east":[0,0,950,620],
+			"0_0_west":[0,0,950,620]
 		}, 
 		"clues": [ //[left,top,width,height,clue]
 			[0,0,260,140,"stream"],
@@ -434,18 +434,18 @@ var g_mapsetdata = [
 	},
 	{ //mapset 3
 		"elephant": { //y_x_direction: [left,top,width,height]
-            "0_1_south":[0,0,950,620],
-            "0_1_north":[0,0,950,620],
-            "0_1_east":[0,0,950,620],
-            "0_1_west":[0,0,950,620],
-            "1_0_south":[0,0,950,620],
-            "1_0_north":[0,0,950,620],
-            "1_0_east":[0,0,950,620],
-            "1_0_west":[0,0,950,620],
-            "1_1_south":[0,0,950,620],
-            "1_1_north":[0,0,950,620],
-            "1_1_east":[0,0,950,620],
-            "1_1_west":[0,0,950,620]
+			"0_1_south":[0,0,950,620],
+			"0_1_north":[0,0,950,620],
+			"0_1_east":[0,0,950,620],
+			"0_1_west":[0,0,950,620],
+			"1_0_south":[0,0,950,620],
+			"1_0_north":[0,0,950,620],
+			"1_0_east":[0,0,950,620],
+			"1_0_west":[0,0,950,620],
+			"1_1_south":[0,0,950,620],
+			"1_1_north":[0,0,950,620],
+			"1_1_east":[0,0,950,620],
+			"1_1_west":[0,0,950,620]
 		}, 
 		"clues": [ //[left,top,width,height,clue]
 			[0,0,269,203,"road"],
@@ -517,10 +517,10 @@ var g_mapsetdata = [
 	},
 	{ //mapset 11 (Tutorial 1)
 		"elephant": { //y_x_direction: [left,top,width,height]
-            "0_1_south":[0,0,950,620],
-            "0_1_north":[0,0,950,620],
-            "0_1_east":[0,0,950,620],
-            "0_1_west":[0,0,950,620]
+			"0_1_south":[0,0,950,620],
+			"0_1_north":[0,0,950,620],
+			"0_1_east":[0,0,950,620],
+			"0_1_west":[0,0,950,620]
 		}, 
 		"clues": [ //[left,top,width,height,clue]
 			[635,44,192,145,"forest"],
@@ -545,7 +545,45 @@ var g_helpLookup = {
 	"3_E": [90, "Exploration - Human-made (hint)"],
 	"3_1": [90, "Human-made (hint) 1"],
 	"3_2": [90, "Human-made (hint) 2"],
-	"3_3": [90, "Human-made (hint) 3"]
+	"3_3": [90, "Human-made (hint) 3"],
+	"4_1": [90, "Land (hint) 1"],
+	"4_2": [90, "Land (hint) 2"],
+	"4_3": [90, "Land (hint) 3"],
+	"4_4": [90, "Land (hint) 4"],
+	"5_1": [90, "Water (hint) 1"],
+	"5_2": [90, "Water (hint) 2"],
+	"5_3": [90, "Water (hint) 3"],
+	"5_4": [90, "Water (hint) 4"],
+	"6_1": [90, "Human-made (hint) 1"],
+	"6_2": [90, "Human-made (hint) 2"],
+	"6_3": [90, "Human-made (hint) 3"],
+	"6_4": [90, "Human-made (hint) 4"],
+	"7_1": [90, "Land (hint) 1"],
+	"7_2": [90, "Land (hint) 2"],
+	"7_3": [90, "Land (hint) 3"],
+	"7_4": [90, "Land (hint) 4"],
+	"7_5": [90, "Land (hint) 5"],
+	"7_6": [90, "Land (hint) 6"],
+	"8_1": [90, "Water (hint) 1"],
+	"8_2": [90, "Water (hint) 2"],
+	"8_3": [90, "Water (hint) 3"],
+	"8_4": [90, "Water (hint) 4"],
+	"8_5": [90, "Water (hint) 5"],
+	"8_6": [90, "Water (hint) 6"],
+	"9_1": [90, "Human-made (hint) 1"],
+	"9_2": [90, "Human-made (hint) 2"],
+	"9_3": [90, "Human-made (hint) 3"],
+	"9_4": [90, "Human-made (hint) 4"],
+	"9_5": [90, "Human-made (hint) 5"],
+	"9_6": [90, "Human-made (hint) 6"],
+	"10_1": [90, "Secret Level 1"],
+	"10_2": [90, "Secret Level 2"],
+	"10_3": [90, "Secret Level 3"],
+	"10_4": [90, "Secret Level 4"],
+	"10_5": [90, "Secret Level 5"],
+	"10_6": [90, "Secret Level 6"],
+	"10_7": [90, "Secret Level 7"],
+	"10_8": [90, "Secret Level 8"]
 };
 
 var g_cacheList = [
