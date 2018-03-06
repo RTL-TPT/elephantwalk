@@ -163,6 +163,10 @@ var exploreToNextLevel = function() {
 	if(typeof util.getCurrentExploreTargets()[1] !== "undefined" && util.player.getPlayer() != 2) {
 		createExploreMap(2);
 	} else {
+		var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
+		jQuery.each(unlocks, function(key, value) {
+			util.levelUpTerrain(key,value);
+		});
 		setStateSubLevelSelect(g_LevelTerrain);
 	}
 };

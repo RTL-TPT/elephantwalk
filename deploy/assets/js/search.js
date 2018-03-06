@@ -94,6 +94,10 @@ var create360Elephant = function() {
 			jQuery("#leftArrow").unbind();
 			jQuery("#rightArrow").unbind();
 			//alert("You found the elephant!");
+			var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
+			jQuery.each(unlocks, function(key, value) {
+				util.levelUpTerrain(key,value);
+			});
 			if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
 				g_savestate.levelsComplete.push(util.currentLevelId());
 			}

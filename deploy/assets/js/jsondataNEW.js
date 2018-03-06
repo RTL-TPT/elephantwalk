@@ -52,8 +52,8 @@ var g_leveldata =
 					"building": "nonAbstract"
 				},
 				"legendUnlocks": {
-					"forest": "nonAbstract",
-					"lake": "nonAbstract"
+					//"forest": "nonAbstract",
+					//"lake": "nonAbstract"
 				},
 				"gridSize": "2x1",
 				"elephantLocation": [
@@ -100,7 +100,7 @@ var g_leveldata =
 					"mountain": "nonAbstract"
 				},
 				"legendUnlocks": {
-					//
+					"forest": "partialAbstract"
 				},
 				"gridSize": "2x2",
 				"elephantLocation": [
@@ -124,7 +124,7 @@ var g_leveldata =
 					"mountain": "nonAbstract"
 				},
 				"legendUnlocks": {
-					//
+					"mountain": "partialAbstract"
 				},
 				"gridSize": "2x2",
 				"elephantLocation": [
@@ -148,7 +148,7 @@ var g_leveldata =
 					"mountain": "nonAbstract"
 				},
 				"legendUnlocks": {
-					//
+					"desert": "partialAbstract"
 				},
 				"gridSize": "2x2",
 				"elephantLocation": [
@@ -170,8 +170,8 @@ var g_leveldata =
 					//
 				},
 				"legendUnlocks": {
-					"mountain": "nonAbstract",
-					"desert": "nonAbstract"
+					"river": "nonAbstract",
+					"ocean": "nonAbstract"
 				},
 				"gridSize": "2x2",
 				"elephantLocation": [],
@@ -196,7 +196,7 @@ var g_leveldata =
 					"mountain": "nonAbstract"
 				},
 				"legendUnlocks": {
-					//
+					"lake": "partialAbstract"
 				},
 				"gridSize": "2x2",
 				"elephantLocation": [
@@ -221,7 +221,7 @@ var g_leveldata =
 					"mountain": "nonAbstract"
 				},
 				"legendUnlocks": {
-					//
+					"ocean": "partialAbstract"
 				},
 				"gridSize": "2x2",
 				"elephantLocation": [
@@ -246,7 +246,7 @@ var g_leveldata =
 					"mountain": "nonAbstract"
 				},
 				"legendUnlocks": {
-					//
+					"river": "partialAbstract"
 				},
 				"gridSize": "2x2",
 				"elephantLocation": [
@@ -268,8 +268,8 @@ var g_leveldata =
 					//
 				},
 				"legendUnlocks": {
-					"mountain": "nonAbstract",
-					"desert": "nonAbstract"
+					"road": "nonAbstract",
+					"park": "nonAbstract"
 				},
 				"gridSize": "2x2",
 				"elephantLocation": [],
@@ -294,7 +294,7 @@ var g_leveldata =
 					"building": "nonAbstract"
 				},
 				"legendUnlocks": {
-					//
+					"building": "partialAbstract"
 				},
 				"gridSize": "2x2",
 				"elephantLocation": [
@@ -319,7 +319,7 @@ var g_leveldata =
 					"building": "nonAbstract"
 				},
 				"legendUnlocks": {
-					//
+					"park": "partialAbstract"
 				},
 				"gridSize": "2x2",
 				"elephantLocation": [
@@ -344,7 +344,7 @@ var g_leveldata =
 					"building": "nonAbstract"
 				},
 				"legendUnlocks": {
-					//
+					"road": "partialAbstract"
 				},
 				"gridSize": "2x2",
 				"elephantLocation": [
