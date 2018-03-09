@@ -472,6 +472,17 @@ util.isLevelComplete = function(levelKey) {
 	return g_savestate.levelsComplete.indexOf(levelKey) !== -1;
 };
 
+//check if a block of tutorial levels is cleared or not
+util.isBlockTutorialClear = function(blockId) {
+	var tutorial = g_leveldata[blockId]["TUTORIAL"];
+	for(var i = 0; i < tutorial.length; i++) {
+		if(!util.isLevelComplete(tutorial[i].taskid)) {
+			return false;
+		}
+	}
+	return true;
+};
+
 //check if a block of levels is cleared or not
 util.isBlockClear = function(blockId) {
 	var easy = g_leveldata[blockId]["EASY"];
