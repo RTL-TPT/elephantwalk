@@ -167,6 +167,9 @@ var exploreToNextLevel = function() {
 		jQuery.each(unlocks, function(key, value) {
 			util.levelUpTerrain(key,value);
 		});
+		if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
+			g_savestate.levelsComplete.push(util.currentLevelId());
+		}
 		setStateSubLevelSelect(g_LevelTerrain);
 	}
 };

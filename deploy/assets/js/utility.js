@@ -238,6 +238,7 @@ util.unlockAll = function() {
 		},
 		"levelsComplete": []
 	};
+	util.setAllBlockClear();
 	saveState();
 };
 
@@ -456,5 +457,119 @@ util.setRandomHeading = function() {
 };
 
 util.goToNextLevel = function() {
-	//
+	var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
+	jQuery.each(unlocks, function(key, value) {
+		util.levelUpTerrain(key,value);
+	});
+	if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
+		g_savestate.levelsComplete.push(util.currentLevelId());
+	}
+	setStateSubLevelSelect(g_LevelTerrain);
+};
+
+//check if a specific level is clear or not
+util.isLevelComplete = function(levelKey) {
+	return g_savestate.levelsComplete.indexOf(levelKey) !== -1;
+};
+
+//check if a block of levels is cleared or not
+util.isBlockClear = function(blockId) {
+	var easy = g_leveldata[blockId]["EASY"];
+	for(var i = 0; i < easy.length; i++) {
+		if(!util.isLevelComplete(easy[i].taskid)) {
+			return false;
+		}
+	}
+	var medium = g_leveldata[blockId]["MEDIUM"];
+	for(var i = 0; i < medium.length; i++) {
+		if(!util.isLevelComplete(medium[i].taskid)) {
+			return false;
+		}
+	}
+	var hard = g_leveldata[blockId]["HARD"];
+	for(var i = 0; i < hard.length; i++) {
+		if(!util.isLevelComplete(hard[i].taskid)) {
+			return false;
+		}
+	}
+	return true;
+};
+
+//set all levels to complete - super hacky
+util.setAllBlockClear = function() {
+	var tutorial = g_leveldata["LAND"]["TUTORIAL"];
+	for(var i = 0; i < tutorial.length; i++) {
+		g_savestate.levelsComplete.push(tutorial[i].taskid);
+	}
+	var easy = g_leveldata["LAND"]["EASY"];
+	for(var i = 0; i < easy.length; i++) {
+		g_savestate.levelsComplete.push(easy[i].taskid);
+	}
+	var medium = g_leveldata["LAND"]["MEDIUM"];
+	for(var i = 0; i < medium.length; i++) {
+		g_savestate.levelsComplete.push(medium[i].taskid);
+	}
+	var hard = g_leveldata["LAND"]["HARD"];
+	for(var i = 0; i < hard.length; i++) {
+		g_savestate.levelsComplete.push(hard[i].taskid);
+	}
+
+	var tutorial = g_leveldata["WATER"]["TUTORIAL"];
+	for(var i = 0; i < tutorial.length; i++) {
+		g_savestate.levelsComplete.push(tutorial[i].taskid);
+	}
+	var easy = g_leveldata["WATER"]["EASY"];
+	for(var i = 0; i < easy.length; i++) {
+		g_savestate.levelsComplete.push(easy[i].taskid);
+	}
+	var medium = g_leveldata["WATER"]["MEDIUM"];
+	for(var i = 0; i < medium.length; i++) {
+		g_savestate.levelsComplete.push(medium[i].taskid);
+	}
+	var hard = g_leveldata["WATER"]["HARD"];
+	for(var i = 0; i < hard.length; i++) {
+		g_savestate.levelsComplete.push(hard[i].taskid);
+	}
+
+	var tutorial = g_leveldata["MANMADE"]["TUTORIAL"];
+	for(var i = 0; i < tutorial.length; i++) {
+		g_savestate.levelsComplete.push(tutorial[i].taskid);
+	}
+	var easy = g_leveldata["MANMADE"]["EASY"];
+	for(var i = 0; i < easy.length; i++) {
+		g_savestate.levelsComplete.push(easy[i].taskid);
+	}
+	var medium = g_leveldata["MANMADE"]["MEDIUM"];
+	for(var i = 0; i < medium.length; i++) {
+		g_savestate.levelsComplete.push(medium[i].taskid);
+	}
+	var hard = g_leveldata["MANMADE"]["HARD"];
+	for(var i = 0; i < hard.length; i++) {
+		g_savestate.levelsComplete.push(hard[i].taskid);
+	}
+
+	var tutorial = g_leveldata["EXPERT"]["TUTORIAL"];
+	for(var i = 0; i < tutorial.length; i++) {
+		g_savestate.levelsComplete.push(tutorial[i].taskid);
+	}
+	var easy = g_leveldata["EXPERT"]["EASY"];
+	for(var i = 0; i < easy.length; i++) {
+		g_savestate.levelsComplete.push(easy[i].taskid);
+	}
+	var medium = g_leveldata["EXPERT"]["MEDIUM"];
+	for(var i = 0; i < medium.length; i++) {
+		g_savestate.levelsComplete.push(medium[i].taskid);
+	}
+	var hard = g_leveldata["EXPERT"]["HARD"];
+	for(var i = 0; i < hard.length; i++) {
+		g_savestate.levelsComplete.push(hard[i].taskid);
+	}
+
+	//clear undefined items from savestate array
+	for(var i = 0; i < g_savestate.levelsComplete.length; i++) {
+		if(typeof g_savestate.levelsComplete[i] === "undefined") {
+			g_savestate.levelsComplete.splice(i,1);
+			i--;
+		}
+	}
 };
