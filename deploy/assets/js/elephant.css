@@ -802,3 +802,10 @@ img {
 .cap1:first-letter {
     text-transform: capitalize;
 }
+
+.terrainunlock {
+    position: absolute;
+    pointer-events: none;
+    bottom: 10px;
+    width: 100%;
+}

@@ -92,7 +92,7 @@ var createExploreGPS = function() {
 
 var updateExploreHitbox = function() {
 	jQuery("#explHitbox").attr("style",'position:absolute;top:0px;left:0px;width:0px;height:0px');
-	jQuery("#explHitbox").unbind().click(function(){exploreToNextLevel();});
+	jQuery("#explHitbox").unbind().click(function(){foundFeatureModal();});
 	var eTargets = util.getCurrentExploreTargets();
 	if(util.player.getPlayer() == 2) {
 		if(eTargets[1][2] == g_heading) {
@@ -157,6 +157,45 @@ var rotateView = function(direction) {
 		jQuery("#leftArrow").unbind();
 		setTimeout(exploreToNextLevel, 1000);
 	}*/
+};
+
+var foundFeatureModal = function() {
+	//do unlocks if finished
+	if(typeof util.getCurrentExploreTargets()[1] !== "undefined" && util.player.getPlayer() != 2) {
+		//
+	} else {
+		var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
+		jQuery.each(unlocks, function(key, value) {
+			util.levelUpTerrain(key,value);
+		});
+	}
+
+	//ui
+
+	var htmlout = "";
+
+	htmlout += "<center><div class='foundMsg'>You found the terrain feature!</div></center>";
+
+	htmlout += "<center><div class='terrainunlock'>";
+
+	//show unlocks if finished
+	if(typeof util.getCurrentExploreTargets()[1] !== "undefined" && util.player.getPlayer() != 2) {
+		//
+	} else {
+		var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
+		jQuery.each(unlocks, function(key, value) {
+			htmlout += "<span>Unlocked "+value+" "+key+"</span> <br/>";
+		});
+	}
+
+	htmlout += "</div></center>";
+
+	util.openModal(htmlout);
+
+	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
+		//on close go to next exploration or complete level
+		exploreToNextLevel();
+	});
 };
 
 var exploreToNextLevel = function() {

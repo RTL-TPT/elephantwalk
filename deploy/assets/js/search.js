@@ -182,7 +182,16 @@ var searchRotate = function(direction) {
 var foundElephantModal = function() {
 	var htmlout = "";
 
-	htmlout += "<center><div class='foundMsg'>You found the elephant!<div></center>";
+	htmlout += "<center><div class='foundMsg'>You found the elephant!</div></center>";
+
+	htmlout += "<center><div class='terrainunlock'>";
+
+	var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
+	jQuery.each(unlocks, function(key, value) {
+		htmlout += "<span>Unlocked "+value+" "+key+"</span> <br/>";
+	});
+
+	htmlout += "</div></center>";
 
 	util.openModal(htmlout);
 
