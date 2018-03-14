@@ -376,7 +376,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					"forest": "fullAbstract"
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					0,
 					1,
@@ -401,7 +401,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					"mountain": "fullAbstract"
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					1,
 					1,
@@ -426,7 +426,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					"desert": "fullAbstract"
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					1,
 					0,
@@ -451,7 +451,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					//
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					0,
 					2,
@@ -478,7 +478,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					"stream": "fullAbstract"
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					0,
 					1,
@@ -503,7 +503,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					"lake": "fullAbstract"
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					0,
 					2,
@@ -528,7 +528,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					"ocean": "fullAbstract"
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					1,
 					2,
@@ -553,7 +553,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					//
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					0,
 					0,
@@ -580,7 +580,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					"building": "fullAbstract"
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					0,
 					1,
@@ -605,7 +605,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					"road": "fullAbstract"
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					1,
 					1,
@@ -630,7 +630,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					"park": "fullAbstract"
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					1,
 					0,
@@ -655,7 +655,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					//
 				},
-				"gridSize": "2x3",
+				"gridSize": "3x2",
 				"elephantLocation": [
 					0,
 					2,
