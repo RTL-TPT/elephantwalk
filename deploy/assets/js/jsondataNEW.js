@@ -582,8 +582,8 @@ var g_leveldata =
 				},
 				"gridSize": "3x2",
 				"elephantLocation": [
-					0,
 					1,
+					0,
 					"south"
 				],
 				"hasExploration": false,
@@ -632,8 +632,8 @@ var g_leveldata =
 				},
 				"gridSize": "3x2",
 				"elephantLocation": [
-					1,
 					0,
+					1,
 					"south"
 				],
 				"hasExploration": false,
@@ -657,7 +657,7 @@ var g_leveldata =
 				},
 				"gridSize": "3x2",
 				"elephantLocation": [
-					0,
+					1,
 					2,
 					"south"
 				],
