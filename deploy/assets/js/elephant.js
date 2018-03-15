@@ -500,6 +500,20 @@ var setStateSearchSelect = function() {
 		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+(extra ? mapset+"/" : "")+clue2.toUpperCase()+clue2post+"'>";
 		jQuery("#clueDrop1").html(clueurl1);
 		jQuery("#clueDrop2").html(clueurl2);
+		//clue modifiers
+		if(typeof g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].clueMod !== "undefined") {
+			var clueMods = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].clueMod;
+			if(clueMods[0] != "none") {
+				jQuery("#clueDrop1txt").html(clueMods[0]);
+			} else {
+				jQuery("#clueDrop1txt").html("");
+			}
+			if(clueMods[1] != "none") {
+				jQuery("#clueDrop2txt").html(clueMods[1]);
+			} else {
+				jQuery("#clueDrop2txt").html("");
+			}
+		}
 		//show overlay grid (dotted line)
 		jQuery(".clueGridOverlay").show();
 		//bind overlay grid

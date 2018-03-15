@@ -809,3 +809,20 @@ img {
     bottom: 10px;
     width: 100%;
 }
+
+.clueDrop1txt {
+    position: absolute;
+    width: 141px;
+    top: 184px;
+    left: 25px;
+    text-align: center;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+.clueDrop2txt {
+    position: absolute;
+    width: 141px;
+    top: 403px;
+    left: 25px;
+    text-align: center;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}

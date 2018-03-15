@@ -384,6 +384,7 @@ var g_leveldata =
 				],
 				"hasExploration": false,
 				"taskid": "4_1",
+				"clueMod": ["big","none"],
 				"mapset": 4
 			},
 			{
@@ -409,6 +410,7 @@ var g_leveldata =
 				],
 				"hasExploration": false,
 				"taskid": "4_2",
+				"clueMod": ["none","small"],
 				"mapset": 4
 			},
 			{
@@ -434,6 +436,7 @@ var g_leveldata =
 				],
 				"hasExploration": false,
 				"taskid": "4_3",
+				"clueMod": ["small","none"],
 				"mapset": 4
 			},
 			{
@@ -459,6 +462,7 @@ var g_leveldata =
 				],
 				"hasExploration": false,
 				"taskid": "4_4",
+				"clueMod": ["none","big"],
 				"mapset": 4
 			}
 		],
@@ -486,6 +490,7 @@ var g_leveldata =
 				],
 				"hasExploration": false,
 				"taskid": "5_1",
+				"clueMod": ["big","none"],
 				"mapset": 5
 			},
 			{
@@ -511,6 +516,7 @@ var g_leveldata =
 				],
 				"hasExploration": false,
 				"taskid": "5_2",
+				"clueMod": ["none","small"],
 				"mapset": 5
 			},
 			{
@@ -536,6 +542,7 @@ var g_leveldata =
 				],
 				"hasExploration": false,
 				"taskid": "5_3",
+				"clueMod": ["small","none"],
 				"mapset": 5
 			},
 			{
@@ -561,6 +568,7 @@ var g_leveldata =
 				],
 				"hasExploration": false,
 				"taskid": "5_4",
+				"clueMod": ["none","big"],
 				"mapset": 5
 			}
 		],
@@ -588,6 +596,7 @@ var g_leveldata =
 				],
 				"hasExploration": false,
 				"taskid": "6_1",
+				"clueMod": ["big","none"],
 				"mapset": 6
 			},
 			{
@@ -613,6 +622,7 @@ var g_leveldata =
 				],
 				"hasExploration": false,
 				"taskid": "6_2",
+				"clueMod": ["none","small"],
 				"mapset": 6
 			},
 			{
@@ -637,6 +647,7 @@ var g_leveldata =
 					"south"
 				],
 				"hasExploration": false,
+				"clueMod": ["small","none"],
 				"taskid": "6_3",
 				"mapset": 6
 			},
@@ -662,6 +673,7 @@ var g_leveldata =
 					"south"
 				],
 				"hasExploration": false,
+				"clueMod": ["none","big"],
 				"taskid": "6_4",
 				"mapset": 6
 			}
