@@ -763,7 +763,7 @@ var g_mapsetdata = [
 			"1_1_west":[0,0,950,620]
 		}, 
 		"clues": [ //[left,top,width,height,clue]
-			[0,0,269,203,"road"],
+			[0,0,200,150,"road"],
 			[483,14,319,104,"lake"],
 			[801,111,147,97,"building"],
 			[268,197,192,91,"park"],
