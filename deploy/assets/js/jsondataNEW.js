@@ -839,8 +839,328 @@ var g_leveldata =
 				"mapset": 7
 			}
 		],
-		"MEDIUM": [{},{},{},{}],
-		"HARD": [{},{},{},{}]
+		"MEDIUM": [
+			{
+				"clues": [
+					"building",
+					"lake"
+				],
+				"symbolStyle": {
+					"ocean": "fullAbstract",
+					"building": "fullAbstract",
+					"lake": "fullAbstract",
+					"stream": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					1,
+					0,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "8_1",
+				"clueMod": ["none","near"],
+				"mapset": 8
+			},
+			{
+				"clues": [
+					"lake",
+					"stream"
+				],
+				"symbolStyle": {
+					"ocean": "fullAbstract",
+					"building": "fullAbstract",
+					"lake": "fullAbstract",
+					"stream": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					2,
+					0,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "8_2",
+				"clueMod": ["none","far"],
+				"mapset": 8
+			},
+			{
+				"clues": [
+					"forest",
+					"ocean"
+				],
+				"symbolStyle": {
+					"ocean": "fullAbstract",
+					"building": "fullAbstract",
+					"lake": "fullAbstract",
+					"stream": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					2,
+					2,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "8_3",
+				"clueMod": ["none","far"],
+				"mapset": 8
+			},
+			{
+				"clues": [
+					"building",
+					"lake"
+				],
+				"symbolStyle": {
+					"ocean": "fullAbstract",
+					"building": "fullAbstract",
+					"lake": "fullAbstract",
+					"stream": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					1,
+					2,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "8_4",
+				"clueMod": ["none","far"],
+				"mapset": 8
+			},
+			{
+				"clues": [
+					"ocean",
+					"forest"
+				],
+				"symbolStyle": {
+					"ocean": "fullAbstract",
+					"building": "fullAbstract",
+					"lake": "fullAbstract",
+					"stream": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					0,
+					1,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "8_5",
+				"clueMod": ["none","near"],
+				"mapset": 8
+			},
+			{
+				"clues": [
+					"forest",
+					"ocean"
+				],
+				"symbolStyle": {
+					"ocean": "fullAbstract",
+					"building": "fullAbstract",
+					"lake": "fullAbstract",
+					"stream": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					0,
+					2,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "8_6",
+				"clueMod": ["none","near"],
+				"mapset": 8
+			}
+		],
+		"HARD": [
+			{
+				"clues": [
+					"park",
+					"road"
+				],
+				"symbolStyle": {
+					"stream": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"forest": "fullAbstract",
+					"road": "fullAbstract",
+					"building": "fullAbstract",
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					0,
+					2,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "9_1",
+				"clueMod": ["none","near"],
+				"mapset": 9
+			},
+			{
+				"clues": [
+					"forest",
+					"building"
+				],
+				"symbolStyle": {
+					"stream": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"forest": "fullAbstract",
+					"road": "fullAbstract",
+					"building": "fullAbstract",
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					2,
+					1,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "9_2",
+				"clueMod": ["none","far"],
+				"mapset": 9
+			},
+			{
+				"clues": [
+					"stream",
+					"park"
+				],
+				"symbolStyle": {
+					"stream": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"forest": "fullAbstract",
+					"road": "fullAbstract",
+					"building": "fullAbstract",
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					1,
+					0,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "9_3",
+				"clueMod": ["none","far"],
+				"mapset": 9
+			},
+			{
+				"clues": [
+					"forest",
+					"lake"
+				],
+				"symbolStyle": {
+					"stream": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"forest": "fullAbstract",
+					"road": "fullAbstract",
+					"building": "fullAbstract",
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					0,
+					1,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "9_4",
+				"clueMod": ["none","far"],
+				"mapset": 9
+			},
+			{
+				"clues": [
+					"stream",
+					"park"
+				],
+				"symbolStyle": {
+					"stream": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"forest": "fullAbstract",
+					"road": "fullAbstract",
+					"building": "fullAbstract",
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					0,
+					0,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "9_5",
+				"clueMod": ["none","far"],
+				"mapset": 9
+			},
+			{
+				"clues": [
+					"road",
+					"building"
+				],
+				"symbolStyle": {
+					"stream": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"forest": "fullAbstract",
+					"road": "fullAbstract",
+					"building": "fullAbstract",
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					1,
+					2,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "9_6",
+				"clueMod": ["none","near"],
+				"mapset": 9
+			}
+		]
 	},
 	"EXPERT": {
 		"TUTORIAL": [],
