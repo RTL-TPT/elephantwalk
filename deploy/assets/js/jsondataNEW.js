@@ -681,7 +681,164 @@ var g_leveldata =
 	},
 	"MANMADE": {
 		"TUTORIAL": [],
-		"EASY": [{},{},{},{}],
+		"EASY": [
+			{
+				"clues": [
+					"lake",
+					"mountain"
+				],
+				"symbolStyle": {
+					"forest": "fullAbstract",
+					"mountain": "fullAbstract",
+					"road": "fullAbstract",
+					"desert": "fullAbstract",
+					"lake": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					0,
+					2,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "7_1",
+				"clueMod": ["none","near"],
+				"mapset": 7
+			},
+			{
+				"clues": [
+					"mountain",
+					"desert"
+				],
+				"symbolStyle": {
+					"forest": "fullAbstract",
+					"mountain": "fullAbstract",
+					"road": "fullAbstract",
+					"desert": "fullAbstract",
+					"lake": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					0,
+					1,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "7_2",
+				"clueMod": ["none","far"],
+				"mapset": 7
+			},
+			{
+				"clues": [
+					"forest",
+					"road"
+				],
+				"symbolStyle": {
+					"forest": "fullAbstract",
+					"mountain": "fullAbstract",
+					"road": "fullAbstract",
+					"desert": "fullAbstract",
+					"lake": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					0,
+					0,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "7_3",
+				"clueMod": ["none","near"],
+				"mapset": 7
+			},
+			{
+				"clues": [
+					"lake",
+					"mountain"
+				],
+				"symbolStyle": {
+					"forest": "fullAbstract",
+					"mountain": "fullAbstract",
+					"road": "fullAbstract",
+					"desert": "fullAbstract",
+					"lake": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					1,
+					2,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "7_4",
+				"clueMod": ["none","far"],
+				"mapset": 7
+			},
+			{
+				"clues": [
+					"forest",
+					"road"
+				],
+				"symbolStyle": {
+					"forest": "fullAbstract",
+					"mountain": "fullAbstract",
+					"road": "fullAbstract",
+					"desert": "fullAbstract",
+					"lake": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					2,
+					2,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "7_5",
+				"clueMod": ["none","far"],
+				"mapset": 7
+			},
+			{
+				"clues": [
+					"desert",
+					"forest"
+				],
+				"symbolStyle": {
+					"forest": "fullAbstract",
+					"mountain": "fullAbstract",
+					"road": "fullAbstract",
+					"desert": "fullAbstract",
+					"lake": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					2,
+					1,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "7_6",
+				"clueMod": ["none","near"],
+				"mapset": 7
+			}
+		],
 		"MEDIUM": [{},{},{},{}],
 		"HARD": [{},{},{},{}]
 	},
