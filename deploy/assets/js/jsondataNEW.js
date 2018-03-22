@@ -1180,7 +1180,7 @@ var g_leveldata =
 				"legendUnlocks": {
 					//
 				},
-				"gridSize": "3x3",
+				"gridSize": "4x3",
 				"elephantLocation": [
 					2,
 					2,
@@ -1189,6 +1189,188 @@ var g_leveldata =
 				"hasExploration": false,
 				"taskid": "10_1",
 				"clueMod": ["big","big"],
+				"mapset": 10
+			},
+			{
+				"clues": [
+					"building",
+					"lake"
+				],
+				"symbolStyle": {
+					"building": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"road": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "4x3",
+				"elephantLocation": [
+					1,
+					3,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "10_2",
+				"clueMod": ["small","far"],
+				"mapset": 10
+			},
+			{
+				"clues": [
+					"lake",
+					"park"
+				],
+				"symbolStyle": {
+					"building": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"road": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "4x3",
+				"elephantLocation": [
+					1,
+					0,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "10_3",
+				"clueMod": ["small","near"],
+				"mapset": 10
+			},
+			{
+				"clues": [
+					"park",
+					"building"
+				],
+				"symbolStyle": {
+					"building": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"road": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "4x3",
+				"elephantLocation": [
+					0,
+					1,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "10_4",
+				"clueMod": ["small","small"],
+				"mapset": 10
+			},
+			{
+				"clues": [
+					"building",
+					"forest"
+				],
+				"symbolStyle": {
+					"building": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"road": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "4x3",
+				"elephantLocation": [
+					0,
+					3,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "10_5",
+				"clueMod": ["big","small"],
+				"mapset": 10
+			},
+			{
+				"clues": [
+					"forest",
+					"lake"
+				],
+				"symbolStyle": {
+					"building": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"road": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "4x3",
+				"elephantLocation": [
+					2,
+					0,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "10_6",
+				"clueMod": ["small","near"],
+				"mapset": 10
+			},
+			{
+				"clues": [
+					"lake",
+					"park"
+				],
+				"symbolStyle": {
+					"building": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"road": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "4x3",
+				"elephantLocation": [
+					2,
+					3,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "10_7",
+				"clueMod": ["small","far"],
+				"mapset": 10
+			},
+			{
+				"clues": [
+					"building",
+					"lake"
+				],
+				"symbolStyle": {
+					"building": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"road": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "4x3",
+				"elephantLocation": [
+					2,
+					1,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "10_8",
+				"clueMod": ["small","big"],
 				"mapset": 10
 			}
 		],
