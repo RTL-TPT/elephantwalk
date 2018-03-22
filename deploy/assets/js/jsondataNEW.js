@@ -1164,7 +1164,34 @@ var g_leveldata =
 	},
 	"EXPERT": {
 		"TUTORIAL": [],
-		"EASY": [{},{},{},{},{},{},{},{}],
+		"EASY": [
+			{
+				"clues": [
+					"lake",
+					"forest"
+				],
+				"symbolStyle": {
+					"building": "fullAbstract",
+					"park": "fullAbstract",
+					"lake": "fullAbstract",
+					"road": "fullAbstract",
+					"forest": "fullAbstract"
+				},
+				"legendUnlocks": {
+					//
+				},
+				"gridSize": "3x3",
+				"elephantLocation": [
+					2,
+					2,
+					"south"
+				],
+				"hasExploration": false,
+				"taskid": "10_1",
+				"clueMod": ["big","big"],
+				"mapset": 10
+			}
+		],
 		"MEDIUM": [],
 		"HARD": []
 	}
@@ -1494,22 +1521,22 @@ var g_mapsetdata = [
 			"2_1_west":[0,0,950,620]
 		}, 
 		"clues": [ //[left,top,width,height,clue]
-			[3,405,46,345,"road"],
-			[345,4,949,46,"road"],
-			[424,78,161,91,"forest"],
-			[550,83,87,59,"building"],
-			[548,198,92,70,"building"],
-			[474,333,234,139,"lake"],
-			[466,578,231,158,"forest"],
-			[534,814,127,90,"lake"],
-			[219,102,135,85,"lake"],
-			[130,187,101,68,"park"],
-			[133,305,87,64,"building"],
-			[12,16,147,102,"building"],
-			[155,513,173,107,"park"],
-			[218,845,98,67,"building"],
-			[6,640,144,110,"building"],
-			[11,803,141,99,"building"]
+			[405,3,46,345,"road"],
+			[4,345,949,46,"road"],
+			[78,424,161,91,"forest"],
+			[83,550,87,59,"building"],
+			[198,548,92,70,"building"],
+			[333,474,234,139,"lake"],
+			[578,466,231,158,"forest"],
+			[814,534,127,90,"lake"],
+			[102,219,135,85,"lake"],
+			[187,130,101,68,"park"],
+			[305,133,87,64,"building"],
+			[16,12,147,102,"building"],
+			[513,155,173,107,"park"],
+			[845,218,98,67,"building"],
+			[640,6,144,110,"building"],
+			[803,11,141,99,"forest"]
 		]
 	},
 	{ //mapset 11 (Tutorial 1)
