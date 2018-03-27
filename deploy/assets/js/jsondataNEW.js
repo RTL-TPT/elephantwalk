@@ -1832,6 +1832,7 @@ var g_cacheList = [
 	"assets/images/closeicon-300_hover.png",
 	"assets/images/closeicon-300_on.png",
 	"assets/images/cross-hi.png",
+	"assets/images/close_game_hover.png",
 	"assets/images/elephant_bg1.gif",
 	"assets/images/elephant_bg1.png",
 	"assets/images/gps-pointer.png",

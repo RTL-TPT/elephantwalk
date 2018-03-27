@@ -50,6 +50,12 @@ img {
     .debugMenu .debugitem:hover {
         background-color: lightblue;
     }
+
+    .gameCloseBtn:hover{
+        background: url('../images/close_game_hover.png');
+        background-color: rgba(255,255,255,0.6);
+        background-size: 100% 100%;
+    }
 }
 
 .pContent {
@@ -825,4 +831,16 @@ img {
     left: 25px;
     text-align: center;
     text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+.gameCloseBtn{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    background: url('../images/close_game.png');
+    background-color: rgba(255,255,255,0.6);
+    background-size: 100% 100%;
 }
