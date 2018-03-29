@@ -147,7 +147,13 @@
 
 	jQuery("#closeGame").click(function(){
 		console.log("quit");
+		if(jQuery("#loaderDiv").length > 0) {
+			return;
+		}
+		var loaderoverlay = "<div id='loaderDiv' style='z-index:20000;position:absolute;top:0px;left:0px;width:100%;height:100%;background-color:rgba(255,255,255,0.75)'><div style='width:100%;height:100%;background:url(assets/images/spin.gif) center center no-repeat;'></div></div>";
+		jQuery("#uiLayer").append(loaderoverlay);
 		app.container.send("endGame");
+		playClickSFX();
 	});
 	
 }());
