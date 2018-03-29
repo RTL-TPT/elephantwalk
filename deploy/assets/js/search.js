@@ -179,6 +179,12 @@ var searchRotate = function(direction) {
 	create360Elephant();
 };
 
+var terrainNameStringMap = {
+	"nonAbstract" : "Non-abstract",
+	"partialAbstract" : "Partial-abstract",
+	"fullAbstract" : "Full-abstract"
+};
+
 var foundElephantModal = function() {
 	var htmlout = "";
 
@@ -188,7 +194,7 @@ var foundElephantModal = function() {
 
 	var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
 	jQuery.each(unlocks, function(key, value) {
-		htmlout += "<span>Unlocked "+value+" "+key+"</span> <br/>";
+		htmlout += "<span>Unlocked "+terrainNameStringMap[value]+" "+key+"</span> <br/>";
 	});
 
 	htmlout += "</div></center>";
