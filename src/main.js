@@ -144,5 +144,10 @@
 			fitCanvasToWindow();
 		}
 	});
+
+	jQuery("#closeGame").click(function(){
+		console.log("quit");
+		app.container.send("endGame");
+	});
 	
 }());
