@@ -17,6 +17,7 @@ var g_leveldata =
 				"exploreTargets": [ //y,x,facing,hitbox
 					[0,0,"north"]
 				],
+				"exploreFeature": ["building"],
 				"taskid": "1_T1",
 				"mapset": 11
 			},
@@ -38,6 +39,7 @@ var g_leveldata =
 					[0,1,"north"],
 					[0,1,"west"]
 				],
+				"exploreFeature": ["forest","lake"],
 				"taskid": "1_T2",
 				"mapset": 11
 			},
@@ -85,6 +87,7 @@ var g_leveldata =
 					[1,1,"north"],
 					[1,1,"south"]
 				],
+				"exploreFeature": ["mountain","desert"],
 				"taskid": "1_E",
 				"mapset": 1
 			},
@@ -180,6 +183,7 @@ var g_leveldata =
 					[1,1,"north"],
 					[1,1,"south"]
 				],
+				"exploreFeature": ["stream","ocean"],
 				"taskid": "2_E",
 				"mapset": 2
 			},
@@ -278,6 +282,7 @@ var g_leveldata =
 					[0,0,"north"],
 					[0,0,"south"]
 				],
+				"exploreFeature": ["road","park"],
 				"taskid": "3_E",
 				"mapset": 3
 			},

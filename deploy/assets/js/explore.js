@@ -128,6 +128,8 @@ var jumpToExploreFirstPerson = function() {
 	jQuery(".mapGridLines").hide();
 	jQuery("#exMapImg").hide();
 	delete g_tilesRemaining[""+g_activeTile[0]+","+g_activeTile[1]];
+	var exploreFeature = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].exploreFeature;
+	setExploreText("Find the " + exploreFeature[util.player.getPlayer()-1]);
 };
 
 var rotateView = function(direction) {
@@ -172,9 +174,10 @@ var foundFeatureModal = function() {
 
 	//ui
 
+	var exploreFeature = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].exploreFeature;
 	var htmlout = "";
 
-	htmlout += "<center><div class='foundMsg'>You found the terrain feature!</div></center>";
+	htmlout += "<center><div class='foundMsg'>You found the "+ exploreFeature[util.player.getPlayer()-1] +"!</div></center>";
 
 	htmlout += "<center><div class='terrainunlock'>";
 
@@ -202,6 +205,7 @@ var exploreToNextLevel = function() {
 	if(typeof util.getCurrentExploreTargets()[1] !== "undefined" && util.player.getPlayer() != 2) {
 		createExploreMap(2);
 	} else {
+		jQuery("#exploreText").remove();
 		var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
 		jQuery.each(unlocks, function(key, value) {
 			util.levelUpTerrain(key,value);
@@ -215,4 +219,11 @@ var exploreToNextLevel = function() {
 
 var exploreToCluePhase = function() {
 	setStateClue();
+}
+
+var setExploreText = function(message) {
+	if(jQuery("#exploreText").length == 0) {
+		jQuery("#uiLayer").append("<div class='exploreText' id='exploreText'></div>");
+	}
+	jQuery("#exploreText").html(message);
 }

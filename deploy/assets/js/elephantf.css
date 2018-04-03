@@ -842,3 +842,16 @@ img {
     background-color: rgba(255,255,255,0.6);
     background-size: 100% 100%;
 }
+
+.exploreText {
+    position: absolute;
+    bottom: 22px;
+    background-color: white;
+    width: 500px;
+    height: 60px;
+    border-radius: 10px;
+    line-height: 60px;
+    text-align: center;
+    margin-left: calc(50% - 250px);
+    font-size: 32px;
+}
