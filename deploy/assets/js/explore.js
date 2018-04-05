@@ -186,9 +186,12 @@ var foundFeatureModal = function() {
 		//
 	} else {
 		var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
+		htmlout += "<table><tr>"
 		jQuery.each(unlocks, function(key, value) {
-			htmlout += "<span>Unlocked "+terrainNameStringMap[value]+" "+key+"</span> <br/>";
+			htmlout += "<td><center><span>Unlocked</span></center>";
+			htmlout += "<center><img src='"+"assets/images/clue/"+key.toUpperCase()+g_clueUrlPost[value]+"'/></center></td>";
 		});
+		htmlout += "</tr></table>";
 	}
 
 	htmlout += "</div></center>";

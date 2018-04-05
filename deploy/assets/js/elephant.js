@@ -1,7 +1,7 @@
 //////////////// GlOBALS
 ////////////////
 
-var g_enableDebugLevelSelect = false;
+var g_enableDebugLevelSelect = true;
 var g_enableDebugMenu = true;
 var g_LEVEL_GRID = { //LEVELS' GRID SIZE (filled in by g_data_init)
 	"TUTORIAL": [
@@ -23,11 +23,6 @@ var g_CLUE_ABSTRACTION = { //LEVELS' CLUE DISPLAY TYPE (filled in by g_data_init
 				{"forest":"nonAbstract","mountain":"nonAbstract","desert":"nonAbstract","hill":"nonAbstract"}
 			]
 };
-/*var g_LEGEND_ABSTRACTION = { //FOR FILLING MAP LEGEND
-	"TUTORIAL": [
-				{"forest":"nonAbstract","mountain":"nonAbstract","desert":"nonAbstract","hill":"nonAbstract"}
-			]
-};*/
 var g_LEVEL_NULL = { //keeps track of which levels are using null data, shouldn't be needed once everything is finished
 	"TUTORIAL":[],
 	"EASY":[],
