@@ -1169,7 +1169,7 @@ var g_leveldata =
 	},
 	"EXPERT": {
 		"TUTORIAL": [],
-		"EASY": [
+		"MEDIUM": [
 			{
 				"clues": [
 					"lake",
@@ -1379,7 +1379,7 @@ var g_leveldata =
 				"mapset": 10
 			}
 		],
-		"MEDIUM": [],
+		"EASY": [],
 		"HARD": []
 	}
 };

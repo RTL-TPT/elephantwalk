@@ -611,6 +611,17 @@ img {
     text-align: center;
     font-weight: bold;
 }
+.missionBox.chunk {
+    width: 200px;
+    height: 120px;
+    background-color: lightgray;
+    box-sizing: border-box;
+    border: solid 2px black;
+    line-height: 120px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+}
 .missionBox.tutorial {
     width: 160px;
     height: 40px;

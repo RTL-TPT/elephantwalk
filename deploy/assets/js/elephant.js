@@ -1,7 +1,7 @@
 //////////////// GlOBALS
 ////////////////
 
-var g_enableDebugLevelSelect = true;
+var g_enableDebugLevelSelect = false;
 var g_enableDebugMenu = true;
 var g_LEVEL_GRID = { //LEVELS' GRID SIZE (filled in by g_data_init)
 	"TUTORIAL": [
@@ -149,41 +149,73 @@ var fillLevels = function(ltype) {
 	var titlemap = {"LAND":"A","WATER":"B","MANMADE":"C","EXPERT":"D"};
 	var htmlout = "<div class='difficultyTitle'>"+titlemap[ltype]+"</div>";
 	htmlout += "<div class='missionBoxContainer' >";
-	htmlout += "<center><table style='width:900px'>";
+	htmlout += "<center><table style='width:900px;"+(g_enableDebugLevelSelect ? "":"height:570px;")+"'>";
 	var tutorial_len = g_LEVEL_GRID["TUTORIAL"].length;
 	var difflen = g_LEVEL_GRID["EASY"].length + tutorial_len;
 	difflen = difflen > g_LEVEL_GRID["MEDIUM"].length ? difflen : g_LEVEL_GRID["MEDIUM"].length;
 	difflen = difflen > g_LEVEL_GRID["HARD"].length ? difflen : g_LEVEL_GRID["HARD"].length;
-	for(var a = 0; a < g_LEVEL_GRID["TUTORIAL"].length; a++) {
-		htmlout += "<tr><td><center><div class='missionBox tutorial level d1' difficulty='TUTORIAL' level='"+a+"' id='tutorial"+(a+1)+"btn'>TUTORIAL "+(a+1)+"</div></center></td>";
-		htmlout += "<td><center><div class='missionBox tutorial level d2' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td>";
-		htmlout += "<td><center><div class='missionBox tutorial level d3' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td></tr>";
-	}
-	for(var i = 0; i < difflen; i++) {
-		cNull = g_LEVEL_NULL["EASY"][i];
-		htmlout += "<tr><td><center><div class='missionBox level "+(cNull ? "x":"d1")+"' difficulty='EASY' level='"+(i)+"' style='opacity:"+(i < g_LEVEL_GRID["EASY"].length ? 1 : 0)+"' id='easy"+(i+1)+"btn'>"+diffmap[ltype]+"." +(i+1)+"</div></center></td>";
-		cNull = g_LEVEL_NULL["MEDIUM"][i];
-		htmlout += "<td><center><div class='missionBox level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["MEDIUM"].length ? 1 : 0)+"' id='medium"+(i+1)+"btn'>"+(diffmap[ltype]+1)+"."+(i+1)+"</div></center></td>";
-		cNull = g_LEVEL_NULL["HARD"][i];
-		htmlout += "<td><center><div class='missionBox level "+(cNull ? "x":"d3")+"' difficulty='HARD' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["HARD"].length ? 1 : 0)+"' id='hard"+(i+1)+"btn'>"+(diffmap[ltype]+2)+"."+(i+1)+"</div></center></td></tr>";
-	}
-	htmlout += "</table></center>";
-	htmlout += "</div>";
-	jQuery("#difficultySelect").html(htmlout);
-	//bind
-	jQuery(".missionBox.level").click(function(){
-		if(jQuery(this).hasClass("x")) {return;}
-		playClickSFX();		
-		g_selectedDifficulty = jQuery(this).attr("difficulty");
-		g_selectedLevel = +jQuery(this).attr("level");
-		g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
-		g_currentSet = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
-		if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].hasExploration) {
-			setStateExplore();
-		} else {
-			setStateClue();
+	var cNull;
+	if(g_enableDebugLevelSelect) {
+		for(var a = 0; a < g_LEVEL_GRID["TUTORIAL"].length; a++) {
+			htmlout += "<tr><td><center><div class='missionBox tutorial level d1' difficulty='TUTORIAL' level='"+a+"' id='tutorial"+(a+1)+"btn'>TUTORIAL "+(a+1)+"</div></center></td>";
+			htmlout += "<td><center><div class='missionBox tutorial level d2' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td>";
+			htmlout += "<td><center><div class='missionBox tutorial level d3' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td></tr>";
 		}
-	});
+		for(var i = 0; i < difflen; i++) {
+			cNull = g_LEVEL_NULL["EASY"][i];
+			htmlout += "<tr><td><center><div class='missionBox level "+(cNull ? "x":"d1")+"' difficulty='EASY' level='"+(i)+"' style='opacity:"+(i < g_LEVEL_GRID["EASY"].length ? 1 : 0)+"' id='easy"+(i+1)+"btn'>"+diffmap[ltype]+"." +(i+1)+"</div></center></td>";
+			cNull = g_LEVEL_NULL["MEDIUM"][i];
+			htmlout += "<td><center><div class='missionBox level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["MEDIUM"].length ? 1 : 0)+"' id='medium"+(i+1)+"btn'>"+(diffmap[ltype]+1)+"."+(i+1)+"</div></center></td>";
+			cNull = g_LEVEL_NULL["HARD"][i];
+			htmlout += "<td><center><div class='missionBox level "+(cNull ? "x":"d3")+"' difficulty='HARD' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["HARD"].length ? 1 : 0)+"' id='hard"+(i+1)+"btn'>"+(diffmap[ltype]+2)+"."+(i+1)+"</div></center></td></tr>";
+		}
+		htmlout += "</table></center>";
+		htmlout += "</div>";
+		jQuery("#difficultySelect").html(htmlout);
+		//bind
+		jQuery(".missionBox.level").click(function(){
+			if(jQuery(this).hasClass("x")) {return;}
+			playClickSFX();		
+			g_selectedDifficulty = jQuery(this).attr("difficulty");
+			g_selectedLevel = +jQuery(this).attr("level");
+			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
+			g_currentSet = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
+			if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].hasExploration) {
+				setStateExplore();
+			} else {
+				setStateClue();
+			}
+		});
+	} else {
+		//one box per mapset
+		cNull = false;
+		if(g_LevelTerrain === "EXPERT") {
+			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' style='opacity:"+1+"' id='medium"+"btn'>"+"Chunk 1</div></center></td>";
+		} else {
+			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='EASY' style='opacity:"+1+"' id='easy"+"btn'>"+"Chunk 1</div></center></td>";
+			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' style='opacity:"+1+"' id='medium"+"btn'>"+"Chunk 2</div></center></td>";
+			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='HARD' style='opacity:"+1+"' id='hard"+"btn'>"+"Chunk 3</div></center></td>";
+		}
+
+		htmlout += "</table></center>";
+		htmlout += "</div>";
+		jQuery("#difficultySelect").html(htmlout);
+		//bind
+		jQuery(".missionBox.level").click(function(){
+			if(jQuery(this).hasClass("x")) {return;}
+			playClickSFX();		
+			g_selectedDifficulty = jQuery(this).attr("difficulty");
+			g_selectedLevel = 0;
+			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
+			g_currentSet = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
+			if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].hasExploration) {
+				setStateExplore();
+			} else {
+				setStateClue();
+			}
+		});
+	}
+
 	jQuery("#menuCloseBtn").show();
 	jQuery("#menuCloseBtn").unbind().click(function(){
 		playClickSFX();
