@@ -1,7 +1,7 @@
 //////////////// GlOBALS
 ////////////////
 
-var g_enableDebugLevelSelect = true;
+var g_enableDebugLevelSelect = false;
 var g_enableDebugMenu = true;
 var g_LEVEL_GRID = { //LEVELS' GRID SIZE (filled in by g_data_init)
 	"TUTORIAL": [
@@ -75,7 +75,8 @@ var g_savestate = {
 		"stream": "none",
 		"waterfall": "none"
 	},
-	"levelsComplete": []
+	"levelsComplete": [],
+	"chunkComplete": {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false}
 };
 var g_telemetry_cache = [];
 var g_startTime = (new Date).getTime(); //for tracking time played
@@ -187,8 +188,11 @@ var fillLevels = function(ltype) {
 		if(g_LevelTerrain === "EXPERT") {
 			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' style='opacity:"+1+"' id='medium"+"btn'>"+"Chunk 1</div></center></td>";
 		} else {
+			cNull = false;
 			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='EASY' style='opacity:"+1+"' id='easy"+"btn'>"+"Chunk 1</div></center></td>";
+			cNull = !g_savestate["chunkComplete"][diffmap[ltype]];
 			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' style='opacity:"+1+"' id='medium"+"btn'>"+"Chunk 2</div></center></td>";
+			cNull = !g_savestate["chunkComplete"][diffmap[ltype]+1];
 			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='HARD' style='opacity:"+1+"' id='hard"+"btn'>"+"Chunk 3</div></center></td>";
 		}
 
