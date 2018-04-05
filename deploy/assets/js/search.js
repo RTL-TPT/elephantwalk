@@ -203,6 +203,10 @@ var foundElephantModal = function() {
 
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
 		//send player back to appropriate state depenending on if they're still in the tutorial or not
-		setStateSubLevelSelect();
+		if(g_enableDebugLevelSelect) {
+			setStateSubLevelSelect(g_LevelTerrain);
+		} else {
+			gotoNextLevelSequential();
+		}
 	});
 };

@@ -1,6 +1,8 @@
 //////////////// GlOBALS
 ////////////////
 
+var g_enableDebugLevelSelect = true;
+var g_enableDebugMenu = true;
 var g_LEVEL_GRID = { //LEVELS' GRID SIZE (filled in by g_data_init)
 	"TUTORIAL": [
 			{"x":2,"y":2}
@@ -125,6 +127,23 @@ var fillMissions = function() {
 	//
 };
 
+var gotoNextLevelSequential = function() {
+	if(typeof g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel+1] !== "undefined") {
+		g_selectedLevel++;
+		if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].hasExploration) {
+			setStateExplore();
+		} else {
+			setStateClue();
+		}
+	} else {
+		if(g_selectedDifficulty == "HARD") {
+			setStateLevelSelect();
+		} else {
+			setStateSubLevelSelect(g_LevelTerrain);
+		}
+	}
+};
+
 var fillLevels = function(ltype) {
 	var diffmap = {"LAND":1,"WATER":4,"MANMADE":7,"EXPERT":10};
 	var titlemap = {"LAND":"A","WATER":"B","MANMADE":"C","EXPERT":"D"};
@@ -141,13 +160,8 @@ var fillLevels = function(ltype) {
 		htmlout += "<td><center><div class='missionBox tutorial level d3' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td></tr>";
 	}
 	for(var i = 0; i < difflen; i++) {
-		//var cNull = g_LEVEL_NULL["TUTORIAL"][i];
-		//if(i < tutorial_len) {
-			//htmlout += "<tr><td><center><div class='missionBox level "+(cNull ? "x":"d1")+"' difficulty='TUTORIAL' level='"+i+"' style='opacity:"+(i < tutorial_len ? 1 : 0)+"' id='tutorial"+(i+1)+"btn'> TUTORIAL "+diffmap[ltype]+"." +(i+1)+"</div></center></td>";
-		//} else {
-			cNull = g_LEVEL_NULL["EASY"][i];
-			htmlout += "<tr><td><center><div class='missionBox level "+(cNull ? "x":"d1")+"' difficulty='EASY' level='"+(i)+"' style='opacity:"+(i < g_LEVEL_GRID["EASY"].length ? 1 : 0)+"' id='easy"+(i+1)+"btn'>"+diffmap[ltype]+"." +(i+1)+"</div></center></td>";
-		//}
+		cNull = g_LEVEL_NULL["EASY"][i];
+		htmlout += "<tr><td><center><div class='missionBox level "+(cNull ? "x":"d1")+"' difficulty='EASY' level='"+(i)+"' style='opacity:"+(i < g_LEVEL_GRID["EASY"].length ? 1 : 0)+"' id='easy"+(i+1)+"btn'>"+diffmap[ltype]+"." +(i+1)+"</div></center></td>";
 		cNull = g_LEVEL_NULL["MEDIUM"][i];
 		htmlout += "<td><center><div class='missionBox level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' level='"+i+"' style='opacity:"+(i < g_LEVEL_GRID["MEDIUM"].length ? 1 : 0)+"' id='medium"+(i+1)+"btn'>"+(diffmap[ltype]+1)+"."+(i+1)+"</div></center></td>";
 		cNull = g_LEVEL_NULL["HARD"][i];
@@ -289,11 +303,13 @@ var setStateTitle = function() {
 			//setStateLevelSelect();
 			resumeState();
 		});
-		jQuery("#debugBtn").unbind().click(function(){playClickSFX();toggleDebugMenu();});
-		jQuery("#debugLock").unbind().click(function(){playClickSFX();util.clearSave();});
-		jQuery("#debugUnlock").unbind().click(function(){playClickSFX();util.unlockAll();});
-		jQuery("#debugSound").unbind().click(function(){playClickSFX();toggleMute();});
-		jQuery("#debugRandom").unbind().click(function(){playClickSFX();toggleRandom();});
+		if(g_enableDebugMenu) {
+			jQuery("#debugBtn").unbind().click(function(){playClickSFX();toggleDebugMenu();});
+			jQuery("#debugLock").unbind().click(function(){playClickSFX();util.clearSave();});
+			jQuery("#debugUnlock").unbind().click(function(){playClickSFX();util.unlockAll();});
+			jQuery("#debugSound").unbind().click(function(){playClickSFX();toggleMute();});
+			jQuery("#debugRandom").unbind().click(function(){playClickSFX();toggleRandom();});
+		}
 		toggleRandom();
 	});
 };
