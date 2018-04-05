@@ -123,7 +123,7 @@ var create360Elephant = function() {
 			if(util.isBlockClear("MANMADE")) {
 				g_savestate.terrain_unlocked.EXPERT = true;
 			}
-			if(typeof g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel+1] === "undefined") {
+			if(g_selectedDifficulty != "TUTORIAL" && typeof g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel+1] === "undefined") {
 				g_savestate["chunkComplete"][util.currentLevelId()[0]] = true;
 			}
 			//
