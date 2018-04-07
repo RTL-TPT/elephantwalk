@@ -76,7 +76,8 @@ var g_savestate = {
 		"waterfall": "none"
 	},
 	"levelsComplete": [],
-	"chunkComplete": {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false}
+	"chunkComplete": {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false},
+	"randomOrderLevelsComplete": []
 };
 var g_telemetry_cache = [];
 var g_startTime = (new Date).getTime(); //for tracking time played
@@ -186,14 +187,14 @@ var fillLevels = function(ltype) {
 		//one box per mapset
 		cNull = false;
 		if(g_LevelTerrain === "EXPERT") {
-			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' style='opacity:"+1+"' id='medium"+"btn'>"+"Chunk 1</div></center></td>";
+			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' levelnum='"+(diffmap[ltype]+1)+"' style='opacity:"+1+"' id='medium"+"btn'>"+"Chunk 1</div></center></td>";
 		} else {
 			cNull = false;
-			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='EASY' style='opacity:"+1+"' id='easy"+"btn'>"+"Chunk 1</div></center></td>";
-			cNull = !g_savestate["chunkComplete"][diffmap[ltype]];
-			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' style='opacity:"+1+"' id='medium"+"btn'>"+"Chunk 2</div></center></td>";
-			cNull = !g_savestate["chunkComplete"][diffmap[ltype]+1];
-			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='HARD' style='opacity:"+1+"' id='hard"+"btn'>"+"Chunk 3</div></center></td>";
+			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='EASY' levelnum='"+diffmap[ltype]+"' style='opacity:"+1+"' id='easy"+"btn'>"+"Chunk 1</div></center></td>";
+			//cNull = !g_savestate["chunkComplete"][diffmap[ltype]];
+			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' levelnum='"+(diffmap[ltype]+1)+"' style='opacity:"+1+"' id='medium"+"btn'>"+"Chunk 2</div></center></td>";
+			//cNull = !g_savestate["chunkComplete"][diffmap[ltype]+1];
+			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='HARD' levelnum='"+(diffmap[ltype]+2)+"' style='opacity:"+1+"' id='hard"+"btn'>"+"Chunk 3</div></center></td>";
 		}
 
 		htmlout += "</table></center>";
@@ -204,7 +205,11 @@ var fillLevels = function(ltype) {
 			if(jQuery(this).hasClass("x")) {return;}
 			playClickSFX();		
 			g_selectedDifficulty = jQuery(this).attr("difficulty");
-			g_selectedLevel = 0;
+			if(g_savestate["chunkComplete"][jQuery(this).attr("levelnum")]) {
+				g_selectedLevel = util.getRandomInt(0, g_leveldata[g_LevelTerrain][g_selectedDifficulty].length - 1);
+			} else {
+				g_selectedLevel = 0;
+			}
 			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
 			g_currentSet = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
 			if(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].hasExploration) {

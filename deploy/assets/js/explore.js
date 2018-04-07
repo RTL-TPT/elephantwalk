@@ -219,7 +219,11 @@ var exploreToNextLevel = function() {
 		if(g_enableDebugLevelSelect) {
 			setStateSubLevelSelect(g_LevelTerrain);
 		} else {
-			gotoNextLevelSequential();
+			if(g_selectedDifficulty === "TUTORIAL") {
+				gotoNextLevelSequential();
+			} else {
+				setStateSubLevelSelect(g_LevelTerrain);
+			}
 		}
 	}
 };
