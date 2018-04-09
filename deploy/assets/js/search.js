@@ -98,9 +98,6 @@ var create360Elephant = function() {
 			jQuery.each(unlocks, function(key, value) {
 				util.levelUpTerrain(key,value);
 			});
-			if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
-				g_savestate.levelsComplete.push(util.currentLevelId());
-			}
 			//unlock level selects as needed
 			if(util.isBlockTutorialClear("LAND")) {
 				g_savestate.tutorial_complete["LAND"] = true;
@@ -195,17 +192,23 @@ var foundElephantModal = function() {
 
 	htmlout += "<center><div class='terrainunlock'>";
 
-	var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
-	htmlout += "<table><tr>"
-	jQuery.each(unlocks, function(key, value) {
-		htmlout += "<td><center><span>Unlocked</span></center>";
-		htmlout += "<center><img src='"+"assets/images/clue/"+key.toUpperCase()+g_clueUrlPost[value]+"'/></center></td>";
-	});
-	htmlout += "</tr></table>";
+	if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
+		var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
+		htmlout += "<table><tr>"
+		jQuery.each(unlocks, function(key, value) {
+			htmlout += "<td><center><span>Unlocked</span></center>";
+			htmlout += "<center><img src='"+"assets/images/clue/"+key.toUpperCase()+g_clueUrlPost[value]+"'/></center></td>";
+		});
+		htmlout += "</tr></table>";
+	}
 
 	htmlout += "</div></center>";
 
 	util.openModal(htmlout);
+
+	if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
+		g_savestate.levelsComplete.push(util.currentLevelId());
+	}
 
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
 		//send player back to appropriate state depenending on if they're still in the tutorial or not
