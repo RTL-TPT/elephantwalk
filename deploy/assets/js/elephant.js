@@ -209,6 +209,13 @@ var fillLevels = function(ltype) {
 				g_selectedLevel = util.getRandomInt(0, g_leveldata[g_LevelTerrain][g_selectedDifficulty].length - 1);
 			} else {
 				g_selectedLevel = 0;
+				for(var i=0; i < g_leveldata[g_LevelTerrain][g_selectedDifficulty].length; i++) {
+					var lvlId = g_leveldata[g_LevelTerrain][g_selectedDifficulty][i].taskid;
+					if(g_savestate.levelsComplete.indexOf(lvlId) == -1) {
+						g_selectedLevel = i;
+						break;
+					}
+				}
 			}
 			g_activeGrid = g_LEVEL_GRID[g_selectedDifficulty][g_selectedLevel];
 			g_currentSet = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
