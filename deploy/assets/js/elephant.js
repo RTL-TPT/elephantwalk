@@ -62,18 +62,18 @@ var g_savestate = {
 	"clue_track_p2": [[],[],[],[]],
 	"search_track": [[],[],[],[]],
 	"legendLocks": {
-		"bridge": "none",
+		//"bridge": "none",
 		"building": "none",
 		"desert": "none",
 		"forest": "none",
-		"hill": "none",
+		//"hill": "none",
 		"lake": "none",
 		"mountain": "none",
 		"ocean": "none",
 		"park": "none",
 		"road": "none",
-		"stream": "none",
-		"waterfall": "none"
+		"stream": "none"
+		//"waterfall": "none"
 	},
 	"levelsComplete": [],
 	"chunkComplete": {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false},

@@ -192,18 +192,18 @@ util.clearSave = function() {
 		"clue_track_p2": [[],[],[],[]],
 		"search_track": [[],[],[],[]],
 		"legendLocks": {
-			"bridge": "none",
+			//"bridge": "none",
 			"building": "none",
 			"desert": "none",
 			"forest": "none",
-			"hill": "none",
+			//"hill": "none",
 			"lake": "none",
 			"mountain": "none",
 			"ocean": "none",
 			"park": "none",
 			"road": "none",
-			"stream": "none",
-			"waterfall": "none"
+			"stream": "none"
+			//"waterfall": "none"
 		},
 		"levelsComplete": [],
 		"chunkComplete": {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false},
@@ -225,18 +225,18 @@ util.unlockAll = function() {
 		"clue_track_p2": [[],[],[],[]],
 		"search_track": [[],[],[],[]],
 		"legendLocks": {
-			"bridge": "fullAbstract",
+			//"bridge": "fullAbstract",
 			"building": "fullAbstract",
 			"desert": "fullAbstract",
 			"forest": "fullAbstract",
-			"hill": "fullAbstract",
+			//"hill": "fullAbstract",
 			"lake": "fullAbstract",
 			"mountain": "fullAbstract",
 			"ocean": "fullAbstract",
 			"park": "fullAbstract",
 			"road": "fullAbstract",
-			"stream": "fullAbstract",
-			"waterfall": "fullAbstract"
+			"stream": "fullAbstract"
+			//"waterfall": "fullAbstract"
 		},
 		"levelsComplete": [],
 		"chunkComplete": {1:true,2:true,3:true,4:true,5:true,6:true,7:true,8:true,9:true,10:true},
@@ -350,13 +350,13 @@ util.getMasteryTargets = function() {
 	var rl = "";
 	//as
 	if(levelNum >= 1 && levelNum <= 3) {
-		as = "0";
-	} else if(levelNum >= 4 && levelNum <= 6) {
 		as = "1";
+	} else if(levelNum >= 4 && levelNum <= 6) {
+		as = "2";
 	} else if(levelNum >= 7 && levelNum <= 9) {
-		as = "2";
+		as = "3";
 	} else if(levelNum == 10) {
-		as = "2";
+		as = "3";
 	}
 	//rl
 	if(levelNum >= 1 && levelNum <= 3) {
@@ -487,9 +487,56 @@ util.isBlockTutorialClear = function(blockId) {
 	return true;
 };
 
+//check if all legend values for a difficulty block have been unlocked
+util.allLegendsUnlocked = function(chunkName) {
+	var legendsUnlocked = true;
+	if(chunkName == "LAND") {
+		jQuery.each(g_savestate.legendLocks, function(key, value) {
+			if(value == "partialAbstract" || value == "fullAbstract"){
+				//good
+			} else {
+				legendsUnlocked = false;
+			}
+		});
+	} else if(chunkName == "WATER") {
+		jQuery.each(g_savestate.legendLocks, function(key, value) {
+			if(value != "fullAbstract"){
+				legendsUnlocked = false;
+			}
+		});
+	} else{
+		jQuery.each(g_savestate.legendLocks, function(key, value) {
+			if(value != "fullAbstract"){
+				legendsUnlocked = false;
+			}
+		});
+	}
+	return legendsUnlocked;
+};
 //check if a block of levels is cleared or not
 util.isBlockClear = function(blockId) {
-	var easy = g_leveldata[blockId]["EASY"];
+	if(blockId == "LAND" &&
+		g_savestate.clue_mastery_p2 + "" >= "1" &&
+		g_savestate.clue_mastery_p1 + "" >= "1" &&
+		g_savestate.search_mastery + "" >= "1" &&
+		util.allLegendsUnlocked("LAND")) {
+		return true;
+	}
+	if(blockId == "WATER" &&
+		g_savestate.clue_mastery_p2 + "" >= "2" &&
+		g_savestate.clue_mastery_p1 + "" >= "2" &&
+		g_savestate.search_mastery + "" >= "2a"&&
+		util.allLegendsUnlocked("WATER")) {
+		return true;
+	}
+	if(blockId == "MANMADE" &&
+		g_savestate.clue_mastery_p2 + "" >= "3" &&
+		g_savestate.clue_mastery_p1 + "" >= "3" &&
+		g_savestate.search_mastery + "" >= "2b") {
+		return true;
+	}
+	return false;
+	/*var easy = g_leveldata[blockId]["EASY"];
 	for(var i = 0; i < easy.length; i++) {
 		if(!util.isLevelComplete(easy[i].taskid)) {
 			return false;
@@ -507,7 +554,7 @@ util.isBlockClear = function(blockId) {
 			return false;
 		}
 	}
-	return true;
+	return true;*/
 };
 
 //set all levels to complete - super hacky
