@@ -622,6 +622,9 @@ img {
     font-weight: bold;
     border-radius: 10px;
 }
+.missionBox.chunk.done {
+    background-color: green;
+}
 .missionBox.tutorial {
     width: 160px;
     height: 40px;

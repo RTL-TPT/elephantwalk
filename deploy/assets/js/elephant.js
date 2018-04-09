@@ -187,14 +187,18 @@ var fillLevels = function(ltype) {
 		//one box per mapset
 		cNull = false;
 		if(g_LevelTerrain === "EXPERT") {
-			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' levelnum='"+(diffmap[ltype]+1)+"' style='opacity:"+1+"' id='medium"+"btn'>"+"Chunk 1</div></center></td>";
+			var iscomplete = g_savestate["chunkComplete"][diffmap[ltype]];
+			htmlout += "<td><center><div class='missionBox chunk level "+(iscomplete ? "done ":"")+(cNull ? "x":"d2")+"' difficulty='MEDIUM' levelnum='"+(diffmap[ltype]+1)+"' style='opacity:"+1+"' id='medium"+"btn'>"+"Level 10</div></center></td>";
 		} else {
 			cNull = false;
-			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='EASY' levelnum='"+diffmap[ltype]+"' style='opacity:"+1+"' id='easy"+"btn'>"+"Chunk 1</div></center></td>";
+			var iscomplete = g_savestate["chunkComplete"][diffmap[ltype]];
+			htmlout += "<td><center><div class='missionBox chunk level "+(iscomplete ? "done ":"")+(cNull ? "x":"d2")+"' difficulty='EASY' levelnum='"+diffmap[ltype]+"' style='opacity:"+1+"' id='easy"+"btn'>"+"Level "+diffmap[ltype]+"</div></center></td>";
 			//cNull = !g_savestate["chunkComplete"][diffmap[ltype]];
-			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='MEDIUM' levelnum='"+(diffmap[ltype]+1)+"' style='opacity:"+1+"' id='medium"+"btn'>"+"Chunk 2</div></center></td>";
+			iscomplete = g_savestate["chunkComplete"][diffmap[ltype]+1];
+			htmlout += "<td><center><div class='missionBox chunk level "+(iscomplete ? "done ":"")+(cNull ? "x":"d2")+"' difficulty='MEDIUM' levelnum='"+(diffmap[ltype]+1)+"' style='opacity:"+1+"' id='medium"+"btn'>"+"Level "+(diffmap[ltype]+1)+"</div></center></td>";
 			//cNull = !g_savestate["chunkComplete"][diffmap[ltype]+1];
-			htmlout += "<td><center><div class='missionBox chunk level "+(cNull ? "x":"d2")+"' difficulty='HARD' levelnum='"+(diffmap[ltype]+2)+"' style='opacity:"+1+"' id='hard"+"btn'>"+"Chunk 3</div></center></td>";
+			iscomplete = g_savestate["chunkComplete"][diffmap[ltype]+2];
+			htmlout += "<td><center><div class='missionBox chunk level "+(iscomplete ? "done ":"")+(cNull ? "x":"d2")+"' difficulty='HARD' levelnum='"+(diffmap[ltype]+2)+"' style='opacity:"+1+"' id='hard"+"btn'>"+"Level "+(diffmap[ltype]+2)+"</div></center></td>";
 		}
 
 		htmlout += "</table></center>";
