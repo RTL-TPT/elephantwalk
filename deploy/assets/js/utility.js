@@ -7,8 +7,7 @@ var util = {};
 util.player = (function() {
 	var currentplayer = 1;
 
-	var openPlayerModal_ = function(closeCallback) {
-		if(closeCallback === undefined) {closeCallback = function(){};}
+	var openPlayerModal_ = function() {
 		var htmlout = "";
 		htmlout += "<div class='playerModalOverlay'></div>";
 		htmlout += "<div class='playerModalContainer'>";
@@ -31,7 +30,6 @@ util.player = (function() {
 			if(jQuery(".modalContainer._"+g_modalLevel+" .clueContainer").length > 0) {
 				g_sfx[g_currentClue].play(undefined,undefined,g_volumeLevel);
 			}
-			closeCallback();
 		});
 	};
 
@@ -42,18 +40,18 @@ util.player = (function() {
 			jQuery("#playerIcon").html("<img style='width:100%;height:100%' src='assets/images/icon_p"+currentplayer+".png'>");
 		}
 	};
-	var togglePlayer_ = function(callback) {
+	var togglePlayer_ = function() {
 		currentplayer = currentplayer === 1 ? 2 : 1;
 		setPlayerImg_();
-		openPlayerModal_(callback);
+		openPlayerModal_();
 	};
 	var getPlayer_ = function() {
 		return currentplayer;
 	};
-	var setPlayer_ = function(playerNum, callback) {
+	var setPlayer_ = function(playerNum) {
 		currentplayer = playerNum;
 		setPlayerImg_();
-		openPlayerModal_(callback);
+		openPlayerModal_();
 	};
 
 	return {
