@@ -135,7 +135,7 @@ var elephantTelemetry = (function(){
 		if(last_five.length > 5) {
 			last_five.splice(0,1);
 		}
-		if(last_five.length == 5) {
+		if(last_five.length == 5 && g_enableCSVout) {
 			if(last_five[0] == 80 && last_five[1] == 82 && last_five[2] == 73 && last_five[3] == 78 && last_five[4] == 84) {
 				last_five = [];
 				createLocalReport();

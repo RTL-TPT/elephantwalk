@@ -1,6 +1,7 @@
 //////////////// GlOBALS
 ////////////////
 
+var g_enableCSVout = true;
 var g_enableDebugLevelSelect = false;
 var g_enableDebugMenu = true;
 var g_LEVEL_GRID = { //LEVELS' GRID SIZE (filled in by g_data_init)
