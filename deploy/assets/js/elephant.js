@@ -1,9 +1,11 @@
 //////////////// GlOBALS
 ////////////////
 
+//global debug flags
 var g_enableCSVout = true;
 var g_enableDebugLevelSelect = false;
 var g_enableDebugMenu = true;
+//g_data_init filled globals
 var g_LEVEL_GRID = { //LEVELS' GRID SIZE (filled in by g_data_init)
 	"TUTORIAL": [
 			{"x":2,"y":2}
@@ -24,12 +26,13 @@ var g_CLUE_ABSTRACTION = { //LEVELS' CLUE DISPLAY TYPE (filled in by g_data_init
 				{"forest":"nonAbstract","mountain":"nonAbstract","desert":"nonAbstract","hill":"nonAbstract"}
 			]
 };
-var g_LEVEL_NULL = { //keeps track of which levels are using null data, shouldn't be needed once everything is finished
+var g_LEVEL_NULL = { //keeps track of which levels are using null data so the level selection screen doesn't choke
 	"TUTORIAL":[],
 	"EASY":[],
 	"MEDIUM":[],
 	"HARD":[]
 };
+//other globals
 var g_LevelTerrain = "LAND"; //current terrain type
 var g_selectedDifficulty = "TUTORIAL"; //current level difficulty
 var g_selectedLevel = 0; //current level index
@@ -78,9 +81,9 @@ var g_savestate = {
 	},
 	"levelsComplete": [],
 	"chunkComplete": {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false},
-	"randomOrderLevelsComplete": []
+	"randomOrderLevelsComplete": [] //for preventing doing the same level twice in a row if we want that later
 };
-var g_telemetry_cache = [];
+var g_telemetry_cache = []; //for telemetry output from the client
 var g_startTime = (new Date).getTime(); //for tracking time played
 var g_searchAttempts = []; //telemetry
 //fill in level data variables for specified land type
@@ -94,7 +97,6 @@ var g_data_init = function(landType) {
 		g_LEVEL_CLUES[cDiff] = [];
 		g_LEVEL_ELEPHANT[cDiff] = [];
 		g_CLUE_ABSTRACTION[cDiff] = [];
-		//g_LEGEND_ABSTRACTION[cDiff] = [];
 		g_LEVEL_NULL[cDiff] = [];
 		for(var indx = 0; indx < g_leveldata[landType][cDiff].length; indx++) {
 			var cObj = g_leveldata[landType][cDiff][indx];
@@ -103,7 +105,6 @@ var g_data_init = function(landType) {
 				g_LEVEL_CLUES[cDiff].push([]);
 				g_LEVEL_ELEPHANT[cDiff].push([]);
 				g_CLUE_ABSTRACTION[cDiff].push({});
-				//g_LEGEND_ABSTRACTION[cDiff].push({});
 				g_LEVEL_NULL[cDiff].push(true);
 				continue;
 			}
@@ -111,7 +112,6 @@ var g_data_init = function(landType) {
 			g_LEVEL_CLUES[cDiff].push(cObj.clues);
 			g_LEVEL_ELEPHANT[cDiff].push(cObj.elephantLocation);
 			g_CLUE_ABSTRACTION[cDiff].push(cObj.symbolStyle);
-			//g_LEGEND_ABSTRACTION[cDiff].push(cObj.legendLocks);
 			g_LEVEL_NULL[cDiff].push(false);
 		}
 	}
@@ -121,10 +121,7 @@ g_data_init();
 //////////////// Misc functions
 ////////////////
 
-var fillMissions = function() {
-	//
-};
-
+//used to start the next subLevel in sequence
 var gotoNextLevelSequential = function() {
 	if(typeof g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel+1] !== "undefined") {
 		g_selectedLevel++;
@@ -142,6 +139,7 @@ var gotoNextLevelSequential = function() {
 	}
 };
 
+//helper function for filling in level select screen
 var fillLevels = function(ltype) {
 	var diffmap = {"LAND":1,"WATER":4,"MANMADE":7,"EXPERT":10};
 	var titlemap = {"LAND":"A","WATER":"B","MANMADE":"C","EXPERT":"D"};
@@ -241,6 +239,7 @@ var fillLevels = function(ltype) {
 	});
 };
 
+//debug
 var toggleDebugMenu = function() {
 	if(jQuery("#debugBtn").css("opacity") == 1) {
 		jQuery("#debugBtn").css("opacity",0);
@@ -251,6 +250,7 @@ var toggleDebugMenu = function() {
 	}
 };
 
+//debug
 var toggleRandom = function() {
 	if(jQuery("#debugRandom").hasClass("random")) {
 		jQuery("#debugRandom").removeClass("random");
@@ -261,6 +261,7 @@ var toggleRandom = function() {
 	}
 };
 
+//debug
 var toggleMute = function() {
 	if(jQuery("#debugSound").hasClass("mute")) {
 		jQuery("#debugSound").removeClass("mute");
@@ -275,6 +276,7 @@ var toggleMute = function() {
 	}
 };
 
+//sound and music
 var playMenuMusic = function() {
 	if(g_music["music_game"].isPlaying) {
 		g_music["music_game"].stop();

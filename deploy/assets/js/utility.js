@@ -336,7 +336,7 @@ util.loadImages = function(imageArray, callback) {
 	}, checkinterval);
 };
 
-//
+//shortcut to current level's string ID
 util.currentLevelId = function() {
 	return g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid;
 };
@@ -368,7 +368,6 @@ util.getMasteryTargets = function() {
 	}
 	return [as,rl];
 };
-
 util.getMasteryIndex = function() {
 	var levelNum = parseInt(util.currentLevelId().split("_")[0]);
 
@@ -383,7 +382,6 @@ util.getMasteryIndex = function() {
 	}
 	return 0;
 };
-
 util.getMasteryIndexAS = function() {
 	var levelNum = parseInt(util.currentLevelId().split("_")[0]);
 
@@ -398,7 +396,6 @@ util.getMasteryIndexAS = function() {
 	}
 	return 0;
 };
-
 util.getHigherMasteryAS = function(m1,m2) {
 	if(parseInt(m1) > parseInt(m2)) {
 		return m1;
@@ -410,7 +407,6 @@ util.getHigherMasteryRL = function(m1,m2) {
 	var sorted = [m1,m2].sort();
 	return sorted[1];
 };
-
 util.getLowerMastery = function(m1,m2) {
 	var sorted = [m1,m2].sort();
 	return sorted[0];
@@ -456,17 +452,6 @@ util.setRandomHeading = function() {
 			g_heading = "west";
 			break;
 	}
-};
-
-util.goToNextLevel = function() {
-	var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
-	jQuery.each(unlocks, function(key, value) {
-		util.levelUpTerrain(key,value);
-	});
-	if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
-		g_savestate.levelsComplete.push(util.currentLevelId());
-	}
-	setStateSubLevelSelect(g_LevelTerrain);
 };
 
 //check if a specific level is clear or not
