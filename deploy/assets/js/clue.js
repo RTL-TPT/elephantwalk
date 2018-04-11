@@ -205,6 +205,7 @@ var confirmClue = function() {
 					}
 					if(masteryUp) {
 						g_savestate.clue_mastery_p2 = util.getHigherMasteryAS(util.getMasteryTargets()[0], g_savestate.clue_mastery_p2);
+						g_savestate.stars[g_LevelTerrain]["AS2"] = true;
 					}
 					console.log("clue mastery p2:" + masteryUp);
 					//reset p2 tracking
@@ -247,6 +248,7 @@ var confirmClue = function() {
 					}
 					if(masteryUp) {
 						g_savestate.clue_mastery_p1 = util.getHigherMasteryAS(util.getMasteryTargets()[0], g_savestate.clue_mastery_p1);
+						g_savestate.stars[g_LevelTerrain]["AS1"] = true;
 					}
 					console.log("clue mastery p1:" + masteryUp);
 					//reset p1 tracking

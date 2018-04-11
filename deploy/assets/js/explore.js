@@ -169,6 +169,9 @@ var foundFeatureModal = function() {
 		var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
 		jQuery.each(unlocks, function(key, value) {
 			util.levelUpTerrain(key,value);
+			if(util.allLegendsUnlocked(g_LevelTerrain)) {
+				g_savestate.stars[g_LevelTerrain]["legend"] = true;
+			}
 		});
 	}
 

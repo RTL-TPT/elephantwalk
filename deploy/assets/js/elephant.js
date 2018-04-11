@@ -81,6 +81,12 @@ var g_savestate = {
 	},
 	"levelsComplete": [],
 	"chunkComplete": {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false},
+	"stars": {
+		"LAND": {"AS1":false,"AS2":false,"RL":false,"legend":false},
+		"WATER": {"AS1":false,"AS2":false,"RL":false,"legend":false},
+		"MANMADE": {"AS1":false,"AS2":false,"RL":false,"legend":false},
+		"EXPERT": {"AS1":false,"AS2":false,"RL":false,"legend":false}
+	},
 	"randomOrderLevelsComplete": [] //for preventing doing the same level twice in a row if we want that later
 };
 var g_telemetry_cache = []; //for telemetry output from the client
@@ -656,6 +662,7 @@ var setStateSearchSelect = function() {
 						}
 						if(masteryUp) {
 							g_savestate.search_mastery = util.getHigherMasteryRL(util.getMasteryTargets()[1], g_savestate.search_mastery);
+							g_savestate.stars[g_LevelTerrain]["RL"] = true;
 						}
 						console.log("search mastery:" + masteryUp);
 						//reset tracking

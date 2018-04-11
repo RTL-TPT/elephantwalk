@@ -205,6 +205,12 @@ util.clearSave = function() {
 		},
 		"levelsComplete": [],
 		"chunkComplete": {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false},
+		"stars": {
+			"LAND": {"AS1":false,"AS2":false,"RL":false,"legend":false},
+			"WATER": {"AS1":false,"AS2":false,"RL":false,"legend":false},
+			"MANMADE": {"AS1":false,"AS2":false,"RL":false,"legend":false},
+			"EXPERT": {"AS1":false,"AS2":false,"RL":false,"legend":false}
+		},
 		"randomOrderLevelsComplete": []
 	};
 	saveState();
@@ -238,6 +244,12 @@ util.unlockAll = function() {
 		},
 		"levelsComplete": [],
 		"chunkComplete": {1:true,2:true,3:true,4:true,5:true,6:true,7:true,8:true,9:true,10:true},
+		"stars": {
+			"LAND": {"AS1":true,"AS2":true,"RL":true,"legend":true},
+			"WATER": {"AS1":true,"AS2":true,"RL":true,"legend":true},
+			"MANMADE": {"AS1":true,"AS2":true,"RL":true,"legend":true},
+			"EXPERT": {"AS1":true,"AS2":true,"RL":true,"legend":true}
+		},
 		"randomOrderLevelsComplete": []
 	};
 	util.setAllBlockClear();
