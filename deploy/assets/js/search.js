@@ -193,8 +193,38 @@ var foundElephantModal = function() {
 
 	htmlout += "<center><div class='foundMsg'>You found the elephant!</div></center>";
 
-	htmlout += "<center><div class='terrainunlock'>";
+	//STARS
+	var numYellow = 0;
+	var numGray = 0;
+	jQuery.each(g_savestate.stars[g_LevelTerrain], function(key, value) {
+		if(value) {
+			numYellow++;
+		} else {
+			numGray++;
+		}
+	});
+	if(g_LevelTerrain == "MANMADE") {
+		if(numYellow == 4) {
+			numYellow--;
+		} else {
+			numGray--;
+		}
+	}
+	if(g_LevelTerrain == "EXPERT") {
+		numYellow = 0;
+		numGray = 0;
+	}
+	htmlout += "<center><div class='stars'>";
+	for(var i = 0; i < numYellow; i++) {
+		htmlout += "<img src='assets/images/star-y.png' style='width:50px;height:50px;'/>";
+	}
+	for(var i = 0; i < numGray; i++) {
+		htmlout += "<img src='assets/images/star-g.png' style='width:50px;height:50px;'/>";
+	}
+	htmlout += "</div></center>";
 
+	//TERRAIN
+	htmlout += "<center><div class='terrainunlock'>";
 	if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
 		var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
 		htmlout += "<table><tr>"
@@ -204,7 +234,6 @@ var foundElephantModal = function() {
 		});
 		htmlout += "</tr></table>";
 	}
-
 	htmlout += "</div></center>";
 
 	util.openModal(htmlout);
