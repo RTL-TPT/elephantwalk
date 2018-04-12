@@ -38,7 +38,7 @@ img {
         background: url('../images/closeicon-300_hover.png');
         background-size: 100% 100%;
     }
-    .playerModalContainer .playerNextBtn:hover{
+    .playerModalContainer .playerNextBtn:hover, .firstNextBtn:hover{
         background: url('../images/btn_next_hover.png');
         background-size: 100% 100%;
     }
@@ -420,7 +420,7 @@ img {
     background: url('../images/closeicon-300_on.png');
     background-size: 100% 100%;
 }
-.playerModalContainer .playerNextBtn{
+.playerModalContainer .playerNextBtn, .firstNextBtn{
     position: absolute;
     top: 400px;
     left: 400px;
@@ -430,7 +430,7 @@ img {
     background-size: 100% 100%;
 }
 
-.playerModalContainer .playerNextBtn:active{
+.playerModalContainer .playerNextBtn:active, .firstNextBtn:active{
     background: url('../images/btn_next_on.png');
     background-size: 100% 100%;
 }

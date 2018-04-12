@@ -211,6 +211,7 @@ util.clearSave = function() {
 			"MANMADE": {"AS1":false,"AS2":false,"RL":false,"legend":false},
 			"EXPERT": {"AS1":false,"AS2":false,"RL":false,"legend":false}
 		},
+		"firstplay": true,
 		"randomOrderLevelsComplete": []
 	};
 	saveState();
@@ -250,6 +251,7 @@ util.unlockAll = function() {
 			"MANMADE": {"AS1":true,"AS2":true,"RL":true,"legend":true},
 			"EXPERT": {"AS1":true,"AS2":true,"RL":true,"legend":true}
 		},
+		"firstplay": false,
 		"randomOrderLevelsComplete": []
 	};
 	util.setAllBlockClear();
@@ -630,3 +632,48 @@ util.setAllBlockClear = function() {
 		}
 	}
 };
+
+var tutorial = (function(){
+	var openPlayerModal_ = function() {
+		var htmlout = "";
+		htmlout += "<div class='playerModalOverlay'></div>";
+		htmlout += "<div class='playerModalContainer'>";
+		htmlout += "<div class='closeBtn'></div>";
+		htmlout += "<div class='playerNextBtn'></div>";
+
+		htmlout += "<div style='position:absolute;top:180px;width:100%;'><span style='font-size:40px;'>Time to</span><br/><span style='font-size:100px;'>work together.</span></div>";
+
+		htmlout += "</div>";
+
+		jQuery("#uiLayer").append(htmlout);
+		jQuery(".playerModalContainer .closeBtn, .playerModalContainer .playerNextBtn").click(function(){
+			playClickSFX();
+			jQuery(".playerModalContainer").remove();
+			jQuery(".playerModalOverlay").remove();
+			if(jQuery(".modalContainer._"+g_modalLevel+" .clueContainer").length > 0) {
+				g_sfx[g_currentClue].play(undefined,undefined,g_volumeLevel);
+			}
+			a2_();
+		});
+	};
+
+	var a1_ = function() {
+		openPlayerModal_();
+	};
+	var a2_ = function() {
+		var htmlout = "<div class='playerModalOverlay'></div><div id='exploreBox' class='exploremap' style='z-index:10001'></div>";
+		jQuery("#uiLayer").append(htmlout);
+		setExploreText("Here is a map of where we are.");
+		jQuery("#exploreText, #gpsmap").css("z-index","10001");
+		jQuery("#exploreBox").click(function(){
+			a3_();
+		});
+	};
+	var a3_ = function() {
+		jQuery(".playerModalOverlay").remove();
+		jQuery("#exploreBox").remove();
+		jQuery("#exploreText, #gpsmap").css("z-index","");
+		setExploreText("Find the building");
+	};
+	return {"a1":a1_};
+})();
