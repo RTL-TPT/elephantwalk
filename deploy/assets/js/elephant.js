@@ -358,7 +358,20 @@ var setStateTitle = function() {
 			elephantTelemetry.createEvent("start_game");
 			playClickSFX();
 			//setStateLevelSelect();
-			resumeState();
+			if(g_savestate.firstplay) {
+				var htmlout = "<div id='firstplaynext' class='firstNextBtn'></div>";
+				htmlout += "<center><div style='position:absolute;top:180px;width:100%;'><span style='font-size:40px;'>In this game, sometimes we need to take turns and sometimes we need to work together.</span></div></center>";
+				util.openModal(htmlout);
+				jQuery(".modalContainer._"+g_modalLevel+" .closeBtn").click(function(){
+					setToTutorialLevel();
+				});
+				jQuery("#firstplaynext").click(function(){
+					jQuery(".modalContainer._"+g_modalLevel+" .closeBtn").click();
+				});
+				g_savestate.firstplay = false;
+			} else {
+				resumeState();
+			}
 		});
 		if(g_enableDebugMenu) {
 			jQuery("#debugBtn").unbind().click(function(){playClickSFX();toggleDebugMenu();});
@@ -368,18 +381,6 @@ var setStateTitle = function() {
 			jQuery("#debugRandom").unbind().click(function(){playClickSFX();toggleRandom();});
 		}
 		toggleRandom();
-		if(g_savestate.firstplay) {
-			var htmlout = "<div id='firstplaynext' class='firstNextBtn'></div>";
-			htmlout += "<center><div style='position:absolute;top:180px;width:100%;'><span style='font-size:40px;'>In this game, sometimes we need to take turns and sometimes we need to work together.</span></div></center>";
-			util.openModal(htmlout);
-			jQuery(".modalContainer._"+g_modalLevel+" .closeBtn").click(function(){
-				setToTutorialLevel();
-			});
-			jQuery("#firstplaynext").click(function(){
-				jQuery(".modalContainer._"+g_modalLevel+" .closeBtn").click();
-			});
-			g_savestate.firstplay = false;
-		}
 	});
 };
 var setToTutorialLevel = function() {
