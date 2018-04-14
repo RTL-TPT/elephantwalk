@@ -606,7 +606,7 @@ var g_leveldata =
 			},
 			{
 				"clues": [
-					"forest",
+					"lake",
 					"road"
 				],
 				"symbolStyle": {
@@ -1081,7 +1081,7 @@ var g_leveldata =
 				],
 				"hasExploration": false,
 				"taskid": "9_3",
-				"clueMod": ["none","far"],
+				"clueMod": ["none","near"],
 				"mapset": 9
 			},
 			{

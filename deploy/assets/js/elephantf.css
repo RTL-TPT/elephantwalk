@@ -834,19 +834,21 @@ img {
 }
 .clueDrop1txt {
     position: absolute;
-    width: 141px;
-    top: 184px;
+    width: 142px;
+    top: 157px;
     left: 25px;
     text-align: center;
     text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    font-size: 40px;
 }
 .clueDrop2txt {
     position: absolute;
     width: 141px;
-    top: 403px;
+    top: 376px;
     left: 25px;
     text-align: center;
     text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    font-size: 40px;
 }
 
 .gameCloseBtn{
