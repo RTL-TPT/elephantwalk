@@ -80,7 +80,7 @@ var g_savestate = {
 		//"waterfall": "none"
 	},
 	"levelsComplete": [],
-	"chunkComplete": {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false},
+	"chunkComplete": {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false,11:false},
 	"stars": {
 		"LAND": {"AS1":false,"AS2":false,"RL":false,"legend":false},
 		"WATER": {"AS1":false,"AS2":false,"RL":false,"legend":false},
@@ -215,8 +215,13 @@ var fillLevels = function(ltype) {
 			if(jQuery(this).hasClass("x")) {return;}
 			playClickSFX();		
 			g_selectedDifficulty = jQuery(this).attr("difficulty");
+			//select random level if already complete, otherwise go sequential
 			if(g_savestate["chunkComplete"][jQuery(this).attr("levelnum")]) {
 				g_selectedLevel = util.getRandomInt(0, g_leveldata[g_LevelTerrain][g_selectedDifficulty].length - 1);
+				//prevent doing exploration levels in random rotation
+				while(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].hasExploration) {
+					g_selectedLevel = util.getRandomInt(0, g_leveldata[g_LevelTerrain][g_selectedDifficulty].length - 1);
+				}
 			} else {
 				g_selectedLevel = 0;
 				for(var i=0; i < g_leveldata[g_LevelTerrain][g_selectedDifficulty].length; i++) {
