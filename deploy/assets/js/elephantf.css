@@ -872,23 +872,58 @@ img {
     position: absolute;
     bottom: 22px;
     background-color: white;
-    width: 500px;
+    width: 800px;
     height: 60px;
     border-radius: 10px;
     line-height: 60px;
     text-align: center;
-    margin-left: calc(50% - 250px);
+    margin-left: calc(50% - 400px);
     font-size: 32px;
 }
 .clueTutorialText {
     position: absolute;
     bottom: 22px;
     background-color: white;
-    width: 500px;
+    width: 800px;
     height: 60px;
     border-radius: 10px;
     line-height: 60px;
     text-align: center;
-    margin-left: calc(50% - 250px);
+    margin-left: calc(50% - 400px);
     font-size: 32px;
+}
+.clueTutorialTextMap {
+    position: absolute;
+    bottom: 22px;
+    background-color: white;
+    width: 629px;
+    height: 152px;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 186px;
+    font-size: 32px;
+    /*z-index: 10001;*/
+}
+.levelSelectTutorialText {
+    position: absolute;
+    bottom: 22px;
+    background-color: white;
+    width: 813px;
+    height: 152px;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 186px;
+    font-size: 32px;
+}
+.avatar {
+    position: absolute;
+    bottom: 22px;
+    background-color: white;
+    width: 152px;
+    height: 152px;
+    border-radius: 152px;
+    text-align: center;
+    margin-left: 20px;
+    font-size: 32px;
+    /*z-index: 10001;*/
 }

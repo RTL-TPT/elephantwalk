@@ -657,6 +657,7 @@ util.setAllBlockClear = function() {
 };
 
 var tutorial = (function(){
+	//use for run once functions
 	var drag1 = false;
 	var drag2 = false;
 	var ran_d6 = false;
@@ -664,15 +665,78 @@ var tutorial = (function(){
 	var ran_f3 = false;
 	var ran_h1 = false;
 
-	var setLevelSelectText = function(message) {
+	//helpers for tutorial text
+	var setAvatarText = function(message, size, avimg) {
+		if(jQuery("#clueTutorialTextMap").length == 0) {
+			jQuery("#uiLayer").append("<div class='avatar' id='avatar'></div><div class='clueTutorialTextMap' id='clueTutorialTextMap'></div>");
+		}
+		if(typeof size !== "undefined") {
+			jQuery("#clueTutorialTextMap").css("font-size",size+"px");
+		} else {
+			jQuery("#clueTutorialTextMap").css("font-size","");
+		}
+		jQuery("#clueTutorialText").remove();
+		if(message == "") {
+			jQuery("#clueTutorialTextMap").remove();
+			jQuery("#avatar").remove();
+		} else {
+			jQuery("#clueTutorialTextMap").html(message);
+		}
+	};
+
+	var setLevelSelectText = function(message, size) {
+		if(jQuery("#levelSelectTutorialText").length == 0) {
+			jQuery("#menuContainer").append("<div class='avatar' id='avatar'></div><div class='levelSelectTutorialText' id='levelSelectTutorialText'></div>");
+		}
+		if(typeof size !== "undefined") {
+			jQuery("#levelSelectTutorialText").css("font-size",size+"px");
+		} else {
+			jQuery("#levelSelectTutorialText").css("font-size","");
+		}
+		jQuery("#avatar").css("background-color","coral");
+		jQuery("#levelSelectTutorialText").css("background-color","coral");
+		jQuery("#levelSelectTutorialText").html(message);
+		if(message == "") {
+			jQuery("#levelSelectTutorialText").remove();
+			jQuery("#avatar").remove();
+		} else {
+			//
+		}
+	};
+
+	var setClueText = function(message, size) {
 		if(jQuery("#clueTutorialText").length == 0) {
-			jQuery("#menuContainer").append("<div class='clueTutorialText' id='clueTutorialText'></div>");
+			jQuery("#uiLayer").append("<div class='clueTutorialText' id='clueTutorialText'></div>");
 		}
-		jQuery("#clueTutorialText").html(message);
-		if(message.length == "") {
+		if(typeof size !== "undefined") {
+			jQuery("#clueTutorialText").css("font-size",size+"px");
+		} else {
+			jQuery("#clueTutorialText").css("font-size","");
+		}
+		jQuery("#avatar").remove();
+		jQuery("#clueTutorialTextMap").remove();
+		if(message == "") {
 			jQuery("#clueTutorialText").remove();
+		} else {
+			jQuery("#clueTutorialText").html(message);
 		}
-	}
+	};
+
+	var setExploreText = function(message, size) {
+		if(jQuery("#exploreText").length == 0) {
+			jQuery("#uiLayer").append("<div class='exploreText' id='exploreText'></div>");
+		}
+		if(typeof size !== "undefined") {
+			jQuery("#exploreText").css("font-size",size+"px");
+		} else {
+			jQuery("#exploreText").css("font-size","");
+		}
+		if(message == "") {
+			jQuery("#exploreText").remove();
+		} else {
+			jQuery("#exploreText").html(message);
+		}
+	};
 
 	var openPlayerModal_ = function(text1, text2, cb) {
 		var htmlout = "";
@@ -723,7 +787,7 @@ var tutorial = (function(){
 	var a4_ = function(){
 		jQuery(".playerModalOverlay").remove();
 		jQuery("#exploreText, #leftArrow, #rightArrow").css("z-index","");
-		setExploreText("I see a building on our map! Can you look around and find the building?");
+		setExploreText("I see a building on our map! Can you look around and find the building?",24);
 		jQuery("#rightArrow").unbind().click(function(){playClickSFX();rotateView("right")});
 		jQuery("#leftArrow").unbind().click(function(){playClickSFX();rotateView("left")});
 	};
@@ -745,7 +809,7 @@ var tutorial = (function(){
 		jQuery("#exploreBox").remove();
 		jQuery(".playerModalOverlay").remove();
 		jQuery("#exploreText, #gpsmap").css("z-index","");
-		setExploreText("I see a forest on our map! Can you find the forest Player 1?");
+		setExploreText("I see a forest on our map! Can you find the forest Player 1?",28);
 	};
 
 	//explore p2
@@ -765,7 +829,7 @@ var tutorial = (function(){
 		jQuery("#exploreBox").remove();
 		jQuery(".playerModalOverlay").remove();
 		jQuery("#exploreText, #gpsmap").css("z-index","");
-		setExploreText("I see a lake on our map! Can you find the lake Player 2?");
+		setExploreText("I see a lake on our map! Can you find the lake Player 2?", 30);
 	};
 
 	//clue p1
@@ -780,8 +844,8 @@ var tutorial = (function(){
 			drag1 = true;
 			var htmlout = "<div class='playerModalOverlay'></div></div>";
 			jQuery("#uiLayer").append(htmlout);
-			setClueText("Tap here to see the clue again.");
-			jQuery("#clueTutorialText, #clueDrop2").css("z-index","10001");
+			setAvatarText("Tap here to see the clue again.");
+			jQuery("#clueTutorialTextMap, #avatar, #clueDrop2").css("z-index","10001");
 			jQuery("#clueDrop2").click(function(){
 				d4_();
 			});
@@ -803,24 +867,25 @@ var tutorial = (function(){
 	var d5_ = function() {
 		var htmlout = "<div class='playerModalOverlay'></div></div>";
 		jQuery("#uiLayer").append(htmlout);
-		setClueText("Ok, now let’s see if we matched the clue! Tap here to check.");
-		jQuery("#clueTutorialText, #clueDoneBtn").css("z-index","10001");
+		setAvatarText("Ok, now let’s see if we matched the clue! Tap here to check.");
+		jQuery("#clueTutorialTextMap, #avatar, #clueDoneBtn").css("z-index","10001");
 		jQuery(".clueBar .clueDoneBtn").click(function(){
-			jQuery("#clueTutorialText, #clueDoneBtn").css("z-index","");
+			jQuery("#clueTutorialTextMap, #avatar, #clueDoneBtn").css("z-index","");
 			jQuery(".playerModalOverlay").remove();
 		});
 	};
 	var d6_ = function(wascorrect) {
 		if(!ran_d6) {
 			if(wascorrect) {
-				setClueText("");
+				setAvatarText("");
 				ran_d6 = true;
 				jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
 					playClickSFX();
 					confirmClue();
 				});
 			} else {
-				setClueText("Oops! Try again.");
+				setAvatarText("Oops! Try again.");
+				jQuery("#clueTutorialTextMap, #avatar").css("z-index","");
 			}
 		}
 	}
@@ -837,8 +902,8 @@ var tutorial = (function(){
 			drag2 = true;
 			var htmlout = "<div class='playerModalOverlay'></div></div>";
 			jQuery("#uiLayer").append(htmlout);
-			setClueText("Tap here to look at the legend.");
-			jQuery("#clueTutorialText, #clueLegend").css("z-index","10001");
+			setAvatarText("Tap here to look at the legend.");
+			jQuery("#clueTutorialTextMap, #avatar, #clueLegend").css("z-index","10001");
 			jQuery("#clueLegend").click(function(){
 				e4_();
 			});
@@ -859,8 +924,8 @@ var tutorial = (function(){
 	var e5_ = function() {
 		var htmlout = "<div class='playerModalOverlay'></div></div>";
 		jQuery("#uiLayer").append(htmlout);
-		setClueText("Ok, now let’s see if we matched the clue! Tap here to check.");
-		jQuery("#clueTutorialText, #clueDoneBtn").css("z-index","10001");
+		setAvatarText("Ok, now let’s see if we matched the clue! Tap here to check.");
+		jQuery("#clueTutorialTextMap, #avatar, #clueDoneBtn").css("z-index","10001");
 		jQuery(".clueBar .clueDoneBtn").click(function(){
 			jQuery("#clueTutorialText, #clueDoneBtn").css("z-index","");
 			jQuery(".playerModalOverlay").remove();
@@ -869,14 +934,15 @@ var tutorial = (function(){
 	var e6_ = function(wascorrect) {
 		if(!ran_e6) {
 			if(wascorrect) {
-				setClueText("");
+				setAvatarText("");
 				ran_e6 = true;
 				jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
 					playClickSFX();
 					confirmClue();
 				});
 			} else {
-				setClueText("Oops! Try again.");
+				setAvatarText("Oops! Try again.");
+				jQuery("#clueTutorialTextMap, #avatar").css("z-index","");
 			}
 		}
 	};
@@ -886,16 +952,16 @@ var tutorial = (function(){
 		openPlayerModal_("Time to work together again!","All Players",f2_);
 	};
 	var f2_ = function() {
-		setClueText("Do you see which part of the map matches both clues?");
+		setAvatarText("Do you see which part of the map matches both clues?");
 	};
 	var f3_ = function() {
 		if(!ran_f3) {
 			ran_f3 = true;
-			setClueText("Ok, now let’s see if we matched both clues! Tap here to check.");
+			setAvatarText("Ok, now let’s see if we matched both clues! Tap here to check.");
 
 			var htmlout = "<div class='playerModalOverlay'></div></div>";
 			jQuery("#uiLayer").append(htmlout);
-			jQuery("#clueTutorialText, #clueDoneBtn").css("z-index","10001");
+			jQuery("#clueTutorialTextMap, #avatar, #clueDoneBtn").css("z-index","10001");
 			//jQuery("#clueDoneBtn").click(function(){
 				//f4_();
 			//});
@@ -904,12 +970,13 @@ var tutorial = (function(){
 	var f4_ = function() {
 		jQuery("#clueDoneBtn").css("z-index","");
 		jQuery(".playerModalOverlay").remove();
-		setClueText("Oops! Try again.");
+		setAvatarText("Oops! Try again.");
+		jQuery("#clueTutorialTextMap, #avatar").css("z-index","");
 	};
 	var f5_ = function() {
 		jQuery("#clueDoneBtn").css("z-index","");
 		jQuery(".playerModalOverlay").remove();
-		setClueText("");
+		setAvatarText("");
 	};
 
 	//search first person
@@ -949,6 +1016,9 @@ var tutorial = (function(){
 		"f5":f5_,
 		"g1":g1_,
 		"h1":h1_,
-		"setLevelSelectText":setLevelSelectText
+		"setLevelSelectText":setLevelSelectText,
+		"setClueText":setClueText,
+		"setExploreText":setExploreText,
+		"setAvatarText":setAvatarText
 	};
 })();

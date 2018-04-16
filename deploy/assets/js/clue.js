@@ -159,7 +159,7 @@ var confirmClue = function() {
 						saveState();
 						openClueModal(function(){
 							util.animation.dragDropAnim();
-							setClueText("Player 2, do you see the clue on the map? Drag it to the box.");
+							tutorial.setAvatarText("Player 2, do you see the clue on the map? Drag it to the box.");
 						});
 						tutorial.e1();
 					} else {
@@ -333,13 +333,3 @@ var openLegendModal = function() {
 
 	elephantTelemetry.createEvent("clue_legend",{"correct_selection":g_currentClue});
 };
-
-var setClueText = function(message) {
-	if(jQuery("#clueTutorialText").length == 0) {
-		jQuery("#uiLayer").append("<div class='clueTutorialText' id='clueTutorialText'></div>");
-	}
-	jQuery("#clueTutorialText").html(message);
-	if(message.length == "") {
-		jQuery("#clueTutorialText").remove();
-	}
-}
