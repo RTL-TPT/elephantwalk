@@ -1803,6 +1803,18 @@ var g_helpLookup = {
 	'10_8':[1000,'Not Currently Tested']
 };
 
+var g_searchText = {
+	'1_1':'I see a forest and a building.',
+	'1_2':'I see a mountain and a forest.',
+	'1_3':'I see a building and a desert.',
+	'2_1':'I see a lake and a forest.',
+	'2_2':'I see a ocean and a lake.',
+	'2_3':'I see a forest and a river.',
+	'3_1':'I see a building and a lake.',
+	'3_2':'I see a park and a building.',
+	'3_3':'I see a lake and a road.',
+};
+
 var g_cacheList = [
 	"assets/images/debug-sound-off.png",
 	"assets/images/debug-sound.png",

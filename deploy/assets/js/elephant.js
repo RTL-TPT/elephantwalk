@@ -291,21 +291,21 @@ var toggleMute = function() {
 
 //sound and music
 var playMenuMusic = function() {
-	if(g_music["music_game"].isPlaying) {
+	/*if(g_music["music_game"].isPlaying) {
 		g_music["music_game"].stop();
 	}
 	if(!g_music["music_menu"].isPlaying) {
 		g_music["music_menu"].play(undefined,undefined,g_volumeLevel);
-	}
+	}*/
 };
 
 var playGameMusic = function() {
-	if(g_music["music_menu"].isPlaying) {
+	/*if(g_music["music_menu"].isPlaying) {
 		g_music["music_menu"].stop();
 	}
 	if(!g_music["music_game"].isPlaying) {
 		g_music["music_game"].play(undefined,undefined,g_volumeLevel);
-	}
+	}*/
 };
 
 var playClickSFX = function() {
@@ -653,6 +653,11 @@ var setStateSearchSelect = function() {
 		}
 		//show overlay grid (dotted line)
 		jQuery(".clueGridOverlay").show();
+		//show text
+		var clevelid = util.currentLevelId();
+		if(typeof g_searchText[clevelid] !== "undefined") {
+			tutorial.setAvatarText(g_searchText[clevelid]);
+		}
 		//bind overlay grid
 		jQuery(".clueOverlayBox").unbind().click(function(){
 			playClickSFX();
