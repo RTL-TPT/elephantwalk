@@ -311,11 +311,29 @@ util.animation = (function() {
 		jQuery("#indicatorHand").animate({"left":"872px","top":"86px"},{"duration":1800,"always":animPart2});
 	};
 
+	var bounceIndicator = function(x, y, cb) {
+		if(typeof cb === "undefined"){cb = function(){};}
+		var bounceDuration = 400;
+		if(jQuery("#menuContainer").length > 0) {
+			jQuery("#menuContainer").append("<div id='indicatorHand' class='indicatorHand'></div>");
+		} else if(jQuery("#uiLayer").length > 0) {
+			jQuery("#uiLayer").append("<div id='indicatorHand' class='indicatorHand'></div>");
+		}
+		var lastCallback = function(){
+			jQuery("#indicatorHand").fadeOut(400,function(){jQuery("#indicatorHand").remove();});
+			cb();
+			//setTimeout(dragDropAnim, 2000);
+		};
+		jQuery("#indicatorHand").css("left",x+"px").css("top",y+"px");
+		jQuery("#indicatorHand").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration,"always":lastCallback});
+	};
+
 	return {
 		"correctAnim": correctAnim,
 		"incorrectAnim": incorrectAnim,
 		"playerAnim": playerAnim,
-		"dragDropAnim": dragDropAnim
+		"dragDropAnim": dragDropAnim,
+		"bounceIndicator": bounceIndicator,
 	};
 })();
 
@@ -644,6 +662,17 @@ var tutorial = (function(){
 	var ran_d6 = false;
 	var ran_e6 = false;
 	var ran_f3 = false;
+	var ran_h1 = false;
+
+	var setLevelSelectText = function(message) {
+		if(jQuery("#clueTutorialText").length == 0) {
+			jQuery("#menuContainer").append("<div class='clueTutorialText' id='clueTutorialText'></div>");
+		}
+		jQuery("#clueTutorialText").html(message);
+		if(message.length == "") {
+			jQuery("#clueTutorialText").remove();
+		}
+	}
 
 	var openPlayerModal_ = function(text1, text2, cb) {
 		var htmlout = "";
@@ -883,6 +912,27 @@ var tutorial = (function(){
 		setClueText("");
 	};
 
+	//search first person
+	var g1_ = function() {
+		openPlayerModal_("Keep working together!","All Players",g2_);
+	};
+	var g2_ = function() {
+		setClueText("Can you find the elephant?");
+	};
+
+	//level select
+	var h1_ = function() {
+		//if(!ran_h1) {
+			ran_h1 = true;
+			setLevelSelectText("Nice work team! You know how to play now. Pick a place!");
+			jQuery(".missionBox.b1").click(function(){
+				setLevelSelectText("Now pick a map and keep searching team!");
+			});
+
+			util.animation.bounceIndicator(250,360);
+		//}
+	};
+
 	return {
 		"a1":a1_,
 		"b1":b1_,
@@ -896,6 +946,9 @@ var tutorial = (function(){
 		"f1":f1_,
 		"f3":f3_,
 		"f4":f4_,
-		"f5":f5_
+		"f5":f5_,
+		"g1":g1_,
+		"h1":h1_,
+		"setLevelSelectText":setLevelSelectText
 	};
 })();

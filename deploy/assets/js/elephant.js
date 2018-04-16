@@ -245,6 +245,7 @@ var fillLevels = function(ltype) {
 	jQuery("#menuCloseBtn").show();
 	jQuery("#menuCloseBtn").unbind().click(function(){
 		playClickSFX();
+		tutorial.setLevelSelectText("");
 		jQuery(this).hide();
 		jQuery("#difficultySelect").hide();
 		jQuery("#missionSelect").show();
@@ -780,7 +781,11 @@ var setStateSearchFirstPerson = function() {
 		g_directionsRemaining = "nesw".replace(g_heading[0], "");
 		jQuery("#uiLayer").html(data);
 		//init here
-		util.player.setPlayer(0);
+		if(util.currentLevelId() === "1_T3") {
+			tutorial.g1();
+		} else {
+			util.player.setPlayer(0);
+		}
 		jQuery("#uiLayer").addClass("bg1").removeClass("cluePhase");
 		createSearchView();
 	});

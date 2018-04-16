@@ -248,7 +248,12 @@ var foundElephantModal = function() {
 			setStateSubLevelSelect(g_LevelTerrain);
 		} else {
 			if(g_selectedDifficulty === "TUTORIAL") {
-				gotoNextLevelSequential();
+				if(util.currentLevelId() === "1_T3") {
+					g_savestate.tutorial_complete["LAND"] = true;
+					setStateLevelSelect(tutorial.h1);
+				} else {
+					gotoNextLevelSequential();
+				}
 			} else {
 				setStateSubLevelSelect(g_LevelTerrain);
 			}
