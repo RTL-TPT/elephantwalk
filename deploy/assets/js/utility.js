@@ -294,10 +294,10 @@ util.animation = (function() {
 
 	var dragDropAnim = function(callback) {
 		if(callback === undefined) {callback = function(){};}
-		if(g_hasDrag) {
+		/*if(g_hasDrag) {
 			g_hasDrag = false; //reset for future use
 			return;
-		}
+		}*/
 		var bounceDuration = 400;
 		var animPart2 = function(){
 			jQuery("#indicatorHand").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration,"always":lastCallback});

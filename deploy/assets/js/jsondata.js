@@ -489,7 +489,7 @@ var g_leveldata =
 				},
 				"gridSize": "3x2",
 				"elephantLocation": [
-					0,
+					1,
 					1,
 					"south"
 				],
@@ -1519,7 +1519,7 @@ var g_mapsetdata = [
 			[92,210,114,108,"building"],
 			[6,459,946,162,"ocean"],
 			[40,6,442,169,"lake"],
-			[570,98,117,84,"building"],
+			[568,303,126,105,"building"],
 			[516,1,436,91,"road"],
 			[721,205,228,92,"lake"],
 			[302,179,242,277,"stream"],
@@ -1822,7 +1822,7 @@ var g_searchText = {
 	"5_3":"I see a small river and an ocean.",
 	"5_4":"I see a building and a big lake.",
 	"6_1":"I see a big building and a forest.",
-	"6_2":"I see a forest and a small road.",
+	"6_2":"I see a lake and a small road.",
 	"6_3":"I see a small building and a park.",
 	"6_4":"I see a park and a big road."
 };

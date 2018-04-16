@@ -568,7 +568,7 @@ var setStateClue = function() {
 				playClickSFX();
 				confirmClue();
 			});
-			openClueModal(util.animation.dragDropAnim);
+			openClueModal();
 		});
 	}
 };
@@ -603,7 +603,11 @@ var setStateClueTwo = function() {
 			playClickSFX();
 			confirmClue();
 		});
-		openClueModal(util.animation.dragDropAnim);
+		if(util.currentLevelId() === "1_T3") {
+			openClueModal(util.animation.dragDropAnim);
+		} else {
+			openClueModal();
+		}
 	});
 };
 //set state to map square selection
