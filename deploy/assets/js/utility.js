@@ -305,7 +305,7 @@ util.animation = (function() {
 		var lastCallback = function(){
 			jQuery("#indicatorHand").fadeOut(400,function(){jQuery("#indicatorHand").remove();});
 			callback();
-			setTimeout(dragDropAnim, 2000);
+			//setTimeout(dragDropAnim, 2000);
 		};
 		jQuery("#clueBar").after("<div id='indicatorHand' class='indicatorHand'></div>");
 		jQuery("#indicatorHand").animate({"left":"872px","top":"86px"},{"duration":1800,"always":animPart2});
