@@ -10,7 +10,12 @@ var createExploreMap = function(player) {
 	if(typeof player !== "undefined" && player == 2) {
 		target1 = eTargets[1][0];
 		target2 = eTargets[1][1];
-		util.player.setPlayer(2);
+		if(util.currentLevelId() === "1_T2") {
+			util.player.setPlayerNoModal(2);
+			tutorial.c1();
+		} else {
+			util.player.setPlayer(2);
+		}
 	}
 	g_activeTile = [target1,target2];
 	var htmlout = "";

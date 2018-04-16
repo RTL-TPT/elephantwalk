@@ -53,11 +53,16 @@ util.player = (function() {
 		setPlayerImg_();
 		openPlayerModal_();
 	};
+	var setPlayerNoModal_ = function(playerNum) {
+		currentplayer = playerNum;
+		setPlayerImg_();
+	};
 
 	return {
 		"togglePlayer":togglePlayer_,
 		"getPlayer": getPlayer_,
-		"setPlayer": setPlayer_
+		"setPlayer": setPlayer_,
+		"setPlayerNoModal": setPlayerNoModal_
 	};
 })();
 
@@ -634,14 +639,14 @@ util.setAllBlockClear = function() {
 };
 
 var tutorial = (function(){
-	var openPlayerModal_ = function() {
+	var openPlayerModal_ = function(text1, text2, cb) {
 		var htmlout = "";
 		htmlout += "<div class='playerModalOverlay'></div>";
 		htmlout += "<div class='playerModalContainer'>";
 		htmlout += "<div class='closeBtn'></div>";
 		htmlout += "<div class='playerNextBtn'></div>";
 
-		htmlout += "<div style='position:absolute;top:180px;width:100%;'><span style='font-size:40px;'>Time to</span><br/><span style='font-size:100px;'>work together.</span></div>";
+		htmlout += "<div style='position:absolute;top:180px;width:100%;'><span style='font-size:40px;'>"+text1+"</span><br/><span style=''>"+text2+"</span></div>";
 
 		htmlout += "</div>";
 
@@ -653,12 +658,13 @@ var tutorial = (function(){
 			if(jQuery(".modalContainer._"+g_modalLevel+" .clueContainer").length > 0) {
 				g_sfx[g_currentClue].play(undefined,undefined,g_volumeLevel);
 			}
-			a2_();
+			cb();
+			//a2_();
 		});
 	};
 
 	var a1_ = function() {
-		openPlayerModal_();
+		openPlayerModal_("Time to","work together.",a2_);
 	};
 	var a2_ = function() {
 		var htmlout = "<div class='playerModalOverlay'></div><div id='exploreBox' class='exploremap' style='z-index:10001'></div>";
@@ -670,10 +676,63 @@ var tutorial = (function(){
 		});
 	};
 	var a3_ = function() {
-		jQuery(".playerModalOverlay").remove();
 		jQuery("#exploreBox").remove();
-		jQuery("#exploreText, #gpsmap").css("z-index","");
-		setExploreText("Find the building");
+		jQuery("#gpsmap").css("z-index","");
+		jQuery("#leftArrow, #rightArrow").css("z-index","10001");
+		setExploreText("Use the arrows to look left or right.");
+		jQuery("#leftArrow, #rightArrow").click(function(){
+			a4_();
+		});
 	};
-	return {"a1":a1_};
+	var a4_ = function(){
+		jQuery(".playerModalOverlay").remove();
+		jQuery("#exploreText, #leftArrow, #rightArrow").css("z-index","");
+		setExploreText("I see a building on our map! Can you look around and find the building?");
+		jQuery("#rightArrow").unbind().click(function(){playClickSFX();rotateView("right")});
+		jQuery("#leftArrow").unbind().click(function(){playClickSFX();rotateView("left")});
+	};
+
+	var b1_ = function() {
+		openPlayerModal_("Time to take turns now!","It’s your turn Player 1",b2_);
+	};
+	var b2_ = function() {
+		var htmlout = "<div class='playerModalOverlay'></div><div id='exploreBox' class='exploremap' style='z-index:10001'></div>";
+		jQuery("#uiLayer").append(htmlout);
+		setExploreText("Here is the map again. Let’s look at the other side now.");
+		jQuery("#exploreText, #gpsmap").css("z-index","10001");
+		jQuery("#exploreBox").click(function(){
+			b3_();
+		});
+	};
+	var b3_ = function() {
+		jQuery("#exploreBox").remove();
+		jQuery(".playerModalOverlay").remove();
+		jQuery("#exploreText, #gpsmap").css("z-index","");
+		setExploreText("I see a forest on our map! Can you find the forest Player 1?");
+	};
+
+	var c1_ = function() {
+		openPlayerModal_("Time to take turns now!","It’s your turn Player 2",c2_);
+	};
+	var c2_ = function() {
+		var htmlout = "<div class='playerModalOverlay'></div><div id='exploreBox' class='exploremap' style='z-index:10001'></div>";
+		jQuery("#uiLayer").append(htmlout);
+		setExploreText("Remember our map? Let’s look at the right side again.");
+		jQuery("#exploreText, #gpsmap").css("z-index","10001");
+		jQuery("#exploreBox").click(function(){
+			c3_();
+		});
+	};
+	var c3_ = function() {
+		jQuery("#exploreBox").remove();
+		jQuery(".playerModalOverlay").remove();
+		jQuery("#exploreText, #gpsmap").css("z-index","");
+		setExploreText("I see a lake on our map! Can you find the lake Player 2?");
+	};
+
+	return {
+		"a1":a1_,
+		"b1":b1_,
+		"c1":c1_
+	};
 })();

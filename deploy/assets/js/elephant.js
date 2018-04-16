@@ -503,7 +503,11 @@ var setStateExplore = function() {
 		jQuery("#uiLayer").html(data);
 		//init here
 		if(util.currentLevelId() === "1_T1") {
+			util.player.setPlayerNoModal(1);
 			tutorial.a1();
+		} else if(util.currentLevelId() === "1_T2") {
+			util.player.setPlayerNoModal(1);
+			tutorial.b1();
 		} else {
 			util.player.setPlayer(1);
 		}
