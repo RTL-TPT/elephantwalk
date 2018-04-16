@@ -643,6 +643,7 @@ var tutorial = (function(){
 	var drag2 = false;
 	var ran_d6 = false;
 	var ran_e6 = false;
+	var ran_f3 = false;
 
 	var openPlayerModal_ = function(text1, text2, cb) {
 		var htmlout = "";
@@ -853,7 +854,33 @@ var tutorial = (function(){
 
 	//search map
 	var f1_ = function() {
-		//
+		openPlayerModal_("Time to work together again!","All Players",f2_);
+	};
+	var f2_ = function() {
+		setClueText("Do you see which part of the map matches both clues?");
+	};
+	var f3_ = function() {
+		if(!ran_f3) {
+			ran_f3 = true;
+			setClueText("Ok, now let’s see if we matched both clues! Tap here to check.");
+
+			var htmlout = "<div class='playerModalOverlay'></div></div>";
+			jQuery("#uiLayer").append(htmlout);
+			jQuery("#clueTutorialText, #clueDoneBtn").css("z-index","10001");
+			//jQuery("#clueDoneBtn").click(function(){
+				//f4_();
+			//});
+		}
+	};
+	var f4_ = function() {
+		jQuery("#clueDoneBtn").css("z-index","");
+		jQuery(".playerModalOverlay").remove();
+		setClueText("Oops! Try again.");
+	};
+	var f5_ = function() {
+		jQuery("#clueDoneBtn").css("z-index","");
+		jQuery(".playerModalOverlay").remove();
+		setClueText("");
 	};
 
 	return {
@@ -865,6 +892,10 @@ var tutorial = (function(){
 		"d6":d6_,
 		"e1":e1_,
 		"e3":e3_,
-		"e6":e6_
+		"e6":e6_,
+		"f1":f1_,
+		"f3":f3_,
+		"f4":f4_,
+		"f5":f5_
 	};
 })();

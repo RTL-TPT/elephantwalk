@@ -616,7 +616,12 @@ var setStateSearchSelect = function() {
 	util.template.getHTML("assets/js/searchmap.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
 		//init here
-		util.player.setPlayer(0);
+		if(util.currentLevelId() === "1_T3") {
+			util.player.setPlayerNoModal(0);
+			tutorial.f1();
+		} else {
+			util.player.setPlayer(0);
+		}
 		createSearchMap();
 		//clue icons
 		var clue1 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
@@ -659,6 +664,9 @@ var setStateSearchSelect = function() {
 				var tilecoords = [jQuery(this).attr("coordinant").split("_")[0], jQuery(this).attr("coordinant").split("_")[1]];
 				var clueData = [ g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel][0], g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel][1] ];
 				elephantTelemetry.createEvent("search_select",{"player_selection":util.strCoordToInt(tilecoords),"correct_selection":clueData});
+				if(util.currentLevelId() === "1_T3") {
+					tutorial.f3();
+				}
 			}
 		});
 		jQuery("#clueDoneBtn").click(function(){
@@ -673,7 +681,13 @@ var setStateSearchSelect = function() {
 				if(clueData[0] == g_activeTile[0] && clueData[1] == g_activeTile[1]) {
 					util.animation.correctAnim(setStateSearchFirstPerson);
 					isCorrect = true;
+					if(util.currentLevelId() === "1_T3") {
+						tutorial.f5();
+					}
 				} else {
+					if(util.currentLevelId() === "1_T3") {
+						tutorial.f4();
+					}
 					util.animation.incorrectAnim();
 				}
 				g_searchAttempts.push(isCorrect);
