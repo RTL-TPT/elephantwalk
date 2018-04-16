@@ -880,3 +880,15 @@ img {
     margin-left: calc(50% - 250px);
     font-size: 32px;
 }
+.clueTutorialText {
+    position: absolute;
+    bottom: 22px;
+    background-color: white;
+    width: 500px;
+    height: 60px;
+    border-radius: 10px;
+    line-height: 60px;
+    text-align: center;
+    margin-left: calc(50% - 250px);
+    font-size: 32px;
+}

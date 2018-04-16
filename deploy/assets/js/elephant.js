@@ -520,29 +520,56 @@ var setStateClue = function() {
 	g_savestate.game_state.phase = "clue";
 	saveState();
 	g_clueAttempts = []; //reset try number telemetry
-	util.timer.resetTimer(); //timer for help
 	playGameMusic();
 	jQuery("#uiLayer").html("");
-	util.template.getHTML("assets/js/clue.html", function(data){
-		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
-		util.player.setPlayer(1);
-		//init here
-		createClueMap();
-		jQuery("#clueLegend").unbind().click(function(){
-			playClickSFX();
-			openLegendModal();
+	if(util.currentLevelId() === "1_T3") {
+		util.template.getHTML("assets/js/clue.html", function(data){
+			jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
+			util.player.setPlayerNoModal(1);
+			tutorial.d1();
+			//init here
+			createClueMap();
+			jQuery("#clueLegend").unbind().click(function(){
+				playClickSFX();
+				openLegendModal();
+			});
+			jQuery(".clueBar .clueDrop2").unbind().click(function(){
+				playClickSFX();
+				openClueModal();
+				elephantTelemetry.createEvent("clue_repeat",{"correct_selection":g_currentClue});
+			});
+			jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
+				playClickSFX();
+				confirmClue();
+			});
+			openClueModal(function(){
+				util.animation.dragDropAnim();
+				setClueText("Player 1, do you see the clue on the map? Drag it to the box.");
+			});
 		});
-		jQuery(".clueBar .clueDrop2").unbind().click(function(){
-			playClickSFX();
-			openClueModal();
-			elephantTelemetry.createEvent("clue_repeat",{"correct_selection":g_currentClue});
+	} else {
+		util.timer.resetTimer(); //timer for help
+		util.template.getHTML("assets/js/clue.html", function(data){
+			jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
+			util.player.setPlayer(1);
+			//init here
+			createClueMap();
+			jQuery("#clueLegend").unbind().click(function(){
+				playClickSFX();
+				openLegendModal();
+			});
+			jQuery(".clueBar .clueDrop2").unbind().click(function(){
+				playClickSFX();
+				openClueModal();
+				elephantTelemetry.createEvent("clue_repeat",{"correct_selection":g_currentClue});
+			});
+			jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
+				playClickSFX();
+				confirmClue();
+			});
+			openClueModal(util.animation.dragDropAnim);
 		});
-		jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
-			playClickSFX();
-			confirmClue();
-		});
-		openClueModal(util.animation.dragDropAnim);
-	});
+	}
 };
 //set state to second clue
 var setStateClueTwo = function() {
@@ -553,7 +580,12 @@ var setStateClueTwo = function() {
 	jQuery("#uiLayer").html("");
 	util.template.getHTML("assets/js/clue.html", function(data){
 		jQuery("#uiLayer").removeClass("bg1").addClass("cluePhase").html(data);
-		util.player.setPlayer(2);
+		if(util.currentLevelId() === "1_T3") {
+			util.player.setPlayerNoModal(2);
+			tutorial.e1();
+		} else {
+			util.player.setPlayer(2);
+		}
 		//init here
 		createClueMap();
 		g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];

@@ -276,4 +276,7 @@ var setExploreText = function(message) {
 		jQuery("#uiLayer").append("<div class='exploreText' id='exploreText'></div>");
 	}
 	jQuery("#exploreText").html(message);
+	if(message.length == "") {
+		jQuery("#exploreText").remove();
+	}
 }

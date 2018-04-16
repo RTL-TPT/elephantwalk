@@ -81,6 +81,11 @@ var createClueMap = function() {
 				jQuery("#clueDoneBtn").show();
 				jQuery("#clueDrop1").html("<img cname='img_"+g_currentDrag+"' style='width:100%;height:100%;' src='"+"assets/images/clue/"+g_currentDrag.toUpperCase()+util.getCluePath(g_currentDrag)+"'>");
 				elephantTelemetry.createEvent("clue_select",{"player_selection":g_currentDrag,"correct_selection":g_currentClue});
+				if(util.currentLevelId() === "1_T3" && util.player.getPlayer() == 1){
+					tutorial.d3();
+				} else if(util.currentLevelId() === "1_T3" && util.player.getPlayer() == 2){
+					tutorial.e3();
+				}
 			}
 			jQuery(".mousefollower").remove();
 		}
@@ -148,10 +153,21 @@ var confirmClue = function() {
 					setStateSearchSelect();
 				} else {
 					g_currentClue = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
-					util.player.togglePlayer();
-					g_savestate.game_state.phase = "clue2";
-					saveState();
-					openClueModal();
+					if(util.currentLevelId() === "1_T3") {
+						util.player.setPlayerNoModal(2);
+						g_savestate.game_state.phase = "clue2";
+						saveState();
+						openClueModal(function(){
+							util.animation.dragDropAnim();
+							setClueText("Player 2, do you see the clue on the map? Drag it to the box.");
+						});
+						tutorial.e1();
+					} else {
+						util.player.togglePlayer();
+						g_savestate.game_state.phase = "clue2";
+						saveState();
+						openClueModal();
+					}
 				}
 			};
 			jQuery("#clueDoneBtn").hide();
@@ -162,6 +178,11 @@ var confirmClue = function() {
 			jQuery("#clueDoneBtn").hide();
 			util.animation.incorrectAnim(function(){});
 			jQuery("#clueDrop1").html("");
+		}
+		if(util.currentLevelId() === "1_T3" && util.player.getPlayer() == 1) {
+			tutorial.d6(isCorrect);
+		} else if(util.currentLevelId() === "1_T3" && util.player.getPlayer() == 2) {
+			tutorial.e6(isCorrect);
 		}
 		g_clueAttempts.push(isCorrect);
 		//start attempt tracking section
@@ -312,3 +333,13 @@ var openLegendModal = function() {
 
 	elephantTelemetry.createEvent("clue_legend",{"correct_selection":g_currentClue});
 };
+
+var setClueText = function(message) {
+	if(jQuery("#clueTutorialText").length == 0) {
+		jQuery("#uiLayer").append("<div class='clueTutorialText' id='clueTutorialText'></div>");
+	}
+	jQuery("#clueTutorialText").html(message);
+	if(message.length == "") {
+		jQuery("#clueTutorialText").remove();
+	}
+}

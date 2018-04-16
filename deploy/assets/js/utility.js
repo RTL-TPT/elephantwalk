@@ -639,6 +639,11 @@ util.setAllBlockClear = function() {
 };
 
 var tutorial = (function(){
+	var drag1 = false;
+	var drag2 = false;
+	var ran_d6 = false;
+	var ran_e6 = false;
+
 	var openPlayerModal_ = function(text1, text2, cb) {
 		var htmlout = "";
 		htmlout += "<div class='playerModalOverlay'></div>";
@@ -663,6 +668,7 @@ var tutorial = (function(){
 		});
 	};
 
+	//eplore p1
 	var a1_ = function() {
 		openPlayerModal_("Time to","work together.",a2_);
 	};
@@ -692,6 +698,7 @@ var tutorial = (function(){
 		jQuery("#leftArrow").unbind().click(function(){playClickSFX();rotateView("left")});
 	};
 
+	//explore p1 #2
 	var b1_ = function() {
 		openPlayerModal_("Time to take turns now!","It’s your turn Player 1",b2_);
 	};
@@ -711,6 +718,7 @@ var tutorial = (function(){
 		setExploreText("I see a forest on our map! Can you find the forest Player 1?");
 	};
 
+	//explore p2
 	var c1_ = function() {
 		openPlayerModal_("Time to take turns now!","It’s your turn Player 2",c2_);
 	};
@@ -730,9 +738,133 @@ var tutorial = (function(){
 		setExploreText("I see a lake on our map! Can you find the lake Player 2?");
 	};
 
+	//clue p1
+	var d1_ = function() {
+		openPlayerModal_("Are you ready for your first clue?","Player 1",d2_);
+	};
+	var d2_ = function() {
+		setClueText("Look and listen to the clue.");
+	};
+	var d3_ = function() {
+		if(!drag1) {
+			drag1 = true;
+			var htmlout = "<div class='playerModalOverlay'></div></div>";
+			jQuery("#uiLayer").append(htmlout);
+			setClueText("Tap here to see the clue again.");
+			jQuery("#clueTutorialText, #clueDrop2").css("z-index","10001");
+			jQuery("#clueDrop2").click(function(){
+				d4_();
+			});
+		}
+	};
+	var d4_ = function() {
+		jQuery("#clueDrop2").css("z-index","");
+		jQuery(".playerModalOverlay").remove();
+		jQuery(".clueBar .clueDrop2").unbind().click(function(){
+			playClickSFX();
+			openClueModal();
+			elephantTelemetry.createEvent("clue_repeat",{"correct_selection":g_currentClue});
+		});
+		setClueText("You can see the clue again if you forget.");
+		jQuery(".closeBtn._1").click(function(){
+			d5_();
+		});
+	};
+	var d5_ = function() {
+		var htmlout = "<div class='playerModalOverlay'></div></div>";
+		jQuery("#uiLayer").append(htmlout);
+		setClueText("Ok, now let’s see if we matched the clue! Tap here to check.");
+		jQuery("#clueTutorialText, #clueDoneBtn").css("z-index","10001");
+		jQuery(".clueBar .clueDoneBtn").click(function(){
+			jQuery("#clueTutorialText, #clueDoneBtn").css("z-index","");
+			jQuery(".playerModalOverlay").remove();
+		});
+	};
+	var d6_ = function(wascorrect) {
+		if(!ran_d6) {
+			if(wascorrect) {
+				setClueText("");
+				ran_d6 = true;
+				jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
+					playClickSFX();
+					confirmClue();
+				});
+			} else {
+				setClueText("Oops! Try again.");
+			}
+		}
+	}
+
+	//clue p2
+	var e1_ = function() {
+		openPlayerModal_("Are you ready for your clue now?","Player 2",e2_);
+	};
+	var e2_ = function() {
+		setClueText("Look and listen to the clue.");
+	};
+	var e3_ = function() {
+		if(!drag2) {
+			drag2 = true;
+			var htmlout = "<div class='playerModalOverlay'></div></div>";
+			jQuery("#uiLayer").append(htmlout);
+			setClueText("Tap here to look at the legend.");
+			jQuery("#clueTutorialText, #clueLegend").css("z-index","10001");
+			jQuery("#clueLegend").click(function(){
+				e4_();
+			});
+		}
+	};
+	var e4_ = function() {
+		jQuery("#clueLegend").css("z-index","");
+		jQuery(".playerModalOverlay").remove();
+		jQuery("#clueLegend").unbind().click(function(){
+			playClickSFX();
+			openLegendModal();
+		});
+		setClueText("You can check the legend if you need help.");
+		jQuery(".closeBtn._1").click(function(){
+			e5_();
+		});
+	};
+	var e5_ = function() {
+		var htmlout = "<div class='playerModalOverlay'></div></div>";
+		jQuery("#uiLayer").append(htmlout);
+		setClueText("Ok, now let’s see if we matched the clue! Tap here to check.");
+		jQuery("#clueTutorialText, #clueDoneBtn").css("z-index","10001");
+		jQuery(".clueBar .clueDoneBtn").click(function(){
+			jQuery("#clueTutorialText, #clueDoneBtn").css("z-index","");
+			jQuery(".playerModalOverlay").remove();
+		});
+	};
+	var e6_ = function(wascorrect) {
+		if(!ran_e6) {
+			if(wascorrect) {
+				setClueText("");
+				ran_e6 = true;
+				jQuery(".clueBar .clueDoneBtn").unbind().click(function(){
+					playClickSFX();
+					confirmClue();
+				});
+			} else {
+				setClueText("Oops! Try again.");
+			}
+		}
+	};
+
+	//search map
+	var f1_ = function() {
+		//
+	};
+
 	return {
 		"a1":a1_,
 		"b1":b1_,
-		"c1":c1_
+		"c1":c1_,
+		"d1":d1_,
+		"d3":d3_,
+		"d6":d6_,
+		"e1":e1_,
+		"e3":e3_,
+		"e6":e6_
 	};
 })();
