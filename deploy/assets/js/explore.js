@@ -115,7 +115,7 @@ var updateExploreHitbox = function() {
 };
 
 var jumpToExploreFirstPerson = function() {
-	playClickSFX();
+	//playClickSFX();
 	jQuery.each(jQuery(".exploreMapImg"),function(key,value){
 		if( jQuery(value).attr("coordinant") == g_activeTile[0]+"_"+g_activeTile[1] ) {
 			jQuery(value).css("opacity",0);
