@@ -182,12 +182,6 @@ var searchRotate = function(direction) {
 	create360Elephant();
 };
 
-var terrainNameStringMap = {
-	"nonAbstract" : "Non-abstract",
-	"partialAbstract" : "Partial-abstract",
-	"fullAbstract" : "Full-abstract"
-};
-
 var foundElephantModal = function() {
 	var htmlout = "";
 

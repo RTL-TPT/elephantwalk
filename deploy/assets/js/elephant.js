@@ -159,6 +159,7 @@ var fillLevels = function(ltype) {
 	difflen = difflen > g_LEVEL_GRID["HARD"].length ? difflen : g_LEVEL_GRID["HARD"].length;
 	var cNull;
 	if(g_enableDebugLevelSelect) {
+		//see all levels at once
 		for(var a = 0; a < g_LEVEL_GRID["TUTORIAL"].length; a++) {
 			htmlout += "<tr><td><center><div class='missionBox tutorial level d1' difficulty='TUTORIAL' level='"+a+"' id='tutorial"+(a+1)+"btn'>TUTORIAL "+(a+1)+"</div></center></td>";
 			htmlout += "<td><center><div class='missionBox tutorial level d2' difficulty='TUTORIAL' level='"+a+"' style='opacity:0'></div></center></td>";
@@ -196,13 +197,10 @@ var fillLevels = function(ltype) {
 			var iscomplete = g_savestate["chunkComplete"][diffmap[ltype]];
 			htmlout += "<td><center><div class='missionBox chunk level "+(iscomplete ? "done ":"")+(cNull ? "x":"d2")+"' difficulty='MEDIUM' levelnum='"+(diffmap[ltype]+1)+"' style='opacity:"+1+"' id='medium"+"btn'>"+"Level 10</div></center></td>";
 		} else {
-			cNull = false;
 			var iscomplete = g_savestate["chunkComplete"][diffmap[ltype]];
 			htmlout += "<td><center><div class='missionBox chunk level "+(iscomplete ? "done ":"")+(cNull ? "x":"d2")+"' difficulty='EASY' levelnum='"+diffmap[ltype]+"' style='opacity:"+1+"' id='easy"+"btn'>"+"Level "+diffmap[ltype]+"</div></center></td>";
-			//cNull = !g_savestate["chunkComplete"][diffmap[ltype]];
 			iscomplete = g_savestate["chunkComplete"][diffmap[ltype]+1];
 			htmlout += "<td><center><div class='missionBox chunk level "+(iscomplete ? "done ":"")+(cNull ? "x":"d2")+"' difficulty='MEDIUM' levelnum='"+(diffmap[ltype]+1)+"' style='opacity:"+1+"' id='medium"+"btn'>"+"Level "+(diffmap[ltype]+1)+"</div></center></td>";
-			//cNull = !g_savestate["chunkComplete"][diffmap[ltype]+1];
 			iscomplete = g_savestate["chunkComplete"][diffmap[ltype]+2];
 			htmlout += "<td><center><div class='missionBox chunk level "+(iscomplete ? "done ":"")+(cNull ? "x":"d2")+"' difficulty='HARD' levelnum='"+(diffmap[ltype]+2)+"' style='opacity:"+1+"' id='hard"+"btn'>"+"Level "+(diffmap[ltype]+2)+"</div></center></td>";
 		}
@@ -252,7 +250,7 @@ var fillLevels = function(ltype) {
 	});
 };
 
-//debug
+//debug option
 var toggleDebugMenu = function() {
 	if(jQuery("#debugBtn").css("opacity") == 1) {
 		jQuery("#debugBtn").css("opacity",0);
@@ -263,7 +261,7 @@ var toggleDebugMenu = function() {
 	}
 };
 
-//debug
+//debug option
 var toggleRandom = function() {
 	if(jQuery("#debugRandom").hasClass("random")) {
 		jQuery("#debugRandom").removeClass("random");
@@ -274,7 +272,7 @@ var toggleRandom = function() {
 	}
 };
 
-//debug
+//debug option
 var toggleMute = function() {
 	if(jQuery("#debugSound").hasClass("mute")) {
 		jQuery("#debugSound").removeClass("mute");
@@ -386,7 +384,7 @@ var setStateTitle = function() {
 			jQuery("#debugSound").unbind().click(function(){playClickSFX();toggleMute();});
 			jQuery("#debugRandom").unbind().click(function(){playClickSFX();toggleRandom();});
 		}
-		toggleRandom();
+		toggleRandom(); //random is now the default
 	});
 };
 var setToTutorialLevel = function() {
@@ -502,7 +500,6 @@ var setStateExplore = function() {
 	playGameMusic();
 	util.template.getHTML("assets/js/explore.html", function(data){
 		jQuery("#uiLayer").html(data);
-		//init here
 		if(util.currentLevelId() === "1_T1") {
 			util.player.setPlayerNoModal(1);
 			tutorial.a1();
@@ -633,12 +630,9 @@ var setStateSearchSelect = function() {
 		var clue2 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][1];
 		var clue1post = util.getCluePath(clue1);
 		var clue2post = util.getCluePath(clue2);
-		//for custom positioning clues
-		var extra = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].searchClues ? true : false;
-		var mapset = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].mapset;
 		//set clue urls
-		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+(extra ? mapset+"/" : "")+clue1.toUpperCase()+clue1post+"'>";
-		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+(extra ? mapset+"/" : "")+clue2.toUpperCase()+clue2post+"'>";
+		var clueurl1 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue1.toUpperCase()+clue1post+"'>";
+		var clueurl2 = "<img style='width:100%;height:100%;' src='"+"assets/images/clue/"+clue2.toUpperCase()+clue2post+"'>";
 		jQuery("#clueDrop1").html(clueurl1);
 		jQuery("#clueDrop2").html(clueurl2);
 		//clue modifiers
@@ -657,7 +651,7 @@ var setStateSearchSelect = function() {
 		}
 		//show overlay grid (dotted line)
 		jQuery(".clueGridOverlay").show();
-		//show text
+		//show instructional text
 		var clevelid = util.currentLevelId();
 		if(typeof g_searchText[clevelid] !== "undefined") {
 			tutorial.setAvatarText(g_searchText[clevelid]);
@@ -732,6 +726,7 @@ var setStateSearchSelect = function() {
 							isDuplicate = true;
 						}
 						if(!isDuplicate) {
+							//one objective complete event for each player
 							app.container.send("objective_complete", {
 								"op_label": "rl_mastery_" + util.getMasteryTargets()[1],
 								"success": masteryUp,

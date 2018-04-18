@@ -1,3 +1,6 @@
+//////////////// Tutorial functions module
+////////////////
+
 var tutorial = (function(){
 	//use for run once functions
 	var drag1 = false;

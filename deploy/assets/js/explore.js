@@ -39,9 +39,7 @@ var createExploreMap = function(player) {
 var createExploreGPS = function() {
 	var gridPX = getSearchPX(g_activeGrid.x,g_activeGrid.y);
 	var htmlout = "";
-	//
 	htmlout += "<div id='gpsmap' class='GPSContainer'>";
-	//
 	htmlout += "<div style='position:absolute;width:100%;height:100%'><img src='assets/images/lvlsets/"+(g_currentSet)+"/map_"+(g_currentSet)+".jpg'></div>";
 	//map feature layer
 	htmlout += "<div id='' class='mapGPS'>";

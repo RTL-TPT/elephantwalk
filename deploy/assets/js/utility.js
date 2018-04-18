@@ -322,7 +322,6 @@ util.animation = (function() {
 		var lastCallback = function(){
 			jQuery("#indicatorHand").fadeOut(400,function(){jQuery("#indicatorHand").remove();});
 			cb();
-			//setTimeout(dragDropAnim, 2000);
 		};
 		jQuery("#indicatorHand").css("left",x+"px").css("top",y+"px");
 		jQuery("#indicatorHand").animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration}).animate({"left":"+=20px"},{"duration":bounceDuration}).animate({"left":"-=20px"},{"duration":bounceDuration,"always":lastCallback});
@@ -362,7 +361,7 @@ util.loadImages = function(imageArray, callback) {
 				allLoaded = false;
 			}
 		}
-		if(timeloading > (checkinterval*4*45)) {  //force progress if it's been more than 45 seconds
+		if(timeloading > 45000) {  //force progress if it's been more than 45 seconds
 			allLoaded = true;
 		}
 		if(allLoaded) {
