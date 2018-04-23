@@ -74,6 +74,13 @@
 		game.load.audio('music_menu', 'assets/sound/music_menu.mp3');
 		game.load.audio('music_game', 'assets/sound/music_game.mp3');
 		game.load.audio('clicksfx', 'assets/sound/click-basic.wav');
+		//voice overs
+		jQuery.each(g_voicelocations,function(key,value){
+			game.load.audio(key, value);
+		});
+		jQuery.each(g_cluevoicelocations,function(key,value){
+			game.load.audio(key+"_voice", value);
+		});
 	}
 
 	// When the Phaser game has been created
@@ -101,6 +108,13 @@
 		sfx.stream = game.add.audio('stream');
 		sfx.waterfall = game.add.audio('waterfall');
 		sfx.clicksfx = game.add.audio('clicksfx');
+		//voice overs
+		jQuery.each(g_voicelocations,function(key,value){
+			sfx[key] = game.add.audio('key');
+		});
+		jQuery.each(g_cluevoicelocations,function(key,value){
+			sfx[key+"_voice"] = game.add.audio(key+"_voice");
+		});
 		//sfx.allowMultiple = true;
 		window.g_sfx = sfx;
 		music.music_menu = game.add.audio('music_menu');

@@ -321,6 +321,7 @@ var saveState = function() {
 	localStorage.setItem("savestate", JSON.stringify(g_savestate));
 	//save remote
 	app.container.send("game_data_save", {is_second_player: false, "game_data": JSON.stringify(g_savestate)});
+	app.container.send("game_data_save", {is_second_player: true, "game_data": JSON.stringify(g_savestate)});
 };
 var loadState = function() {
 	//load save from BE if availible, otherwise fall back to localstorage
