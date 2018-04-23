@@ -88,7 +88,7 @@ var g_savestate = {
 		"EXPERT": {"AS1":false,"AS2":false,"RL":false,"legend":false}
 	},
 	"firstplay": true,
-	"randomOrderLevelsComplete": [] //for preventing doing the same level twice in a row if we want that later
+	"lastLevelPlayed": ""
 };
 var g_telemetry_cache = []; //for telemetry output from the client
 var g_startTime = (new Date).getTime(); //for tracking time played
@@ -215,10 +215,10 @@ var fillLevels = function(ltype) {
 			g_selectedDifficulty = jQuery(this).attr("difficulty");
 			//select random level if already complete, otherwise go sequential
 			if(g_savestate["chunkComplete"][jQuery(this).attr("levelnum")]) {
-				g_selectedLevel = util.getRandomInt(0, g_leveldata[g_LevelTerrain][g_selectedDifficulty].length - 1);
-				//prevent doing exploration levels in random rotation
-				while(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].hasExploration) {
-					g_selectedLevel = util.getRandomInt(0, g_leveldata[g_LevelTerrain][g_selectedDifficulty].length - 1);
+				g_selectedLevel = util.getRandomInt(0, g_leveldata[g_LevelTerrain][g_selectedDifficulty].length);
+				//prevent doing exploration levels or the same level twich in a row
+				while(g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].hasExploration || g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].taskid == g_savestate.lastLevelPlayed) {
+					g_selectedLevel = util.getRandomInt(0, g_leveldata[g_LevelTerrain][g_selectedDifficulty].length);
 				}
 			} else {
 				g_selectedLevel = 0;
@@ -786,17 +786,17 @@ var setStateSearchFirstPerson = function() {
 	util.timer.stopTimer(); //don't think we'll need the timer for this section?
 	playGameMusic();
 	if(g_isRandomElephant) {
-		switch(util.getRandomInt(1,4)) {
-			case 1:
+		switch(util.getRandomInt(0,4)) {
+			case 0:
 				g_randomElephantHeading = "north";
 				break;
-			case 2:
+			case 1:
 				g_randomElephantHeading = "east";
 				break;
-			case 3:
+			case 2:
 				g_randomElephantHeading = "south";
 				break;
-			case 4:
+			case 3:
 				g_randomElephantHeading = "west";
 				break;
 		}

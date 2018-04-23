@@ -937,8 +937,8 @@ img {
 }
 .searchVoicebtn{
     position: absolute;
-    bottom: 26px;
-    left: 190px;
+    bottom: 4px;
+    left: 70px;
     width: 48px;
     height: 48px;
     background: url('../images/ic_hearing_black_24dp_2x.png');

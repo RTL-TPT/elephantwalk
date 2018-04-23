@@ -236,6 +236,8 @@ var foundElephantModal = function() {
 		g_savestate.levelsComplete.push(util.currentLevelId());
 	}
 
+	g_savestate.lastLevelPlayed = util.currentLevelId();
+
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
 		//send player back to appropriate state depenending on if they're still in the tutorial or not
 		if(g_enableDebugLevelSelect) {

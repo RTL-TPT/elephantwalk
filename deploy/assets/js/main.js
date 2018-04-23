@@ -59,18 +59,18 @@
 		var loaderoverlay = "<div id='loaderDiv' style='z-index:20000;position:absolute;top:0px;left:0px;width:100%;height:100%;background-color:rgba(255,255,255,0.75)'><div style='width:100%;height:100%;background:url(assets/images/spin.gif) center center no-repeat;'></div></div>";
 		jQuery("#uiLayer").append(loaderoverlay);
 		//game.load.image('logo', 'assets/images/logo.png');
-		game.load.audio('bridge', 'assets/sound/bridge.mp3');
+		//game.load.audio('bridge', 'assets/sound/bridge.mp3');
 		game.load.audio('building', 'assets/sound/building.mp3');
 		game.load.audio('desert', 'assets/sound/desert.mp3');
 		game.load.audio('forest', 'assets/sound/forest.mp3');
-		game.load.audio('hill', 'assets/sound/hill.mp3');
+		//game.load.audio('hill', 'assets/sound/hill.mp3');
 		game.load.audio('lake', 'assets/sound/lake.mp3');
 		game.load.audio('mountain', 'assets/sound/mountain.mp3');
 		game.load.audio('ocean', 'assets/sound/ocean.mp3');
 		game.load.audio('park', 'assets/sound/park.mp3');
 		game.load.audio('road', 'assets/sound/road.mp3');
 		game.load.audio('stream', 'assets/sound/stream.mp3');
-		game.load.audio('waterfall', 'assets/sound/waterfall.mp3');
+		//game.load.audio('waterfall', 'assets/sound/waterfall.mp3');
 		game.load.audio('music_menu', 'assets/sound/music_menu.mp3');
 		game.load.audio('music_game', 'assets/sound/music_game.mp3');
 		game.load.audio('clicksfx', 'assets/sound/click-basic.wav');
@@ -95,16 +95,16 @@
 		logo.anchor.setTo(0.5, 0.5);*/
 
 		//setup audio
-		sfx.bridge = game.add.audio('bridge');
-		sfx.bridge.loop = true;
+		//sfx.bridge = game.add.audio('bridge');
+		//sfx.bridge.loop = true;
 		sfx.building = game.add.audio('building');
 		sfx.building.loop = true;
 		sfx.desert = game.add.audio('desert');
 		sfx.desert.loop = true;
 		sfx.forest = game.add.audio('forest');
 		sfx.forest.loop = true;
-		sfx.hill = game.add.audio('hill');
-		sfx.hill.loop = true;
+		//sfx.hill = game.add.audio('hill');
+		//sfx.hill.loop = true;
 		sfx.lake = game.add.audio('lake');
 		sfx.lake.loop = true;
 		sfx.mountain = game.add.audio('mountain');
@@ -117,8 +117,8 @@
 		sfx.road.loop = true;
 		sfx.stream = game.add.audio('stream');
 		sfx.stream.loop = true;
-		sfx.waterfall = game.add.audio('waterfall');
-		sfx.waterfall.loop = true;
+		//sfx.waterfall = game.add.audio('waterfall');
+		//sfx.waterfall.loop = true;
 		sfx.clicksfx = game.add.audio('clicksfx');
 		//voice overs
 		jQuery.each(g_voicelocations,function(key,value){

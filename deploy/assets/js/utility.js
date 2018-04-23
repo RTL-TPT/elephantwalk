@@ -66,10 +66,8 @@ util.player = (function() {
 	};
 })();
 
-//simple random function
+//simple random function max number not inclusive
 util.getRandomInt = function(min, max) {
-	min = Math.ceil(min);
-	max = Math.floor(max);
 	return Math.floor(Math.random() * (max - min)) + min;
 };
 
@@ -217,7 +215,7 @@ util.clearSave = function() {
 			"EXPERT": {"AS1":false,"AS2":false,"RL":false,"legend":false}
 		},
 		"firstplay": true,
-		"randomOrderLevelsComplete": []
+		"lastLevelPlayed": ""
 	};
 	saveState();
 };
@@ -257,7 +255,7 @@ util.unlockAll = function() {
 			"EXPERT": {"AS1":true,"AS2":true,"RL":true,"legend":true}
 		},
 		"firstplay": false,
-		"randomOrderLevelsComplete": []
+		"lastLevelPlayed": ""
 	};
 	util.setAllBlockClear();
 	saveState();
@@ -476,17 +474,17 @@ util.getCurrentExploreTargets = function() {
 };
 
 util.setRandomHeading = function() {
-	switch(util.getRandomInt(1,4)) {
-		case 1:
+	switch(util.getRandomInt(0,4)) {
+		case 0:
 			g_heading = "north";
 			break;
-		case 2:
+		case 1:
 			g_heading = "east";
 			break;
-		case 3:
+		case 2:
 			g_heading = "south";
 			break;
-		case 4:
+		case 3:
 			g_heading = "west";
 			break;
 	}
