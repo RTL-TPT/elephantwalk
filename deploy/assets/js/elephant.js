@@ -311,6 +311,9 @@ var playClickSFX = function() {
 };
 
 var playCurrentLevelSearchVoice = function() {
+	if(g_sfx[util.currentLevelId()].isPlaying) {
+		g_sfx[util.currentLevelId()].stop();
+	}
 	g_sfx[ util.currentLevelId() ].play(undefined,undefined,g_volumeLevel);
 };
 
@@ -668,6 +671,10 @@ var setStateSearchSelect = function() {
 		var clevelid = util.currentLevelId();
 		if(typeof g_searchText[clevelid] !== "undefined") {
 			tutorial.setAvatarText(g_searchText[clevelid]);
+			jQuery("#clueTutorialTextMap").after("<div class='searchVoicebtn'></div>");
+			jQuery(".searchVoicebtn").click(function(){
+				playCurrentLevelSearchVoice();
+			});
 		}
 		//bind overlay grid
 		jQuery(".clueOverlayBox").unbind().click(function(){

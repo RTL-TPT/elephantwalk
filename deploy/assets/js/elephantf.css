@@ -927,3 +927,25 @@ img {
     font-size: 32px;
     /*z-index: 10001;*/
 }
+.searchVoicebtn{
+    position: absolute;
+    bottom: 26px;
+    left: 190px;
+    width: 48px;
+    height: 48px;
+    background: url('../images/ic_hearing_black_24dp_2x.png');
+    background-size: 100% 100%;
+    background-color: white;
+    border: solid 2px black;
+    border-radius: 10px;
+}
+.searchVoicebtn:active{
+    background: url('../images/ic_hearing_black_24dp_2x_on.png');
+    background-size: 100% 100%;
+    background-color: white;
+}
+.searchVoicebtn:hover{
+    background: url('../images/ic_hearing_black_24dp_2x_hover.png');
+    background-size: 100% 100%;
+    background-color: white;
+}
