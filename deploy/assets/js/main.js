@@ -96,17 +96,29 @@
 
 		//setup audio
 		sfx.bridge = game.add.audio('bridge');
+		sfx.bridge.loop = true;
 		sfx.building = game.add.audio('building');
+		sfx.building.loop = true;
 		sfx.desert = game.add.audio('desert');
+		sfx.desert.loop = true;
 		sfx.forest = game.add.audio('forest');
+		sfx.forest.loop = true;
 		sfx.hill = game.add.audio('hill');
+		sfx.hill.loop = true;
 		sfx.lake = game.add.audio('lake');
+		sfx.lake.loop = true;
 		sfx.mountain = game.add.audio('mountain');
+		sfx.mountain.loop = true;
 		sfx.ocean = game.add.audio('ocean');
+		sfx.ocean.loop = true;
 		sfx.park = game.add.audio('park');
+		sfx.park.loop = true;
 		sfx.road = game.add.audio('road');
+		sfx.road.loop = true;
 		sfx.stream = game.add.audio('stream');
+		sfx.stream.loop = true;
 		sfx.waterfall = game.add.audio('waterfall');
+		sfx.waterfall.loop = true;
 		sfx.clicksfx = game.add.audio('clicksfx');
 		//voice overs
 		jQuery.each(g_voicelocations,function(key,value){
