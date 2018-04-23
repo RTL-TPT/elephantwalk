@@ -110,7 +110,7 @@
 		sfx.clicksfx = game.add.audio('clicksfx');
 		//voice overs
 		jQuery.each(g_voicelocations,function(key,value){
-			sfx[key] = game.add.audio('key');
+			sfx[key] = game.add.audio(key);
 		});
 		jQuery.each(g_cluevoicelocations,function(key,value){
 			sfx[key+"_voice"] = game.add.audio(key+"_voice");

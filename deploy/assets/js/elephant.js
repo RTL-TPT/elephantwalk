@@ -289,25 +289,33 @@ var toggleMute = function() {
 
 //sound and music
 var playMenuMusic = function() {
-	/*if(g_music["music_game"].isPlaying) {
+	if(g_music["music_game"].isPlaying) {
 		g_music["music_game"].stop();
 	}
 	if(!g_music["music_menu"].isPlaying) {
 		g_music["music_menu"].play(undefined,undefined,g_volumeLevel);
-	}*/
+	}
 };
 
 var playGameMusic = function() {
-	/*if(g_music["music_menu"].isPlaying) {
+	if(g_music["music_menu"].isPlaying) {
 		g_music["music_menu"].stop();
 	}
 	if(!g_music["music_game"].isPlaying) {
 		g_music["music_game"].play(undefined,undefined,g_volumeLevel);
-	}*/
+	}
 };
 
 var playClickSFX = function() {
 	g_sfx.clicksfx.play(undefined,undefined,g_volumeLevel);
+};
+
+var playCurrentLevelSearchVoice = function() {
+	g_sfx[ util.currentLevelId() ].play(undefined,undefined,g_volumeLevel);
+};
+
+var playClueVoice = function(clue) {
+	g_sfx[ clue ].play(undefined,undefined,g_volumeLevel);
 };
 
 //////////////// State Transition functions
@@ -625,6 +633,10 @@ var setStateSearchSelect = function() {
 		} else {
 			util.player.setPlayer(0);
 		}
+		//play search sound on focus
+		jQuery(".playerModalContainer .closeBtn, .playerModalContainer .playerNextBtn").click(function(){
+			playCurrentLevelSearchVoice();
+		});
 		createSearchMap();
 		//clue icons
 		var clue1 = g_LEVEL_CLUES[g_selectedDifficulty][g_selectedLevel][0];
