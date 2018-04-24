@@ -71,9 +71,6 @@ var create360Elephant = function() {
 	if(g_isRandomElephant) {
 		//cElephant = cElephant.slice(); //redundant?
 		cElephant[2] = g_randomElephantHeading;
-		while(g_heading == cElephant[2]) {
-			util.setRandomHeading();
-		}
 	}
 	if(cElephant[0] == g_activeTile[0] && cElephant[1] == g_activeTile[1] && cElephant[2] == g_heading) {
 		jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
@@ -142,6 +139,11 @@ var create360Elephant = function() {
 
 var createSearchView = function() {
 	util.setRandomHeading();
+	if(g_isRandomElephant) {
+		while(g_heading == g_randomElephantHeading) {
+			util.setRandomHeading();
+		}
+	}
 	//cache first person view images then set ui
 	var firstpersonimgs = [];
 	var cElephant = g_LEVEL_ELEPHANT[g_selectedDifficulty][g_selectedLevel];
