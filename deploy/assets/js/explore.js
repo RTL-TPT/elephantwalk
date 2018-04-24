@@ -8,6 +8,9 @@ var createExploreMap = function(player) {
 	var target1 = eTargets[0][0];
 	var target2 = eTargets[0][1];
 	if(typeof player !== "undefined" && player == 2) {
+		while(g_heading == eTargets[1][2]) {
+			util.setRandomHeading();
+		}
 		target1 = eTargets[1][0];
 		target2 = eTargets[1][1];
 		if(util.currentLevelId() === "1_T2") {
@@ -15,6 +18,11 @@ var createExploreMap = function(player) {
 			tutorial.c1();
 		} else {
 			util.player.setPlayer(2);
+		}
+	} else {
+		//p1
+		while(g_heading == eTargets[0][2]) {
+			util.setRandomHeading();
 		}
 	}
 	g_activeTile = [target1,target2];
