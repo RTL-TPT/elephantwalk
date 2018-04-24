@@ -71,6 +71,9 @@ var create360Elephant = function() {
 	if(g_isRandomElephant) {
 		//cElephant = cElephant.slice(); //redundant?
 		cElephant[2] = g_randomElephantHeading;
+		while(g_heading == cElephant[2]) {
+			util.setRandomHeading();
+		}
 	}
 	if(cElephant[0] == g_activeTile[0] && cElephant[1] == g_activeTile[1] && cElephant[2] == g_heading) {
 		jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
@@ -146,7 +149,10 @@ var createSearchView = function() {
 	firstpersonimgs.push(util.getFacingPath(g_activeTile[1],g_activeTile[0],"west"));
 	firstpersonimgs.push(util.getFacingPath(g_activeTile[1],g_activeTile[0],"east"));
 	firstpersonimgs.push(util.getFacingPath(g_activeTile[1],g_activeTile[0],"south"));
-	firstpersonimgs.push(util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],cElephant[2]));
+	firstpersonimgs.push(util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],"north"));
+	firstpersonimgs.push(util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],"west"));
+	firstpersonimgs.push(util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],"east"));
+	firstpersonimgs.push(util.getFacingPathElephant(g_activeTile[1],g_activeTile[0],"south"));
 
 	util.loadImages(firstpersonimgs, function(){
 		jQuery("#exploremap").html("<img style='display:inline-block' src='"+util.getFacingPath(g_activeTile[1],g_activeTile[0],g_heading)+"'>");
