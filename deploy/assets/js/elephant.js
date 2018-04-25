@@ -462,6 +462,7 @@ var setStateLevelSelect = function(cb) {
 		}
 		if(g_savestate.terrain_unlocked.EXPERT) {
 			jQuery(".missionBoxOverlay.l4").css("opacity",0);
+			jQuery(".missionBox.b4").css("display","");
 		}
 		//bind buttons
 		jQuery(".missionBox").click(function(){
