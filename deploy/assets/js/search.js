@@ -119,6 +119,10 @@ var create360Elephant = function() {
 			}
 			if(util.isBlockClear("WATER")) {
 				g_savestate.terrain_unlocked.MANMADE = true;
+				//activity complete when manmade unlocks
+				app.container.send("activity_complete", {"is_second_player": false});
+				//for player two too
+				app.container.send("activity_complete", {"is_second_player": true});
 			}
 			if(util.isBlockClear("MANMADE")) {
 				g_savestate.terrain_unlocked.EXPERT = true;
