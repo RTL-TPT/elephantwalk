@@ -287,6 +287,17 @@ var toggleMute = function() {
 	}
 };
 
+//debug option
+var toggleLevelSelect = function() {
+	if(jQuery("#debugLevelSelect").hasClass("lson")) {
+		jQuery("#debugLevelSelect").removeClass("lson");
+		g_enableDebugLevelSelect = false;
+	} else {
+		jQuery("#debugLevelSelect").addClass("lson");
+		g_enableDebugLevelSelect = true;
+	}
+};
+
 //sound and music
 var playMenuMusic = function() {
 	if(g_music["music_game"].isPlaying) {
@@ -395,6 +406,7 @@ var setStateTitle = function() {
 			jQuery("#debugUnlock").unbind().click(function(){playClickSFX();util.unlockAll();});
 			jQuery("#debugSound").unbind().click(function(){playClickSFX();toggleMute();});
 			jQuery("#debugRandom").unbind().click(function(){playClickSFX();toggleRandom();});
+			jQuery("#debugLevelSelect").unbind().click(function(){playClickSFX();toggleLevelSelect();});
 		}
 		toggleRandom(); //random is now the default
 	});

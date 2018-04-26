@@ -1919,6 +1919,7 @@ var g_cacheList = [
 	"assets/images/debug-left1.png",
 	"assets/images/debug-lock-open.png",
 	"assets/images/debug-lock-close.png",
+	"assets/images/debug-select.png",
 	"assets/images/title.jpg",
 	"assets/images/bg_exp_btm.gif",
 	"assets/images/bg_exp_top.gif",

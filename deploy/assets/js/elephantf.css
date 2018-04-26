@@ -773,7 +773,7 @@ img {
     position: absolute;
     top: 0px;
     left: 50px;
-    width: 280px;
+    width: 350px;
     height: 50px;
     background-color: darkgray;
     display:none;
@@ -816,9 +816,20 @@ img {
     background: url('../images/dice-300px.png') center center no-repeat;
     background-color: white;
     background-size: 90%;
-    margin-right: 0px;
+    margin-right: 8px;
 }
 .debugitem.debugRandom.random {
+    background-color: lightblue;
+}
+
+.debugitem.debugLevelSelect {
+    margin-left: 8px;
+    background: url('../images/debug-select.png') center center no-repeat;
+    background-color: white;
+    background-size: 90%;
+    margin-right: 0px;
+}
+.debugitem.debugLevelSelect.lson {
     background-color: lightblue;
 }
 
