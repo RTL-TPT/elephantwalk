@@ -208,6 +208,36 @@ var fillLevels = function(ltype) {
 		htmlout += "</table></center>";
 		htmlout += "</div>";
 		jQuery("#difficultySelect").html(htmlout);
+		//STARS
+		var numYellow = 0;
+		var numGray = 0;
+		jQuery.each(g_savestate.stars[g_LevelTerrain], function(key, value) {
+			if(value) {
+				numYellow++;
+			} else {
+				numGray++;
+			}
+		});
+		if(g_LevelTerrain == "MANMADE") {
+			if(numYellow == 4) {
+				numYellow--;
+			} else {
+				numGray--;
+			}
+		}
+		if(g_LevelTerrain == "EXPERT") {
+			numYellow = 0;
+			numGray = 0;
+		}
+		starout = "<div class='stars'><center>";
+		for(var i = 0; i < numYellow; i++) {
+			starout += "<img src='assets/images/star-y.png' style='width:50px;height:50px;'/>";
+		}
+		for(var i = 0; i < numGray; i++) {
+			starout += "<img src='assets/images/star-g.png' style='width:50px;height:50px;'/>";
+		}
+		starout += "</center></div>";
+		jQuery("#menuContainer").append(starout);
 		//bind
 		jQuery(".missionBox.level").click(function(){
 			if(jQuery(this).hasClass("x")) {return;}
@@ -243,6 +273,7 @@ var fillLevels = function(ltype) {
 	jQuery("#menuCloseBtn").show();
 	jQuery("#menuCloseBtn").unbind().click(function(){
 		playClickSFX();
+		jQuery(".stars").remove();
 		tutorial.setLevelSelectText("");
 		jQuery(this).hide();
 		jQuery("#difficultySelect").hide();

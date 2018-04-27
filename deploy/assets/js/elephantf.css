@@ -757,6 +757,9 @@ img {
     line-height: 736px;
     pointer-events: none;
 }
+.menuContainer .stars {
+    line-height: 358px;
+}
 .debugBtn {
     position: absolute;
     top: 0px;
