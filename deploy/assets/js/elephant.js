@@ -353,6 +353,9 @@ var playClickSFX = function() {
 };
 
 var playCurrentLevelSearchVoice = function() {
+	if(typeof g_sfx[util.currentLevelId()] === "undefined") {
+		return;
+	}
 	if(g_sfx[util.currentLevelId()].isPlaying) {
 		g_sfx[util.currentLevelId()].stop();
 	}
