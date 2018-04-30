@@ -276,7 +276,8 @@ var searchStarsModal = function(){
 		numGray = 0;
 	}
 	if(numGray == 0) {
-		htmlout += "<center><div class='foundMsg'>All Stars Earned!</div></center>";
+		htmlout += "<center><div class='foundMsg' style='line-height:500px;'>All Stars Earned!</div></center>";
+		htmlout += "<center><div class='foundMsg' style='line-height:610px;'>Next mission unlocked.</div></center>";
 	} else {
 		htmlout += "<center><div class='foundMsg'>Stars Earned!</div></center>";
 	}
