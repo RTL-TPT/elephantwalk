@@ -95,10 +95,17 @@ var create360Elephant = function() {
 			jQuery("#rightArrow").unbind();
 			//alert("You found the elephant!");
 			var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
+			var isTerrainDuplicate = false;
+			if(util.allLegendsUnlocked(g_LevelTerrain)) {
+				isTerrainDuplicate = true;
+			}
 			jQuery.each(unlocks, function(key, value) {
 				util.levelUpTerrain(key,value);
 				if(util.allLegendsUnlocked(g_LevelTerrain)) {
 					g_savestate.stars[g_LevelTerrain]["legend"] = true;
+					if(!isTerrainDuplicate) {
+						g_savestate.showStars = true;
+					}
 				}
 			});
 			//unlock level selects as needed
