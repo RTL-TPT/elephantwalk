@@ -81,6 +81,9 @@
 		jQuery.each(g_cluevoicelocations,function(key,value){
 			game.load.audio(key+"_voice", value);
 		});
+		jQuery.each(g_tvoicelocations,function(key,value){
+			game.load.audio(key, value);
+		});
 	}
 
 	// When the Phaser game has been created
@@ -126,6 +129,9 @@
 		});
 		jQuery.each(g_cluevoicelocations,function(key,value){
 			sfx[key+"_voice"] = game.add.audio(key+"_voice");
+		});
+		jQuery.each(g_tvoicelocations,function(key,value){
+			sfx[key] = game.add.audio(key);
 		});
 		//sfx.allowMultiple = true;
 		window.g_sfx = sfx;
