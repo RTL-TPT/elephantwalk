@@ -177,11 +177,18 @@ var foundFeatureModal = function() {
 	if(typeof util.getCurrentExploreTargets()[1] !== "undefined" && util.player.getPlayer() != 2) {
 		//
 	} else {
+		var isDuplicate = false;
+		if(util.allLegendsUnlocked(g_LevelTerrain)) {
+			isDuplicate = true;
+		}
 		var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
 		jQuery.each(unlocks, function(key, value) {
 			util.levelUpTerrain(key,value);
 			if(util.allLegendsUnlocked(g_LevelTerrain)) {
 				g_savestate.stars[g_LevelTerrain]["legend"] = true;
+				if(!isDuplicate) {
+					g_savestate.showStars = true;
+				}
 			}
 		});
 	}
@@ -192,36 +199,6 @@ var foundFeatureModal = function() {
 	var htmlout = "";
 
 	htmlout += "<center><div class='foundMsg'>You found the "+ exploreFeature[util.player.getPlayer()-1] +"!</div></center>";
-
-	//STARS
-	var numYellow = 0;
-	var numGray = 0;
-	jQuery.each(g_savestate.stars[g_LevelTerrain], function(key, value) {
-		if(value) {
-			numYellow++;
-		} else {
-			numGray++;
-		}
-	});
-	if(g_LevelTerrain == "MANMADE") {
-		if(numYellow == 4) {
-			numYellow--;
-		} else {
-			numGray--;
-		}
-	}
-	if(g_LevelTerrain == "EXPERT") {
-		numYellow = 0;
-		numGray = 0;
-	}
-	htmlout += "<center><div class='stars'>";
-	for(var i = 0; i < numYellow; i++) {
-		htmlout += "<img src='assets/images/star-y.png' style='width:50px;height:50px;'/>";
-	}
-	for(var i = 0; i < numGray; i++) {
-		htmlout += "<img src='assets/images/star-g.png' style='width:50px;height:50px;'/>";
-	}
-	htmlout += "</div></center>";
 
 	//TERRAIN
 	htmlout += "<center><div class='terrainunlock'>";
@@ -244,8 +221,13 @@ var foundFeatureModal = function() {
 	util.openModal(htmlout);
 
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
-		//on close go to next exploration or complete level
-		exploreToNextLevel();
+		if(g_savestate.showStars) {
+			g_savestate.showStars = false;
+			exploreStarsModal();
+		} else {
+			//on close go to next exploration or complete level
+			exploreToNextLevel();
+		}
 	});
 };
 
@@ -275,7 +257,7 @@ var exploreToNextLevel = function() {
 
 var exploreToCluePhase = function() {
 	setStateClue();
-}
+};
 
 var setExploreText = function(message) {
 	if(jQuery("#exploreText").length == 0) {
@@ -285,4 +267,53 @@ var setExploreText = function(message) {
 	if(message.length == "") {
 		jQuery("#exploreText").remove();
 	}
-}
+};
+
+var exploreStarsModal = function() {
+	//do unlocks if finished
+	//ui
+
+	var htmlout = "";
+
+	//STARS
+	var numYellow = 0;
+	var numGray = 0;
+	jQuery.each(g_savestate.stars[g_LevelTerrain], function(key, value) {
+		if(value) {
+			numYellow++;
+		} else {
+			numGray++;
+		}
+	});
+	if(g_LevelTerrain == "MANMADE") {
+		if(numYellow == 4) {
+			numYellow--;
+		} else {
+			numGray--;
+		}
+	}
+	if(g_LevelTerrain == "EXPERT") {
+		numYellow = 0;
+		numGray = 0;
+	}
+	if(numGray == 0) {
+		htmlout += "<center><div class='foundMsg'>All Stars Earned!</div></center>";
+	} else {
+		htmlout += "<center><div class='foundMsg'>Stars Earned!</div></center>";
+	}
+	htmlout += "<center><div class='stars'>";
+	for(var i = 0; i < numYellow; i++) {
+		htmlout += "<img src='assets/images/star-y.png' style='width:50px;height:50px;'/>";
+	}
+	for(var i = 0; i < numGray; i++) {
+		htmlout += "<img src='assets/images/star-g.png' style='width:50px;height:50px;'/>";
+	}
+	htmlout += "</div></center>";
+
+	util.openModal(htmlout);
+
+	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
+		//on close go to next exploration or complete level
+		exploreToNextLevel();
+	});
+};

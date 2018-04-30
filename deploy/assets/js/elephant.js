@@ -87,6 +87,7 @@ var g_savestate = {
 		"MANMADE": {"AS1":false,"AS2":false,"RL":false,"legend":false},
 		"EXPERT": {"AS1":false,"AS2":false,"RL":false,"legend":false}
 	},
+	"showStars": false,
 	"firstplay": true,
 	"lastLevelPlayed": ""
 };
@@ -804,6 +805,7 @@ var setStateSearchSelect = function() {
 								"success": masteryUp,
 								"is_second_player": true
 							});
+							g_savestate.showStars = true;
 						}
 						if(masteryUp) {
 							g_savestate.search_mastery = util.getHigherMasteryRL(util.getMasteryTargets()[1], g_savestate.search_mastery);

@@ -199,6 +199,54 @@ var foundElephantModal = function() {
 
 	htmlout += "<center><div class='foundMsg'>You found the elephant!</div></center>";
 
+	//TERRAIN
+	htmlout += "<center><div class='terrainunlock'>";
+	if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
+		var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
+		htmlout += "<table><tr>"
+		jQuery.each(unlocks, function(key, value) {
+			htmlout += "<td><center><span>Unlocked</span></center>";
+			htmlout += "<center><img src='"+"assets/images/clue/"+key.toUpperCase()+g_clueUrlPost[value]+"'/></center></td>";
+		});
+		htmlout += "</tr></table>";
+	}
+	htmlout += "</div></center>";
+
+	util.openModal(htmlout);
+
+	if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
+		g_savestate.levelsComplete.push(util.currentLevelId());
+	}
+
+	g_savestate.lastLevelPlayed = util.currentLevelId();
+
+	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
+		if(g_savestate.showStars) {
+			searchStarsModal();
+			g_savestate.showStars = false;
+		} else {
+			//send player back to appropriate state depenending on if they're still in the tutorial or not
+			if(g_enableDebugLevelSelect) {
+				setStateSubLevelSelect(g_LevelTerrain);
+			} else {
+				if(g_selectedDifficulty === "TUTORIAL") {
+					if(util.currentLevelId() === "1_T3") {
+						g_savestate.tutorial_complete["LAND"] = true;
+						setStateLevelSelect(tutorial.h1);
+					} else {
+						gotoNextLevelSequential();
+					}
+				} else {
+					setStateSubLevelSelect(g_LevelTerrain);
+				}
+			}
+		}
+	});
+};
+
+var searchStarsModal = function(){
+	var htmlout = "";
+
 	//STARS
 	var numYellow = 0;
 	var numGray = 0;
@@ -220,6 +268,11 @@ var foundElephantModal = function() {
 		numYellow = 0;
 		numGray = 0;
 	}
+	if(numGray == 0) {
+		htmlout += "<center><div class='foundMsg'>All Stars Earned!</div></center>";
+	} else {
+		htmlout += "<center><div class='foundMsg'>Stars Earned!</div></center>";
+	}
 	htmlout += "<center><div class='stars'>";
 	for(var i = 0; i < numYellow; i++) {
 		htmlout += "<img src='assets/images/star-y.png' style='width:50px;height:50px;'/>";
@@ -229,26 +282,7 @@ var foundElephantModal = function() {
 	}
 	htmlout += "</div></center>";
 
-	//TERRAIN
-	htmlout += "<center><div class='terrainunlock'>";
-	if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
-		var unlocks = g_leveldata[g_LevelTerrain][g_selectedDifficulty][g_selectedLevel].legendUnlocks;
-		htmlout += "<table><tr>"
-		jQuery.each(unlocks, function(key, value) {
-			htmlout += "<td><center><span>Unlocked</span></center>";
-			htmlout += "<center><img src='"+"assets/images/clue/"+key.toUpperCase()+g_clueUrlPost[value]+"'/></center></td>";
-		});
-		htmlout += "</tr></table>";
-	}
-	htmlout += "</div></center>";
-
 	util.openModal(htmlout);
-
-	if(g_savestate.levelsComplete.indexOf(util.currentLevelId()) == -1) {
-		g_savestate.levelsComplete.push(util.currentLevelId());
-	}
-
-	g_savestate.lastLevelPlayed = util.currentLevelId();
 
 	jQuery(".modalContainer .closeBtn._"+g_modalLevel).click(function(){
 		//send player back to appropriate state depenending on if they're still in the tutorial or not

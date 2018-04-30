@@ -214,6 +214,7 @@ util.clearSave = function() {
 			"MANMADE": {"AS1":false,"AS2":false,"RL":false,"legend":false},
 			"EXPERT": {"AS1":false,"AS2":false,"RL":false,"legend":false}
 		},
+		"showStars": false,
 		"firstplay": true,
 		"lastLevelPlayed": ""
 	};
@@ -254,6 +255,7 @@ util.unlockAll = function() {
 			"MANMADE": {"AS1":true,"AS2":true,"RL":true,"legend":true},
 			"EXPERT": {"AS1":true,"AS2":true,"RL":true,"legend":true}
 		},
+		"showStars": false,
 		"firstplay": false,
 		"lastLevelPlayed": ""
 	};

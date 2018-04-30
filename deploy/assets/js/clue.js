@@ -224,6 +224,7 @@ var confirmClue = function() {
 							"success": masteryUp,
 							"is_second_player": true
 						});
+						g_savestate.showStars = true;
 					}
 					if(masteryUp) {
 						g_savestate.clue_mastery_p2 = util.getHigherMasteryAS(util.getMasteryTargets()[0], g_savestate.clue_mastery_p2);
@@ -267,6 +268,7 @@ var confirmClue = function() {
 							"success": masteryUp,
 							"is_second_player": false
 						});
+						g_savestate.showStars = true;
 					}
 					if(masteryUp) {
 						g_savestate.clue_mastery_p1 = util.getHigherMasteryAS(util.getMasteryTargets()[0], g_savestate.clue_mastery_p1);
