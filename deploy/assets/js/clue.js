@@ -160,7 +160,7 @@ var confirmClue = function() {
 						saveState();
 						openClueModal(function(){
 							util.animation.dragDropAnim();
-							tutorial.setAvatarText("Player 2, do you see the clue on the map? Drag it to the box.");
+							tutorial.setAvatarText("Player 2, do you see the clue on the map? Drag it to the box.",undefined,"ta11");
 						});
 						tutorial.e1();
 					} else {

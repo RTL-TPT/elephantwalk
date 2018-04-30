@@ -11,7 +11,7 @@ var tutorial = (function(){
 	var ran_h1 = false;
 
 	//helpers for tutorial text
-	var setAvatarText = function(message, size, avimg) {
+	var setAvatarText = function(message, size, audioid, avimg) {
 		if(jQuery("#clueTutorialTextMap").length == 0) {
 			jQuery("#uiLayer").append("<div class='avatar' id='avatar'></div><div class='clueTutorialTextMap' id='clueTutorialTextMap'></div>");
 		}
@@ -27,9 +27,12 @@ var tutorial = (function(){
 		} else {
 			jQuery("#clueTutorialTextMap").html(message);
 		}
+		if(typeof audioid !== "undefined") {
+			g_sfx[audioid].play(undefined,undefined,g_volumeLevel);
+		}
 	};
 
-	var setLevelSelectText = function(message, size) {
+	var setLevelSelectText = function(message, size, audioid) {
 		if(jQuery("#levelSelectTutorialText").length == 0) {
 			jQuery("#menuContainer").append("<div class='avatar' id='avatar'></div><div class='levelSelectTutorialText' id='levelSelectTutorialText'></div>");
 		}
@@ -47,9 +50,12 @@ var tutorial = (function(){
 		} else {
 			//
 		}
+		if(typeof audioid !== "undefined") {
+			g_sfx[audioid].play(undefined,undefined,g_volumeLevel);
+		}
 	};
 
-	var setClueText = function(message, size) {
+	var setClueText = function(message, size, audioid) {
 		if(jQuery("#clueTutorialText").length == 0) {
 			jQuery("#uiLayer").append("<div class='clueTutorialText' id='clueTutorialText'></div>");
 		}
@@ -65,9 +71,12 @@ var tutorial = (function(){
 		} else {
 			jQuery("#clueTutorialText").html(message);
 		}
+		if(typeof audioid !== "undefined") {
+			g_sfx[audioid].play(undefined,undefined,g_volumeLevel);
+		}
 	};
 
-	var setExploreText = function(message, size) {
+	var setExploreText = function(message, size, audioid) {
 		if(jQuery("#exploreText").length == 0) {
 			jQuery("#uiLayer").append("<div class='exploreText' id='exploreText'></div>");
 		}
@@ -80,6 +89,9 @@ var tutorial = (function(){
 			jQuery("#exploreText").remove();
 		} else {
 			jQuery("#exploreText").html(message);
+		}
+		if(typeof audioid !== "undefined") {
+			g_sfx[audioid].play(undefined,undefined,g_volumeLevel);
 		}
 	};
 
@@ -114,7 +126,7 @@ var tutorial = (function(){
 	var a2_ = function() {
 		var htmlout = "<div class='playerModalOverlay'></div><div id='exploreBox' class='exploremap' style='z-index:10001'></div>";
 		jQuery("#uiLayer").append(htmlout);
-		setExploreText("Here is a map of where we are.");
+		setExploreText("Here is a map of where we are.",undefined,"te1");
 		jQuery("#exploreText, #gpsmap").css("z-index","10001");
 		jQuery("#exploreBox").click(function(){
 			a3_();
@@ -124,7 +136,7 @@ var tutorial = (function(){
 		jQuery("#exploreBox").remove();
 		jQuery("#gpsmap").css("z-index","");
 		jQuery("#leftArrow, #rightArrow").css("z-index","10001");
-		setExploreText("Use the arrows to look left or right.");
+		setExploreText("Use the arrows to look left or right.",undefined,"te2");
 		jQuery("#leftArrow, #rightArrow").click(function(){
 			a4_();
 		});
@@ -132,7 +144,7 @@ var tutorial = (function(){
 	var a4_ = function(){
 		jQuery(".playerModalOverlay").remove();
 		jQuery("#exploreText, #leftArrow, #rightArrow").css("z-index","");
-		setExploreText("I see a building on our map! Can you look around and find the building?",24);
+		setExploreText("I see a building on our map! Can you look around and find the building?",24,"te3");
 		jQuery("#rightArrow").unbind().click(function(){playClickSFX();rotateView("right")});
 		jQuery("#leftArrow").unbind().click(function(){playClickSFX();rotateView("left")});
 	};
@@ -144,7 +156,7 @@ var tutorial = (function(){
 	var b2_ = function() {
 		var htmlout = "<div class='playerModalOverlay'></div><div id='exploreBox' class='exploremap' style='z-index:10001'></div>";
 		jQuery("#uiLayer").append(htmlout);
-		setExploreText("Here is the map again. Let’s look at the other side now.");
+		setExploreText("Here is the map again. Let’s look at the other side now.",undefined,"te4");
 		jQuery("#exploreText, #gpsmap").css("z-index","10001");
 		jQuery("#exploreBox").click(function(){
 			b3_();
@@ -154,7 +166,7 @@ var tutorial = (function(){
 		jQuery("#exploreBox").remove();
 		jQuery(".playerModalOverlay").remove();
 		jQuery("#exploreText, #gpsmap").css("z-index","");
-		setExploreText("I see a forest on our map! Can you find the forest Player 1?",28);
+		setExploreText("I see a forest on our map! Can you find the forest Player 1?",28,"te5");
 	};
 
 	//explore p2
@@ -164,7 +176,7 @@ var tutorial = (function(){
 	var c2_ = function() {
 		var htmlout = "<div class='playerModalOverlay'></div><div id='exploreBox' class='exploremap' style='z-index:10001'></div>";
 		jQuery("#uiLayer").append(htmlout);
-		setExploreText("Remember our map? Let’s look at the right side again.");
+		setExploreText("Remember our map? Let’s look at the right side again.",undefined,"te6");
 		jQuery("#exploreText, #gpsmap").css("z-index","10001");
 		jQuery("#exploreBox").click(function(){
 			c3_();
@@ -174,7 +186,7 @@ var tutorial = (function(){
 		jQuery("#exploreBox").remove();
 		jQuery(".playerModalOverlay").remove();
 		jQuery("#exploreText, #gpsmap").css("z-index","");
-		setExploreText("I see a lake on our map! Can you find the lake Player 2?", 30);
+		setExploreText("I see a lake on our map! Can you find the lake Player 2?",30,"te7");
 	};
 
 	//clue p1
@@ -182,14 +194,14 @@ var tutorial = (function(){
 		openPlayerModal_("Are you ready for your first clue?","Player 1",d2_);
 	};
 	var d2_ = function() {
-		setClueText("Look and listen to the clue.");
+		setClueText("Look and listen to the clue.",undefined,"tc1");
 	};
 	var d3_ = function() {
 		if(!drag1) {
 			drag1 = true;
 			var htmlout = "<div class='playerModalOverlay'></div></div>";
 			jQuery("#uiLayer").append(htmlout);
-			setAvatarText("Tap here to see the clue again.");
+			setAvatarText("Tap here to see the clue again.",undefined,"ta1",undefined);
 			jQuery("#clueTutorialTextMap, #avatar, #clueDrop2").css("z-index","10001");
 			jQuery("#clueDrop2").click(function(){
 				d4_();
@@ -204,7 +216,7 @@ var tutorial = (function(){
 			openClueModal();
 			elephantTelemetry.createEvent("clue_repeat",{"correct_selection":g_currentClue});
 		});
-		setClueText("You can see the clue again if you forget.");
+		setClueText("You can see the clue again if you forget.",undefined,"tc2");
 		jQuery(".closeBtn._1").click(function(){
 			d5_();
 		});
@@ -212,7 +224,7 @@ var tutorial = (function(){
 	var d5_ = function() {
 		var htmlout = "<div class='playerModalOverlay'></div></div>";
 		jQuery("#uiLayer").append(htmlout);
-		setAvatarText("Ok, now let’s see if we matched the clue! Tap here to check.");
+		setAvatarText("Ok, now let’s see if we matched the clue! Tap here to check.",undefined,"ta2",undefined);
 		jQuery("#clueTutorialTextMap, #avatar, #clueDoneBtn").css("z-index","10001");
 		jQuery(".clueBar .clueDoneBtn").click(function(){
 			jQuery("#clueTutorialTextMap, #avatar, #clueDoneBtn").css("z-index","");
@@ -229,7 +241,7 @@ var tutorial = (function(){
 					confirmClue();
 				});
 			} else {
-				setAvatarText("Oops! Try again.");
+				setAvatarText("Oops! Try again.",undefined,"ta3",undefined);
 				jQuery("#clueTutorialTextMap, #avatar").css("z-index","");
 			}
 		}
@@ -240,14 +252,14 @@ var tutorial = (function(){
 		openPlayerModal_("Are you ready for your clue now?","Player 2",e2_);
 	};
 	var e2_ = function() {
-		setClueText("Look and listen to the clue.");
+		setClueText("Look and listen to the clue.",undefined,"tc3");
 	};
 	var e3_ = function() {
 		if(!drag2) {
 			drag2 = true;
 			var htmlout = "<div class='playerModalOverlay'></div></div>";
 			jQuery("#uiLayer").append(htmlout);
-			setAvatarText("Tap here to look at the legend.");
+			setAvatarText("Tap here to look at the legend.",undefined,"ta4",undefined);
 			jQuery("#clueTutorialTextMap, #avatar, #clueLegend").css("z-index","10001");
 			jQuery("#clueLegend").click(function(){
 				e4_();
@@ -261,7 +273,7 @@ var tutorial = (function(){
 			playClickSFX();
 			openLegendModal();
 		});
-		setClueText("You can check the legend if you need help.");
+		setClueText("You can check the legend if you need help.",undefined,"tc4");
 		jQuery(".closeBtn._1").click(function(){
 			e5_();
 		});
@@ -269,7 +281,7 @@ var tutorial = (function(){
 	var e5_ = function() {
 		var htmlout = "<div class='playerModalOverlay'></div></div>";
 		jQuery("#uiLayer").append(htmlout);
-		setAvatarText("Ok, now let’s see if we matched the clue! Tap here to check.");
+		setAvatarText("Ok, now let’s see if we matched the clue! Tap here to check.",undefined,"ta5",undefined);
 		jQuery("#clueTutorialTextMap, #avatar, #clueDoneBtn").css("z-index","10001");
 		jQuery(".clueBar .clueDoneBtn").click(function(){
 			jQuery("#clueTutorialText, #clueDoneBtn").css("z-index","");
@@ -286,7 +298,7 @@ var tutorial = (function(){
 					confirmClue();
 				});
 			} else {
-				setAvatarText("Oops! Try again.");
+				setAvatarText("Oops! Try again.",undefined,"ta6",undefined);
 				jQuery("#clueTutorialTextMap, #avatar").css("z-index","");
 			}
 		}
@@ -297,12 +309,12 @@ var tutorial = (function(){
 		openPlayerModal_("Time to work together again!","All Players",f2_);
 	};
 	var f2_ = function() {
-		setAvatarText("Do you see which part of the map matches both clues?");
+		setAvatarText("Do you see which part of the map matches both clues?",undefined,"ta7",undefined);
 	};
 	var f3_ = function() {
 		if(!ran_f3) {
 			ran_f3 = true;
-			setAvatarText("Ok, now let’s see if we matched both clues! Tap here to check.");
+			setAvatarText("Ok, now let’s see if we matched both clues! Tap here to check.",undefined,"ta8",undefined);
 
 			var htmlout = "<div class='playerModalOverlay'></div></div>";
 			jQuery("#uiLayer").append(htmlout);
@@ -315,7 +327,7 @@ var tutorial = (function(){
 	var f4_ = function() {
 		jQuery("#clueDoneBtn").css("z-index","");
 		jQuery(".playerModalOverlay").remove();
-		setAvatarText("Oops! Try again.");
+		setAvatarText("Oops! Try again.",undefined,"ta9",undefined);
 		jQuery("#clueTutorialTextMap, #avatar").css("z-index","");
 	};
 	var f5_ = function() {
@@ -329,16 +341,16 @@ var tutorial = (function(){
 		openPlayerModal_("Keep working together!","All Players",g2_);
 	};
 	var g2_ = function() {
-		setClueText("Can you find the elephant?");
+		setClueText("Can you find the elephant?",undefined,"tc5");
 	};
 
 	//level select
 	var h1_ = function() {
 		//if(!ran_h1) {
 			ran_h1 = true;
-			setLevelSelectText("Nice work team! You know how to play now. Pick a place!");
+			setLevelSelectText("Nice work team! You know how to play now. Pick a place!",undefined,"tls1");
 			jQuery(".missionBox.b1").click(function(){
-				setLevelSelectText("Now pick a map and keep searching team!");
+				setLevelSelectText("Now pick a map and keep searching team!",undefined,"tls2");
 			});
 
 			util.animation.bounceIndicator(250,360);

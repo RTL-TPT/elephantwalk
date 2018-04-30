@@ -602,7 +602,7 @@ var setStateClue = function() {
 			});
 			openClueModal(function(){
 				util.animation.dragDropAnim();
-				tutorial.setAvatarText("Player 1, do you see the clue on the map? Drag it to the box.");
+				tutorial.setAvatarText("Player 1, do you see the clue on the map? Drag it to the box.",undefined,"ta10");
 			});
 		});
 	} else {

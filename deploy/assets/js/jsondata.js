@@ -1912,6 +1912,35 @@ var g_cluevoicelocations = {
 	"road":"assets/sound/clue_voice/road.mp3",
 	"stream":"assets/sound/clue_voice/stream.mp3"
 };
+var g_tvoicelocations = {
+	"tcluep1":"assets/sound/t_voice/t.mp3",
+	"tcluep2":"assets/sound/t_voice/t.mp3",
+	"ta1":"assets/sound/t_voice/t.mp3",
+	"ta2":"assets/sound/t_voice/t.mp3",
+	"ta3":"assets/sound/t_voice/t.mp3",
+	"ta4":"assets/sound/t_voice/t.mp3",
+	"ta5":"assets/sound/t_voice/t.mp3",
+	"ta6":"assets/sound/t_voice/t.mp3",
+	"ta7":"assets/sound/t_voice/t.mp3",
+	"ta8":"assets/sound/t_voice/t.mp3",
+	"ta9":"assets/sound/t_voice/t.mp3",
+	"ta10":"assets/sound/t_voice/t.mp3",
+	"ta11":"assets/sound/t_voice/t.mp3",
+	"tls1":"assets/sound/t_voice/t.mp3",
+	"tls2":"assets/sound/t_voice/t.mp3",
+	"tc1":"assets/sound/t_voice/t.mp3",
+	"tc2":"assets/sound/t_voice/t.mp3",
+	"tc3":"assets/sound/t_voice/t.mp3",
+	"tc4":"assets/sound/t_voice/t.mp3",
+	"tc5":"assets/sound/t_voice/t.mp3",
+	"te1":"assets/sound/t_voice/t.mp3",
+	"te2":"assets/sound/t_voice/t.mp3",
+	"te3":"assets/sound/t_voice/t.mp3",
+	"te4":"assets/sound/t_voice/t.mp3",
+	"te5":"assets/sound/t_voice/t.mp3",
+	"te6":"assets/sound/t_voice/t.mp3",
+	"te7":"assets/sound/t_voice/t.mp3"
+};
 
 var g_cacheList = [
 	"assets/images/debug-sound-off.png",
