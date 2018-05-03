@@ -1,7 +1,7 @@
 {
 	"name": "phaserelephant",
 	"displayName": "phaserelephant",
-	"version": "0.9.3",
+	"version": "0.9.4",
 	"config": "src/config",
 	"main": [
 		"src/main.js"

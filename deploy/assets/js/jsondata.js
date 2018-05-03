@@ -1910,7 +1910,8 @@ var g_cluevoicelocations = {
 	"ocean":"assets/sound/clue_voice/ocean.mp3",
 	"park":"assets/sound/clue_voice/park.mp3",
 	"road":"assets/sound/clue_voice/road.mp3",
-	"stream":"assets/sound/clue_voice/stream.mp3"
+	"stream":"assets/sound/clue_voice/stream.mp3",
+	"mountain":"assets/sound/clue_voice/mountain.mp3"
 };
 var g_tvoicelocations = {
 	"tcluep1":"assets/sound/t_voice/t.mp3",

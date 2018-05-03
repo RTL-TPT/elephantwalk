@@ -1,6 +1,6 @@
 {
 	"name": "phaserelephant",
-	"version": "0.9.3",
+	"version": "0.9.4",
 	"dependencies": {
 		"normalize-less": "*",
 		"springroll": "1.0.3",
